@@ -1,0 +1,38 @@
+# Budgeted Dual-DPP Configuration
+# Default hyperparameters for optimization and experiments
+
+# DPP Optimization Parameters
+dpp:
+  temperature: 0.1              # Temperature τ for relevance scoring (lower = sharper)
+  epsilon: 1.0e-6               # Numerical stability constant
+  alpha: 0.6                    # Weight for entropy component in cognitive cost
+  beta: 0.4                     # Weight for clutter component in cognitive cost
+  num_bins: 256                 # Histogram bins for entropy computation
+
+# Experiment Configuration
+experiment:
+  num_pages: 100                # Number of document pages
+  patches_per_page: 10          # Patches extracted per page
+  patch_size: 224               # Size of each patch (width/height)
+  embedding_dim: 128            # Dimensionality of embeddings
+  budget: 50.0                  # Total cognitive budget
+  batch_size: 100               # Batch size for processing
+  seed: 42                      # Random seed for reproducibility
+
+# Model Configuration
+model:
+  colpali_model: "vidore/colpali-v1.2"  # HuggingFace model identifier
+  device: null                  # Device ('cuda', 'cpu', or null for auto-detect)
+
+# Visualization Settings
+visualization:
+  save_plots: true              # Whether to save visualization plots
+  plot_format: "png"            # Format for saved plots (png, pdf, svg)
+  dpi: 150                      # DPI for saved figures
+
+# Output Configuration
+output:
+  output_dir: "./output"        # Directory for saving results
+  save_embeddings: false        # Whether to save embeddings to disk
+  save_costs: true              # Whether to save cost vectors
+  save_metrics: true            # Whether to save selection metrics
