@@ -1,38 +1,113 @@
-# Budgeted Dual-DPP Configuration
-# Default hyperparameters for optimization and experiments
+paths:
+  work_dir: output
+  cache_dir: output/cache
 
-# DPP Optimization Parameters
-dpp:
-  temperature: 0.1              # Temperature τ for relevance scoring (lower = sharper)
-  epsilon: 1.0e-6               # Numerical stability constant
-  alpha: 0.6                    # Weight for entropy component in cognitive cost
-  beta: 0.4                     # Weight for clutter component in cognitive cost
-  num_bins: 256                 # Histogram bins for entropy computation
+extract:
+  mode: auto            # native | ocr | auto
+  dpi: 200
+  keep_page_renders: true
+  keep_crops: true
+  caption_search_px: 48
+  max_text_chunk_tokens: 280
+  ocr:
+    enabled: false
+    engine: tesseract   # tesseract | easyocr
+    lang: eng
+    min_conf: 45
+    psm: 6
+    on_pages: true
+    on_figures: true
 
-# Experiment Configuration
-experiment:
-  num_pages: 100                # Number of document pages
-  patches_per_page: 10          # Patches extracted per page
-  patch_size: 224               # Size of each patch (width/height)
-  embedding_dim: 128            # Dimensionality of embeddings
-  budget: 50.0                  # Total cognitive budget
-  batch_size: 100               # Batch size for processing
-  seed: 42                      # Random seed for reproducibility
+embed:
+  backend: hash          # hf_siglip | hf_clip | hash
+  model_name: google/siglip-so400m-patch14-384
+  device: cpu
+  batch_size: 8
+  dim: 256
 
-# Model Configuration
-model:
-  colpali_model: "vidore/colpali-v1.2"  # HuggingFace model identifier
-  device: null                  # Device ('cuda', 'cpu', or null for auto-detect)
+retrieval:
+  top_pages: 6
+  top_units_bm25: 80
+  top_units_dense: 80
+  rrf_k: 60
+  unit_image_weight: 0.8
+  table_boost: 0.25
+  figure_boost: 0.25
+  min_table_candidates: 3
+  min_figure_candidates: 3
 
-# Visualization Settings
-visualization:
-  save_plots: true              # Whether to save visualization plots
-  plot_format: "png"            # Format for saved plots (png, pdf, svg)
-  dpi: 150                      # DPI for saved figures
+selection:
+  budget_tokens: 25000
+  alpha_visual: 0.2
+  redundancy_beta: 0.35
+  rel_weight: 1.0
+  coverage_weight: 0.6
+  min_gain: 1e-6
+  stopwords:
+    - the
+    - a
+    - an
+    - and
+    - or
+    - of
+    - to
+    - in
+    - for
+    - on
+    - with
+    - by
+    - at
+    - from
+    - as
+    - is
+    - are
+    - was
+    - were
+    - be
+    - been
+    - being
+    - that
+    - this
+    - these
+    - those
 
-# Output Configuration
+openai:
+  enabled: true
+  model: gpt-5.1
+  timeout_s: 60
+  temperature: 0.1
+
+summarization:
+  enabled: true
+  required_sections:
+    - Overview
+    - Key Findings
+    - Evidence
+    - Risks
+    - Next Steps
+  max_chars_per_chunk: 1200
+
+llm_extraction:
+  enabled: true
+  model: gpt-5.1
+  temperature: 0.2
+  wrap_unit_tags: true
+  max_units: 40
+  max_chars_per_input: 12000
+  save_raw: true
+
+wandb:
+  enabled: true
+  project: icb-sum
+  entity: null
+  tags: []
+
 output:
-  output_dir: "./output"        # Directory for saving results
-  save_embeddings: false        # Whether to save embeddings to disk
-  save_costs: true              # Whether to save cost vectors
-  save_metrics: true            # Whether to save selection metrics
+  save_context_json: true
+  save_highlighted_pdf: true
+  save_run_output_json: true
+  run_output_filename: pipeline_output.json
+
+logging:
+  level: INFO
+  file: output/run.log

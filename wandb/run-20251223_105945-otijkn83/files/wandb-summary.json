@@ -1,0 +1,1 @@
+{"lambda_diversity":0.35,"num_unclear_chunks":0,"top2_cost_concentration":0.3637791154148129,"num_selected_chunks":9,"budgets_total":25000,"anchor_has_placeholders":true,"_step":0,"pages_ranked_len":6,"run_id":"53c3f87536a0ffaa","_timestamp":1.7664877403890493e+09,"_wandb":{"runtime":153},"_runtime":153,"num_table_chunks":0,"budgets_used":3821}

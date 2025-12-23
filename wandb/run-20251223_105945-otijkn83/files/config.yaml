@@ -1,0 +1,68 @@
+_wandb:
+    value:
+        cli_version: 0.23.1
+        e:
+            yip0i1x61cnmayc9bxij5ccqz21peazr:
+                args:
+                    - --config
+                    - config/default_config.yaml
+                    - --pdf
+                    - mllm_review.pdf
+                    - --query
+                    - Comprehensive technical summary with markdown headings for research decision-making. Key contributions and technical innovations in research summaries. Methodologies and experimental setups in technical research documents. Quantitative results and findings comparison against baselines in research. Practical applications and decision points in technical research summaries.
+                codePath: main.py
+                codePathLocal: main.py
+                cpu_count: 4
+                cpu_count_logical: 8
+                cudaVersion: "12.2"
+                disk:
+                    /:
+                        total: "395184570368"
+                        used: "38122119168"
+                email: vedumrajkar2003@gmail.com
+                executable: /home/zeus/miniconda3/envs/cloudspace/bin/python
+                git:
+                    commit: 41bdd711b13c98808be8e03ddf195262e9f9e05c
+                    remote: git@github.com:Enforcer03/dpp-retrieval.git
+                gpu: NVIDIA L4
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Ada
+                      cudaCores: 7424
+                      memoryTotal: "24152899584"
+                      name: NVIDIA L4
+                      uuid: GPU-9128b642-850f-6562-f727-70177f704b78
+                host: cs-01kd55z30645vvyd69sdeskdde
+                memory:
+                    total: "33652076544"
+                os: Linux-6.8.0-1045-gcp-x86_64-with-glibc2.31
+                program: /teamspace/studios/this_studio/dpp/main.py
+                python: CPython 3.10.10
+                root: /teamspace/studios/this_studio/dpp
+                startedAt: "2025-12-23T10:59:45.931614Z"
+                writerId: yip0i1x61cnmayc9bxij5ccqz21peazr
+        m: []
+        python_version: 3.10.10
+        t:
+            "1":
+                - 105
+            "2":
+                - 95
+                - 105
+            "3":
+                - 2
+                - 13
+                - 15
+                - 16
+            "4": 3.10.10
+            "5": 0.23.1
+            "10":
+                - 20
+            "12": 0.23.1
+            "13": linux-x86_64
+budget_total:
+    value: 25000
+lambda_diversity:
+    value: 0.35
+run_id:
+    value: 53c3f87536a0ffaa

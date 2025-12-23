@@ -1,0 +1,14 @@
+{
+  "n_patches": 672,
+  "n_selected": 46,
+  "selection_rate": 0.06845238095238096,
+  "total_cost": 14.996438980102539,
+  "budget": 15.0,
+  "budget_utilization": 0.9997625986735026,
+  "avg_cost_per_patch": 0.3260095417499542,
+  "total_relevance": 1604.093994140625,
+  "avg_relevance": 34.87160873413086,
+  "diversity_score": 0.6828686594963074,
+  "coverage_score": 0.4,
+  "efficiency": 106.96499324065911
+}

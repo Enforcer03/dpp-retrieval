@@ -1,0 +1,150 @@
+{
+  "run_id": "53c3f87536a0ffaa",
+  "pdf_path": "/teamspace/studios/this_studio/dpp/mllm_review.pdf",
+  "query": "Comprehensive technical summary with markdown headings for research decision-making. Key contributions and technical innovations in research summaries. Methodologies and experimental setups in technical research documents. Quantitative results and findings comparison against baselines in research. Practical applications and decision points in technical research summaries.",
+  "pages_ranked": [
+    16,
+    14,
+    20,
+    12,
+    5,
+    18
+  ],
+  "selected": [
+    {
+      "chunk_id": "8a0357bd9ec25c46",
+      "page": 12,
+      "bbox": [
+        311.97802734375,
+        696.83349609375,
+        563.0355834960938,
+        748.2910766601562
+      ],
+      "type": "text",
+      "rel": 0.03422036385789051,
+      "cost": 25,
+      "text": "IV. COMPARISON OF MLLMS\nA. Image Tasks\nMLLMs in the image domain have made remarkable\nprogress in recent years, demonstrating superior performance",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "5a3722c375d68b77",
+      "page": 1,
+      "bbox": [
+        48.964019775390625,
+        547.0443725585938,
+        300.0216369628906,
+        748.2899780273438
+      ],
+      "type": "text",
+      "rel": 0.03200204813108039,
+      "cost": 168,
+      "text": "As shown in Fig I, we summarize MLLMs from recent\nyears. This paper reviews the current state of the art of MLLM\napplications, introduces the basic concepts and main architec-\ntures of MLLMs in Section 2, describes their performance in\ndifferent domains to identify their strengths and weaknesses\nin Section 3, highlights the transformative impact of MLLMs\nthrough a comparative analysis in Section 4, and provides\na roadmap for future research in Section 5. Our discussion\naims to incentivize continuous innovation and ensure that\nMLLMs remain at the forefront of AI technology develop-\nment. Through a comprehensive review of current implemen-\ntations and progress, this paper aims to summarize research\nresults, provide valuable references, and offer guidance for\nfuture research in the field of MLLMs. Our goal is to inspire\nnew ideas and directions for the continued development of\nMLLMs, ensuring that they remain at the forefront of AI\ntechnology development.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f2f033a759079b9c",
+      "page": 17,
+      "bbox": [
+        48.964019775390625,
+        401.1065368652344,
+        300.02191162109375,
+        748.2900390625
+      ],
+      "type": "text",
+      "rel": 0.02967032967032967,
+      "cost": 267,
+      "text": "V. DISCUSSION AND CONCLUSION\nWe provide a systematic introduction to the current state-\nof-the-art in MLLMs. From the task perspective, we analyze\nthe application of MLLMs in different tasks, Including contri-\nbutions and performance in natural language, and visual and\nauditory tasks. However, despite their success in real-world\napplications, these models still face several challenges.\nInterpretability of multimodal information fusion: Al-\nthough MLLMs can significantly enhance task performance\nby integrating information from different modalities, their\ncomplexity and the opacity of their internal mechanisms often\nresult in reduced interpretability. Understanding how different\nmodalities are combined and the contribution of each modality\nto the final decision is crucial for a thorough analysis of\nmultimodal data interactions. Currently, the integration of\nmultimodal information is frequently treated as a “black box”,\nmaking it challenging for users to comprehend why and\nhow the model reaches specific decisions. Future research\nshould focus on addressing several key questions: How can\nwe analyze the decision-making process in MLLMs based\non different modal information? How can we enhance the\ntrustworthiness of multimodal models in critical areas like\nhealthcare and finance by improving their explanatory capa-\nbilities? Developing a deeper understanding of the interaction\nmechanisms between different modalities and their relevance\nto specific tasks will be essential for advancing model inter-\npretability.\nThe evolutionary direction of MLLMs: As model sizes\ncontinue to expand, there is an ongoing debate about whether",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "15b99b559339a4ee",
+      "page": 7,
+      "bbox": [
+        48.96402359008789,
+        56.88246154785156,
+        300.0216064453125,
+        748.2899780273438
+      ],
+      "type": "text",
+      "rel": 0.03252247488101534,
+      "cost": 560,
+      "text": "In addition to these mainstream models, there are notable\nmodels focused on specific domains and tasks. For instance,\nAnimateLCM [53] utilizes Singular Value Decomposition\n(SVD) and Long Short-Term Memory (LSTM) networks for\nanimation generation, showcasing unique technical strengths\nin handling sequential data and generating dynamic images.\nModels like Ideogram 1.0 [54], and Playground v2.5 [55] excel\nin joint text-image generation with distinct features: TextMon-\nkey uses reinforcement learning and Variational Autoencoders\n(VAE) for optimized generation; Ideogram 1.0 specializes in\ngenerating symbols and graphics, widely applicable in data\nvisualization and information graphics; Playground v2.5 serves\nas an open platform exploring diverse multimodal generation\nimplementations, offering researchers space for testing and\noptimizing models.\nFurthermore,\nmodels\nlike\nIdefics2\n[56],\nand\nMini-\nGemini [57] each emphasize complex data generation, re-\nsource efficiency, and semantic information integration with\nvisual expression, respectively. Idefics2 combines semantic\nand visual features for image generation in cross-modal tasks;\nMini-Gemini excels as a lightweight model advantageous in\nresource-constrained or fast inference scenarios; Wiki-LLaVA\nemphasizes the integration of semantic information and visual\nexpression, particularly suited for image-text scenarios.\nIn summary, these multimodal generation models illustrate\ndiverse and innovative development paths—from integrating\nlanguage models to optimizing visual attention mechanisms, to\nfocusing on specific tasks such as animation or symbol graphic\ngeneration. They not only enhance generation quality but also\nexpand the practical applications of multimodal deep learning.\nWith further advancements in algorithms and hardware, these\nmodels are poised to exhibit broader application prospects and\nhigher performance levels across various domains in the future.\nProGAN\nArchitecture: ProGAN, or Progressive Growing of GANs,\nemploys a unique architecture where both the generator and\ndiscriminator grow progressively during training. This means\nstarting from a low resolution, new layers are added in-\ncrementally to model increasingly fine details as training\nprogresses. The generator and discriminator both start with a\n4x4 pixel resolution and grow to a maximum resolution, such\nas 1024x1024 pixels, by doubling the resolution at each step.\nThis incremental approach stabilizes training and improves\nimage quality by allowing the model to learn high-level struc-\ntures before focusing on fine details. Key innovations include\npixel-wise feature vector normalization in the generator and\nminibatch standard deviation in the discriminator, which help\nmaintain the stability and variation of the generated images\nthroughout the training process.\nDatasets: ProGAN is primarily trained on high-quality\ndatasets such as CelebA-HQ, which consists of high-resolution\nimages of celebrities. This dataset is essential for the model\nto learn to generate photorealistic human faces. Additionally,\nProGAN has been tested on other large-scale datasets like\nLSUN, which includes categories such as churches, bedrooms,\nand outdoor scenes, allowing the model to generate a diverse\nrange of photorealistic images beyond just human faces.\nTraining & Evaluation: The training of ProGAN involves",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d3b0f4a06545913e",
+      "page": 3,
+      "bbox": [
+        48.964012145996094,
+        56.88246154785156,
+        300.02606201171875,
+        511.0460205078125
+      ],
+      "type": "text",
+      "rel": 0.024489795918367346,
+      "cost": 364,
+      "text": "curacy of image captioning, enriching the context of machine\ntranslation, or advancing the precision of diagnostic tools in\nhealthcare, this encoder plays a foundational role in enabling\nAI models to perform complex tasks that require a nuanced\nunderstanding of diverse inputs.\n2) Feature Fusion Mechanism: The heart of a multimodal\nmodel is its ability to integrate features from different modal-\nities. This integration can occur at various stages [37], [38]:\nEarly Fusion: Combines input data at the initial stage,\nleveraging the raw interconnectedness of different modalities.\nIntermediate Fusion: Merges features during the feature\nextraction phase, allowing each modality to contribute its\nunique properties to a unified representation.\nLate Fusion: Integrates the final outputs from individual\nmodal pathways at the decision stage, often used in tasks\nrequiring consolidated judgments from multiple data types.\nJoint Fusion: A hybrid approach that merges early, inter-\nmediate, and late fusions to maximize data utilization across\nall stages. These fusion processes often employ pre-trained\nLLMs, which, while initially designed for textual data, are\nadapted to handle and synthesize multimodal inputs through\nadvanced feature projection and serialization techniques.\nMultimodal Output Decoder: Lastly, the multimodal out-\nput decoder reconverts the fused, integrated multimodal in-\nformation back into a usable form tailored to specific tasks,\nsuch as Image captioning, the decoder might generate de-\nscriptive text based on visual inputs. Video understanding\ntasks, it could produce annotations or summaries combining\nboth visual and auditory data. Each decoder is meticulously\ndesigned to optimize accuracy and quality, ensuring that the\noutput precisely reflects the combined insights gained from\nthe integrated modalities.\nTo summarize, the sophisticated architecture of multimodal\nlarge language models empowers them to tackle complex tasks\nby harnessing and synthesizing data across text, images, and\naudio. This capability not only enhances the performance of\nAI applications but also opens up new avenues for innovation\nin how we understand and interact with technology.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8170cb3fa7ebd9ff",
+      "page": 12,
+      "bbox": [
+        48.96402359008789,
+        164.3885498046875,
+        300.02734375,
+        748.2899169921875
+      ],
+      "type": "text",
+      "rel": 0.0433702100368767,
+      "cost": 456,
+      "text": "Model Introduction:\nSpeechGPT [105] and AnyGPT [82] are two represen-\ntative models in the construction of multimodal datasets.\nSpeechGPT, through its discrete representation and training\non cross-modal instruction datasets, excels not only in text-to-\nspeech transformation (TTS) tasks but also in speech genera-\ntion and dialog capabilities. Similarly, AnyGPT is trained with\ndiscrete representations and cross-modal instruction datasets.\nAs an “any to any” multimodal model, AnyGPT can transform\nand generate between different modalities, achieving high-\nquality transformation from various input modalities to audio\noutput. By utilizing discrete representations and cross-modal\ndataset training, SpeechGPT and AnyGPT demonstrate robust\ngenerative capabilities in TTS tasks, laying a solid foundation\nfor audio generation.\nIn terms of multimodal alignment and modal bridging,\nAudioGPT [26] and HuggingGPT [25] make significant con-\ntributions. AudioGPT is based on a cascade architecture and is\nconnected to LLM, enabling it to call the corresponding base\nmodel to complete speech output in TTS tasks. AudioGPT\nperforms exceptionally well in multi-round conversations, han-\ndling complex scenarios and generating coherent and natural\nspeech. HuggingGPT first utilizes LLMs to decompose human\ncommands and then calls Huggingface’s models to accomplish\nspecific tasks. It covers a range of models for handling speech\ntasks, demonstrating flexibility to meet different audio genera-\ntion needs and excelling in handling multimodal instructions.\nThrough multimodal alignment and modal bridging, Audio-\nGPT and HuggingGPT show excellent performance in TTS\ntasks and multi-round conversations, providing more flexible\nand efficient solutions for audio generation.\nThrough the construction of multimodal datasets and mul-\ntimodal alignment and bridging, MLLM enables precise con-\ntrol over audio generation and produces high-quality outputs.\nSpeechGPT, AnyGPT, AudioGPT, and HuggingGPT demon-\nstrate strong generative capabilities and command adherence\nin their respective application scenarios, highlighting the great\npotential and broad prospects of multimodal large language\nmodels in audio generation. The successful application of these\nmodels provides a crucial theoretical foundation and practical\nexperience for the future development of audio generation\ntechnology. To fully understand the contributions of multi-\nmodal large language models in audio generation tasks, we\nwill introduce the models in detail, focusing on SpeechGPT\nand AudioGPT\nSpeechGPT:\nModel Architecture:The model consists of three main\ncomponents: discrete unit extractor, LLM, and unit vocoder.\ndiscrete unit extractor uses Hidden-unit BERT (HuBERT) to",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7d467957c4d04003",
+      "page": 5,
+      "bbox": [
+        311.97802734375,
+        56.792476654052734,
+        563.0390014648438,
+        748.291015625
+      ],
+      "type": "text",
+      "rel": 0.03964236103455119,
+      "cost": 591,
+      "text": "Training & Evaluation: MiniGPT-4 employs a two-stage\ntraining approach. The initial pre-training stage involves train-\ning the model on a large collection of aligned image-text\npairs, keeping the pre-trained vision encoder and the LLM\nfrozen while only training the linear projection layer. This\nstage spans 20,000 training steps with a batch size of 256,\ntaking approximately 10 hours on 4 A100 GPUs. The second\nfine-tuning stage addresses the limitations observed after the\nfirst stage, such as incoherent linguistic outputs. It fine-tunes\nthe model using a smaller but high-quality dataset, signifi-\ncantly improving its generation reliability. This fine-tuning is\ncomputationally efficient, taking only around 7 minutes with\na single A100 GPU.\nInstructBLIP\nArchitecture: InstructBLIP builds upon the BLIP-2 archi-\ntecture by incorporating an instruction-aware Q-Former mod-\nule. This module takes in instruction text tokens as additional\ninput, interacting with the query embeddings through self-\nattention layers. This process encourages the extraction of\ntask-relevant image features, allowing the LLM to receive\nvisual information conducive to following instructions. In-\nstructBLIP uses the same image encoder as BLIP-2, a ViT\nbackbone, and adapts the model to different frozen LLMs,\nincluding FlanT5-XL, FlanT5-XXL, Vicuna-7B, and Vicuna-\n13B. The architecture facilitates instruction-aware visual fea-\nture extraction, substantially improving performance in both\nheld-in and held-out evaluations.\nDatasets: InstructBLIP is trained using a comprehensive\nset of 26 publicly available datasets, transformed into an\ninstruction tuning format. These datasets cover a wide range\nof tasks such as image captioning, visual question answering\n(VQA), and visual instruction following. Notable datasets\ninclude OK-VQA, ScienceQA, HatefulMemes, Visual Dialog,\nMSVD, and MSRVTT. The training process balances the\ndatasets to prevent overfitting smaller datasets and underfitting\nlarger ones, ensuring effective learning across varied tasks.\nTraining & Evaluation: InstructBLIP employs a two-stage\ntraining process. The first stage involves vision-language pre-\ntraining, initializing the model from pre-trained BLIP-2 check-\npoints. Only the parameters of the Q-Former are fine-tuned\nwhile keeping the image encoder and the LLM frozen. The\nsecond stage, instruction tuning, involves training the model\nwith a maximum of 60,000 steps, validating performance every\n3,000 steps. The AdamW optimizer is used with specific\nhyperparameters, and training is conducted on 16 Nvidia A100\nGPUs over 1.5 days. Inference involves generating responses\nfor image captioning and open-ended VQA tasks, and using\nvocabulary ranking for classification and multi-choice VQA\ntasks.\n2) Image Generation:\nTask Description:\nThe application of multimodal models in image generation\ntasks is one of the hot research directions in the field of\ncomputer vision. Traditional image generation tasks mainly\nrely on single-modal data input, such as generating images\nfrom random noise or generating images based on context. In\ncontrast, multimodal models simultaneously consider multiple\ndata modalities, such as text descriptions, speech information,",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ac5b38236a14cd58",
+      "page": 20,
+      "bbox": [
+        48.964019775390625,
+        58.393550872802734,
+        300.0225830078125,
+        442.9516296386719
+      ],
+      "type": "text",
+      "rel": 0.033640361795701595,
+      "cost": 781,
+      "text": "[103] Y. Chu, J. Xu, X. Zhou, Q. Yang, S. Zhang, Z. Yan, C. Zhou,\nand J. Zhou, “Qwen-audio: Advancing universal audio understand-\ning via unified large-scale audio-language models,” arXiv preprint\narXiv:2311.07919, 2023.\n[104] P. K. Rubenstein, C. Asawaroengchai, D. D. Nguyen, A. Bapna, Z. Bor-\nsos, F. d. C. Quitry, P. Chen, D. E. Badawy, W. Han, E. Kharitonov\net al., “Audiopalm: A large language model that can speak and listen,”\narXiv preprint arXiv:2306.12925, 2023.\n[105] D. Zhang, S. Li, X. Zhang, J. Zhan, P. Wang, Y. Zhou, and\nX. Qiu, “Speechgpt: Empowering large language models with intrinsic\ncross-modal conversational abilities,” arXiv preprint arXiv:2305.11000,\n2023.\n[106] A. Zhang, H. Fei, Y. Yao, W. Ji, L. Li, Z. Liu, and T.-S. Chua,\n“Vpgtrans: Transfer visual prompt generator across llms,” Advances\nin Neural Information Processing Systems, vol. 36, 2024.\n[107] A. Awadalla, I. Gao, J. Gardner, J. Hessel, Y. Hanafy, W. Zhu,\nK. Marathe, Y. Bitton, S. Gadre, S. Sagawa et al., “Openflamingo:\nAn open-source framework for training large autoregressive vision-\nlanguage models,” arXiv preprint arXiv:2308.01390, 2023.\n[108] G. H. Chen, S. Chen, R. Zhang, J. Chen, X. Wu, Z. Zhang,\nZ. Chen, J. Li, X. Wan, and B. Wang, “Allava: Harnessing gpt4v-\nsynthesized data for a lite vision-language model,” arXiv preprint\narXiv:2402.11684, 2024.\n[109] H. Liu, C. Li, Y. Li, and Y. J. Lee, “Improved baselines with visual\ninstruction tuning,” in Proceedings of the IEEE/CVF Conference on\nComputer Vision and Pattern Recognition, 2024, pp. 26 296–26 306.\n[110] P. Gao, J. Han, R. Zhang, Z. Lin, S. Geng, A. Zhou, W. Zhang, P. Lu,\nC. He, X. Yue et al., “Llama-adapter v2: Parameter-efficient visual\ninstruction model,” arXiv preprint arXiv:2304.15010, 2023.\n[111] A. Young, B. Chen, C. Li, C. Huang, G. Zhang, G. Zhang, H. Li,\nJ. Zhu, J. Chen, J. Chang et al., “Yi: Open foundation models by 01.\nai,” arXiv preprint arXiv:2403.04652, 2024.\n[112] J. Yu, X. Li, J. Y. Koh, H. Zhang, R. Pang, J. Qin, A. Ku, Y. Xu,\nJ. Baldridge, and Y. Wu, “Vector-quantized image modeling with\nimproved vqgan,” arXiv preprint arXiv:2110.04627, 2021.\n[113] G. Laccetti, R. Montella, C. Palmieri, and V. Pelliccia, “The high\nperformance internet of things: using gvirtus to share high-end gpus\nwith arm based cluster computing nodes,” in International Conference\non Parallel Processing and Applied Mathematics.\nSpringer, 2013, pp.\n734–744.\n[114] J. Giorgi, O. Nitski, B. Wang, and G. Bader, “Declutr: Deep contrastive\nlearning for unsupervised textual representations,” arXiv preprint\narXiv:2006.03659, 2020.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "59c6550c371698b8",
+      "page": 9,
+      "bbox": [
+        48.964019775390625,
+        56.88246154785156,
+        300.0223388671875,
+        748.2899780273438
+      ],
+      "type": "text",
+      "rel": 0.020773714891361948,
+      "cost": 609,
+      "text": "visual-language branch, the audio features are combined\nwith their corresponding position embeddings and fed into\nthe Audio Q-Former. The Audio Q-Former, like the Video\nQ-Former, maps the features of all audio segments into a\nfixed-length comprehensive representation. Finally, a linear\nlayer maps this feature to the same dimension as the LLM\nfeatures.\nDatasets: For the vision-language branch, Video-LLaMA is\npre-trained on the video-text dataset Webvid-2M [76] and the\nimage-caption dataset CC595K [77], [78]. Subsequently, it is\nfine-tuned using the instruction datasets from MiniGPT-4 [41],\nLLaVA [78], and VideoChat [21] to enhance the model’s video\nunderstanding and instruction comprehension capabilities. For\nthe audio-language branch, due to the lack of large-scale,\nhigh-quality audio-text datasets, this work leveraged the strong\ncross-modal processing capabilities of ImageBind. It trained\nthe audio-language branch directly using visual-text datasets.\nDespite not being trained on audio-text data, ImageBind’s\nrobust alignment capabilities allowed the Video-LLaMA to\neffectively align audio to the LLM’s textual space during\ntesting.\nTraining & Evaluation: The modules involved in the\ntraining of Video-LLaMA include the Video Q-Former, Audio\nQ-Former, the position embeddings, and linear layers in both\nbranches. The image encoder, audio encoder, and the final\nLLM is frozen during training. This work only provides some\ntest examples without presenting quantitative metrics for the\nVideo-LLaMA.\nX-InstructBLIP\nArchitecture: X-InstructBLIP [73] uses the Q-Former from\nBLIP2 to process all non-text data. After extracting features for\neach modality, the model employs a Q-Former with two trans-\nformer layers to compute cross-attention between modalities,\nfacilitating interaction between multimodal features. The Q-\nFormer responsible for interaction then outputs a fixed-length\ncomprehensive feature, which is mapped to the feature space\nof the LLM through a projection layer. Within the LLM, this\nfeature further interacts with the instruction text features to\nproduce the final response.\nDatasets: The model’s video encoder is initialized with\nparameters from the image encoder trained on the COCO\ncaption dataset [79]. Additionally, it was trained on datasets\nsuch as WebVid-2M [76] and MSRVTT QA [80] to enhance its\nvideo captioning and video question-answering capabilities. To\nbetter assess the model’s cross-modal reasoning abilities, this\nwork introduces DisCRn, the first dataset designed for evalu-\nating instruction-based cross-modal discriminative reasoning.\nTraining & Evaluation: During training, X-InstructBLIP\nfreezes the parameters of the Q-Former used for extracting\nmodality features and the top LLM. Only the Q-Former\nresponsible for modal interaction and the projection layer\nare trained. Furthermore, X-InstructBLIP outperforms other\nmodels in test tasks across 3D, audio, image, and silent video\nmodalities.\n2) Video Generation Task:\nTask Description:\nVideo generation refers to the training of artificial intel-\nligence to autonomously produce high-fidelity video content",
+      "image_paths": []
+    }
+  ]
+}
