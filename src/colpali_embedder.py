@@ -3,6 +3,7 @@ from __future__ import annotations
 import logging
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any, Optional, Tuple
 
 import numpy as np
 from PIL import Image
@@ -19,29 +20,113 @@ class EmbedResult:
 
 
 class MultiModalEmbedder:
+    """
+    backend:
+      - "hf_clip"   : force CLIPModel/CLIPProcessor
+      - "hf_siglip" : force AutoModel/AutoProcessor (works for SigLIP)
+      - "hf_auto" / "hf" / "hf_*": auto-detect by config.model_type where possible
+      - anything else: hash fallback (debug mode)
+
+    dim:
+      - if <= 0 => infer automatically from the loaded model
+    """
+
     def __init__(self, backend: str, model_name: str, device: str, batch_size: int, dim: int):
         self.backend = backend
         self.model_name = model_name
         self.device = device
         self.batch_size = batch_size
-        self.dim = dim
+        self.dim = int(dim) if dim is not None else 0
+        if self.dim < 0:
+            self.dim = 0
 
-        self._hf = None
-        if backend.startswith("hf_"):
+        self._hf: Optional[Tuple[Any, Any, Any]] = None
+        if backend.startswith("hf"):
             self._hf = self._init_hf()
+
+        # If HF init failed, ensure we have a usable dim for hashing fallback
+        if self._hf is None and self.dim == 0:
+            self.dim = 256
 
     def _init_hf(self):
         try:
             import torch
-            from transformers import AutoProcessor, AutoModel  # type: ignore
+            from transformers import AutoConfig  # type: ignore
 
-            proc = AutoProcessor.from_pretrained(self.model_name)
-            model = AutoModel.from_pretrained(self.model_name)
+            cfg = AutoConfig.from_pretrained(self.model_name)
+            model_type = (getattr(cfg, "model_type", "") or "").lower()
+
+            force_clip = self.backend in {"hf_clip"}
+            force_siglip = self.backend in {"hf_siglip"}
+
+            if force_clip or model_type == "clip" or "clip" in self.model_name.lower():
+                from transformers import CLIPModel, CLIPProcessor  # type: ignore
+
+                proc = self._from_pretrained_fast(CLIPProcessor, self.model_name)
+                model = CLIPModel.from_pretrained(self.model_name)
+            else:
+                # SigLIP and most other multimodal transformers work with Auto*
+                from transformers import AutoProcessor, AutoModel  # type: ignore
+
+                proc = self._from_pretrained_fast(AutoProcessor, self.model_name)
+                model = AutoModel.from_pretrained(self.model_name)
+
             model.to(self.device)
             model.eval()
+
+            # Infer embedding dimension if dim unset or mismatched
+            inferred_dim = self._infer_dim(torch, proc, model)
+            if inferred_dim is not None:
+                if self.dim in (0, None) or self.dim != inferred_dim:
+                    log.info("embedder.dim set dim=%s (was=%s) model=%s backend=%s",
+                             inferred_dim, self.dim, self.model_name, self.backend)
+                    self.dim = int(inferred_dim)
+
             return torch, proc, model
+
         except Exception as e:
             log.warning("embedder.hf_init_failed backend=%s model=%s err=%s", self.backend, self.model_name, e)
+            return None
+
+    @staticmethod
+    def _from_pretrained_fast(cls, model_name: str):
+        # Many processors now support use_fast; some don't. Try fast first.
+        try:
+            return cls.from_pretrained(model_name, use_fast=True)
+        except TypeError:
+            return cls.from_pretrained(model_name)
+
+    def _infer_dim(self, torch, proc, model) -> Optional[int]:
+        """
+        Run a tiny forward pass to determine output dimension robustly.
+        """
+        # Try text first
+        try:
+            inputs = proc(text=["test"], return_tensors="pt", padding=True, truncation=True)
+            inputs = {k: v.to(self.device) for k, v in inputs.items()}
+            with torch.no_grad():
+                if hasattr(model, "get_text_features"):
+                    x = model.get_text_features(**inputs)
+                else:
+                    out = model(**inputs)
+                    x = out.last_hidden_state[:, 0, :]
+            return int(x.shape[-1])
+        except Exception:
+            pass
+
+        # Fallback: try image
+        try:
+            dummy = Image.new("RGB", (224, 224), color=(0, 0, 0))
+            inputs = proc(images=[dummy], return_tensors="pt")
+            inputs = {k: v.to(self.device) for k, v in inputs.items()}
+            with torch.no_grad():
+                if hasattr(model, "get_image_features"):
+                    x = model.get_image_features(**inputs)
+                else:
+                    out = model(**inputs)
+                    x = out.last_hidden_state[:, 0, :]
+            return int(x.shape[-1])
+        except Exception:
             return None
 
     def embed_text(self, ids: list[str], texts: list[str]) -> EmbedResult:
@@ -63,6 +148,7 @@ class MultiModalEmbedder:
                     x = out.last_hidden_state[:, 0, :]
                 x = x / (x.norm(dim=-1, keepdim=True) + 1e-12)
             all_vecs.append(x.detach().cpu().numpy().astype(np.float32))
+
         vecs = np.vstack(all_vecs) if all_vecs else np.zeros((0, self.dim), dtype=np.float32)
         return EmbedResult(ids=ids, vecs=vecs)
 
@@ -85,9 +171,11 @@ class MultiModalEmbedder:
                     out = model(**inputs)
                     x = out.last_hidden_state[:, 0, :]
                 x = x / (x.norm(dim=-1, keepdim=True) + 1e-12)
+
             for im in imgs:
                 im.close()
             all_vecs.append(x.detach().cpu().numpy().astype(np.float32))
+
         vecs = np.vstack(all_vecs) if all_vecs else np.zeros((0, self.dim), dtype=np.float32)
         return EmbedResult(ids=ids, vecs=vecs)
 

@@ -1,62 +1,78 @@
 from __future__ import annotations
 
-import logging
 import os
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Dict, Optional
 
 from dotenv import load_dotenv
+from openai import OpenAI
 
-log = logging.getLogger(__name__)
+
+load_dotenv()  # ensures .env is respected across the whole pipeline
 
 
-@dataclass(frozen=True)
+@dataclass
 class ChatResult:
     text: str
     model: str
+    usage: Dict[str, Any]
 
 
 class OpenAIChatClient:
-    def __init__(self, timeout_s: int = 60):
-        load_dotenv(override=False)
-        self.timeout_s = timeout_s
-        self._client = None
-        self._style = "new"
-        self._init_client()
+    def __init__(self, api_key: Optional[str] = None, timeout_s: int = 60):
+        api_key = api_key or os.getenv("OPENAI_API_KEY")
+        if not api_key:
+            raise RuntimeError("OPENAI_API_KEY not found (env/.env).")
+        self.client = OpenAI(api_key=api_key, timeout=timeout_s)
 
-    def _init_client(self) -> None:
+    def chat(self, model: str, system: str, user: str, temperature: float = 0.0, max_tokens: int = 1800) -> ChatResult:
+        resp = self.client.chat.completions.create(
+            model=model,
+            messages=[
+                {"role": "system", "content": system or ""},
+                {"role": "user", "content": user or ""},
+            ],
+            temperature=temperature,
+            max_completion_tokens=max_tokens,
+        )
+        msg = resp.choices[0].message.content or ""
+        usage = {}
         try:
-            from openai import OpenAI  # type: ignore
-
-            self._client = OpenAI(timeout=self.timeout_s)
-            self._style = "new"
-            return
+            usage = resp.usage.model_dump() if resp.usage else {}
         except Exception:
-            pass
+            usage = {}
+        return ChatResult(text=msg, model=model, usage=usage)
+
+    def chat_vision_b64jpeg(
+        self,
+        model: str,
+        prompt: str,
+        b64jpeg: str,
+        temperature: float = 0.0,
+        detail: str = "high",
+        max_tokens: int = 2200,
+    ) -> ChatResult:
+        resp = self.client.chat.completions.create(
+            model=model,
+            messages=[
+                {
+                    "role": "user",
+                    "content": [
+                        {"type": "text", "text": prompt or ""},
+                        {
+                            "type": "image_url",
+                            "image_url": {"url": f"data:image/jpeg;base64,{b64jpeg}", "detail": detail},
+                        },
+                    ],
+                }
+            ],
+            temperature=temperature,
+            max_completion_tokens=max_tokens,
+        )
+        msg = resp.choices[0].message.content or ""
+        usage = {}
         try:
-            import openai  # type: ignore
-
-            key = os.getenv("OPENAI_API_KEY")
-            if not key:
-                raise RuntimeError("OPENAI_API_KEY not set")
-            openai.api_key = key
-            self._client = openai
-            self._style = "old"
-        except Exception as e:
-            raise RuntimeError(f"OpenAI client init failed: {e}")
-
-    def chat(self, model: str, system: str, user: str, temperature: float = 0.1) -> ChatResult:
-        msgs = [{"role": "system", "content": system}, {"role": "user", "content": user}]
-        if self._style == "new":
-            return ChatResult(text=self._chat_new(model, msgs, temperature), model=model)
-        return ChatResult(text=self._chat_old(model, msgs, temperature), model=model)
-
-    def _chat_new(self, model: str, msgs: list[dict[str, str]], temperature: float) -> str:
-        assert self._client is not None
-        resp = self._client.chat.completions.create(model=model, messages=msgs, temperature=temperature, top_p=1)
-        return (resp.choices[0].message.content or "").strip()
-
-    def _chat_old(self, model: str, msgs: list[dict[str, str]], temperature: float) -> str:
-        assert self._client is not None
-        resp = self._client.ChatCompletion.create(model=model, messages=msgs, temperature=temperature, top_p=1)
-        return (resp["choices"][0]["message"]["content"] or "").strip()
+            usage = resp.usage.model_dump() if resp.usage else {}
+        except Exception:
+            usage = {}
+        return ChatResult(text=msg, model=model, usage=usage)

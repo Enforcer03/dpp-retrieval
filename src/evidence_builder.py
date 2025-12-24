@@ -10,7 +10,6 @@ from .utils import bbox_iou, bbox_union, stable_id
 
 log = logging.getLogger(__name__)
 
-
 _num_re = re.compile(r"\d")
 
 
@@ -20,6 +19,33 @@ def _looks_like_table(text: str) -> bool:
         return True
     digs = len(_num_re.findall(t))
     return digs >= 10 and ("\n" in t) and (digs / max(1, len(t))) > 0.08
+
+
+def _norm_type(t: str | None) -> str:
+    return (t or "").strip().lower()
+
+
+def _is_caption(el: Element) -> bool:
+    return "caption" in _norm_type(el.type)
+
+
+def _visual_kind(el: Element) -> str | None:
+    if not getattr(el, "image_path", None):
+        return None
+    t = _norm_type(el.type)
+    if t in ("page", "page_image"):
+        return None
+    if "table" in t:
+        return "table"
+    if "figure" in t:
+        return "figure"
+    if t in {"image", "img", "picture", "photo", "chart", "diagram", "plot", "graphic", "illustration"}:
+        if getattr(el, "text", None) and _looks_like_table(str(el.text)):
+            return "table"
+        return "figure"
+    if getattr(el, "text", None) and _looks_like_table(str(el.text)):
+        return "table"
+    return "figure"
 
 
 def _h_overlap(a, b) -> float:
@@ -51,46 +77,78 @@ class EvidenceBuilder:
 
     def build(self, doc: DocumentArtifact, token_counter) -> list[EvidenceUnit]:
         by_page: dict[int, list[Element]] = defaultdict(list)
-        for e in doc.elements:
-            by_page[e.page].append(e)
+        page_image_by_page: dict[int, Path] = {}
+
+        for p in getattr(doc, "pages", []) or []:
+            try:
+                by_page[int(p.page)]
+                if getattr(p, "page_image_path", None):
+                    page_image_by_page[int(p.page)] = Path(p.page_image_path)
+            except Exception:
+                continue
+
+        for e in getattr(doc, "elements", []) or []:
+            by_page[int(e.page)].append(e)
 
         units: list[EvidenceUnit] = []
         for pno, els in sorted(by_page.items()):
             els = sorted(els, key=lambda x: (x.bbox[1], x.bbox[0]))
-            caps = [e for e in els if e.type == "caption" and e.text]
-            figs = [e for e in els if e.type == "figure" and e.image_path]
-            texts = [e for e in els if e.type in ("text", "header", "footer") and e.text]
+            caps = [e for e in els if _is_caption(e) and getattr(e, "text", None)]
+            fig_els = [e for e in els if _visual_kind(e) == "figure"]
+            tab_els = [e for e in els if _visual_kind(e) == "table"]
 
-            used_caps: set[str] = set()
-            for fig in figs:
-                cap = _near_caption(fig, caps, self.caption_search_px)
+            text_types = {"text", "header", "footer", "paragraph", "list", "table", "table_text", "heading", "equation", "code", "abstract", "reference"}
+            texts = [
+                e
+                for e in els
+                if getattr(e, "text", None)
+                and (_norm_type(e.type) in text_types or "table" in _norm_type(e.type))
+            ]
+
+            used_ids: set[str] = set()
+
+            def _add_visual_unit(el: Element, kind: str) -> None:
+                nonlocal used_ids
+                cap = _near_caption(el, caps, self.caption_search_px)
                 cap_text = ""
                 cap_ids: list[str] = []
-                bbox = fig.bbox
+                bbox = el.bbox
                 if cap is not None:
                     cap_text = cap.text or ""
-                    used_caps.add(cap.id)
+                    used_ids.add(cap.id)
                     cap_ids.append(cap.id)
                     bbox = bbox_union(bbox, cap.bbox)
 
-                fig_text = (fig.text or "").strip()
-                rt = "\n".join([t for t in [cap_text.strip(), fig_text] if t]).strip()
+                body_text = (getattr(el, "text", "") or "").strip()
+                rt = "\n".join([t for t in [cap_text.strip(), body_text] if t]).strip()
 
-                uid = stable_id(doc.doc_id, pno, "figure", fig.id, rt[:32])
+                unit_type = "table_text" if kind == "table" else "figure"
+                uid = stable_id(doc.doc_id, pno, unit_type, el.id, rt[:32])
+
+                img_path = Path(str(getattr(el, "image_path"))).expanduser()
+                if not img_path.exists():
+                    log.warning("missing.image_path page=%s el_id=%s type=%s path=%s", pno, el.id, el.type, img_path)
+
                 units.append(
                     EvidenceUnit(
                         id=uid,
                         page=pno,
                         bbox=bbox,
-                        type="figure",
+                        type=unit_type,
                         retrieval_text=rt,
                         context_text=rt,
-                        image_paths=[Path(fig.image_path)],
-                        source_element_ids=[fig.id] + cap_ids,
+                        image_paths=[img_path],
+                        source_element_ids=[el.id] + cap_ids,
                     )
                 )
+                used_ids.add(el.id)
 
-            usable_texts = [e for e in texts if e.id not in used_caps]
+            for el in tab_els:
+                _add_visual_unit(el, kind="table")
+            for el in fig_els:
+                _add_visual_unit(el, kind="figure")
+
+            usable_texts = [e for e in texts if e.id not in used_ids]
             buf: list[Element] = []
             buf_texts: list[str] = []
             buf_bbox = None
@@ -134,7 +192,7 @@ class EvidenceBuilder:
 
             flush()
 
-            page_images = [e for e in els if e.type == "page_image" and e.image_path]
+            page_images = [e for e in els if _norm_type(e.type) == "page_image" and getattr(e, "image_path", None)]
             for pi in page_images:
                 uid = stable_id(doc.doc_id, pno, "page_image", pi.id)
                 units.append(
@@ -147,6 +205,29 @@ class EvidenceBuilder:
                         context_text="",
                         image_paths=[Path(pi.image_path)],
                         source_element_ids=[pi.id],
+                    )
+                )
+
+            if not page_images and pno in page_image_by_page:
+                img_path = page_image_by_page[pno]
+                if els:
+                    bb = els[0].bbox
+                    for e in els[1:]:
+                        bb = bbox_union(bb, e.bbox)
+                else:
+                    bb = (0.0, 0.0, 1.0, 1.0)
+
+                uid = stable_id(doc.doc_id, pno, "page_image", "page_render")
+                units.append(
+                    EvidenceUnit(
+                        id=uid,
+                        page=pno,
+                        bbox=bb,
+                        type="page_image",
+                        retrieval_text="",
+                        context_text="",
+                        image_paths=[img_path],
+                        source_element_ids=[],
                     )
                 )
 
