@@ -36,6 +36,7 @@ class ExtractConfig:
     keep_crops: bool
     caption_search_px: int
     max_text_chunk_tokens: int
+    vision_batch_size: int
     ocr: OcrConfig
 
 
@@ -169,6 +170,7 @@ def load_config(path: str | Path) -> AppConfig:
             keep_crops=bool(extract["keep_crops"]),
             caption_search_px=int(extract["caption_search_px"]),
             max_text_chunk_tokens=int(extract["max_text_chunk_tokens"]),
+            vision_batch_size=int(extract.get("vision_batch_size", 8)),
             ocr=OcrConfig(
                 enabled=bool(ocr.get("enabled", False)),
                 engine=str(ocr.get("engine", "tesseract")),

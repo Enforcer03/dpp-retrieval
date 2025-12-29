@@ -1,0 +1,42 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema_version": "icb_eval_bundle_v0.1",
+  "title": "ICB-Sum Eval Bundle",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "kind", "run_id", "created_at", "evaluation"],
+  "properties": {
+    "schema_version": { "type": "string" },
+    "kind": { "const": "eval_bundle" },
+    "run_id": { "type": ["string", "null"] },
+    "created_at": { "type": "string" },
+    "evaluation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["judge_runs", "retrieval_eval"],
+      "properties": {
+        "judge_runs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": true,
+            "required": ["name", "model", "ok", "retry_used", "latency_ms"],
+            "properties": {
+              "name": { "type": "string" },
+              "model": { "type": "string" },
+              "ok": { "type": "boolean" },
+              "retry_used": { "type": "boolean" },
+              "latency_ms": { "type": "integer" },
+              "error": { "type": "string" },
+              "output_hash": { "type": "string" },
+              "output": { "type": "object" }
+            }
+          }
+        },
+        "retrieval_eval": { "type": ["object", "null"] },
+        "summary_eval": { "type": ["object", "null"] },
+        "decision_eval": { "type": ["object", "null"] }
+      }
+    }
+  }
+}

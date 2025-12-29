@@ -21,6 +21,7 @@ from __future__ import annotations
 import base64
 import io
 import json
+import logging
 import os
 import random
 import re
@@ -36,6 +37,8 @@ from pdf2image.exceptions import PDFInfoNotInstalledError
 from .openai_client import OpenAIChatClient
 from .schema import DocumentArtifact, Element, PageArtifact
 from .utils import ensure_dir, stable_id, write_json
+
+log = logging.getLogger(__name__)
 
 
 _UNIT_RE = re.compile(
@@ -174,6 +177,7 @@ class PdfLayoutExtractor:
         self.max_retries = int(_cfg_get(cfg, "extract.max_retries", 6))
         self.backoff_base_s = float(_cfg_get(cfg, "extract.backoff_base_s", 1.0))
         self.backoff_max_s = float(_cfg_get(cfg, "extract.backoff_max_s", 20.0))
+        self.vision_batch_size = int(_cfg_get(cfg, "extract.vision_batch_size", 8))
 
         # Image encoding
         self.max_side = int(_cfg_get(cfg, "extract.vision_max_side", 1400))
@@ -316,7 +320,120 @@ class PdfLayoutExtractor:
 
         return False
 
-    def _call_vision_with_retry(self, page_num: int, b64jpeg: str) -> str:
+    def _parse_batch_response(self, full_text: str, page_nums: List[int]) -> List[str]:
+        """
+        Parse multi-page response into individual page texts.
+        Looks for <page_marker num="X"> boundaries. If not found, attempts heuristic split.
+        """
+        # Try structured page markers first
+        marker_pattern = re.compile(
+            r'<page_marker\s+num\s*=\s*["\']?(\d+)["\']?\s*>(.*?)</page_marker>',
+            re.DOTALL | re.IGNORECASE
+        )
+
+        matches = marker_pattern.findall(full_text)
+        if matches and len(matches) == len(page_nums):
+            # Perfect match: extract in order
+            page_map = {int(num): content.strip() for num, content in matches}
+            return [page_map.get(pno, "") for pno in page_nums]
+
+        # Fallback: split by double newlines and hope for the best
+        chunks = [c.strip() for c in re.split(r'\n\n+', full_text) if c.strip()]
+
+        if len(chunks) >= len(page_nums):
+            # Take first N chunks
+            return chunks[:len(page_nums)]
+
+        # Last resort: return full text for first page, empty for others
+        log.warning("vision.batch_parse_failed using fallback full_text_len=%d", len(full_text))
+        result = [full_text] if full_text else []
+        while len(result) < len(page_nums):
+            result.append("")
+        return result
+
+    def _call_vision_batch_with_retry(self, page_batch: List[Tuple[int, str]]) -> List[str]:
+        """
+        Extract multiple pages in a single Vision API call with retry logic.
+
+        Args:
+            page_batch: [(page_num, b64jpeg), ...] - batch of pages to process
+
+        Returns:
+            List of extracted texts aligned with input order
+        """
+        if not page_batch:
+            return []
+
+        # Single page: use original method for compatibility
+        if len(page_batch) == 1:
+            pno, b64 = page_batch[0]
+            return [self._call_vision_single_with_retry(pno, b64)]
+
+        # Multi-page batch
+        page_nums = [pno for pno, _ in page_batch]
+        b64jpegs = [b64 for _, b64 in page_batch]
+
+        # Enhanced prompt for multi-page extraction
+        base_prompt = self.prompt if self.use_layout_aware else (
+            "Transcribe this page into Markdown. Preserve headers, tables, and math equations ($$). "
+            "Do not include page numbers or footers."
+        )
+
+        # Add batch instructions
+        batch_prompt = f"""{base_prompt}
+
+CRITICAL: You are processing {len(page_batch)} pages in sequence. For each page:
+1. Start with: <page_marker num="X">
+2. Extract all content with <unit> tags
+3. End with: </page_marker>
+
+This ensures clear page boundaries in the output."""
+
+        last_err: Exception | None = None
+        for attempt in range(self.max_retries + 1):
+            try:
+                res = self.client.chat_vision_multi_images(
+                    model=self.model,
+                    prompt=batch_prompt,
+                    b64jpegs=b64jpegs,
+                    temperature=self.temperature,
+                    detail="high",
+                    max_tokens=2200 * len(page_batch),  # Scale tokens with batch size
+                )
+
+                # Parse multi-page response
+                full_text = (res.text or "").strip()
+                page_texts = self._parse_batch_response(full_text, page_nums)
+
+                # Validate: ensure we got text for all pages
+                if len(page_texts) == len(page_batch):
+                    return page_texts
+                else:
+                    # Partial extraction: pad missing pages with errors
+                    log.warning(
+                        "vision.batch_partial pages_expected=%d pages_got=%d",
+                        len(page_batch), len(page_texts)
+                    )
+                    while len(page_texts) < len(page_batch):
+                        page_texts.append(f"<unit type='error'>[ERROR: Page extraction incomplete]</unit>")
+                    return page_texts[:len(page_batch)]
+
+            except Exception as e:
+                last_err = e
+                if attempt >= self.max_retries or not self._is_retryable_error(e):
+                    break
+
+                # Exponential backoff with jitter
+                sleep_s = min(self.backoff_max_s, self.backoff_base_s * (2 ** attempt))
+                sleep_s = sleep_s * (0.75 + 0.5 * random.random())
+                time.sleep(sleep_s)
+
+        # All retries failed: mark entire batch as error (per user requirement)
+        error_text = f"<unit type='error'>[ERROR: Batch extraction failed: {last_err}]</unit>"
+        return [error_text] * len(page_batch)
+
+    def _call_vision_single_with_retry(self, page_num: int, b64jpeg: str) -> str:
+        """Original single-page extraction (kept for fallback and small batches)."""
         prompt = self.prompt if self.use_layout_aware else (
             "Transcribe this page into Markdown. Preserve headers, tables, and math equations ($$). "
             "Do not include page numbers or footers."
@@ -342,35 +459,63 @@ class PdfLayoutExtractor:
                 if attempt >= self.max_retries or not self._is_retryable_error(e):
                     break
 
-                # exponential backoff with jitter
                 sleep_s = min(self.backoff_max_s, self.backoff_base_s * (2 ** attempt))
-                sleep_s = sleep_s * (0.75 + 0.5 * random.random())  # jitter [0.75x, 1.25x]
+                sleep_s = sleep_s * (0.75 + 0.5 * random.random())
                 time.sleep(sleep_s)
 
         return f"<unit type='error'>[ERROR: Page {page_num} extraction failed: {last_err}]</unit>"
 
     def _extract_pages_concurrent(self, page_b64: List[Tuple[int, str]]) -> List[str]:
         """
-        Concurrent extraction preserving input order.
-        page_b64: [(page_num, b64jpeg), ...]
-        returns:  [page_texts...] aligned to input order
+        Concurrent extraction with batching.
+
+        Strategy:
+        1. Group pages into batches of size vision_batch_size
+        2. Submit batches to ThreadPool (max_workers batches in parallel)
+        3. Each batch calls Vision API once with multiple images
         """
         if not page_b64:
             return []
 
-        max_workers = max(1, int(self.max_workers))
+        # Group pages into batches
+        batches = []
+        for i in range(0, len(page_b64), self.vision_batch_size):
+            batch = page_b64[i : i + self.vision_batch_size]
+            batches.append(batch)
+
+        log.info(
+            "vision.extract_batched total_pages=%d batches=%d batch_size=%d workers=%d",
+            len(page_b64), len(batches), self.vision_batch_size, self.max_workers
+        )
+
+        # Results array (flattened from batches)
         results: List[Optional[str]] = [None] * len(page_b64)
 
-        def _job(idx: int, pn: int, b64: str) -> Tuple[int, str]:
-            return idx, self._call_vision_with_retry(pn, b64)
+        def _job(batch_idx: int, page_batch: List[Tuple[int, str]]) -> Tuple[int, List[str]]:
+            """Process a batch of pages."""
+            return batch_idx, self._call_vision_batch_with_retry(page_batch)
 
+        # Submit batches to thread pool
+        max_workers = max(1, int(self.max_workers))
         with ThreadPoolExecutor(max_workers=max_workers) as ex:
-            futs = {ex.submit(_job, idx, pn, b64): idx for idx, (pn, b64) in enumerate(page_b64)}
-            for fut in as_completed(futs):
-                idx, text = fut.result()
-                results[idx] = text
+            futs = {ex.submit(_job, batch_idx, batch): batch_idx for batch_idx, batch in enumerate(batches)}
 
-        return [r if r is not None else "<unit type='error'>[ERROR: missing result]</unit>" for r in results]
+            for fut in as_completed(futs):
+                batch_idx, batch_texts = fut.result()
+
+                # Map batch results back to original page indices
+                batch = batches[batch_idx]
+                start_idx = batch_idx * self.vision_batch_size
+                for offset, (pno, _) in enumerate(batch):
+                    idx = start_idx + offset
+                    if idx < len(results):
+                        results[idx] = batch_texts[offset] if offset < len(batch_texts) else None
+
+        # Fill any missing results with errors
+        return [
+            r if r is not None else "<unit type='error'>[ERROR: missing result]</unit>"
+            for r in results
+        ]
 
     # -------------------------------------------------------------------------
     # Build schema artifacts

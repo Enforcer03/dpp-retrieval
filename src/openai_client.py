@@ -76,3 +76,56 @@ class OpenAIChatClient:
         except Exception:
             usage = {}
         return ChatResult(text=msg, model=model, usage=usage)
+
+    def chat_vision_multi_images(
+        self,
+        model: str,
+        prompt: str,
+        b64jpegs: list[str],
+        temperature: float = 0.0,
+        detail: str = "high",
+        max_tokens: int = 4000,
+    ) -> ChatResult:
+        """
+        Send multiple images in a single Vision API call.
+
+        Args:
+            model: Vision model (e.g., gpt-4o)
+            prompt: System prompt for extraction
+            b64jpegs: List of base64-encoded JPEG images
+            temperature: Sampling temperature
+            detail: Vision detail level ("high" or "low")
+            max_tokens: Max output tokens (increased for multi-page responses)
+
+        Returns:
+            ChatResult with concatenated text from all pages
+        """
+        if not b64jpegs:
+            return ChatResult(text="", model=model, usage={})
+
+        # Build multi-image content array
+        content = [{"type": "text", "text": prompt}]
+        for b64jpeg in b64jpegs:
+            content.append({
+                "type": "image_url",
+                "image_url": {
+                    "url": f"data:image/jpeg;base64,{b64jpeg}",
+                    "detail": detail
+                },
+            })
+
+        resp = self.client.chat.completions.create(
+            model=model,
+            messages=[{"role": "user", "content": content}],
+            temperature=temperature,
+            max_completion_tokens=max_tokens,
+        )
+
+        msg = resp.choices[0].message.content or ""
+        usage = {}
+        try:
+            usage = resp.usage.model_dump() if resp.usage else {}
+        except Exception:
+            usage = {}
+
+        return ChatResult(text=msg, model=model, usage=usage)
