@@ -1,295 +1,300 @@
+# eval_engine/evaluators.py
 from __future__ import annotations
 
+import datetime as _dt
+import hashlib
 import json
-import logging
 import os
-from datetime import datetime, timezone
+import re
 from typing import Any
 
 from .adapter import export_eval_packet
-from .io import validate_against_schema
 from .judge_client import JudgeClient, JudgeRun
-from .prompts import DECISION_EVAL_USER, RETRIEVAL_EVAL_USER, SUMMARY_EVAL_USER, SYSTEM_PROMPT
-from .utils import sha1_text
+from .prompts import SYSTEM_PROMPT, build_retrieval_prompt, build_summary_prompt
 
-log = logging.getLogger(__name__)
-
-_PLACEHOLDER_PATTERNS = ["[specific work]", "[specific field]", "todo", "tbd", "[insert", "<insert"]
-
-
-def run_evaluation(pipeline_output: dict, schema: dict, mode: str, model: str, disable_wandb: bool = False) -> dict:
-    packet = export_eval_packet(pipeline_output)
-    pre = _prechecks(packet)
-    wb = _wandb_init(pipeline_output, packet.get("run_id"), model, mode, disable_wandb, pre)
-
-    client = JudgeClient(model=model, system_prompt=SYSTEM_PROMPT)
-
-    packet_json = json.dumps(packet, ensure_ascii=False, separators=(",", ":"), sort_keys=True)
-
-    jr_r = client.run("retrieval_eval", RETRIEVAL_EVAL_USER.replace("{EVAL_PACKET_JSON}", packet_json))
-    r_out = _sanitize(jr_r.output) if jr_r.output else None
-
-    jr_s = None
-    s_out = None
-    jr_d = None
-    d_out = None
-
-    if mode != "retrieval" and _summary_text(packet):
-        jr_s = client.run("summary_eval", SUMMARY_EVAL_USER.replace("{EVAL_PACKET_JSON}", packet_json))
-        s_out = _sanitize(jr_s.output) if jr_s.output else None
-        jr_d = client.run("decision_eval", DECISION_EVAL_USER.replace("{EVAL_PACKET_JSON}", packet_json))
-        d_out = _sanitize(jr_d.output) if jr_d.output else None
-
-    bundle = _build_bundle(packet.get("run_id"), schema, jr_r, r_out, jr_s, s_out, jr_d, d_out)
-    validate_against_schema(bundle, schema)
-
-    _wandb_log(wb, packet, pre, jr_r, r_out, jr_s, s_out, jr_d, d_out)
-    _wandb_finish(wb)
-    return bundle
+_TABLE_RE = re.compile(r"<table\b|\|\s*-{2,}\s*\|", re.I)
+_FIG_RE = re.compile(r"\bfigure\b|\bfig\.\b", re.I)
+_PLACEHOLDER_RE = re.compile(r"\bTODO\b|\bTBD\b|\[specific.*?\]|\.\.\.|<\.\.\.>", re.I)
+_UNCLEAR_RE = re.compile(r"\[UNCLEAR\]", re.I)
 
 
-def _summary_text(packet: dict) -> str | None:
-    s = packet.get("summarization")
-    if isinstance(s, dict):
-        t = s.get("summary_text")
-        if isinstance(t, str) and t.strip():
-            return t
-    a = packet.get("anchors")
-    if isinstance(a, dict):
-        t = a.get("anchor_summary_text")
-        if isinstance(t, str) and t.strip():
-            return t
-    return None
+def _detect_placeholders(s: str | None) -> bool:
+    return bool(s and _PLACEHOLDER_RE.search(s))
 
 
-def _prechecks(packet: dict) -> dict:
-    anchor = packet.get("anchors", {}).get("anchor_summary_text") if isinstance(packet.get("anchors"), dict) else ""
-    summ = packet.get("summarization", {}).get("summary_text") if isinstance(packet.get("summarization"), dict) else ""
-    placeholders = _detect_placeholders(f"{anchor}\n{summ}")
+def _detect_unclear(s: str | None) -> bool:
+    return bool(s and _UNCLEAR_RE.search(s))
 
+
+def _count_table_figure(chunks: list[dict]) -> tuple[int, int]:
+    n_table = 0
+    n_fig = 0
+    for c in chunks:
+        meta = c.get("metadata") if isinstance(c.get("metadata"), dict) else {}
+        content = c.get("content") if isinstance(c.get("content"), dict) else {}
+        text = content.get("text") if isinstance(content.get("text"), str) else ""
+
+        typ = meta.get("type") or meta.get("kind") or ""
+        if meta.get("is_table") is True or (isinstance(typ, str) and "table" in typ.lower()) or _TABLE_RE.search(text or ""):
+            n_table += 1
+        if meta.get("is_figure") is True or (isinstance(typ, str) and "figure" in typ.lower()) or _FIG_RE.search(text or ""):
+            n_fig += 1
+    return n_table, n_fig
+
+
+def _cost_of_chunk(c: dict) -> float:
+    meta = c.get("metadata") if isinstance(c.get("metadata"), dict) else {}
+    for k in ("cognitive_cost", "token_cost", "cost"):
+        v = meta.get(k)
+        if isinstance(v, (int, float)):
+            return float(v)
+    return 0.0
+
+
+def _compute_prechecks(packet: dict) -> dict:
     chunks = packet.get("chunks") if isinstance(packet.get("chunks"), list) else []
-    costs = []
-    table_chunks = 0
-    unclear_chunks = 0
+    anchor = ((packet.get("anchors") or {}) if isinstance(packet.get("anchors"), dict) else {}).get("anchor_summary_text")
+    summary = ((packet.get("summarization") or {}) if isinstance(packet.get("summarization"), dict) else {}).get("summary_text")
 
-    for ch in chunks:
-        if not isinstance(ch, dict):
-            continue
-        md = ch.get("metadata") if isinstance(ch.get("metadata"), dict) else {}
-        if md.get("contains_tables") is True:
-            table_chunks += 1
-        txt = ch.get("content", {}).get("text") if isinstance(ch.get("content"), dict) else ""
-        if isinstance(txt, str) and "[unclear]" in txt.lower():
-            unclear_chunks += 1
-        cc = md.get("cognitive_cost")
-        if isinstance(cc, (int, float)):
-            costs.append(float(cc))
+    n_table, n_fig = _count_table_figure(chunks)
 
-    used = _budget_used(packet, costs)
-    top2 = _top2_concentration(costs)
-    return {
-        "has_placeholders": bool(placeholders),
-        "placeholders_found": placeholders,
-        "num_table_chunks": table_chunks,
-        "num_unclear_chunks": unclear_chunks,
-        "total_cost_used": used,
-        "top2_cost_concentration": top2,
-    }
-
-
-def _detect_placeholders(text: str) -> list[str]:
-    t = (text or "").lower()
-    return [p for p in _PLACEHOLDER_PATTERNS if p in t]
-
-
-def _budget_used(packet: dict, costs: list[float]) -> float | None:
-    b = packet.get("retrieval", {}).get("budgets") if isinstance(packet.get("retrieval"), dict) else None
-    if isinstance(b, dict):
-        used = b.get("used")
-        if isinstance(used, (int, float)):
-            return float(used)
-        tokens = b.get("tokens")
-        if isinstance(tokens, dict):
-            u = tokens.get("used")
-            if isinstance(u, (int, float)):
-                return float(u)
-    return float(sum(costs)) if costs else None
-
-
-def _top2_concentration(costs: list[float]) -> float | None:
-    if not costs:
-        return None
-    tot = sum(costs)
-    if tot <= 0:
-        return None
-    top2 = sum(sorted(costs, reverse=True)[:2])
-    return float(top2 / tot)
-
-
-def _sanitize(obj: Any) -> Any:
-    if isinstance(obj, dict):
-        out = {}
-        for k, v in obj.items():
-            lk = str(k).lower()
-            if "quote" in lk or "excerpt" in lk:
-                continue
-            out[k] = _sanitize(v)
-        return out
-    if isinstance(obj, list):
-        return [_sanitize(x) for x in obj]
-    return obj
-
-
-def _build_bundle(
-    run_id: str | None,
-    schema: dict,
-    jr_r: JudgeRun,
-    r_out: dict | None,
-    jr_s: JudgeRun | None,
-    s_out: dict | None,
-    jr_d: JudgeRun | None,
-    d_out: dict | None,
-) -> dict:
-    schema_version = schema.get("schema_version") if isinstance(schema.get("schema_version"), str) else "unknown"
-    created_at = datetime.now(timezone.utc).isoformat()
-
-    judge_runs = [_jr_to_dict(jr_r)]
-    if jr_s is not None:
-        judge_runs.append(_jr_to_dict(jr_s))
-    if jr_d is not None:
-        judge_runs.append(_jr_to_dict(jr_d))
-
-    evaluation = {"judge_runs": judge_runs, "retrieval_eval": r_out}
-    if s_out is not None:
-        evaluation["summary_eval"] = s_out
-    if d_out is not None:
-        evaluation["decision_eval"] = d_out
-
-    return {"schema_version": schema_version, "kind": "eval_bundle", "run_id": run_id, "created_at": created_at, "evaluation": evaluation}
-
-
-def _jr_to_dict(jr: JudgeRun) -> dict:
-    out = {
-        "name": jr.name,
-        "model": jr.model,
-        "ok": jr.ok,
-        "retry_used": jr.retry_used,
-        "latency_ms": jr.latency_ms,
-    }
-    if jr.error:
-        out["error"] = jr.error
-    if jr.output is not None:
-        sanitized = _sanitize(jr.output)
-        out["output"] = sanitized
-        out["output_hash"] = sha1_text(json.dumps(sanitized, ensure_ascii=False, separators=(",", ":"), sort_keys=True))
-    return out
-
-
-def _wandb_init(pipeline_output: dict, run_id: str | None, model: str, mode: str, disable: bool, pre: dict):
-    if disable:
-        return None
-    wb_cfg = None
-    if isinstance(pipeline_output.get("wandb"), dict):
-        wb_cfg = pipeline_output["wandb"]
-    elif isinstance(pipeline_output.get("config"), dict) and isinstance(pipeline_output["config"].get("wandb"), dict):
-        wb_cfg = pipeline_output["config"]["wandb"]
-    else:
-        wb_cfg = {}
-
-    enabled = wb_cfg.get("enabled")
-    if not isinstance(enabled, bool):
-        enabled = bool(os.getenv("WANDB_API_KEY")) and bool(os.getenv("WANDB_PROJECT"))
-    if not enabled:
-        return None
-
-    try:
-        import wandb  # type: ignore
-    except Exception as e:
-        log.warning("wandb unavailable: %s", e)
-        return None
-
-    project = wb_cfg.get("project") if isinstance(wb_cfg.get("project"), str) else os.getenv("WANDB_PROJECT", "icb-sum-eval")
-    entity = wb_cfg.get("entity") if isinstance(wb_cfg.get("entity"), str) else os.getenv("WANDB_ENTITY")
-    tags = wb_cfg.get("tags") if isinstance(wb_cfg.get("tags"), list) else []
-    name = run_id or "eval"
-
-    try:
-        return wandb.init(project=project, entity=entity, name=name, tags=tags, config={"run_id": run_id, "judge_model": model, "mode": mode, **pre}, reinit=True)
-    except Exception as e:
-        log.warning("wandb init failed: %s", e)
-        return None
-
-
-def _wandb_log(wb, packet: dict, pre: dict, jr_r: JudgeRun, r_out: dict | None, jr_s: JudgeRun | None, s_out: dict | None, jr_d: JudgeRun | None, d_out: dict | None):
-    if wb is None:
-        return
-    try:
-        import wandb  # type: ignore
-    except Exception:
-        return
+    any_unclear = False
+    for c in chunks:
+        content = c.get("content") if isinstance(c.get("content"), dict) else {}
+        text = content.get("text") if isinstance(content.get("text"), str) else ""
+        if _detect_unclear(text):
+            any_unclear = True
+            break
 
     retrieval = packet.get("retrieval") if isinstance(packet.get("retrieval"), dict) else {}
     budgets = retrieval.get("budgets") if isinstance(retrieval.get("budgets"), dict) else {}
-    obj = retrieval.get("objective") if isinstance(retrieval.get("objective"), dict) else {}
-    lam = obj.get("lambda_diversity")
+    used = budgets.get("used") if isinstance(budgets.get("used"), (int, float)) else None
+    total = budgets.get("total") if isinstance(budgets.get("total"), (int, float)) else None
 
-    sel = retrieval.get("selected_chunk_ids") if isinstance(retrieval.get("selected_chunk_ids"), list) else []
-    nsel = len(sel)
+    costs = [_cost_of_chunk(c) for c in chunks]
+    sum_cost = float(sum(costs)) if costs else 0.0
+    total_cost_used = float(used) if isinstance(used, (int, float)) else (sum_cost if sum_cost > 0 else None)
 
-    m = {
-        "run_id": packet.get("run_id"),
-        "lambda_diversity": lam,
-        "num_selected_chunks": nsel,
-        "num_table_chunks": pre.get("num_table_chunks"),
-        "num_unclear_chunks": pre.get("num_unclear_chunks"),
-        "has_placeholders": pre.get("has_placeholders"),
-        "top2_cost_concentration": pre.get("top2_cost_concentration"),
-        "total_cost_used": pre.get("total_cost_used"),
-        "budgets": budgets,
-        "judge/retrieval_ok": jr_r.ok,
-        "judge/retrieval_latency_ms": jr_r.latency_ms,
+    top2 = sorted(costs, reverse=True)[:2] if costs else []
+    top2_cost_concentration = None
+    if total_cost_used and total_cost_used > 0 and top2:
+        top2_cost_concentration = float(sum(top2) / float(total_cost_used))
+
+    return {
+        "placeholder_in_anchor": _detect_placeholders(anchor),
+        "placeholder_in_summary": _detect_placeholders(summary),
+        "any_unclear_chunks": any_unclear,
+        "num_selected_chunks": len(chunks),
+        "num_table_chunks": n_table,
+        "num_figure_chunks": n_fig,
+        "total_cost_used": total_cost_used,
+        "budget_total": total,
+        "top2_cost_concentration": top2_cost_concentration,
     }
 
-    if isinstance(r_out, dict) and isinstance(r_out.get("overall"), dict):
-        sc = r_out["overall"].get("score")
-        vd = r_out["overall"].get("verdict")
-        if isinstance(sc, (int, float)):
-            m["judge/retrieval_score"] = float(sc)
-        if isinstance(vd, str):
-            m["judge/retrieval_verdict"] = vd
 
-    if jr_s is not None:
-        m["judge/summary_ok"] = jr_s.ok
-        m["judge/summary_latency_ms"] = jr_s.latency_ms
-        if isinstance(s_out, dict) and isinstance(s_out.get("overall"), dict):
-            sc = s_out["overall"].get("score")
-            vd = s_out["overall"].get("verdict")
-            if isinstance(sc, (int, float)):
-                m["judge/summary_score"] = float(sc)
-            if isinstance(vd, str):
-                m["judge/summary_verdict"] = vd
+def _schema_version(schema: dict) -> str:
+    v = schema.get("schema_version")
+    if isinstance(v, str) and v.strip():
+        return v.strip()
+    sid = schema.get("$id")
+    if isinstance(sid, str) and sid.strip():
+        return sid.strip()
+    return "1.0"
 
-    if jr_d is not None:
-        m["judge/decision_ok"] = jr_d.ok
-        m["judge/decision_latency_ms"] = jr_d.latency_ms
-        if isinstance(d_out, dict) and isinstance(d_out.get("overall"), dict):
-            sc = d_out["overall"].get("match_score")
-            vd = d_out["overall"].get("verdict")
-            if isinstance(sc, (int, float)):
-                m["judge/decision_match_score"] = float(sc)
-            if isinstance(vd, str):
-                m["judge/decision_verdict"] = vd
 
+def _hash_obj(o: Any) -> str:
     try:
-        wandb.log(m)
+        s = json.dumps(o, sort_keys=True, ensure_ascii=False)
     except Exception:
-        pass
+        s = str(o)
+    return hashlib.sha1(s.encode("utf-8", errors="ignore")).hexdigest()
 
 
-def _wandb_finish(wb) -> None:
-    if wb is None:
+def _jr_to_schema(jr: JudgeRun, output_obj: Any | None = None) -> dict:
+    d = {
+        "name": jr.name,
+        "model": jr.model,
+        "ok": bool(jr.ok),
+        "retry_used": bool(jr.repaired),
+        "latency_ms": int(round(float(jr.latency_s) * 1000.0)),
+    }
+    if jr.error:
+        d["error"] = jr.error
+    if output_obj is not None:
+        d["output_hash"] = _hash_obj(output_obj)
+        if isinstance(output_obj, dict):
+            d["output"] = output_obj
+    return d
+
+
+def _default_retrieval_eval(packet: dict) -> dict:
+    decisions = (packet.get("task") or {}).get("decisions") or []
+    reqs = packet.get("requirements") or []
+    missing_ids = [r.get("id") for r in reqs if isinstance(r, dict) and isinstance(r.get("id"), str)]
+
+    out_decisions: list[dict] = []
+    for d in decisions or [""]:
+        req_out = []
+        for r in reqs:
+            rid = r.get("id") if isinstance(r, dict) else None
+            req_out.append(
+                {
+                    "id": rid,
+                    "status": "unknown",
+                    "evidence": [],
+                    "quotes": [],
+                    "rationale": "No evidence chunks provided.",
+                }
+            )
+        out_decisions.append(
+            {
+                "decision": d,
+                "overall_verdict": "weak" if reqs else "pass",
+                "requirements": req_out,
+                "missing_requirements": missing_ids,
+                "risks": ["no_selected_chunks"],
+            }
+        )
+
+    return {
+        "requirements_eval": {"decisions": out_decisions},
+        "coverage": {
+            "overall": "poor" if reqs else "good",
+            "notes": "No selected chunks provided; requirement satisfaction cannot be verified.",
+            "missing_requirements": missing_ids,
+        },
+        "redundancy": {"level": "unknown", "notes": "No chunks.", "redundant_pairs": []},
+        "budget_efficiency": {"rating": "unknown", "notes": "No chunks.", "top_cost_chunks": []},
+        "risk_flags": ["no_selected_chunks"],
+    }
+
+
+def _maybe_wandb_enabled(disable_wandb: bool) -> bool:
+    if disable_wandb:
+        return False
+    v = os.getenv("EVAL_WANDB_ENABLED", "").strip().lower()
+    return v in {"1", "true", "yes", "y", "on"}
+
+
+def _wandb_log(packet: dict, prechecks: dict, judge_runs: list[JudgeRun], evaluation: dict) -> None:
+    try:
+        import wandb  # type: ignore
+    except Exception:
         return
+
+    project = os.getenv("EVAL_WANDB_PROJECT", os.getenv("WANDB_PROJECT", "icb-sum"))
+    entity = os.getenv("EVAL_WANDB_ENTITY", os.getenv("WANDB_ENTITY"))
+    tags = [t for t in os.getenv("EVAL_WANDB_TAGS", "").split(",") if t.strip()]
+
+    run = wandb.init(project=project, entity=entity, tags=tags or None, reinit=True)
+
+    retrieval = packet.get("retrieval") if isinstance(packet.get("retrieval"), dict) else {}
+    lam = ((retrieval.get("objective") or {}) if isinstance(retrieval.get("objective"), dict) else {}).get("lambda_diversity")
+
+    verdict = None
     try:
-        wb.finish()
+        reval = evaluation.get("retrieval_eval") or {}
+        reqe = (reval.get("requirements_eval") or {}) if isinstance(reval, dict) else {}
+        decs = reqe.get("decisions") or []
+        if decs and isinstance(decs, list):
+            verdict = decs[0].get("overall_verdict")
     except Exception:
-        pass
+        verdict = None
+
+    wandb.log(
+        {
+            "run_id": packet.get("run_id"),
+            "lambda_diversity": lam,
+            "budgets_total": prechecks.get("budget_total"),
+            "budgets_used": prechecks.get("total_cost_used"),
+            "num_selected_chunks": prechecks.get("num_selected_chunks"),
+            "num_table_chunks": prechecks.get("num_table_chunks"),
+            "num_figure_chunks": prechecks.get("num_figure_chunks"),
+            "top2_cost_concentration": prechecks.get("top2_cost_concentration"),
+            "placeholder_in_anchor": prechecks.get("placeholder_in_anchor"),
+            "placeholder_in_summary": prechecks.get("placeholder_in_summary"),
+            "any_unclear_chunks": prechecks.get("any_unclear_chunks"),
+            "judge_ok_rate": sum(1 for jr in judge_runs if jr.ok) / max(1, len(judge_runs)),
+            "requirements_overall_verdict": verdict,
+        }
+    )
+    run.finish()
+
+
+def run_evaluation(
+    pipeline_output_or_dataset_entry: dict,
+    *,
+    schema: dict,
+    mode: str = "all",
+    model: str = "gpt-5.1",
+    disable_wandb: bool = False,
+) -> dict:
+    packet = export_eval_packet(pipeline_output_or_dataset_entry)
+    prechecks = _compute_prechecks(packet)
+
+    chunks = packet.get("chunks") if isinstance(packet.get("chunks"), list) else []
+    has_chunks = len(chunks) > 0
+    anchor = ((packet.get("anchors") or {}) if isinstance(packet.get("anchors"), dict) else {}).get("anchor_summary_text")
+    summary = ((packet.get("summarization") or {}) if isinstance(packet.get("summarization"), dict) else {}).get("summary_text")
+    has_summary = bool((isinstance(anchor, str) and anchor.strip()) or (isinstance(summary, str) and summary.strip()))
+
+    mode = (mode or "all").strip().lower()
+    if mode not in {"requirements", "retrieval", "all"}:
+        mode = "all"
+
+    judge_runs: list[JudgeRun] = []
+    judge_outputs: dict[str, Any] = {}
+
+    evaluation: dict[str, Any] = {
+        "judge_runs": [],
+        "retrieval_eval": None,
+        "summary_eval": None,
+        "decision_eval": None,
+    }
+
+    # Always produce retrieval_eval (schema requires it).
+    if has_chunks:
+        jc = JudgeClient(timeout_s=float(os.getenv("EVAL_OPENAI_TIMEOUT_S", "60")))
+        ret_prompt = build_retrieval_prompt(packet, prechecks)
+        ret_out, jr = jc.judge_json(name="retrieval_eval", model=model, system_prompt=SYSTEM_PROMPT, user_prompt=ret_prompt, temperature=0.1)
+        judge_runs.append(jr)
+        judge_outputs["retrieval_eval"] = ret_out
+        if isinstance(ret_out, dict) and isinstance(ret_out.get("retrieval_eval"), dict):
+            evaluation["retrieval_eval"] = ret_out["retrieval_eval"]
+        else:
+            evaluation["retrieval_eval"] = {}
+    else:
+        evaluation["retrieval_eval"] = _default_retrieval_eval(packet)
+        judge_runs.append(JudgeRun(name="retrieval_eval", model=model, ok=True, repaired=False, latency_s=0.0, usage={}, error=None))
+        judge_outputs["retrieval_eval"] = {"retrieval_eval": evaluation["retrieval_eval"]}
+
+    # Only run summary/decision eval if summary exists and mode == all
+    if has_chunks and has_summary and mode == "all":
+        jc = jc if "jc" in locals() else JudgeClient(timeout_s=float(os.getenv("EVAL_OPENAI_TIMEOUT_S", "60")))
+        sum_prompt = build_summary_prompt(packet, prechecks)
+        sum_out, jr2 = jc.judge_json(name="summary_decision_eval", model=model, system_prompt=SYSTEM_PROMPT, user_prompt=sum_prompt, temperature=0.1)
+        judge_runs.append(jr2)
+        judge_outputs["summary_decision_eval"] = sum_out
+        if isinstance(sum_out, dict):
+            evaluation["summary_eval"] = sum_out.get("summary_eval")
+            evaluation["decision_eval"] = sum_out.get("decision_eval")
+
+    # Conform judge_runs to your schema's required fields
+    evaluation["judge_runs"] = [
+        _jr_to_schema(jr, output_obj=judge_outputs.get(jr.name))
+        for jr in judge_runs
+    ]
+
+    bundle = {
+        "schema_version": _schema_version(schema),
+        "kind": "eval_bundle",
+        "run_id": packet.get("run_id"),
+        "created_at": _dt.datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+        "evaluation": evaluation,
+    }
+
+    if _maybe_wandb_enabled(disable_wandb):
+        _wandb_log(packet, prechecks, judge_runs, evaluation)
+
+    return bundle

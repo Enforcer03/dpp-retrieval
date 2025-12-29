@@ -1,3 +1,4 @@
+# eval_engine/io.py
 from __future__ import annotations
 
 import json
@@ -5,34 +6,54 @@ import os
 from pathlib import Path
 from typing import Any
 
-from .utils import ensure_dir
 
-
-def load_json(path: str | Path) -> Any:
+def load_json(path: str) -> Any:
     p = Path(path)
-    return json.loads(p.read_text(encoding="utf-8"))
+    raw = p.read_text(encoding="utf-8", errors="ignore").strip()
+    if not raw:
+        return {}
+
+    try:
+        return json.loads(raw)
+    except Exception:
+        items: list[Any] = []
+        for line in raw.splitlines():
+            line = line.strip()
+            if not line:
+                continue
+            try:
+                items.append(json.loads(line))
+            except Exception:
+                continue
+        if len(items) == 1:
+            return items[0]
+        if items:
+            return {"entries": items}
+        return {}
 
 
-def save_json(path: str | Path, obj: Any) -> None:
+def save_json(path: str, obj: Any) -> None:
     p = Path(path)
-    ensure_dir(p.parent)
-    p.write_text(json.dumps(obj, ensure_ascii=False, separators=(",", ":"), sort_keys=True), encoding="utf-8")
+    p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
 
-def load_schema(schema_path: str | Path | None = None) -> dict:
-    path = schema_path or os.getenv("EVAL_SCHEMA_PATH") or os.getenv("ICBSUM_EVAL_SCHEMA_PATH")
-    if path:
-        return load_json(path)
-    for name in ("eval_schema.json", "schema.json"):
-        p = Path(name)
-        if p.exists():
-            return load_json(p)
+def load_schema() -> dict:
+    envp = os.getenv("EVAL_SCHEMA_PATH")
+    candidates = [envp] if envp else []
+    candidates.append(str(Path.cwd() / "eval_schema.json"))
+    for c in candidates:
+        if not c:
+            continue
+        p = Path(c)
+        if p.exists() and p.is_file():
+            return json.loads(p.read_text(encoding="utf-8", errors="ignore"))
     raise FileNotFoundError("Eval schema not found. Set EVAL_SCHEMA_PATH or place eval_schema.json in cwd.")
 
 
-def validate_against_schema(obj: Any, schema: dict) -> None:
+def validate_against_schema(bundle: dict, schema: dict) -> None:
     try:
         import jsonschema  # type: ignore
     except Exception as e:
-        raise RuntimeError(f"jsonschema not available: {e}")
-    jsonschema.validate(instance=obj, schema=schema)
+        raise RuntimeError("jsonschema is required for validation") from e
+    jsonschema.validate(instance=bundle, schema=schema)

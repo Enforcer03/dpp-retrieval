@@ -1,0 +1,60 @@
+{
+  "id": "ddpm_ho2020",
+  "parent": { "path": "ddpm.pdf" },
+  "task": {
+    "decisions": [
+      "Should we adopt DDPM (Ho et al., 2020) as the baseline generative model for our image synthesis work, given quality vs compute/sampling tradeoffs?"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "State the core technical contribution of DDPM: what the forward diffusion process is, what the learned reverse denoising process is, and what this framework enables compared to prior generative models."
+    },
+    {
+      "id": "R2",
+      "description": "Specify the training objective clearly (variational bound / simplified loss) and what the model predicts (e.g., noise/mean/variance), including how timestep conditioning is used."
+    },
+    {
+      "id": "R3",
+      "description": "Describe the sampling procedure end-to-end (reverse diffusion steps): how samples are generated, the number of steps used, and any variance schedule choices that materially affect quality."
+    },
+    {
+      "id": "R4",
+      "description": "Report the main quantitative results from the paper for image generation (e.g., FID / Inception Score and/or NLL/bits-per-dim where applicable) and identify which datasets/benchmarks they are on."
+    },
+    {
+      "id": "R5",
+      "description": "Provide explicit comparisons against key baselines cited in the paper (GANs/flows/autoregressive as applicable): what baselines, what metrics, and whether DDPM is better/worse."
+    },
+    {
+      "id": "R6",
+      "description": "Capture the model/architecture family and any key implementation details needed to reproduce at a high level (e.g., U-Net style, timestep embeddings, data resolution, conditioning choices)."
+    },
+    {
+      "id": "R7",
+      "description": "Include the most decision-relevant ablation/sensitivity findings (e.g., effect of variance schedule, parameterization choices, number of steps) and what they imply for implementation choices."
+    },
+    {
+      "id": "R8",
+      "description": "State compute/speed implications: training cost signals (if given), sampling cost/latency implications (slow sampling due to many steps), and whether any faster variants/approximations are discussed."
+    },
+    {
+      "id": "R9",
+      "description": "Summarize qualitative evidence (sample quality, interpolations, failure modes) and tie it to the decision (e.g., does it meet perceived fidelity/diversity requirements?)."
+    },
+    {
+      "id": "R10",
+      "description": "If the paper discusses diffusion-as-compression/progressive coding, extract the key claim/algorithmic idea and any quantitative or qualitative tradeoff evidence."
+    },
+    {
+      "id": "R11",
+      "description": "List limitations and risks called out or implied by the evidence (e.g., slow sampling, potential undercoverage of certain details, reliance on schedules/steps), and flag missing figures/tables if relevant."
+    },
+    {
+      "id": "R12",
+      "description": "Provide a concrete go/no-go recommendation with next steps (e.g., implement baseline, choose schedule/steps, evaluate on target dataset/metrics), grounded in the retrieved evidence."
+    }
+  ],
+  "notes": {}
+}

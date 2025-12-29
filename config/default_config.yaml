@@ -2,13 +2,25 @@ paths:
   work_dir: output
   cache_dir: output/cache
 
+# NEW (minimal): controls query-extension anchor used for retrieval
+anchor:
+  enabled: true
+  max_chars: 1400
+
 extract:
   mode: auto            # native | ocr | auto
-  dpi: 200
+  dpi: 300
   keep_page_renders: true
   keep_crops: true
   caption_search_px: 48
   max_text_chunk_tokens: 280
+  max_workers: 4
+  max_retries: 6
+  backoff_base_s: 1.0
+  backoff_max_s: 20.0
+  vision_max_side: 1400
+  vision_jpeg_quality: 85
+  use_layout_aware: true
   ocr:
     enabled: false
     engine: tesseract   # tesseract | easyocr
@@ -19,27 +31,27 @@ extract:
     on_figures: true
 
 embed:
-  backend: hash          # hf_siglip | hf_clip | hash
-  model_name: google/siglip-so400m-patch14-384
-  device: cpu
-  batch_size: 8
-  dim: 256
+  backend: hf_clip
+  model_name: openai/clip-vit-base-patch32
+  device: cuda
+  batch_size: 32
+  dim: 0   # <= 0 means "auto-infer"
 
 retrieval:
-  top_pages: 6
-  top_units_bm25: 80
-  top_units_dense: 80
+  top_pages: 8
+  top_units_bm25: 90
+  top_units_dense: 110
   rrf_k: 60
-  unit_image_weight: 0.8
-  table_boost: 0.25
-  figure_boost: 0.25
-  min_table_candidates: 3
-  min_figure_candidates: 3
+  unit_image_weight: 1.15
+  table_boost: 0.75
+  figure_boost: 0.75
+  min_table_candidates: 10
+  min_figure_candidates: 10
 
 selection:
+  alpha_visual: 0.35
+  redundancy_beta: 0.1
   budget_tokens: 25000
-  alpha_visual: 0.2
-  redundancy_beta: 0.35
   rel_weight: 1.0
   coverage_weight: 0.6
   min_gain: 1e-6
@@ -88,11 +100,11 @@ summarization:
   max_chars_per_chunk: 1200
 
 llm_extraction:
-  enabled: true
+  enabled: false
   model: gpt-5.1
   temperature: 0.2
   wrap_unit_tags: true
-  max_units: 40
+  max_units: 300
   max_chars_per_input: 12000
   save_raw: true
 
