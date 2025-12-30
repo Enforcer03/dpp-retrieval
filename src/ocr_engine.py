@@ -44,6 +44,6 @@ class OCREngine:
             b64jpeg=b64jpeg,
             temperature=self.temperature,
             detail="high",
-            max_tokens=2200,
+            max_tokens=22000,
         )
         return OCRResult(text=(res.text or "").strip(), model=res.model)

@@ -97,12 +97,15 @@ class EvidenceBuilder:
             fig_els = [e for e in els if _visual_kind(e) == "figure"]
             tab_els = [e for e in els if _visual_kind(e) == "table"]
 
-            text_types = {"text", "header", "footer", "paragraph", "list", "table", "table_text", "heading", "equation", "code", "abstract", "reference"}
+            # ============================================================
+            # FIX 1: Make text filtering PERMISSIVE
+            # Include ALL elements with text, except page images
+            # ============================================================
+            exclude_types = {"page_image", "page"}
             texts = [
                 e
                 for e in els
-                if getattr(e, "text", None)
-                and (_norm_type(e.type) in text_types or "table" in _norm_type(e.type))
+                if getattr(e, "text", None) and _norm_type(e.type) not in exclude_types
             ]
 
             used_ids: set[str] = set()
@@ -115,7 +118,11 @@ class EvidenceBuilder:
                 bbox = el.bbox
                 if cap is not None:
                     cap_text = cap.text or ""
-                    used_ids.add(cap.id)
+                    # ============================================================
+                    # FIX 2: Don't exclude caption text from text chunks
+                    # Let captions appear in BOTH visual units AND text chunks
+                    # ============================================================
+                    # used_ids.add(cap.id)  # COMMENTED OUT
                     cap_ids.append(cap.id)
                     bbox = bbox_union(bbox, cap.bbox)
 
@@ -149,6 +156,15 @@ class EvidenceBuilder:
                 _add_visual_unit(el, kind="figure")
 
             usable_texts = [e for e in texts if e.id not in used_ids]
+            
+            # ============================================================
+            # FIX 3: Add visibility logging for dropped elements
+            # ============================================================
+            dropped_count = len(texts) - len(usable_texts)
+            if dropped_count > 0:
+                log.debug("page=%s total_text_elements=%d usable=%d dropped=%d (reused_in_visual_units)", 
+                          pno, len(texts), len(usable_texts), dropped_count)
+            
             buf: list[Element] = []
             buf_texts: list[str] = []
             buf_bbox = None

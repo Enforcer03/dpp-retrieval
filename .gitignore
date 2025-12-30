@@ -9,6 +9,9 @@ src/__pycache__/
 *.so
 output/extractions/
 
+archive/
+
+
 # Distribution / packaging
 build/
 dist/

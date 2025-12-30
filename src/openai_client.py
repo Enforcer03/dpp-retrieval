@@ -25,7 +25,13 @@ class OpenAIChatClient:
             raise RuntimeError("OPENAI_API_KEY not found (env/.env).")
         self.client = OpenAI(api_key=api_key, timeout=timeout_s)
 
-    def chat(self, model: str, system: str, user: str, temperature: float = 0.0, max_tokens: int = 1800) -> ChatResult:
+    def chat(self, model: str, system: str, user: str, temperature: float = 0.0, max_tokens: int = 16000) -> ChatResult:
+        """
+        Standard chat completion.
+
+        Note: Default max_tokens=16000 is safe for gpt-4o (max output: 16,384).
+        Adjust if using different models with lower limits.
+        """
         resp = self.client.chat.completions.create(
             model=model,
             messages=[
@@ -50,8 +56,14 @@ class OpenAIChatClient:
         b64jpeg: str,
         temperature: float = 0.0,
         detail: str = "high",
-        max_tokens: int = 2200,
+        max_tokens: int = 16000,
     ) -> ChatResult:
+        """
+        Single-image vision completion.
+
+        Note: Default max_tokens=16000 is safe for gpt-4o (max output: 16,384).
+        Caller typically overrides with more conservative values (e.g., 3500).
+        """
         resp = self.client.chat.completions.create(
             model=model,
             messages=[
@@ -84,7 +96,7 @@ class OpenAIChatClient:
         b64jpegs: list[str],
         temperature: float = 0.0,
         detail: str = "high",
-        max_tokens: int = 4000,
+        max_tokens: int = 16000,
     ) -> ChatResult:
         """
         Send multiple images in a single Vision API call.
@@ -95,10 +107,13 @@ class OpenAIChatClient:
             b64jpegs: List of base64-encoded JPEG images
             temperature: Sampling temperature
             detail: Vision detail level ("high" or "low")
-            max_tokens: Max output tokens (increased for multi-page responses)
+            max_tokens: Max output tokens (default 16000 for gpt-4o safety)
 
         Returns:
             ChatResult with concatenated text from all pages
+
+        Note: gpt-4o has max_output_tokens=16,384. Caller should pass appropriate
+        max_tokens based on batch size (e.g., 3500 * num_pages, capped at 16000).
         """
         if not b64jpegs:
             return ChatResult(text="", model=model, usage={})

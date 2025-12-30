@@ -18,6 +18,12 @@ class PathsConfig:
 
 
 @dataclass(frozen=True)
+class AnchorConfig:
+    enabled: bool
+    max_chars: int
+
+
+@dataclass(frozen=True)
 class OcrConfig:
     enabled: bool
     engine: str
@@ -33,10 +39,17 @@ class ExtractConfig:
     mode: str
     dpi: int
     keep_page_renders: bool
-    keep_crops: bool
-    caption_search_px: int
+    vision_model: str
+    timeout_s: int
+    max_workers: int
+    max_retries: int
+    retry_wait_s: float
+    batch_size: int
+    max_side: int
+    jpeg_quality: int
+    use_layout_aware: bool
     max_text_chunk_tokens: int
-    vision_batch_size: int
+    caption_search_px: int
     ocr: OcrConfig
 
 
@@ -75,13 +88,11 @@ class SelectionConfig:
 
 @dataclass(frozen=True)
 class OpenAIConfig:
-    enabled: bool
     model: str
-    timeout_s: int
     temperature: float
 
 
-@dataclass(frozen=True)
+@dataclass(frozen=False)
 class SummarizationConfig:
     enabled: bool
     required_sections: list[str]
@@ -89,21 +100,10 @@ class SummarizationConfig:
 
 
 @dataclass(frozen=True)
-class LLMExtractionConfig:
-    enabled: bool
-    model: str
-    temperature: float
-    wrap_unit_tags: bool
-    max_units: int
-    max_chars_per_input: int
-    save_raw: bool
-
-
-@dataclass(frozen=True)
 class WandbConfig:
     enabled: bool
     project: str
-    entity: str | None
+    entity: str
     tags: list[str]
 
 
@@ -124,13 +124,13 @@ class LoggingConfig:
 @dataclass(frozen=True)
 class AppConfig:
     paths: PathsConfig
+    anchor: AnchorConfig
     extract: ExtractConfig
     embed: EmbedConfig
     retrieval: RetrievalConfig
     selection: SelectionConfig
     openai: OpenAIConfig
     summarization: SummarizationConfig
-    llm_extraction: LLMExtractionConfig
     wandb: WandbConfig
     output: OutputConfig
     logging: LoggingConfig
@@ -148,13 +148,13 @@ def load_config(path: str | Path) -> AppConfig:
     data = yaml.safe_load(cfg_path.read_text())
 
     paths = data["paths"]
+    anchor = data["anchor"]
     extract = data["extract"]
     embed = data["embed"]
     retrieval = data["retrieval"]
     selection = data["selection"]
     openai_cfg = data.get("openai", {}) or {}
     summ_cfg = data.get("summarization", {}) or {}
-    llm_ext = data.get("llm_extraction", {}) or {}
     wb = data.get("wandb", {}) or {}
     output = data["output"]
     logging = data["logging"]
@@ -163,21 +163,32 @@ def load_config(path: str | Path) -> AppConfig:
 
     return AppConfig(
         paths=PathsConfig(work_dir=_as_path(paths["work_dir"]), cache_dir=_as_path(paths["cache_dir"])),
+        anchor=AnchorConfig(
+            enabled=bool(anchor.get("enabled", True)),
+            max_chars=int(anchor.get("max_chars", 1400)),
+        ),
         extract=ExtractConfig(
             mode=str(extract.get("mode", "auto")),
             dpi=int(extract["dpi"]),
-            keep_page_renders=bool(extract["keep_page_renders"]),
-            keep_crops=bool(extract["keep_crops"]),
-            caption_search_px=int(extract["caption_search_px"]),
-            max_text_chunk_tokens=int(extract["max_text_chunk_tokens"]),
-            vision_batch_size=int(extract.get("vision_batch_size", 8)),
+            keep_page_renders=bool(extract.get("keep_page_renders", True)),
+            vision_model=str(extract.get("vision_model", "gpt-4o")),
+            timeout_s=int(extract.get("timeout_s", 360)),
+            max_workers=int(extract.get("max_workers", 2)),
+            max_retries=int(extract.get("max_retries", 6)),
+            retry_wait_s=float(extract.get("retry_wait_s", 300.0)),
+            batch_size=int(extract.get("batch_size", 3)),
+            max_side=int(extract.get("max_side", 1400)),
+            jpeg_quality=int(extract.get("jpeg_quality", 85)),
+            use_layout_aware=bool(extract.get("use_layout_aware", True)),
+            max_text_chunk_tokens=int(extract.get("max_text_chunk_tokens", 2000)),
+            caption_search_px=int(extract.get("caption_search_px", 100)),
             ocr=OcrConfig(
                 enabled=bool(ocr.get("enabled", False)),
                 engine=str(ocr.get("engine", "tesseract")),
                 lang=str(ocr.get("lang", "eng")),
-                min_conf=int(ocr.get("min_conf", 45)),
-                psm=int(ocr.get("psm", 6)),
-                on_pages=bool(ocr.get("on_pages", True)),
+                min_conf=int(ocr.get("min_conf", 50)),
+                psm=int(ocr.get("psm", 3)),
+                on_pages=bool(ocr.get("on_pages", False)),
                 on_figures=bool(ocr.get("on_figures", True)),
             ),
         ),
@@ -186,7 +197,7 @@ def load_config(path: str | Path) -> AppConfig:
             model_name=str(embed["model_name"]),
             device=str(embed["device"]),
             batch_size=int(embed["batch_size"]),
-            dim=int(embed["dim"]),
+            dim=int(embed.get("dim", 0)),
         ),
         retrieval=RetrievalConfig(
             top_pages=int(retrieval["top_pages"]),
@@ -205,40 +216,29 @@ def load_config(path: str | Path) -> AppConfig:
             redundancy_beta=float(selection["redundancy_beta"]),
             rel_weight=float(selection["rel_weight"]),
             coverage_weight=float(selection["coverage_weight"]),
-            min_gain=float(selection["min_gain"]),
+            min_gain=float(selection.get("min_gain", 0.0)),
             stopwords=list(selection.get("stopwords", [])),
         ),
         openai=OpenAIConfig(
-            enabled=bool(openai_cfg.get("enabled", False)),
-            model=str(openai_cfg.get("model", "gpt-4.1-mini")),
-            timeout_s=int(openai_cfg.get("timeout_s", 60)),
+            model=str(openai_cfg.get("model", "gpt-4o")),
             temperature=float(openai_cfg.get("temperature", 0.1)),
         ),
         summarization=SummarizationConfig(
             enabled=bool(summ_cfg.get("enabled", True)),
             required_sections=list(summ_cfg.get("required_sections", ["Overview", "Key Findings", "Evidence", "Risks", "Next Steps"])),
-            max_chars_per_chunk=int(summ_cfg.get("max_chars_per_chunk", 1200)),
-        ),
-        llm_extraction=LLMExtractionConfig(
-            enabled=bool(llm_ext.get("enabled", False)),
-            model=str(llm_ext.get("model", "gpt-4.1-mini")),
-            temperature=float(llm_ext.get("temperature", 0.0)),
-            wrap_unit_tags=bool(llm_ext.get("wrap_unit_tags", True)),
-            max_units=int(llm_ext.get("max_units", 40)),
-            max_chars_per_input=int(llm_ext.get("max_chars_per_input", 12000)),
-            save_raw=bool(llm_ext.get("save_raw", True)),
+            max_chars_per_chunk=int(summ_cfg.get("max_chars_per_chunk", 1500)),
         ),
         wandb=WandbConfig(
             enabled=bool(wb.get("enabled", False)),
             project=str(wb.get("project", "icb-sum")),
-            entity=wb.get("entity") if isinstance(wb.get("entity"), str) else None,
-            tags=list(wb.get("tags", [])) if isinstance(wb.get("tags"), list) else [],
+            entity=str(wb.get("entity", "")),
+            tags=list(wb.get("tags", [])),
         ),
         output=OutputConfig(
             save_context_json=bool(output.get("save_context_json", True)),
             save_highlighted_pdf=bool(output.get("save_highlighted_pdf", True)),
-            save_run_output_json=bool(output.get("save_run_output_json", True)),
-            run_output_filename=str(output.get("run_output_filename", "pipeline_output.json")),
+            save_run_output_json=bool(output.get("save_run_output_json", False)),
+            run_output_filename=str(output.get("run_output_filename", "run_output.json")),
         ),
         logging=LoggingConfig(level=str(logging["level"]), file=_as_path(logging["file"])),
     )

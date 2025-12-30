@@ -2,33 +2,32 @@ paths:
   work_dir: output
   cache_dir: output/cache
 
-# NEW (minimal): controls query-extension anchor used for retrieval
 anchor:
   enabled: true
   max_chars: 1400
 
 extract:
-  mode: auto            # native | ocr | auto
+  mode: auto
   dpi: 300
   keep_page_renders: true
-  keep_crops: true
-  caption_search_px: 48
-  max_text_chunk_tokens: 280
-  vision_batch_size: 8  # pages per Vision API batch call (1-10 recommended)
-  max_workers: 4
+  vision_model: gpt-5.1
+  timeout_s: 360
+  max_workers: 2
   max_retries: 6
-  backoff_base_s: 1.0
-  backoff_max_s: 20.0
-  vision_max_side: 1400
-  vision_jpeg_quality: 85
+  retry_wait_s: 300.0
+  batch_size: 3
+  max_side: 1400
+  jpeg_quality: 85
   use_layout_aware: true
+  max_text_chunk_tokens: 2000
+  caption_search_px: 100
   ocr:
     enabled: false
-    engine: tesseract   # tesseract | easyocr
+    engine: tesseract
     lang: eng
-    min_conf: 45
-    psm: 6
-    on_pages: true
+    min_conf: 50
+    psm: 3
+    on_pages: false
     on_figures: true
 
 embed:
@@ -36,10 +35,10 @@ embed:
   model_name: openai/clip-vit-base-patch32
   device: cuda
   batch_size: 32
-  dim: 0   # <= 0 means "auto-infer"
+  dim: 0
 
 retrieval:
-  top_pages: 8
+  top_pages: 100
   top_units_bm25: 90
   top_units_dense: 110
   rrf_k: 60
@@ -50,76 +49,39 @@ retrieval:
   min_figure_candidates: 10
 
 selection:
+  budget_tokens: 25000
   alpha_visual: 0.35
   redundancy_beta: 0.1
-  budget_tokens: 25000
   rel_weight: 1.0
   coverage_weight: 0.6
-  min_gain: 1e-6
-  stopwords:
-    - the
-    - a
-    - an
-    - and
-    - or
-    - of
-    - to
-    - in
-    - for
-    - on
-    - with
-    - by
-    - at
-    - from
-    - as
-    - is
-    - are
-    - was
-    - were
-    - be
-    - been
-    - being
-    - that
-    - this
-    - these
-    - those
+  min_gain: 0.0
+  stopwords: []
 
 openai:
-  enabled: true
   model: gpt-5.1
-  timeout_s: 60
   temperature: 0.1
 
 summarization:
   enabled: true
+  max_chars_per_chunk: 1500
   required_sections:
     - Overview
     - Key Findings
     - Evidence
     - Risks
     - Next Steps
-  max_chars_per_chunk: 1200
-
-llm_extraction:
-  enabled: false
-  model: gpt-5.1
-  temperature: 0.2
-  wrap_unit_tags: true
-  max_units: 300
-  max_chars_per_input: 12000
-  save_raw: true
 
 wandb:
   enabled: true
   project: icb-sum
-  entity: null
+  entity: ""
   tags: []
 
 output:
   save_context_json: true
   save_highlighted_pdf: true
-  save_run_output_json: true
-  run_output_filename: pipeline_output.json
+  save_run_output_json: false
+  run_output_filename: run_output.json
 
 logging:
   level: INFO

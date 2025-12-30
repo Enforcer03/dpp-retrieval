@@ -20,7 +20,6 @@ from src.ocr_engine import OCREngine
 from src.openai_client import OpenAIChatClient
 from src.pdf_highlighter import highlight_pdf
 from src.utils import ensure_dir, setup_logging, stable_id, write_json
-from src.unit_extractor import extract_units
 from src.wandb_logger import wandb_finish, wandb_init, wandb_log
 
 log = logging.getLogger(__name__)
@@ -141,6 +140,40 @@ def _save_embeddings_npz(
     return out_path
 
 
+class ConfigWithCacheOverride:
+    """
+    Wrapper that adds cache.force_recompute to an existing config.
+    Used to override cache behavior via command-line flags.
+    """
+    def __init__(self, base_config, force_recompute: bool = False):
+        self._base = base_config
+        self._force_recompute = force_recompute
+
+    def __getattr__(self, name):
+        """Delegate all attribute access to base config."""
+        return getattr(self._base, name)
+
+    def get(self, dotted_key, default=None):
+        """Handle dotted key access for cache.* settings."""
+        if dotted_key == "cache.force_recompute":
+            return self._force_recompute
+        if dotted_key == "cache.use_cached_extraction":
+            return not self._force_recompute
+        # Delegate to base config if it has .get()
+        if hasattr(self._base, "get"):
+            return self._base.get(dotted_key, default)
+        return default
+
+    @property
+    def cache(self):
+        """Provide cache attribute for attribute-style access."""
+        class CacheConfig:
+            def __init__(self, force_recompute):
+                self.force_recompute = force_recompute
+                self.use_cached_extraction = not force_recompute
+        return CacheConfig(self._force_recompute)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--config", type=str, default="config/default_config.yaml")
@@ -150,9 +183,10 @@ def main() -> None:
     ap.add_argument("--required_sections", type=str, default=None)
     ap.add_argument("--run_output", type=str, default=None)
 
-    # Optional debug switches (won’t break existing configs)
+    # Optional debug switches (won't break existing configs)
     ap.add_argument("--save_embeddings", action="store_true", help="Save query/unit/page embeddings as NPZ")
     ap.add_argument("--log_level", type=str, default=None, help="Override logging level (e.g., INFO, DEBUG)")
+    ap.add_argument("--recompute", action="store_true", help="Force recompute PDF extraction (bypass cache)")
     args = ap.parse_args()
 
     cfg = load_config(args.config)
@@ -160,6 +194,11 @@ def main() -> None:
 
     if args.log_level:
         logging.getLogger().setLevel(getattr(logging, args.log_level.upper(), logging.INFO))
+
+    # Override cache settings if --recompute flag is set
+    if args.recompute:
+        cfg = ConfigWithCacheOverride(cfg, force_recompute=True)
+        log.info("Cache override: force_recompute=True (--recompute flag)")
 
     t_all0 = time.perf_counter()
 
@@ -183,12 +222,13 @@ def main() -> None:
     log.info("run.user_instruction=%s", _safe_snippet(user_instruction, 600))
     log.info("run.required_sections=%s", required_sections)
     log.info(
-        "config: extract.mode=%s ocr.enabled=%s embed.backend=%s embed.model=%s selection.budget=%s",
+        "config: extract.mode=%s ocr.enabled=%s embed.backend=%s embed.model=%s selection.budget=%s force_recompute=%s",
         cfg.extract.mode,
         cfg.extract.ocr.enabled,
         cfg.embed.backend,
         cfg.embed.model_name,
         cfg.selection.budget_tokens,
+        getattr(getattr(cfg, 'cache', None), 'force_recompute', False),
     )
 
     # ---- Anchor query extension (for retrieval) --------------------------------
@@ -197,13 +237,9 @@ def main() -> None:
     anchor_query_text = None
     anchor_query_meta = None
 
-    anchor_enabled = True
-    if hasattr(cfg, "anchor") and getattr(cfg.anchor, "enabled", None) is not None:
-        anchor_enabled = bool(cfg.anchor.enabled)
-
-    if cfg.openai.enabled and anchor_enabled:
+    if cfg.anchor.enabled:
         try:
-            llm_client_for_anchor = OpenAIChatClient(timeout_s=cfg.openai.timeout_s)
+            llm_client_for_anchor = OpenAIChatClient(timeout_s=cfg.extract.timeout_s)
             anchor_query_text, anchor_query_meta = generate_anchor_query(
                 client=llm_client_for_anchor,
                 model=cfg.openai.model,
@@ -211,7 +247,7 @@ def main() -> None:
                 query=args.query,
                 user_instruction=user_instruction,
                 required_sections=required_sections,
-                max_chars=getattr(getattr(cfg, "anchor", None), "max_chars", 1400),
+                max_chars=cfg.anchor.max_chars,
             )
             if anchor_query_text:
                 retrieval_query = (retrieval_query + "\n\n" + anchor_query_text).strip()
@@ -223,7 +259,7 @@ def main() -> None:
         except Exception as e:
             log.warning("anchor.query failed err=%s", e)
     else:
-        log.info("anchor.query skipped openai.enabled=%s anchor.enabled=%s", cfg.openai.enabled, anchor_enabled)
+        log.info("anchor.query skipped anchor.enabled=%s", cfg.anchor.enabled)
 
     ocr = None
     if cfg.extract.ocr.enabled:
@@ -527,9 +563,9 @@ def main() -> None:
     llm_client = None
 
     t_sum = None
-    if cfg.openai.enabled and cfg.summarization.enabled:
+    if cfg.summarization.enabled:
         t0 = time.perf_counter()
-        llm_client = OpenAIChatClient(timeout_s=cfg.openai.timeout_s)
+        llm_client = OpenAIChatClient(timeout_s=cfg.extract.timeout_s)
         anchor_text, anchor_meta = generate_anchor_summary(
             client=llm_client,
             model=cfg.openai.model,
@@ -547,49 +583,13 @@ def main() -> None:
         (out_dir / "anchor_summary.md").write_text(anchor_text or "", encoding="utf-8")
         log.info("output.anchor_summary path=%s", out_dir / "anchor_summary.md")
     else:
-        log.info("anchor.summary skipped openai.enabled=%s summarization.enabled=%s", cfg.openai.enabled, cfg.summarization.enabled)
+        log.info("anchor.summary skipped summarization.enabled=%s", cfg.summarization.enabled)
 
-    # ---- LLM extraction ---------------------------------------------------------
+    # ---- LLM extraction (disabled - removed from config) -----------------------
     extraction_info = None
     t_llm_extract = None
-    if cfg.openai.enabled and cfg.llm_extraction.enabled:
-        t0 = time.perf_counter()
-        llm_client = llm_client or OpenAIChatClient(timeout_s=cfg.openai.timeout_s)
-        raw, parsed = extract_units(
-            client=llm_client,
-            model=cfg.llm_extraction.model,
-            temperature=cfg.llm_extraction.temperature,
-            user_instruction=user_instruction,
-            selected_chunks=selected_chunks,
-            wrap_unit_tags=cfg.llm_extraction.wrap_unit_tags,
-            max_units=cfg.llm_extraction.max_units,
-            max_chars_per_input=cfg.llm_extraction.max_chars_per_input,
-        )
-        t_llm_extract = time.perf_counter() - t0
-
-        raw_path = out_dir / "llm_extraction_raw.txt"
-        parsed_path = out_dir / "llm_extraction_parsed.json"
-        if cfg.llm_extraction.save_raw:
-            raw_path.write_text(raw or "", encoding="utf-8")
-        write_json(parsed_path, {"units": parsed})
-        extraction_info = {
-            "enabled": True,
-            "wrap_unit_tags": bool(cfg.llm_extraction.wrap_unit_tags),
-            "raw_path": str(raw_path) if cfg.llm_extraction.save_raw else None,
-            "parsed_path": str(parsed_path),
-            "num_units": len(parsed),
-            "time_s": float(t_llm_extract) if t_llm_extract is not None else None,
-        }
-
-        log.info(
-            "llm.extraction done num_units=%d save_raw=%s time_s=%.2f parsed_path=%s",
-            len(parsed),
-            cfg.llm_extraction.save_raw,
-            t_llm_extract,
-            parsed_path,
-        )
-    else:
-        log.info("llm.extraction skipped openai.enabled=%s llm_extraction.enabled=%s", cfg.openai.enabled, cfg.llm_extraction.enabled)
+    # LLM extraction feature has been removed from config
+    log.info("llm.extraction skipped (feature disabled in config)")
 
     # ---- Save embeddings (optional, but powerful for debugging) -----------------
     cfg_save_emb = bool(getattr(getattr(cfg, "output", object()), "save_embeddings", False))
