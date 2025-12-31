@@ -1,0 +1,594 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "e3a908727085b349",
+  "created_at": "2025-12-31T08:54:08Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 14522,
+        "output_hash": "928df468b33d960bb61601f8f44fb9e8d529135f",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "a2ae4512e4877e2d",
+                        "9722d5c8edf568cd"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "a2ae4512e4877e2d",
+                          "quote": "can generate speech up to 20 times faster than the best autoregressive models."
+                        },
+                        {
+                          "chunk_id": "9722d5c8edf568cd",
+                          "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs, making it significantly faster compared to auto-regressive models."
+                        }
+                      ],
+                      "rationale": "Evidence claims up to 20× faster and significantly faster with <10 NFEs, but does not specify real production settings or directly compare to VALL-E latency, so only partially answers whether the speedup is realized in production."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "8a3f1ec1ecb12383"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "8a3f1ec1ecb12383",
+                          "quote": "Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript."
+                        },
+                        {
+                          "chunk_id": "8a3f1ec1ecb12383",
+                          "quote": "we will explore more end-to-end methods where a model would be able to take raw text with punctuation as input"
+                        }
+                      ],
+                      "rationale": "Text states Voicebox currently relies on phonemizers and forced aligners for frame-level phonetic transcripts, implying phoneme-alignment style data is needed and raw audio+text alone is not sufficient today."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No evidence discusses very long paragraph generation, voice drift, or stability of long-form outputs, so this requirement is not addressed."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "392e962194b3c42b",
+                        "c81762f38ba86854"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "392e962194b3c42b",
+                          "quote": "a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model."
+                        },
+                        {
+                          "chunk_id": "c81762f38ba86854",
+                          "quote": "Original audio vs Voicebox-generated audio ... Accuracy 1.000 ... Resynthesized audio vs Voicebox-generated audio ... Accuracy 0.704–0.907"
+                        }
+                      ],
+                      "rationale": "Paper includes a binary synthetic-speech detector with strong performance, but does not describe a general watermarking scheme or deployment guidance; partially addresses safety checks but not explicit watermark detectors requirement."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "partial",
+                      "evidence": [
+                        "a8ca5b1a0dde5a79",
+                        "0b2de8bc60ed86a7",
+                        "662857e5054c7f07",
+                        "a34d2601ab76a8e7",
+                        "6b14fea352f3d647",
+                        "a77580c2c85fd261"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "a8ca5b1a0dde5a79",
+                          "quote": "flow-matching ... enables efficient and scalable training of CNFs via a simple vector field regression loss."
+                        },
+                        {
+                          "chunk_id": "a34d2601ab76a8e7",
+                          "quote": "we clip the gradient norm to 0.2 for training stability."
+                        },
+                        {
+                          "chunk_id": "6b14fea352f3d647",
+                          "quote": "Duration-conditional Flow Matching ... WER 3.4 ... 2.7 ... lower similarity than regression baselines."
+                        }
+                      ],
+                      "rationale": "Flow matching is described as efficient and trained with standard techniques including gradient clipping, but there is no explicit discussion of divergence rates. Small-scale ablation shows flow matching underperforms regression, which is informative but not a direct stability comparison vs other methods; thus only partial coverage."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R3"
+                  ],
+                  "risks": [
+                    "Speed claims may be theoretical or benchmark-based rather than measured in a specific production deployment, leaving uncertainty about real-world 20× gains vs VALL-E.",
+                    "Reliance on phonemizers and forced aligners implies additional data and tooling complexity compared to pure raw audio+text setups.",
+                    "Lack of discussion of long-form generation behavior leaves open risk of voice drift or quality degradation on long paragraphs.",
+                    "Safety coverage focuses on a binary detector, not robust watermarking; deployment may require additional safety mechanisms.",
+                    "Flow matching stability vs other training objectives is not rigorously analyzed; small-scale underperformance suggests potential sensitivity to configuration."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Retrieval covers speed vs AR models, data requirements (phonemizer/aligner), some safety/detection, and limited training stability details. It lacks any evidence on long-form generation drift and does not explicitly tie speedups to production VALL-E deployments.",
+              "missing_requirements": [
+                "R3"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate speed and performance vs AR models and flow-matching formulation; some overlap between summary and detailed technical chunks, but also diverse aspects (architecture, safety, training).",
+              "redundant_pairs": [
+                [
+                  "a2ae4512e4877e2d",
+                  "9722d5c8edf568cd"
+                ],
+                [
+                  "e271804a4d408209",
+                  "a1acb2fee80cc7a3"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Several high-cost chunks provide core information (flow matching, architecture, safety), but some expensive references are mostly bibliographic or peripheral. Overall, key requirements are addressed but with some unnecessary overhead.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "a8ca5b1a0dde5a79",
+                  "cost": 172,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "8630634a96d2c217",
+                  "cost": 205,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "6b14fea352f3d647",
+                  "cost": 203,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "c81762f38ba86854",
+                  "cost": 178,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "8a3f1ec1ecb12383",
+                  "cost": 155,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "No evidence on long-form paragraph generation or voice drift, leaving a gap for R3.",
+              "Speed comparisons lack explicit production latency benchmarks vs VALL-E, so real-world gains are uncertain.",
+              "Safety mechanisms are limited to a classifier-based detector; no explicit watermarking scheme is described.",
+              "Flow matching stability vs other objectives is not systematically evaluated; small-scale underperformance may indicate tuning sensitivity."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 13229,
+        "output_hash": "485a15f17e3813d24488686a0d856f94b0965651",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "a2ae4512e4877e2d",
+                "quote": "can generate speech up to 20 times faster than the best autoregressive models."
+              },
+              {
+                "chunk_id": "9722d5c8edf568cd",
+                "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs"
+              },
+              {
+                "chunk_id": "e271804a4d408209",
+                "quote": "Voicebox outperforms VALL-E and achieves a new SOTA English zero-shot TTS result"
+              },
+              {
+                "chunk_id": "690dca2771908829",
+                "quote": "Voicebox yields better performance than YourTTS everywhere."
+              },
+              {
+                "chunk_id": "a8ca5b1a0dde5a79",
+                "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+              },
+              {
+                "chunk_id": "cd26777505f29aab",
+                "quote": "Voicebox represents a breakthrough in generative modeling for speech."
+              },
+              {
+                "chunk_id": "56f8d3ad2db2cf33",
+                "quote": "VALL-E [Wang et al., 2023] is most related to Voicebox."
+              },
+              {
+                "chunk_id": "6b14fea352f3d647",
+                "quote": "Duration-conditional Regression    | 2.7 | 0.545 | 0.591"
+              },
+              {
+                "chunk_id": "8630634a96d2c217",
+                "quote": "The audio model has 24 layers, 16 attention heads, 1024/4096 embedding/feed-forward"
+              },
+              {
+                "chunk_id": "436d0f3d82b5a00e",
+                "quote": "Fréchet distance is a commonly used metric for assessing quality in image generation"
+              },
+              {
+                "chunk_id": "392e962194b3c42b",
+                "quote": "a binary classification model is able to consistently distinguish between real world speech and that which is generated"
+              },
+              {
+                "chunk_id": "8a3f1ec1ecb12383",
+                "quote": "Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R1: The paper claims Voicebox can be up to 20× faster than the best autoregressive models and that high quality is achieved with <10 NFEs, but it does not provide a direct, production-style latency comparison specifically against VALL-E; only relative speed claims vs generic AR baselines are grounded.",
+                "confidence": 0.7,
+                "evidence": [
+                  "a2ae4512e4877e2d",
+                  "9722d5c8edf568cd",
+                  "e271804a4d408209",
+                  "a1acb2fee80cc7a3"
+                ],
+                "notes": "Chunk a2ae4512e4877e2d states Voicebox can \"generate speech up to 20 times faster than the best autoregressive models.\" Chunk 9722d5c8edf568cd notes very high quality with <10 NFEs, implying speed. However, there is no explicit wall-clock or production deployment comparison to VALL-E; VALL-E is only compared on WER/similarity, not latency. Thus we can say it is claimed to be much faster than AR models in general, but not specifically demonstrated vs VALL-E in a real production setting."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R2: Voicebox requires phonemizers and forced aligners to produce frame-level phonetic transcripts; it does not train purely from raw audio+text, and the authors explicitly mention this dependency and future work to remove it.",
+                "confidence": 0.95,
+                "evidence": [
+                  "8a3f1ec1ecb12383"
+                ],
+                "notes": "Chunk 8a3f1ec1ecb12383 states \"Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript\" and discusses limitations of existing phonemizers, plus future exploration of end-to-end methods that would eliminate this need. This directly answers that expensive phoneme-alignment style data/tools are currently required; you cannot just throw raw audio+text at it in its present form."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R3: The provided text does not report any evaluation of very long paragraph generation or describe voice drift/instability over long generations, so this behavior is unknown from the evidence.",
+                "confidence": 0.1,
+                "evidence": [
+                  "a34d2601ab76a8e7",
+                  "f65472bf5ec37b32"
+                ],
+                "notes": "Chunk a34d2601ab76a8e7 mentions training audio length capped at 1,600 frames and random chunking, but not long-form synthesis behavior. Chunk f65472bf5ec37b32 discusses truncating target sequences to 4 seconds for a study. No chunk discusses perceptual drift or weirdness over very long paragraphs, so we cannot answer this from the paper."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R4: The paper includes a binary classifier for synthetic speech detection but does not mention any watermarking mechanism; safety relies on a detector rather than built-in watermarks, so watermark detectors are not included.",
+                "confidence": 0.9,
+                "evidence": [
+                  "392e962194b3c42b",
+                  "c81762f38ba86854"
+                ],
+                "notes": "Chunk 392e962194b3c42b notes they \"show that a binary classification model is able to consistently distinguish\" real vs generated speech. Chunk c81762f38ba86854 provides detection metrics. There is no mention of watermarking or watermark detectors; only a classifier-based detector is described. Thus, any watermarking/safety checks beyond this classifier would need to be built separately."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R5: Training stability is addressed indirectly: the authors use gradient norm clipping for training stability and report successful large-scale training, but an ablation shows duration-conditional flow matching underperforms simple regression in a 1K-hour setup; they do not report frequent divergence, so stability appears manageable but not clearly superior to other methods.",
+                "confidence": 0.6,
+                "evidence": [
+                  "a34d2601ab76a8e7",
+                  "6b14fea352f3d647",
+                  "a77580c2c85fd261"
+                ],
+                "notes": "Chunk a34d2601ab76a8e7 mentions \"we clip the gradient norm to 0.2 for training stability,\" implying stability concerns but also that training is controllable. Chunks a77580c2c85fd261 and 6b14fea352f3d647 show that in a reduced 1K-hour English setup, duration-conditional flow matching performs worse than regression, but they do not mention divergence or failure. There is no explicit claim that flow matching is more or less stable than other objectives; only that it works at scale with some stabilization techniques. So we can say it is trainable and not reported as unstable, but we cannot claim superior stability over existing methods."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "a2ae4512e4877e2d",
+                  "9722d5c8edf568cd"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "a2ae4512e4877e2d",
+                    "quote": "can generate speech up to 20 times faster than the best autoregressive models."
+                  },
+                  {
+                    "chunk_id": "9722d5c8edf568cd",
+                    "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs, making it significantly faster compared to auto-regressive models."
+                  }
+                ],
+                "rationale": "Evidence claims up to 20× faster and significantly faster with <10 NFEs, but does not specify real production settings or directly compare to VALL-E latency, so only partially answers whether the speedup is realized in production."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "8a3f1ec1ecb12383"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "8a3f1ec1ecb12383",
+                    "quote": "Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript."
+                  },
+                  {
+                    "chunk_id": "8a3f1ec1ecb12383",
+                    "quote": "we will explore more end-to-end methods where a model would be able to take raw text with punctuation as input"
+                  }
+                ],
+                "rationale": "Text states Voicebox currently relies on phonemizers and forced aligners for frame-level phonetic transcripts, implying phoneme-alignment style data is needed and raw audio+text alone is not sufficient today."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No evidence discusses very long paragraph generation, voice drift, or stability of long-form outputs, so this requirement is not addressed."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "392e962194b3c42b",
+                  "c81762f38ba86854"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "392e962194b3c42b",
+                    "quote": "a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model."
+                  },
+                  {
+                    "chunk_id": "c81762f38ba86854",
+                    "quote": "Original audio vs Voicebox-generated audio ... Accuracy 1.000 ... Resynthesized audio vs Voicebox-generated audio ... Accuracy 0.704–0.907"
+                  }
+                ],
+                "rationale": "Paper includes a binary synthetic-speech detector with strong performance, but does not describe a general watermarking scheme or deployment guidance; partially addresses safety checks but not explicit watermark detectors requirement."
+              },
+              {
+                "id": "R5",
+                "status": "partial",
+                "evidence": [
+                  "a8ca5b1a0dde5a79",
+                  "0b2de8bc60ed86a7",
+                  "662857e5054c7f07",
+                  "a34d2601ab76a8e7",
+                  "6b14fea352f3d647",
+                  "a77580c2c85fd261"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "a8ca5b1a0dde5a79",
+                    "quote": "flow-matching ... enables efficient and scalable training of CNFs via a simple vector field regression loss."
+                  },
+                  {
+                    "chunk_id": "a34d2601ab76a8e7",
+                    "quote": "we clip the gradient norm to 0.2 for training stability."
+                  },
+                  {
+                    "chunk_id": "6b14fea352f3d647",
+                    "quote": "Duration-conditional Flow Matching ... WER 3.4 ... 2.7 ... lower similarity than regression baselines."
+                  }
+                ],
+                "rationale": "Flow matching is described as efficient and trained with standard techniques including gradient clipping, but there is no explicit discussion of divergence rates. Small-scale ablation shows flow matching underperforms regression, which is informative but not a direct stability comparison vs other methods; thus only partial coverage."
+              }
+            ],
+            "missing_requirements": [
+              "R3"
+            ],
+            "risks": [
+              "Speed claims may be theoretical or benchmark-based rather than measured in a specific production deployment, leaving uncertainty about real-world 20× gains vs VALL-E.",
+              "Reliance on phonemizers and forced aligners implies additional data and tooling complexity compared to pure raw audio+text setups.",
+              "Lack of discussion of long-form generation behavior leaves open risk of voice drift or quality degradation on long paragraphs.",
+              "Safety coverage focuses on a binary detector, not robust watermarking; deployment may require additional safety mechanisms.",
+              "Flow matching stability vs other training objectives is not rigorously analyzed; small-scale underperformance suggests potential sensitivity to configuration."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Retrieval covers speed vs AR models, data requirements (phonemizer/aligner), some safety/detection, and limited training stability details. It lacks any evidence on long-form generation drift and does not explicitly tie speedups to production VALL-E deployments.",
+        "missing_requirements": [
+          "R3"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate speed and performance vs AR models and flow-matching formulation; some overlap between summary and detailed technical chunks, but also diverse aspects (architecture, safety, training).",
+        "redundant_pairs": [
+          [
+            "a2ae4512e4877e2d",
+            "9722d5c8edf568cd"
+          ],
+          [
+            "e271804a4d408209",
+            "a1acb2fee80cc7a3"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Several high-cost chunks provide core information (flow matching, architecture, safety), but some expensive references are mostly bibliographic or peripheral. Overall, key requirements are addressed but with some unnecessary overhead.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "a8ca5b1a0dde5a79",
+            "cost": 172,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "8630634a96d2c217",
+            "cost": 205,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "6b14fea352f3d647",
+            "cost": 203,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "c81762f38ba86854",
+            "cost": 178,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "8a3f1ec1ecb12383",
+            "cost": 155,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "No evidence on long-form paragraph generation or voice drift, leaving a gap for R3.",
+        "Speed comparisons lack explicit production latency benchmarks vs VALL-E, so real-world gains are uncertain.",
+        "Safety mechanisms are limited to a classifier-based detector; no explicit watermarking scheme is described.",
+        "Flow matching stability vs other objectives is not systematically evaluated; small-scale underperformance may indicate tuning sensitivity."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "a2ae4512e4877e2d",
+          "quote": "can generate speech up to 20 times faster than the best autoregressive models."
+        },
+        {
+          "chunk_id": "9722d5c8edf568cd",
+          "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs"
+        },
+        {
+          "chunk_id": "e271804a4d408209",
+          "quote": "Voicebox outperforms VALL-E and achieves a new SOTA English zero-shot TTS result"
+        },
+        {
+          "chunk_id": "690dca2771908829",
+          "quote": "Voicebox yields better performance than YourTTS everywhere."
+        },
+        {
+          "chunk_id": "a8ca5b1a0dde5a79",
+          "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+        },
+        {
+          "chunk_id": "cd26777505f29aab",
+          "quote": "Voicebox represents a breakthrough in generative modeling for speech."
+        },
+        {
+          "chunk_id": "56f8d3ad2db2cf33",
+          "quote": "VALL-E [Wang et al., 2023] is most related to Voicebox."
+        },
+        {
+          "chunk_id": "6b14fea352f3d647",
+          "quote": "Duration-conditional Regression    | 2.7 | 0.545 | 0.591"
+        },
+        {
+          "chunk_id": "8630634a96d2c217",
+          "quote": "The audio model has 24 layers, 16 attention heads, 1024/4096 embedding/feed-forward"
+        },
+        {
+          "chunk_id": "436d0f3d82b5a00e",
+          "quote": "Fréchet distance is a commonly used metric for assessing quality in image generation"
+        },
+        {
+          "chunk_id": "392e962194b3c42b",
+          "quote": "a binary classification model is able to consistently distinguish between real world speech and that which is generated"
+        },
+        {
+          "chunk_id": "8a3f1ec1ecb12383",
+          "quote": "Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R1: The paper claims Voicebox can be up to 20× faster than the best autoregressive models and that high quality is achieved with <10 NFEs, but it does not provide a direct, production-style latency comparison specifically against VALL-E; only relative speed claims vs generic AR baselines are grounded.",
+          "confidence": 0.7,
+          "evidence": [
+            "a2ae4512e4877e2d",
+            "9722d5c8edf568cd",
+            "e271804a4d408209",
+            "a1acb2fee80cc7a3"
+          ],
+          "notes": "Chunk a2ae4512e4877e2d states Voicebox can \"generate speech up to 20 times faster than the best autoregressive models.\" Chunk 9722d5c8edf568cd notes very high quality with <10 NFEs, implying speed. However, there is no explicit wall-clock or production deployment comparison to VALL-E; VALL-E is only compared on WER/similarity, not latency. Thus we can say it is claimed to be much faster than AR models in general, but not specifically demonstrated vs VALL-E in a real production setting."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R2: Voicebox requires phonemizers and forced aligners to produce frame-level phonetic transcripts; it does not train purely from raw audio+text, and the authors explicitly mention this dependency and future work to remove it.",
+          "confidence": 0.95,
+          "evidence": [
+            "8a3f1ec1ecb12383"
+          ],
+          "notes": "Chunk 8a3f1ec1ecb12383 states \"Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript\" and discusses limitations of existing phonemizers, plus future exploration of end-to-end methods that would eliminate this need. This directly answers that expensive phoneme-alignment style data/tools are currently required; you cannot just throw raw audio+text at it in its present form."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R3: The provided text does not report any evaluation of very long paragraph generation or describe voice drift/instability over long generations, so this behavior is unknown from the evidence.",
+          "confidence": 0.1,
+          "evidence": [
+            "a34d2601ab76a8e7",
+            "f65472bf5ec37b32"
+          ],
+          "notes": "Chunk a34d2601ab76a8e7 mentions training audio length capped at 1,600 frames and random chunking, but not long-form synthesis behavior. Chunk f65472bf5ec37b32 discusses truncating target sequences to 4 seconds for a study. No chunk discusses perceptual drift or weirdness over very long paragraphs, so we cannot answer this from the paper."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R4: The paper includes a binary classifier for synthetic speech detection but does not mention any watermarking mechanism; safety relies on a detector rather than built-in watermarks, so watermark detectors are not included.",
+          "confidence": 0.9,
+          "evidence": [
+            "392e962194b3c42b",
+            "c81762f38ba86854"
+          ],
+          "notes": "Chunk 392e962194b3c42b notes they \"show that a binary classification model is able to consistently distinguish\" real vs generated speech. Chunk c81762f38ba86854 provides detection metrics. There is no mention of watermarking or watermark detectors; only a classifier-based detector is described. Thus, any watermarking/safety checks beyond this classifier would need to be built separately."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R5: Training stability is addressed indirectly: the authors use gradient norm clipping for training stability and report successful large-scale training, but an ablation shows duration-conditional flow matching underperforms simple regression in a 1K-hour setup; they do not report frequent divergence, so stability appears manageable but not clearly superior to other methods.",
+          "confidence": 0.6,
+          "evidence": [
+            "a34d2601ab76a8e7",
+            "6b14fea352f3d647",
+            "a77580c2c85fd261"
+          ],
+          "notes": "Chunk a34d2601ab76a8e7 mentions \"we clip the gradient norm to 0.2 for training stability,\" implying stability concerns but also that training is controllable. Chunks a77580c2c85fd261 and 6b14fea352f3d647 show that in a reduced 1K-hour English setup, duration-conditional flow matching performs worse than regression, but they do not mention divergence or failure. There is no explicit claim that flow matching is more or less stable than other objectives; only that it works at scale with some stabilization techniques. So we can say it is trainable and not reported as unstable, but we cannot claim superior stability over existing methods."
+        }
+      ]
+    }
+  }
+}

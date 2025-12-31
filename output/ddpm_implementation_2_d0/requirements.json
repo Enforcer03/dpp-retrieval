@@ -1,0 +1,39 @@
+{
+  "id": "ddpm_implementation_d0",
+  "parent": {
+    "path": "ddpm.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Implementation Strategy: Defining the hardware budget and architectural specifics."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "GPU Memory",
+      "description": "What is the GPU memory footprint for training a standard 256x256 model? Do we need a cluster or just a single node?"
+    },
+    {
+      "id": "R2",
+      "category": "Architecture",
+      "description": "Does the architecture require expensive self-attention at high resolutions (e.g. 16x16), or can we optimize that out?"
+    },
+    {
+      "id": "R3",
+      "category": "Parallelism",
+      "description": "How parallelizable is the training since diffusion is inherently sequential in sampling? Can we use distributed training easily?"
+    },
+    {
+      "id": "R4",
+      "category": "Initialization",
+      "description": "Are there specific initialization tricks mentioned that prevent the model from outputting pure noise at the start?"
+    },
+    {
+      "id": "R5",
+      "category": "Hardware",
+      "description": "Does the paper rely on specific hardware accelerators (like TPUs), or is it standard PyTorch/TensorFlow code?"
+    }
+  ],
+  "notes": {}
+}

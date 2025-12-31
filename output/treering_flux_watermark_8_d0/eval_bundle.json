@@ -1,0 +1,740 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "982bf1e6b0e07a95",
+  "created_at": "2025-12-31T07:41:31Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 18714,
+        "output_hash": "21eb07e367b57acc271d0095f61e7ef429cbb1cb",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+                  "overall_verdict": "pass",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "covered",
+                      "evidence": [
+                        "65a5c5af5466ce1d",
+                        "d8e89b5eaf9a47f8",
+                        "6847523eb677e85f",
+                        "c1b9f1d74ece4f4e"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "65a5c5af5466ce1d",
+                          "quote": "We quantify watermark robustness through the following metrics:"
+                        },
+                        {
+                          "chunk_id": "d8e89b5eaf9a47f8",
+                          "quote": "Table 2: AUC comparison for watermark detection under different attacks"
+                        },
+                        {
+                          "chunk_id": "6847523eb677e85f",
+                          "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios"
+                        },
+                        {
+                          "chunk_id": "c1b9f1d74ece4f4e",
+                          "quote": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image"
+                        }
+                      ],
+                      "rationale": "Metrics (AUC, robustness metrics, separability) and benchmarks (Waves) are explicitly described and tied to FLUX, directly relevant to evaluating detection robustness."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "9c05d214852b2692",
+                        "e9570c7d2a34af1f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "9c05d214852b2692",
+                          "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection."
+                        },
+                        {
+                          "chunk_id": "9c05d214852b2692",
+                          "quote": "they fail to match the effectiveness of exact prompt guidance."
+                        }
+                      ],
+                      "rationale": "Evidence compares exact prompts, no prompts, and VLM-generated prompts, showing only marginal gains from VLMs and emphasizing that exact prompts remain crucial."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "partial",
+                      "evidence": [
+                        "d8e89b5eaf9a47f8",
+                        "6847523eb677e85f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "d8e89b5eaf9a47f8",
+                          "quote": "AUC comparison for watermark detection under different attacks"
+                        },
+                        {
+                          "chunk_id": "d8e89b5eaf9a47f8",
+                          "quote": "FLUX.1-dev (RF)  | **0.888** | **0.662**"
+                        },
+                        {
+                          "chunk_id": "6847523eb677e85f",
+                          "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios"
+                        }
+                      ],
+                      "rationale": "Robustness is quantified for blurring and noise and Waves benchmark is mentioned, but there is no explicit data on cropping or resizing specifically."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "4fdc2eca95342d1b",
+                        "20caff27a37e53f6",
+                        "df94130288f8d4d6",
+                        "9dc80f1f8fcf7b33",
+                        "c0dd42c7fc445dc8",
+                        "05b9fd7dd2e748e6",
+                        "c326ebe4f784f711"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "4fdc2eca95342d1b",
+                          "quote": "differs fundamentally from traditional DDMs like Stable Diffusion ... in its approach to generation and inversion."
+                        },
+                        {
+                          "chunk_id": "df94130288f8d4d6",
+                          "quote": "This naïve DDIM inversion can be interpreted as forward Euler integration"
+                        },
+                        {
+                          "chunk_id": "c0dd42c7fc445dc8",
+                          "quote": "improved Tree-ring watermark detection using higher-order inversion algorithms compared to naive DDIM inversion."
+                        },
+                        {
+                          "chunk_id": "c326ebe4f784f711",
+                          "quote": "inherent challenges of these models with noise latent inversion."
+                        }
+                      ],
+                      "rationale": "Evidence explains structural inversion challenges for rectified flows and notes need for improved methods, but does not give clear quantitative speed or hardness comparison vs DDIM."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "partial",
+                      "evidence": [
+                        "448c1d5c58aa5f2b",
+                        "0e85709e002375c5"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "448c1d5c58aa5f2b",
+                          "quote": "The same watermark key, derived from this seed, was applied throughout the study."
+                        },
+                        {
+                          "chunk_id": "0e85709e002375c5",
+                          "quote": "Algorithm 1 Tree Ring Watermarking Procedure"
+                        }
+                      ],
+                      "rationale": "They state a single key derived from a global seed was reused, implying a universal key in experiments, but do not explicitly discuss per-image vs universal key requirements in general."
+                    },
+                    {
+                      "id": "R6",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No provided chunks discuss perceptual image quality, visual degradation, or Fourier-space embedding effects on image appearance."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R6"
+                  ],
+                  "risks": [
+                    "Lack of explicit data on cropping/resizing robustness leaves uncertainty about common real-world edits.",
+                    "No discussion of visual quality impact of Fourier-space watermarking may hide potential usability or UX issues.",
+                    "Inversion difficulty on rectified flows is described qualitatively but without clear performance or latency comparison to DDIM, limiting operational planning.",
+                    "Key management strategy beyond a single experimental key is unclear, which could affect security and scalability assessments."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Most technical and robustness aspects (benchmarks, prompt dependence, inversion challenges, some attack robustness) are covered. Visual quality impact and detailed key-management policy are not fully addressed, and cropping/resizing robustness is only indirectly touched via general attack benchmarks.",
+              "missing_requirements": [
+                "R6"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks reiterate high-level conclusions about inversion challenges and need for improved methods, and multiple references cover similar robustness and benchmark points.",
+              "redundant_pairs": [
+                [
+                  "05b9fd7dd2e748e6",
+                  "c326ebe4f784f711"
+                ],
+                [
+                  "6847523eb677e85f",
+                  "676ef7cb4e627e9d"
+                ],
+                [
+                  "c0dd42c7fc445dc8",
+                  "c326ebe4f784f711"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Key high-cost chunks provide important conclusions and context, but some expensive chunks are mostly bibliographic or high-level and add limited incremental detail for the specific requirements.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "c326ebe4f784f711",
+                  "cost": 163,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "4fdc2eca95342d1b",
+                  "cost": 146,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "e9570c7d2a34af1f",
+                  "cost": 116,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "c0dd42c7fc445dc8",
+                  "cost": 98,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "d8e89b5eaf9a47f8",
+                  "cost": 77,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Important practical question about visual quality impact of Fourier-space watermarking is unanswered.",
+              "Robustness to common transformations like cropping and resizing is not explicitly evaluated, posing deployment risk.",
+              "Inversion cost and latency on rectified flows versus DDIM are not quantified, complicating feasibility assessments.",
+              "Key management model (per-image vs universal) is only implicitly addressed via experimental setup, not security-hardened design."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 18333,
+        "output_hash": "47bc1bc1d44aa4a790999a4c35e83b72fb1f4ac1",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "c326ebe4f784f711",
+                "quote": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored"
+              },
+              {
+                "chunk_id": "c326ebe4f784f711",
+                "quote": "we evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models"
+              },
+              {
+                "chunk_id": "d8e89b5eaf9a47f8",
+                "quote": "SD 2.1 base (DDIM) – 0.999 (blurring), 0.944 (noise); FLUX.1-dev (RF) – 0.888 (blurring), 0.662 (noise)"
+              },
+              {
+                "chunk_id": "4fdc2eca95342d1b",
+                "quote": "FLUX.1-dev model, which employs a Diffusion Transformer (DiT) architecture and differs fundamentally from traditional DDMs"
+              },
+              {
+                "chunk_id": "20caff27a37e53f6",
+                "quote": "Inversion Methods."
+              },
+              {
+                "chunk_id": "df94130288f8d4d6",
+                "quote": "This naïve DDIM inversion can be interpreted as forward Euler integration starting from t = 0"
+              },
+              {
+                "chunk_id": "c0dd42c7fc445dc8",
+                "quote": "higher-order inversion algorithms compared to naive DDIM inversion… showed remarkable detection accuracy on traditional diffusion models"
+              },
+              {
+                "chunk_id": "c0dd42c7fc445dc8",
+                "quote": "the effectiveness of these techniques on newer rectified flow-based architectures remains unexplored"
+              },
+              {
+                "chunk_id": "9c05d214852b2692",
+                "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection"
+              },
+              {
+                "chunk_id": "9c05d214852b2692",
+                "quote": "they fail to match the effectiveness of exact prompt guidance"
+              },
+              {
+                "chunk_id": "65a5c5af5466ce1d",
+                "quote": "We quantify watermark robustness through the following metrics"
+              },
+              {
+                "chunk_id": "6847523eb677e85f",
+                "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios"
+              },
+              {
+                "chunk_id": "448c1d5c58aa5f2b",
+                "quote": "we used a fixed global random seed for generating initial latents, enabling reproducibility across models"
+              },
+              {
+                "chunk_id": "448c1d5c58aa5f2b",
+                "quote": "The same watermark key, derived from this seed, was applied throughout the study"
+              },
+              {
+                "chunk_id": "05b9fd7dd2e748e6",
+                "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+                "answer": "Feasibility is partial/experimental: Tree-Ring watermarking works on FLUX.1-dev but detection and separability are clearly worse than SD 2.1, especially under attacks, due to inversion limitations.",
+                "confidence": 0.86,
+                "evidence": [
+                  "c326ebe4f784f711",
+                  "d8e89b5eaf9a47f8",
+                  "c0dd42c7fc445dc8",
+                  "05b9fd7dd2e748e6"
+                ],
+                "notes": "Authors state they compare SD 2.1 vs FLUX.1-dev and highlight current limitations of Tree-Ring watermarking on rectified flows and need for better inversion; AUC numbers show substantially weaker robustness on FLUX."
+              },
+              {
+                "decision": "R1: What are some benchmarks for evaluating the watermark detection and how relevant is it for our use case?",
+                "answer": "Benchmarks include AUC-based robustness metrics and standardized attack suites like Waves; these directly test detection robustness under realistic perturbations, so are relevant for provenance use cases.",
+                "confidence": 0.8,
+                "evidence": [
+                  "65a5c5af5466ce1d",
+                  "6847523eb677e85f",
+                  "d8e89b5eaf9a47f8",
+                  "c1b9f1d74ece4f4e"
+                ],
+                "notes": "Metrics and Waves benchmark are explicitly mentioned; relevance to robustness/provenance is a straightforward interpretation of robustness and separability metrics."
+              },
+              {
+                "decision": "R2: Are we screwed if we lose the original text prompt? Can we use a VLM to guess it and still detect the watermark reliably?",
+                "answer": "Losing the exact prompt hurts detection; VLM-generated prompts give only constrained, intermediate improvement over no prompt and remain clearly worse than exact prompts, so reliability is reduced but not lost.",
+                "confidence": 0.86,
+                "evidence": [
+                  "9c05d214852b2692",
+                  "e9570c7d2a34af1f"
+                ],
+                "notes": "Chunk explicitly compares exact, VLM, and no-prompt; describes VLM prompts as marginally beneficial but inferior to exact prompts."
+              },
+              {
+                "decision": "R3: How fragile is the detection? Does slight cropping or resizing of the image break it completely?",
+                "answer": "unknown",
+                "confidence": 0.0,
+                "evidence": [],
+                "notes": "Evidence covers blur, noise, and Waves-style attacks but does not mention cropping or resizing explicitly."
+              },
+              {
+                "decision": "R4: Is the 'noise inversion' step significantly harder or slower on Flow models compared to the standard DDIM inversion we use for SD 2.1?",
+                "answer": "Inversion on rectified flow models is structurally different and currently less accurate than DDIM-style inversion; the text emphasizes difficulty/accuracy, not explicit runtime, so hardness in terms of quality is higher, speed is unspecified.",
+                "confidence": 0.7,
+                "evidence": [
+                  "4fdc2eca95342d1b",
+                  "20caff27a37e53f6",
+                  "df94130288f8d4d6",
+                  "c0dd42c7fc445dc8",
+                  "05b9fd7dd2e748e6"
+                ],
+                "notes": "Chunks discuss structural differences and need for improved inversion on rectified flows; no direct timing comparison, so cannot claim slower, only more challenging for accurate recovery."
+              },
+              {
+                "decision": "R5: Do we need to store the specific 'key' and 'mask' for every single image we generate, or is there a universal key?",
+                "answer": "The study uses a single shared watermark key derived from a fixed global seed across all experiments, indicating that a universal key is at least possible in this setup; per-image keys are not required in their experiments.",
+                "confidence": 0.78,
+                "evidence": [
+                  "448c1d5c58aa5f2b",
+                  "0e85709e002375c5"
+                ],
+                "notes": "Chunk states the same watermark key was applied throughout; mask specifics per image are not detailed, but nothing indicates per-image keys are needed for detection in this work."
+              },
+              {
+                "decision": "R6: Does embedding this watermark in the Fourier space visible degrade the image quality?",
+                "answer": "unknown",
+                "confidence": 0.0,
+                "evidence": [],
+                "notes": "Available chunks describe embedding and detection but do not report any perceptual or quantitative image quality degradation analysis."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+            "overall_verdict": "pass",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "covered",
+                "evidence": [
+                  "65a5c5af5466ce1d",
+                  "d8e89b5eaf9a47f8",
+                  "6847523eb677e85f",
+                  "c1b9f1d74ece4f4e"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "65a5c5af5466ce1d",
+                    "quote": "We quantify watermark robustness through the following metrics:"
+                  },
+                  {
+                    "chunk_id": "d8e89b5eaf9a47f8",
+                    "quote": "Table 2: AUC comparison for watermark detection under different attacks"
+                  },
+                  {
+                    "chunk_id": "6847523eb677e85f",
+                    "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios"
+                  },
+                  {
+                    "chunk_id": "c1b9f1d74ece4f4e",
+                    "quote": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image"
+                  }
+                ],
+                "rationale": "Metrics (AUC, robustness metrics, separability) and benchmarks (Waves) are explicitly described and tied to FLUX, directly relevant to evaluating detection robustness."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "9c05d214852b2692",
+                  "e9570c7d2a34af1f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "9c05d214852b2692",
+                    "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection."
+                  },
+                  {
+                    "chunk_id": "9c05d214852b2692",
+                    "quote": "they fail to match the effectiveness of exact prompt guidance."
+                  }
+                ],
+                "rationale": "Evidence compares exact prompts, no prompts, and VLM-generated prompts, showing only marginal gains from VLMs and emphasizing that exact prompts remain crucial."
+              },
+              {
+                "id": "R3",
+                "status": "partial",
+                "evidence": [
+                  "d8e89b5eaf9a47f8",
+                  "6847523eb677e85f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "d8e89b5eaf9a47f8",
+                    "quote": "AUC comparison for watermark detection under different attacks"
+                  },
+                  {
+                    "chunk_id": "d8e89b5eaf9a47f8",
+                    "quote": "FLUX.1-dev (RF)  | **0.888** | **0.662**"
+                  },
+                  {
+                    "chunk_id": "6847523eb677e85f",
+                    "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios"
+                  }
+                ],
+                "rationale": "Robustness is quantified for blurring and noise and Waves benchmark is mentioned, but there is no explicit data on cropping or resizing specifically."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "4fdc2eca95342d1b",
+                  "20caff27a37e53f6",
+                  "df94130288f8d4d6",
+                  "9dc80f1f8fcf7b33",
+                  "c0dd42c7fc445dc8",
+                  "05b9fd7dd2e748e6",
+                  "c326ebe4f784f711"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "4fdc2eca95342d1b",
+                    "quote": "differs fundamentally from traditional DDMs like Stable Diffusion ... in its approach to generation and inversion."
+                  },
+                  {
+                    "chunk_id": "df94130288f8d4d6",
+                    "quote": "This naïve DDIM inversion can be interpreted as forward Euler integration"
+                  },
+                  {
+                    "chunk_id": "c0dd42c7fc445dc8",
+                    "quote": "improved Tree-ring watermark detection using higher-order inversion algorithms compared to naive DDIM inversion."
+                  },
+                  {
+                    "chunk_id": "c326ebe4f784f711",
+                    "quote": "inherent challenges of these models with noise latent inversion."
+                  }
+                ],
+                "rationale": "Evidence explains structural inversion challenges for rectified flows and notes need for improved methods, but does not give clear quantitative speed or hardness comparison vs DDIM."
+              },
+              {
+                "id": "R5",
+                "status": "partial",
+                "evidence": [
+                  "448c1d5c58aa5f2b",
+                  "0e85709e002375c5"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "448c1d5c58aa5f2b",
+                    "quote": "The same watermark key, derived from this seed, was applied throughout the study."
+                  },
+                  {
+                    "chunk_id": "0e85709e002375c5",
+                    "quote": "Algorithm 1 Tree Ring Watermarking Procedure"
+                  }
+                ],
+                "rationale": "They state a single key derived from a global seed was reused, implying a universal key in experiments, but do not explicitly discuss per-image vs universal key requirements in general."
+              },
+              {
+                "id": "R6",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No provided chunks discuss perceptual image quality, visual degradation, or Fourier-space embedding effects on image appearance."
+              }
+            ],
+            "missing_requirements": [
+              "R6"
+            ],
+            "risks": [
+              "Lack of explicit data on cropping/resizing robustness leaves uncertainty about common real-world edits.",
+              "No discussion of visual quality impact of Fourier-space watermarking may hide potential usability or UX issues.",
+              "Inversion difficulty on rectified flows is described qualitatively but without clear performance or latency comparison to DDIM, limiting operational planning.",
+              "Key management strategy beyond a single experimental key is unclear, which could affect security and scalability assessments."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Most technical and robustness aspects (benchmarks, prompt dependence, inversion challenges, some attack robustness) are covered. Visual quality impact and detailed key-management policy are not fully addressed, and cropping/resizing robustness is only indirectly touched via general attack benchmarks.",
+        "missing_requirements": [
+          "R6"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks reiterate high-level conclusions about inversion challenges and need for improved methods, and multiple references cover similar robustness and benchmark points.",
+        "redundant_pairs": [
+          [
+            "05b9fd7dd2e748e6",
+            "c326ebe4f784f711"
+          ],
+          [
+            "6847523eb677e85f",
+            "676ef7cb4e627e9d"
+          ],
+          [
+            "c0dd42c7fc445dc8",
+            "c326ebe4f784f711"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Key high-cost chunks provide important conclusions and context, but some expensive chunks are mostly bibliographic or high-level and add limited incremental detail for the specific requirements.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "c326ebe4f784f711",
+            "cost": 163,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "4fdc2eca95342d1b",
+            "cost": 146,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "e9570c7d2a34af1f",
+            "cost": 116,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "c0dd42c7fc445dc8",
+            "cost": 98,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "d8e89b5eaf9a47f8",
+            "cost": 77,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Important practical question about visual quality impact of Fourier-space watermarking is unanswered.",
+        "Robustness to common transformations like cropping and resizing is not explicitly evaluated, posing deployment risk.",
+        "Inversion cost and latency on rectified flows versus DDIM are not quantified, complicating feasibility assessments.",
+        "Key management model (per-image vs universal) is only implicitly addressed via experimental setup, not security-hardened design."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "c326ebe4f784f711",
+          "quote": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored"
+        },
+        {
+          "chunk_id": "c326ebe4f784f711",
+          "quote": "we evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models"
+        },
+        {
+          "chunk_id": "d8e89b5eaf9a47f8",
+          "quote": "SD 2.1 base (DDIM) – 0.999 (blurring), 0.944 (noise); FLUX.1-dev (RF) – 0.888 (blurring), 0.662 (noise)"
+        },
+        {
+          "chunk_id": "4fdc2eca95342d1b",
+          "quote": "FLUX.1-dev model, which employs a Diffusion Transformer (DiT) architecture and differs fundamentally from traditional DDMs"
+        },
+        {
+          "chunk_id": "20caff27a37e53f6",
+          "quote": "Inversion Methods."
+        },
+        {
+          "chunk_id": "df94130288f8d4d6",
+          "quote": "This naïve DDIM inversion can be interpreted as forward Euler integration starting from t = 0"
+        },
+        {
+          "chunk_id": "c0dd42c7fc445dc8",
+          "quote": "higher-order inversion algorithms compared to naive DDIM inversion… showed remarkable detection accuracy on traditional diffusion models"
+        },
+        {
+          "chunk_id": "c0dd42c7fc445dc8",
+          "quote": "the effectiveness of these techniques on newer rectified flow-based architectures remains unexplored"
+        },
+        {
+          "chunk_id": "9c05d214852b2692",
+          "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection"
+        },
+        {
+          "chunk_id": "9c05d214852b2692",
+          "quote": "they fail to match the effectiveness of exact prompt guidance"
+        },
+        {
+          "chunk_id": "65a5c5af5466ce1d",
+          "quote": "We quantify watermark robustness through the following metrics"
+        },
+        {
+          "chunk_id": "6847523eb677e85f",
+          "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios"
+        },
+        {
+          "chunk_id": "448c1d5c58aa5f2b",
+          "quote": "we used a fixed global random seed for generating initial latents, enabling reproducibility across models"
+        },
+        {
+          "chunk_id": "448c1d5c58aa5f2b",
+          "quote": "The same watermark key, derived from this seed, was applied throughout the study"
+        },
+        {
+          "chunk_id": "05b9fd7dd2e748e6",
+          "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+          "answer": "Feasibility is partial/experimental: Tree-Ring watermarking works on FLUX.1-dev but detection and separability are clearly worse than SD 2.1, especially under attacks, due to inversion limitations.",
+          "confidence": 0.86,
+          "evidence": [
+            "c326ebe4f784f711",
+            "d8e89b5eaf9a47f8",
+            "c0dd42c7fc445dc8",
+            "05b9fd7dd2e748e6"
+          ],
+          "notes": "Authors state they compare SD 2.1 vs FLUX.1-dev and highlight current limitations of Tree-Ring watermarking on rectified flows and need for better inversion; AUC numbers show substantially weaker robustness on FLUX."
+        },
+        {
+          "decision": "R1: What are some benchmarks for evaluating the watermark detection and how relevant is it for our use case?",
+          "answer": "Benchmarks include AUC-based robustness metrics and standardized attack suites like Waves; these directly test detection robustness under realistic perturbations, so are relevant for provenance use cases.",
+          "confidence": 0.8,
+          "evidence": [
+            "65a5c5af5466ce1d",
+            "6847523eb677e85f",
+            "d8e89b5eaf9a47f8",
+            "c1b9f1d74ece4f4e"
+          ],
+          "notes": "Metrics and Waves benchmark are explicitly mentioned; relevance to robustness/provenance is a straightforward interpretation of robustness and separability metrics."
+        },
+        {
+          "decision": "R2: Are we screwed if we lose the original text prompt? Can we use a VLM to guess it and still detect the watermark reliably?",
+          "answer": "Losing the exact prompt hurts detection; VLM-generated prompts give only constrained, intermediate improvement over no prompt and remain clearly worse than exact prompts, so reliability is reduced but not lost.",
+          "confidence": 0.86,
+          "evidence": [
+            "9c05d214852b2692",
+            "e9570c7d2a34af1f"
+          ],
+          "notes": "Chunk explicitly compares exact, VLM, and no-prompt; describes VLM prompts as marginally beneficial but inferior to exact prompts."
+        },
+        {
+          "decision": "R3: How fragile is the detection? Does slight cropping or resizing of the image break it completely?",
+          "answer": "unknown",
+          "confidence": 0.0,
+          "evidence": [],
+          "notes": "Evidence covers blur, noise, and Waves-style attacks but does not mention cropping or resizing explicitly."
+        },
+        {
+          "decision": "R4: Is the 'noise inversion' step significantly harder or slower on Flow models compared to the standard DDIM inversion we use for SD 2.1?",
+          "answer": "Inversion on rectified flow models is structurally different and currently less accurate than DDIM-style inversion; the text emphasizes difficulty/accuracy, not explicit runtime, so hardness in terms of quality is higher, speed is unspecified.",
+          "confidence": 0.7,
+          "evidence": [
+            "4fdc2eca95342d1b",
+            "20caff27a37e53f6",
+            "df94130288f8d4d6",
+            "c0dd42c7fc445dc8",
+            "05b9fd7dd2e748e6"
+          ],
+          "notes": "Chunks discuss structural differences and need for improved inversion on rectified flows; no direct timing comparison, so cannot claim slower, only more challenging for accurate recovery."
+        },
+        {
+          "decision": "R5: Do we need to store the specific 'key' and 'mask' for every single image we generate, or is there a universal key?",
+          "answer": "The study uses a single shared watermark key derived from a fixed global seed across all experiments, indicating that a universal key is at least possible in this setup; per-image keys are not required in their experiments.",
+          "confidence": 0.78,
+          "evidence": [
+            "448c1d5c58aa5f2b",
+            "0e85709e002375c5"
+          ],
+          "notes": "Chunk states the same watermark key was applied throughout; mask specifics per image are not detailed, but nothing indicates per-image keys are needed for detection in this work."
+        },
+        {
+          "decision": "R6: Does embedding this watermark in the Fourier space visible degrade the image quality?",
+          "answer": "unknown",
+          "confidence": 0.0,
+          "evidence": [],
+          "notes": "Available chunks describe embedding and detection but do not report any perceptual or quantitative image quality degradation analysis."
+        }
+      ]
+    }
+  }
+}

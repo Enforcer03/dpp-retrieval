@@ -1,0 +1,550 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "2de6cebfacc05110",
+  "created_at": "2025-12-31T08:40:28Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 22570,
+        "output_hash": "92f87cbcc43f1364548ccf8de74f4075fb1cc194",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "covered",
+                      "evidence": [
+                        "e22df3321d2941a1",
+                        "3ee85dfaabd16f7f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "sampling a batch of 256 images takes 17 seconds"
+                        },
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "sampling a batch of 128 images takes 300 seconds"
+                        },
+                        {
+                          "chunk_id": "3ee85dfaabd16f7f",
+                          "quote": "We set T = 1000 without a sweep"
+                        }
+                      ],
+                      "rationale": "Sampling cost is quantified: 17 s for 256 CIFAR10 images and 300 s for 128 256×256 images on TPU v3-8, implying ~0.07 s and ~2.3 s per image with 1000-step reverse process, clearly much slower than typical millisecond-level GAN sampling."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "partial",
+                      "evidence": [
+                        "976fab954096b5d8",
+                        "a6376ae2db7a6517",
+                        "78f2a2312b837bff",
+                        "3ee85dfaabd16f7f",
+                        "40de030796b3d32a"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "976fab954096b5d8",
+                          "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+                        },
+                        {
+                          "chunk_id": "a6376ae2db7a6517",
+                          "quote": "all KL divergences in Eq. (5) are comparisons between Gaussians"
+                        },
+                        {
+                          "chunk_id": "78f2a2312b837bff",
+                          "quote": "We will see in our experiments that this reweighting leads to better sample quality."
+                        },
+                        {
+                          "chunk_id": "3ee85dfaabd16f7f",
+                          "quote": "we chose a linear schedule from β1 = 10−4 to βT = 0.02."
+                        },
+                        {
+                          "chunk_id": "40de030796b3d32a",
+                          "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings"
+                        }
+                      ],
+                      "rationale": "Evidence shows principled likelihood-based training with closed-form Gaussian KLs and modest hyperparameter tuning, suggesting a more stable, non-adversarial procedure, but there is no explicit discussion or empirical analysis of training stability vs GAN issues like mode collapse."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "partial",
+                      "evidence": [
+                        "5651007947ccee1d",
+                        "05e9701f321c9f11",
+                        "37020554653ce658",
+                        "911736f67748a93b",
+                        "ecf16a1e8e178a04"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "5651007947ccee1d",
+                          "quote": "Figure 12: CelebA-HQ 256 × 256 nearest neighbors"
+                        },
+                        {
+                          "chunk_id": "05e9701f321c9f11",
+                          "quote": "Figure 8: Interpolations of CelebA-HQ 256x256 images with 500 timesteps of diffusion."
+                        },
+                        {
+                          "chunk_id": "37020554653ce658",
+                          "quote": "Figure 6: Unconditional CIFAR10 progressive generation"
+                        },
+                        {
+                          "chunk_id": "911736f67748a93b",
+                          "quote": "Figure 14: Unconditional CIFAR10 progressive generation"
+                        },
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "Ours (L trainable)  9.46±0.11  3.17"
+                        }
+                      ],
+                      "rationale": "There are references to CelebA-HQ 256×256 samples and interpolations plus strong CIFAR10 FID/IS, implying high-quality, sharp images, but the text does not verbally describe sharpness or an explicit trade-off; visual inspection of figures is required but not available in text."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "missing",
+                      "evidence": [
+                        "ecf16a1e8e178a04",
+                        "f1afe95e7b2ff529",
+                        "3ee85dfaabd16f7f",
+                        "e6b2a4a695b271b0"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "Diffusion (original) [53]"
+                        },
+                        {
+                          "chunk_id": "f1afe95e7b2ff529",
+                          "quote": "Progressive growing of GANs for improved quality, stability, and variation."
+                        },
+                        {
+                          "chunk_id": "e6b2a4a695b271b0",
+                          "quote": "We have presented high quality image samples using diffusion models"
+                        }
+                      ],
+                      "rationale": "The evidence includes ProgressiveGAN in the references and quantitative comparisons to several GANs, but there is no explicit textual claim of sample quality parity with ProgressiveGAN specifically."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R4"
+                  ],
+                  "risks": [
+                    "Sampling is orders of magnitude slower than GANs, with multi-second latency per 256×256 image on strong hardware, which may be unacceptable for many production stacks.",
+                    "Training stability relative to GANs is not empirically characterized; absence of mode-collapse-like analysis leaves uncertainty about robustness.",
+                    "Image sharpness and qualitative trade-offs are not described in text; reliance on unseen figures limits confidence in visual quality assessment.",
+                    "No explicit claim of parity with ProgressiveGAN is present, so conclusions about matching that specific GAN are unsupported."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Sampling speed is well quantified, and training procedure is described, but explicit statements about stability vs GANs, textual assessment of image sharpness, and explicit parity claims with ProgressiveGAN are missing or only indirectly supported.",
+              "missing_requirements": [
+                "R4"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks cover related training-objective and design details, and multiple figure references for progressive generation and CelebA-HQ provide overlapping qualitative evidence without additional textual insight.",
+              "redundant_pairs": [
+                [
+                  "37020554653ce658",
+                  "911736f67748a93b"
+                ],
+                [
+                  "3ee85dfaabd16f7f",
+                  "40de030796b3d32a"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "High-yield chunks on sampling speed and CIFAR10 metrics were retrieved efficiently, but some high-cost chunks are references or acknowledgments with little relevance to the specific requirements.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "ecf16a1e8e178a04",
+                  "cost": 486,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "e22df3321d2941a1",
+                  "cost": 173,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "3ee85dfaabd16f7f",
+                  "cost": 299,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "fc97e04714d6cc35",
+                  "cost": 258,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "e6b2a4a695b271b0",
+                  "cost": 98,
+                  "yield": "low"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key requirement about explicit parity claim with ProgressiveGAN is unsupported by retrieved text.",
+              "Qualitative image sharpness on CelebA-HQ is inferred only from figure captions and metrics, not described explicitly.",
+              "No direct discussion of training stability vs GAN pathologies like mode collapse is present, limiting confidence in stability-related conclusions."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 9617,
+        "output_hash": "9da049aa8f348c014e2d16e4a387828fc1d8b5ae",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "ecf16a1e8e178a04",
+                "quote": "Ours (L trainable)       | 9.46±0.11| 3.17| ≤ 3.75 (3.72)"
+              },
+              {
+                "chunk_id": "ecf16a1e8e178a04",
+                "quote": "StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –"
+              },
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "sampling a batch of 256 images takes 17 seconds."
+              },
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "sampling a batch of 128 images takes 300 seconds."
+              },
+              {
+                "chunk_id": "3ee85dfaabd16f7f",
+                "quote": "We set T = 1000 without a sweep, and we chose a linear schedule"
+              },
+              {
+                "chunk_id": "976fab954096b5d8",
+                "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood:"
+              },
+              {
+                "chunk_id": "a6376ae2db7a6517",
+                "quote": "all KL divergences in Eq. (5) are comparisons between Gaussians"
+              },
+              {
+                "chunk_id": "e6b2a4a695b271b0",
+                "quote": "diffusion models seem to have excellent inductive biases for image data"
+              },
+              {
+                "chunk_id": "fc97e04714d6cc35",
+                "quote": "Rate (bits/dim) ... 1.77581 ... Distortion (RMSE [0, 255]) ... 0.95136"
+              },
+              {
+                "chunk_id": "40de030796b3d32a",
+                "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+                "answer": "partially: diffusion can match GAN image quality but sampling is much slower; suitability depends on whether your use case tolerates seconds-per-image latency.",
+                "confidence": 0.8,
+                "evidence": [
+                  "ecf16a1e8e178a04",
+                  "e22df3321d2941a1",
+                  "3ee85dfaabd16f7f",
+                  "e6b2a4a695b271b0",
+                  "40de030796b3d32a",
+                  "78f2a2312b837bff"
+                ],
+                "notes": "R1 (speed): For 256×256 CelebA-HQ/LSUN, sampling 128 images takes 300 s, about 2.3 s per image on TPU v3-8, i.e., full seconds not milliseconds [e22df3321d2941a1]. CIFAR-10 sampling is faster (256 images in 17 s, ~0.07 s per image) but still involves 1000 reverse steps [e22df3321d2941a1][3ee85dfaabd16f7f], much slower than one-shot GANs. R2 (stability): The paper describes a likelihood-based variational objective with Gaussian KLs [976fab954096b5d8][a6376ae2db7a6517] and modest hyperparameter search transferred across datasets [40de030796b3d32a], and notes that a reweighted objective improves sample quality [78f2a2312b837bff]. This supports more principled, stable training than typical GANs, but explicit comparisons on mode collapse are not provided. R3 (sharpness): The text references CelebA-HQ 256×256 interpolations and nearest neighbors [05e9701f321c9f11][5651007947ccee1d], implying visually plausible, detailed faces, but sharpness is not quantified; assessment is largely qualitative. R4 (parity with ProgressiveGAN): The provided chunks include the ProgressiveGAN citation [f1afe95e7b2ff529] but no explicit claim of sample-quality parity with ProgressiveGAN, so this is unknown. Overall, diffusion models achieve FID/IS comparable to strong GANs on CIFAR-10 [ecf16a1e8e178a04] and have principled training, but their multi-second sampling for 256×256 images makes them a poor drop-in replacement for latency-sensitive GAN stacks; they are better suited where quality and likelihood matter more than throughput."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "covered",
+                "evidence": [
+                  "e22df3321d2941a1",
+                  "3ee85dfaabd16f7f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "sampling a batch of 256 images takes 17 seconds"
+                  },
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "sampling a batch of 128 images takes 300 seconds"
+                  },
+                  {
+                    "chunk_id": "3ee85dfaabd16f7f",
+                    "quote": "We set T = 1000 without a sweep"
+                  }
+                ],
+                "rationale": "Sampling cost is quantified: 17 s for 256 CIFAR10 images and 300 s for 128 256×256 images on TPU v3-8, implying ~0.07 s and ~2.3 s per image with 1000-step reverse process, clearly much slower than typical millisecond-level GAN sampling."
+              },
+              {
+                "id": "R2",
+                "status": "partial",
+                "evidence": [
+                  "976fab954096b5d8",
+                  "a6376ae2db7a6517",
+                  "78f2a2312b837bff",
+                  "3ee85dfaabd16f7f",
+                  "40de030796b3d32a"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "976fab954096b5d8",
+                    "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+                  },
+                  {
+                    "chunk_id": "a6376ae2db7a6517",
+                    "quote": "all KL divergences in Eq. (5) are comparisons between Gaussians"
+                  },
+                  {
+                    "chunk_id": "78f2a2312b837bff",
+                    "quote": "We will see in our experiments that this reweighting leads to better sample quality."
+                  },
+                  {
+                    "chunk_id": "3ee85dfaabd16f7f",
+                    "quote": "we chose a linear schedule from β1 = 10−4 to βT = 0.02."
+                  },
+                  {
+                    "chunk_id": "40de030796b3d32a",
+                    "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings"
+                  }
+                ],
+                "rationale": "Evidence shows principled likelihood-based training with closed-form Gaussian KLs and modest hyperparameter tuning, suggesting a more stable, non-adversarial procedure, but there is no explicit discussion or empirical analysis of training stability vs GAN issues like mode collapse."
+              },
+              {
+                "id": "R3",
+                "status": "partial",
+                "evidence": [
+                  "5651007947ccee1d",
+                  "05e9701f321c9f11",
+                  "37020554653ce658",
+                  "911736f67748a93b",
+                  "ecf16a1e8e178a04"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "5651007947ccee1d",
+                    "quote": "Figure 12: CelebA-HQ 256 × 256 nearest neighbors"
+                  },
+                  {
+                    "chunk_id": "05e9701f321c9f11",
+                    "quote": "Figure 8: Interpolations of CelebA-HQ 256x256 images with 500 timesteps of diffusion."
+                  },
+                  {
+                    "chunk_id": "37020554653ce658",
+                    "quote": "Figure 6: Unconditional CIFAR10 progressive generation"
+                  },
+                  {
+                    "chunk_id": "911736f67748a93b",
+                    "quote": "Figure 14: Unconditional CIFAR10 progressive generation"
+                  },
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "Ours (L trainable)  9.46±0.11  3.17"
+                  }
+                ],
+                "rationale": "There are references to CelebA-HQ 256×256 samples and interpolations plus strong CIFAR10 FID/IS, implying high-quality, sharp images, but the text does not verbally describe sharpness or an explicit trade-off; visual inspection of figures is required but not available in text."
+              },
+              {
+                "id": "R4",
+                "status": "missing",
+                "evidence": [
+                  "ecf16a1e8e178a04",
+                  "f1afe95e7b2ff529",
+                  "3ee85dfaabd16f7f",
+                  "e6b2a4a695b271b0"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "Diffusion (original) [53]"
+                  },
+                  {
+                    "chunk_id": "f1afe95e7b2ff529",
+                    "quote": "Progressive growing of GANs for improved quality, stability, and variation."
+                  },
+                  {
+                    "chunk_id": "e6b2a4a695b271b0",
+                    "quote": "We have presented high quality image samples using diffusion models"
+                  }
+                ],
+                "rationale": "The evidence includes ProgressiveGAN in the references and quantitative comparisons to several GANs, but there is no explicit textual claim of sample quality parity with ProgressiveGAN specifically."
+              }
+            ],
+            "missing_requirements": [
+              "R4"
+            ],
+            "risks": [
+              "Sampling is orders of magnitude slower than GANs, with multi-second latency per 256×256 image on strong hardware, which may be unacceptable for many production stacks.",
+              "Training stability relative to GANs is not empirically characterized; absence of mode-collapse-like analysis leaves uncertainty about robustness.",
+              "Image sharpness and qualitative trade-offs are not described in text; reliance on unseen figures limits confidence in visual quality assessment.",
+              "No explicit claim of parity with ProgressiveGAN is present, so conclusions about matching that specific GAN are unsupported."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Sampling speed is well quantified, and training procedure is described, but explicit statements about stability vs GANs, textual assessment of image sharpness, and explicit parity claims with ProgressiveGAN are missing or only indirectly supported.",
+        "missing_requirements": [
+          "R4"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks cover related training-objective and design details, and multiple figure references for progressive generation and CelebA-HQ provide overlapping qualitative evidence without additional textual insight.",
+        "redundant_pairs": [
+          [
+            "37020554653ce658",
+            "911736f67748a93b"
+          ],
+          [
+            "3ee85dfaabd16f7f",
+            "40de030796b3d32a"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "High-yield chunks on sampling speed and CIFAR10 metrics were retrieved efficiently, but some high-cost chunks are references or acknowledgments with little relevance to the specific requirements.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "ecf16a1e8e178a04",
+            "cost": 486,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "e22df3321d2941a1",
+            "cost": 173,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "3ee85dfaabd16f7f",
+            "cost": 299,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "fc97e04714d6cc35",
+            "cost": 258,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "e6b2a4a695b271b0",
+            "cost": 98,
+            "yield": "low"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key requirement about explicit parity claim with ProgressiveGAN is unsupported by retrieved text.",
+        "Qualitative image sharpness on CelebA-HQ is inferred only from figure captions and metrics, not described explicitly.",
+        "No direct discussion of training stability vs GAN pathologies like mode collapse is present, limiting confidence in stability-related conclusions."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "ecf16a1e8e178a04",
+          "quote": "Ours (L trainable)       | 9.46±0.11| 3.17| ≤ 3.75 (3.72)"
+        },
+        {
+          "chunk_id": "ecf16a1e8e178a04",
+          "quote": "StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –"
+        },
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "sampling a batch of 256 images takes 17 seconds."
+        },
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "sampling a batch of 128 images takes 300 seconds."
+        },
+        {
+          "chunk_id": "3ee85dfaabd16f7f",
+          "quote": "We set T = 1000 without a sweep, and we chose a linear schedule"
+        },
+        {
+          "chunk_id": "976fab954096b5d8",
+          "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood:"
+        },
+        {
+          "chunk_id": "a6376ae2db7a6517",
+          "quote": "all KL divergences in Eq. (5) are comparisons between Gaussians"
+        },
+        {
+          "chunk_id": "e6b2a4a695b271b0",
+          "quote": "diffusion models seem to have excellent inductive biases for image data"
+        },
+        {
+          "chunk_id": "fc97e04714d6cc35",
+          "quote": "Rate (bits/dim) ... 1.77581 ... Distortion (RMSE [0, 255]) ... 0.95136"
+        },
+        {
+          "chunk_id": "40de030796b3d32a",
+          "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+          "answer": "partially: diffusion can match GAN image quality but sampling is much slower; suitability depends on whether your use case tolerates seconds-per-image latency.",
+          "confidence": 0.8,
+          "evidence": [
+            "ecf16a1e8e178a04",
+            "e22df3321d2941a1",
+            "3ee85dfaabd16f7f",
+            "e6b2a4a695b271b0",
+            "40de030796b3d32a",
+            "78f2a2312b837bff"
+          ],
+          "notes": "R1 (speed): For 256×256 CelebA-HQ/LSUN, sampling 128 images takes 300 s, about 2.3 s per image on TPU v3-8, i.e., full seconds not milliseconds [e22df3321d2941a1]. CIFAR-10 sampling is faster (256 images in 17 s, ~0.07 s per image) but still involves 1000 reverse steps [e22df3321d2941a1][3ee85dfaabd16f7f], much slower than one-shot GANs. R2 (stability): The paper describes a likelihood-based variational objective with Gaussian KLs [976fab954096b5d8][a6376ae2db7a6517] and modest hyperparameter search transferred across datasets [40de030796b3d32a], and notes that a reweighted objective improves sample quality [78f2a2312b837bff]. This supports more principled, stable training than typical GANs, but explicit comparisons on mode collapse are not provided. R3 (sharpness): The text references CelebA-HQ 256×256 interpolations and nearest neighbors [05e9701f321c9f11][5651007947ccee1d], implying visually plausible, detailed faces, but sharpness is not quantified; assessment is largely qualitative. R4 (parity with ProgressiveGAN): The provided chunks include the ProgressiveGAN citation [f1afe95e7b2ff529] but no explicit claim of sample-quality parity with ProgressiveGAN, so this is unknown. Overall, diffusion models achieve FID/IS comparable to strong GANs on CIFAR-10 [ecf16a1e8e178a04] and have principled training, but their multi-second sampling for 256×256 images makes them a poor drop-in replacement for latency-sensitive GAN stacks; they are better suited where quality and likelihood matter more than throughput."
+        }
+      ]
+    }
+  }
+}

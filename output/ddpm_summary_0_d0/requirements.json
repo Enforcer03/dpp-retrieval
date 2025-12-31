@@ -1,0 +1,34 @@
+{
+  "id": "ddpm_summary_d0",
+  "parent": {
+    "path": "ddpm.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Give me a technical summary of the DDPM paper. What is the core innovation and how does it perform?"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Core Concept",
+      "description": "Must explain the 'Reverse Process' as a Markov chain that uses Langevin dynamics to denoise samples, contrasting it with the forward diffusion process."
+    },
+    {
+      "id": "R2",
+      "category": "Visual Element",
+      "description": "Must describe the visual progression of sample generation as shown in the 'Progressive Sampling' figures (e.g., Figure 6 or 10), noting how coarse features appear before fine details."
+    },
+    {
+      "id": "R3",
+      "category": "Data Retrieval",
+      "description": "Must derive performance comparisons from the Results Table (Table 1), specifically comparing DDPM's FID scores (e.g. 3.17) against GAN baselines."
+    },
+    {
+      "id": "R4",
+      "category": "Section Coverage",
+      "description": "Must cover the 'Experiments' section, highlighting the trade-off between sample quality and log-likelihood scores compared to VAEs."
+    }
+  ],
+  "notes": {}
+}

@@ -1,0 +1,820 @@
+{
+  "run_id": "53c3f87536a0ffaa",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/mllm_review.pdf",
+  "query": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+  "retrieval_query": "Data & Training Pipeline: Determining how much effort allows us to ship.\n\nANCHOR:\n- Look for sections describing the ML data pipeline, training pipeline, MLOps, and end-to-end model lifecycle (data collection, labeling, preprocessing, feature engineering, training, evaluation, deployment).\n- Identify metrics or KPIs used to quantify “effort to ship”: engineering hours, GPU/TPU compute cost, number of training runs, iteration cycles, time-to-deployment, time-to-first-ship, and model training latency.\n- Find baselines or comparisons of different pipeline configurations (manual vs automated, monolithic vs modular, offline vs online training) and their impact on shipping velocity and reliability.\n- Search for discussions of data quality, dataset size, labeling strategy, active learning, and their relationship to model performance vs. development effort.\n- Look for risk analysis around data and training pipelines: technical debt, data drift, training-serving skew, reproducibility issues, infra bottlenecks, and failure modes that delay shipping.\n- Identify any “Key Findings” or “Summary” sections that explicitly connect pipeline design choices to shipping cadence, release frequency, or productivity.\n- Retrieve “Next Steps” or “Future Work” sections that propose pipeline improvements (automation, CI/CD for ML, experiment tracking, hyperparameter tuning strategies) to reduce effort required to ship.\n- Specifically search TABLES/...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+    "retrieval_query": "Data & Training Pipeline: Determining how much effort allows us to ship.\n\nANCHOR:\n- Look for sections describing the ML data pipeline, training pipeline, MLOps, and end-to-end model lifecycle (data collection, labeling, preprocessing, feature engineering, training, evaluation, deployment).\n- Identify metrics or KPIs used to quantify “effort to ship”: engineering hours, GPU/TPU compute cost, number of training runs, iteration cycles, time-to-deployment, time-to-first-ship, and model training latency.\n- Find baselines or comparisons of different pipeline configurations (manual vs automated, monolithic vs modular, offline vs online training) and their impact on shipping velocity and reliability.\n- Search for discussions of data quality, dataset size, labeling strategy, active learning, and their relationship to model performance vs. development effort.\n- Look for risk analysis around data and training pipelines: technical debt, data drift, training-serving skew, reproducibility issues, infra bottlenecks, and failure modes that delay shipping.\n- Identify any “Key Findings” or “Summary” sections that explicitly connect pipeline design choices to shipping cadence, release frequency, or productivity.\n- Retrieve “Next Steps” or “Future Work” sections that propose pipeline improvements (automation, CI/CD for ML, experiment tracking, hyperparameter tuning strategies) to reduce effort required to ship.\n- Specifically search TABLES/...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "71bc710b4f531321",
+      "e34153105a90ca3d",
+      "ae8ea7a814b371bf",
+      "70a2d1dc0f1c2738",
+      "78956211adc2960c",
+      "7d142118c248be78",
+      "12f84962dcc895b7",
+      "dc8faf7f0adbad5e",
+      "f509249fe42f7c0b",
+      "d6d9aeae8500ca14",
+      "615b9bb0b00f06c5",
+      "405a3c69de7820dc",
+      "ea73ba2e5c48689f",
+      "48f55570f23fbf34",
+      "280dd300f503a0c9",
+      "8054a8ad91d54f01",
+      "0a23e386024a84f1",
+      "343db583c5f4bc61",
+      "f8ca36df4f563326",
+      "9aa98ea88197007d",
+      "029807a1cff78ce3",
+      "4293ef0dc536f0e5",
+      "3b6be3edd259c18e",
+      "8330fa3f49256188",
+      "c913629ddcafae44",
+      "124d2d04a7c7e545",
+      "e4f5aa8d25fc1593",
+      "bfe149b1f8e7d622"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 2200
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "71bc710b4f531321",
+      "content": {
+        "text": "Datasets:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.0125
+      }
+    },
+    {
+      "chunk_id": "e34153105a90ca3d",
+      "content": {
+        "text": "Training &amp; Evaluation:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 6,
+        "importance_score": 0.015384615384615385
+      }
+    },
+    {
+      "chunk_id": "ae8ea7a814b371bf",
+      "content": {
+        "text": "Model Architecture:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.005128205128205128
+      }
+    },
+    {
+      "chunk_id": "70a2d1dc0f1c2738",
+      "content": {
+        "text": "Security and Ethical Issues of MLLMs:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 9,
+        "importance_score": 0.007575757575757576
+      }
+    },
+    {
+      "chunk_id": "78956211adc2960c",
+      "content": {
+        "text": "MLLMs in the image domain have made remarkable progress in recent years, demonstrating superior performance",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 18,
+        "importance_score": 0.010638297872340425
+      }
+    },
+    {
+      "chunk_id": "7d142118c248be78",
+      "content": {
+        "text": "Table III reviews and compares several representative video generation MLLMs, focusing on their architectural design, multimodal fusion, practical applications, and future research directions.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 31,
+        "importance_score": 0.005235602094240838
+      }
+    },
+    {
+      "chunk_id": "12f84962dcc895b7",
+      "content": {
+        "text": "Early Fusion: Combines input data at the initial stage, leveraging the raw interconnectedness of different modalities.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "list",
+        "cognitive_cost": 21,
+        "importance_score": 0.007633587786259542
+      }
+    },
+    {
+      "chunk_id": "dc8faf7f0adbad5e",
+      "content": {
+        "text": "b) Application of Deep Learning Technologies in Image Understanding:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 11,
+        "importance_score": 0.008620689655172414
+      }
+    },
+    {
+      "chunk_id": "f509249fe42f7c0b",
+      "content": {
+        "text": "MiniGPT-4 employs a two-stage training approach. The initial pre-training stage involves training the model on a large collection of aligned image-text pairs, keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer. This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs. The second fine-tuning stage addresses the limitations observed after the first stage, such as incoherent linguistic outputs. It fine-tunes the model using a smaller but high-quality dataset, significantly improving its generation reliability. This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 142,
+        "importance_score": 0.007042253521126761
+      }
+    },
+    {
+      "chunk_id": "d6d9aeae8500ca14",
+      "content": {
+        "text": "In summary, multimodal models play a key essential role in image understanding tasks. MiniGPT-4, InstructBLIP, and other related models have shown excellent performance and potential, providing strong support for the development of image understanding tasks. With continuous technological advancements and improvements in model performance, multimodal models are expected to play an increasingly important role in image understanding tasks, bringing more innovation and breakthroughs to the field of artificial intelligence.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 86,
+        "importance_score": 0.0072992700729927005
+      }
+    },
+    {
+      "chunk_id": "615b9bb0b00f06c5",
+      "content": {
+        "text": "In the realm of image understanding, MLLMs excel at interpreting and extracting meaningful information from images. They can identify objects, understand scenes, and even infer relationships between elements within an image. By combining visual data with textual descriptions, these models can provide comprehensive analyses that surpass traditional image processing methods. For instance, an MLLM can analyze a photograph to identify the objects present, describe their interactions, and correlate this with relevant textual information, offering a nuanced understanding of the visual content.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 97,
+        "importance_score": 0.00909090909090909
+      }
+    },
+    {
+      "chunk_id": "405a3c69de7820dc",
+      "content": {
+        "text": "Another innovative model is MM-Interleaved [52], which builds upon the Multimodal Feature Synchronizer (MMFS). MMFS improves efficiency in extracting visual details for MLLMs by reducing the required number of visual annotations. MM-Interleaved optimizes the interaction between text and images through end-to-end training, particularly suitable for tasks requiring dynamic and efficient image attention mechanisms. It demonstrates remarkable performance across various multimodal benchmarks, highlighting its potential and advantages in image generation tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 98,
+        "importance_score": 0.007194244604316547
+      }
+    },
+    {
+      "chunk_id": "ea73ba2e5c48689f",
+      "content": {
+        "text": "[109] H. Liu, C. Li, Y. Li, and Y. J. Lee, “Improved baselines with visual instruction tuning,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024, pp. 26 296–26 306.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 62,
+        "importance_score": 0.00819672131147541
+      }
+    },
+    {
+      "chunk_id": "48f55570f23fbf34",
+      "content": {
+        "text": "Many advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning. For example, in the generalized task of audio",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 30,
+        "importance_score": 0.007874015748031496
+      }
+    },
+    {
+      "chunk_id": "280dd300f503a0c9",
+      "content": {
+        "text": "Regarding model architecture, various MLLMs employ diverse designs. For instance, HuggingGPT [25] uses a LLM as the core controller, EMO incorporates specialized facial feature extraction and audio processing modules, while LWM [90] and NeXT-GPT [19] integrate advanced generative adversarial networks (such as VQGAN [112]) and vision-language models (like CLIP and ImageBind [75]). These architectural choices significantly impact the models’ generative capabilities and efficiency. For example, LWM boasts a parameter count of up to 1M and robust scalability, whereas NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B).",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 139,
+        "importance_score": 0.016129032258064516
+      }
+    },
+    {
+      "chunk_id": "8054a8ad91d54f01",
+      "content": {
+        "text": "As MLLMs process vast amounts of data, they inevitably encounter security issues such as privacy leakage and data bias. Addressing these challenges is not only a technical endeavor but also a measure of researchers’ social responsibility. Establishing robust ethical standards and security measures to ensure that model development and deployment adhere to societal and moral norms is a crucial issue that demands urgent and in-depth consideration.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 76,
+        "importance_score": 0.012658227848101266
+      }
+    },
+    {
+      "chunk_id": "0a23e386024a84f1",
+      "content": {
+        "text": "Speech recognition datasets LibriSpeech and GigaSpeech M-sets, and audio captioning datasets WavCaps and AudioCaps are used as pre-training datasets, and datasets under multiple tasks are used for instruction fine-tuning.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 45,
+        "importance_score": 0.009523809523809525
+      }
+    },
+    {
+      "chunk_id": "343db583c5f4bc61",
+      "content": {
+        "text": "Looking ahead, there are still many research directions worth exploring for MLLMs in the field of video understanding. Firstly, combining MLLMs with representation learning methods, such as contrastive learning and reinforcement learning, have the potential to further improve model performance. Secondly, more advanced multimodal fusion mechanisms, like Temporal Attention that considers temporal information, can better model the dynamic features of videos. Furthermore, more lightweight model designs that significantly reduce computational overhead while maintaining performance are more suitable for real-time application scenarios. Additionally, MLLMs based on high-level cognitive abilities, such as causal reasoning and logical reasoning, are closer to human-like video understanding. Finally, incorporating external knowledge (e.g., common sense, domain knowledge) to enhance MLLMs, enabling them to possess stronger analysis and reasoning capabilities, is also a promising research direction.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 166,
+        "importance_score": 0.005319148936170213
+      }
+    },
+    {
+      "chunk_id": "f8ca36df4f563326",
+      "content": {
+        "text": "ability is crucial for applications such as creative industries, where generating novel visual content is essential. By training on vast datasets of images and texts, MLLMs can synthesize new images that are coherent with the specified descriptions, pushing the boundaries of what automated image creation can achieve.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 55,
+        "importance_score": 0.009345794392523364
+      }
+    },
+    {
+      "chunk_id": "9aa98ea88197007d",
+      "content": {
+        "text": "As model sizes continue to expand, there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one. On the one hand, creating general General Artificial Intelligence Generated Content systems to address a wide range of real-world tasks is an attractive goal. However, increasing evidence suggests that smaller, more targeted models can deliver superior performance in specific domains. Therefore, finding the right balance between generality and specialization—ensuring that multimodal large language models can excel in specific tasks while maintaining strong generalization capabilities—has become a pivotal issue for future research.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 122,
+        "importance_score": 0.0078125
+      }
+    },
+    {
+      "chunk_id": "029807a1cff78ce3",
+      "content": {
+        "text": "In the early days, image understanding primarily relied on traditional feature extraction methods such as HOG and SIFT. These methods involved manually designing features to describe image content, followed by utilizing traditional machine learning algorithms for tasks like classification and detection. While these methods performed well in some simple image tasks, they exhibited limitations in descriptive capabilities and generalization when faced with complex image data.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 74,
+        "importance_score": 0.007936507936507936
+      }
+    },
+    {
+      "chunk_id": "4293ef0dc536f0e5",
+      "content": {
+        "text": "Another prominent model is InstructBLIP, which demonstrates exceptional image understanding capabilities. With its modular architecture design, InstructBLIP can quickly adapt to different LLMs and perform instruction tuning by freezing the image encoder and the LLM. This approach enables efficient understanding and reasoning of image information. InstructBLIP excels in vision-language instruction tuning, generating rich responses while effectively considering the dialogue history, thus providing impressive performance for image understanding tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 89,
+        "importance_score": 0.0053475935828877
+      }
+    },
+    {
+      "chunk_id": "3b6be3edd259c18e",
+      "content": {
+        "text": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities—such as text, images, and audio—into a shared semantic space. Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms (as utilized in LWM’s Transformer structure). Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 90,
+        "importance_score": 0.005376344086021506
+      }
+    },
+    {
+      "chunk_id": "8330fa3f49256188",
+      "content": {
+        "text": "[6] Y. Zhawry, Y. Pan, T. Zhong, P. Dong, K. Xie, Y. Liu, H. Jiang, Z. Liu, S. Zhao, T. Zhang et al., “More than you can see: Investigating the modes of training of multimodal large language models for radiology report generation,” arXiv preprint arXiv:2407.05785, 2024.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 92,
+        "importance_score": 0.004901960784313725
+      }
+    },
+    {
+      "chunk_id": "c913629ddcafae44",
+      "content": {
+        "text": "To address the challenge of co-training multiple tasks and multiple datasets, Qwen-Audio proposes a multitask training framework. The framework conditions the output of the decoder as a series of hierarchical labels on data from more than 30 tasks, eight languages, and multiple audio types, mitigating differences in the multitasking data due to task goals, languages, annotation granularity, and text structure by sharing labels. In addition, to better understand speech signals in tasks such as speech recognition and audio Q&amp;A, fine-grained word-level timestamps are introduced in the training to improve the model’s ability to align audio signals and timestamps.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 125,
+        "importance_score": 0.005952380952380952
+      }
+    },
+    {
+      "chunk_id": "124d2d04a7c7e545",
+      "content": {
+        "text": "InstructBLIP employs a two-stage training process. The first stage involves vision-language pretraining, initializing the model from pre-trained BLIP-2 checkpoints. Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen. The second stage, instruction tuning, involves training the model with a maximum of 60,000 steps, validating performance every 3,000 steps. The AdamW optimizer is used with specific hyperparameters, and training is conducted on 16 Nvidia A100 GPUs over 1.5 days. Inference involves generating responses for image captioning and open-ended VQA tasks, and using vocabulary ranking for classification and multi-choice VQA tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 143,
+        "importance_score": 0.009900990099009901
+      }
+    },
+    {
+      "chunk_id": "e4f5aa8d25fc1593",
+      "content": {
+        "text": "Video generation refers to the training of artificial intelligence to autonomously produce high-fidelity video content that aligns with given descriptions using single-modal or multimodal data such as text, images, or videos. Based on the method of generation, current AI video generation can be categorized into text-conditioned video generation, image-conditioned video generation, and video-to-video synthesis. Specifically, the text-conditioned video generation task generates videos based on textual instructions. In the image-conditioned video generation task, the model generates corresponding videos from one or more input reference images. The video-to-video synthesis task generates a new video from an input video. With the development of MLLMs, more models now support any-to-any tasks [19], [81], [82], allowing for conversions and generation across various modalities, including using text, images, or videos simultaneously to guide the generation of new videos.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 172,
+        "importance_score": 0.005494505494505495
+      }
+    },
+    {
+      "chunk_id": "bfe149b1f8e7d622",
+      "content": {
+        "text": "Despite the impressive results achieved by MLLMs in video understanding benchmarks, applying them to real-world scenarios still faces numerous challenges. Firstly, the annotation quality of large-scale video datasets varies greatly, which can introduce noise and affect model performance. Obtaining high-quality video annotation data is an urgent problem that needs to be addressed. Secondly, current MLLMs have parameters in the order of billions, resulting in slow inference speeds, making it difficult to meet the requirements of real-time applications. Techniques like model quantization, pruning and pruning may help alleviate this issue. Moreover, existing MLLMs are sensitive to interference factors in videos, such as changes in lighting, occlusion, and blur. Improving the robustness of models is crucial for practical applications. Lastly, MLLMs are typically “black-box models” that lack interpretability, which may raise safety concerns in high-risk application domains (e.g., autonomous driving). Developing interpretable MLLMs is an important future research direction.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 195,
+        "importance_score": 0.008130081300813009
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "71bc710b4f531321",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0125,
+      "cost": 3,
+      "text": "Datasets:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e34153105a90ca3d",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.015384615384615385,
+      "cost": 6,
+      "text": "Training &amp; Evaluation:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ae8ea7a814b371bf",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005128205128205128,
+      "cost": 3,
+      "text": "Model Architecture:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "70a2d1dc0f1c2738",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.007575757575757576,
+      "cost": 9,
+      "text": "Security and Ethical Issues of MLLMs:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "78956211adc2960c",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.010638297872340425,
+      "cost": 18,
+      "text": "MLLMs in the image domain have made remarkable progress in recent years, demonstrating superior performance",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7d142118c248be78",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005235602094240838,
+      "cost": 31,
+      "text": "Table III reviews and compares several representative video generation MLLMs, focusing on their architectural design, multimodal fusion, practical applications, and future research directions.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "12f84962dcc895b7",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "list",
+      "rel": 0.007633587786259542,
+      "cost": 21,
+      "text": "Early Fusion: Combines input data at the initial stage, leveraging the raw interconnectedness of different modalities.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "dc8faf7f0adbad5e",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.008620689655172414,
+      "cost": 11,
+      "text": "b) Application of Deep Learning Technologies in Image Understanding:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f509249fe42f7c0b",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007042253521126761,
+      "cost": 142,
+      "text": "MiniGPT-4 employs a two-stage training approach. The initial pre-training stage involves training the model on a large collection of aligned image-text pairs, keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer. This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs. The second fine-tuning stage addresses the limitations observed after the first stage, such as incoherent linguistic outputs. It fine-tunes the model using a smaller but high-quality dataset, significantly improving its generation reliability. This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d6d9aeae8500ca14",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0072992700729927005,
+      "cost": 86,
+      "text": "In summary, multimodal models play a key essential role in image understanding tasks. MiniGPT-4, InstructBLIP, and other related models have shown excellent performance and potential, providing strong support for the development of image understanding tasks. With continuous technological advancements and improvements in model performance, multimodal models are expected to play an increasingly important role in image understanding tasks, bringing more innovation and breakthroughs to the field of artificial intelligence.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "615b9bb0b00f06c5",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.00909090909090909,
+      "cost": 97,
+      "text": "In the realm of image understanding, MLLMs excel at interpreting and extracting meaningful information from images. They can identify objects, understand scenes, and even infer relationships between elements within an image. By combining visual data with textual descriptions, these models can provide comprehensive analyses that surpass traditional image processing methods. For instance, an MLLM can analyze a photograph to identify the objects present, describe their interactions, and correlate this with relevant textual information, offering a nuanced understanding of the visual content.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "405a3c69de7820dc",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007194244604316547,
+      "cost": 98,
+      "text": "Another innovative model is MM-Interleaved [52], which builds upon the Multimodal Feature Synchronizer (MMFS). MMFS improves efficiency in extracting visual details for MLLMs by reducing the required number of visual annotations. MM-Interleaved optimizes the interaction between text and images through end-to-end training, particularly suitable for tasks requiring dynamic and efficient image attention mechanisms. It demonstrates remarkable performance across various multimodal benchmarks, highlighting its potential and advantages in image generation tasks.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ea73ba2e5c48689f",
+      "page": 21,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.00819672131147541,
+      "cost": 62,
+      "text": "[109] H. Liu, C. Li, Y. Li, and Y. J. Lee, “Improved baselines with visual instruction tuning,” in Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition, 2024, pp. 26 296–26 306.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "48f55570f23fbf34",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007874015748031496,
+      "cost": 30,
+      "text": "Many advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning. For example, in the generalized task of audio",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "280dd300f503a0c9",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.016129032258064516,
+      "cost": 139,
+      "text": "Regarding model architecture, various MLLMs employ diverse designs. For instance, HuggingGPT [25] uses a LLM as the core controller, EMO incorporates specialized facial feature extraction and audio processing modules, while LWM [90] and NeXT-GPT [19] integrate advanced generative adversarial networks (such as VQGAN [112]) and vision-language models (like CLIP and ImageBind [75]). These architectural choices significantly impact the models’ generative capabilities and efficiency. For example, LWM boasts a parameter count of up to 1M and robust scalability, whereas NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B).",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8054a8ad91d54f01",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012658227848101266,
+      "cost": 76,
+      "text": "As MLLMs process vast amounts of data, they inevitably encounter security issues such as privacy leakage and data bias. Addressing these challenges is not only a technical endeavor but also a measure of researchers’ social responsibility. Establishing robust ethical standards and security measures to ensure that model development and deployment adhere to societal and moral norms is a crucial issue that demands urgent and in-depth consideration.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0a23e386024a84f1",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.009523809523809525,
+      "cost": 45,
+      "text": "Speech recognition datasets LibriSpeech and GigaSpeech M-sets, and audio captioning datasets WavCaps and AudioCaps are used as pre-training datasets, and datasets under multiple tasks are used for instruction fine-tuning.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "343db583c5f4bc61",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005319148936170213,
+      "cost": 166,
+      "text": "Looking ahead, there are still many research directions worth exploring for MLLMs in the field of video understanding. Firstly, combining MLLMs with representation learning methods, such as contrastive learning and reinforcement learning, have the potential to further improve model performance. Secondly, more advanced multimodal fusion mechanisms, like Temporal Attention that considers temporal information, can better model the dynamic features of videos. Furthermore, more lightweight model designs that significantly reduce computational overhead while maintaining performance are more suitable for real-time application scenarios. Additionally, MLLMs based on high-level cognitive abilities, such as causal reasoning and logical reasoning, are closer to human-like video understanding. Finally, incorporating external knowledge (e.g., common sense, domain knowledge) to enhance MLLMs, enabling them to possess stronger analysis and reasoning capabilities, is also a promising research direction.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f8ca36df4f563326",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.009345794392523364,
+      "cost": 55,
+      "text": "ability is crucial for applications such as creative industries, where generating novel visual content is essential. By training on vast datasets of images and texts, MLLMs can synthesize new images that are coherent with the specified descriptions, pushing the boundaries of what automated image creation can achieve.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9aa98ea88197007d",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0078125,
+      "cost": 122,
+      "text": "As model sizes continue to expand, there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one. On the one hand, creating general General Artificial Intelligence Generated Content systems to address a wide range of real-world tasks is an attractive goal. However, increasing evidence suggests that smaller, more targeted models can deliver superior performance in specific domains. Therefore, finding the right balance between generality and specialization—ensuring that multimodal large language models can excel in specific tasks while maintaining strong generalization capabilities—has become a pivotal issue for future research.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "029807a1cff78ce3",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007936507936507936,
+      "cost": 74,
+      "text": "In the early days, image understanding primarily relied on traditional feature extraction methods such as HOG and SIFT. These methods involved manually designing features to describe image content, followed by utilizing traditional machine learning algorithms for tasks like classification and detection. While these methods performed well in some simple image tasks, they exhibited limitations in descriptive capabilities and generalization when faced with complex image data.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "4293ef0dc536f0e5",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0053475935828877,
+      "cost": 89,
+      "text": "Another prominent model is InstructBLIP, which demonstrates exceptional image understanding capabilities. With its modular architecture design, InstructBLIP can quickly adapt to different LLMs and perform instruction tuning by freezing the image encoder and the LLM. This approach enables efficient understanding and reasoning of image information. InstructBLIP excels in vision-language instruction tuning, generating rich responses while effectively considering the dialogue history, thus providing impressive performance for image understanding tasks.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3b6be3edd259c18e",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005376344086021506,
+      "cost": 90,
+      "text": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities—such as text, images, and audio—into a shared semantic space. Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms (as utilized in LWM’s Transformer structure). Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8330fa3f49256188",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.004901960784313725,
+      "cost": 92,
+      "text": "[6] Y. Zhawry, Y. Pan, T. Zhong, P. Dong, K. Xie, Y. Liu, H. Jiang, Z. Liu, S. Zhao, T. Zhang et al., “More than you can see: Investigating the modes of training of multimodal large language models for radiology report generation,” arXiv preprint arXiv:2407.05785, 2024.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c913629ddcafae44",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005952380952380952,
+      "cost": 125,
+      "text": "To address the challenge of co-training multiple tasks and multiple datasets, Qwen-Audio proposes a multitask training framework. The framework conditions the output of the decoder as a series of hierarchical labels on data from more than 30 tasks, eight languages, and multiple audio types, mitigating differences in the multitasking data due to task goals, languages, annotation granularity, and text structure by sharing labels. In addition, to better understand speech signals in tasks such as speech recognition and audio Q&amp;A, fine-grained word-level timestamps are introduced in the training to improve the model’s ability to align audio signals and timestamps.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "124d2d04a7c7e545",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.009900990099009901,
+      "cost": 143,
+      "text": "InstructBLIP employs a two-stage training process. The first stage involves vision-language pretraining, initializing the model from pre-trained BLIP-2 checkpoints. Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen. The second stage, instruction tuning, involves training the model with a maximum of 60,000 steps, validating performance every 3,000 steps. The AdamW optimizer is used with specific hyperparameters, and training is conducted on 16 Nvidia A100 GPUs over 1.5 days. Inference involves generating responses for image captioning and open-ended VQA tasks, and using vocabulary ranking for classification and multi-choice VQA tasks.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e4f5aa8d25fc1593",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005494505494505495,
+      "cost": 172,
+      "text": "Video generation refers to the training of artificial intelligence to autonomously produce high-fidelity video content that aligns with given descriptions using single-modal or multimodal data such as text, images, or videos. Based on the method of generation, current AI video generation can be categorized into text-conditioned video generation, image-conditioned video generation, and video-to-video synthesis. Specifically, the text-conditioned video generation task generates videos based on textual instructions. In the image-conditioned video generation task, the model generates corresponding videos from one or more input reference images. The video-to-video synthesis task generates a new video from an input video. With the development of MLLMs, more models now support any-to-any tasks [19], [81], [82], allowing for conversions and generation across various modalities, including using text, images, or videos simultaneously to guide the generation of new videos.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "bfe149b1f8e7d622",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008130081300813009,
+      "cost": 195,
+      "text": "Despite the impressive results achieved by MLLMs in video understanding benchmarks, applying them to real-world scenarios still faces numerous challenges. Firstly, the annotation quality of large-scale video datasets varies greatly, which can introduce noise and affect model performance. Obtaining high-quality video annotation data is an urgent problem that needs to be addressed. Secondly, current MLLMs have parameters in the order of billions, resulting in slow inference speeds, making it difficult to meet the requirements of real-time applications. Techniques like model quantization, pruning and pruning may help alleviate this issue. Moreover, existing MLLMs are sensitive to interference factors in videos, such as changes in lighting, occlusion, and blur. Improving the robustness of models is crucial for practical applications. Lastly, MLLMs are typically “black-box models” that lack interpretability, which may raise safety concerns in high-risk application domains (e.g., autonomous driving). Developing interpretable MLLMs is an important future research direction.",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- Existing multimodal LLM work suggests we can ship useful image-understanding features with relatively modest training runs if we (a) freeze large backbones, (b) use two-stage training, and (c) focus on small, high-quality instruction datasets for the final tuning. [f509249fe42f7c0b] [124d2d04a7c7e545]\n- The main effort tradeoff is between broader capability (more data, more GPUs, more fusion complexity) and a lean, specialized system that is cheaper and faster to iterate on. [9aa98ea88197007d] [3b6be3edd259c18e]\n\n## Key Findings\n- Two-stage training is a proven, efficient pattern:\n  - Stage 1: Large-scale aligned image–text pretraining with frozen vision encoder + LLM, training only a projection/Q-Former. [f509249fe42f7c0b] [124d2d04a7c7e545]\n  - Stage 2: Short, high-quality instruction fine-tuning to fix coherence and reliability issues. [f509249fe42f7c0b] [124d2d04a7c7e545]\n- Concrete effort baselines:\n  - MiniGPT-4: ~20k steps, batch size 256, ~10 hours on 4×A100 for stage 1; ~7 minutes on 1×A100 for stage 2. [f509249fe42f7c0b]\n  - InstructBLIP: up to 60k steps, 16×A100, ~1.5 days for instruction tuning (Q-Former only; encoders frozen). [124d2d04a7c7e545]\n- Freezing large components (vision encoder, LLM) and only training small adapters (linear projection, Q-Former) is standard and keeps compute low while still yielding strong image understanding. [f509249fe42f7c0b] [124d2d04a7c7e545] [4293ef0dc536f0e5]\n- Attention-based multimodal fusion improves capability but increases compute; simple linear layers are cheaper but less expressive. This is a key architecture/effort tradeoff. [3b6be3edd259c18e]\n- Smaller, specialized models can outperform large general ones on focused tasks, supporting a “ship a narrow, good-enough system first” strategy. [9aa98ea88197007d]\n- Current MLLMs already deliver strong image understanding (object/scene recognition, relationships, rich responses) using these pipelines, indicating that similar effort levels are sufficient to ship useful features. [615b9bb0b00f06c5] [4293ef0dc536f0e5] [d6d9aeae8500ca14]\n\n## Evidence\n- MiniGPT-4:\n  - Two-stage training; stage 1 trains only a linear projection with frozen vision encoder + LLM on large aligned image–text pairs. [f509249fe42f7c0b]\n  - Stage 1: 20,000 steps, batch size 256, ~10 hours on 4×A100. [f509249fe42f7c0b]\n  - Stage 2: small, high-quality dataset; ~7 minutes on 1×A100; fixes incoherent language and improves reliability. [f509249fe42f7c0b]\n- InstructBLIP:\n  - Two-stage process: vision–language pretraining from BLIP-2 checkpoints (fine-tune Q-Former only; encoders frozen), then instruction tuning. [124d2d04a7c7e545]\n  - Instruction tuning: up to 60k steps, validate every 3k, AdamW, 16×A100, ~1.5 days. [124d2d04a7c7e545]\n  - Modular design; strong image understanding and dialogue-aware responses. [4293ef0dc536f0e5]\n- Fusion and architecture:\n  - Linear fusion (e.g., Vitron) vs attention-based fusion (e.g., LWM Transformer); attention is more powerful but more computationally expensive. [3b6be3edd259c18e]\n  - Diverse architectures (HuggingGPT controller, GAN+CLIP/ImageBind stacks, etc.) show that design choices directly affect efficiency and generative quality. [280dd300f503a0c9]\n- Capability vs size:\n  - Debate between “big & comprehensive” vs “small & specialized”; evidence that smaller, targeted models can be superior on specific domains. [9aa98ea88197007d]\n\n## Risks\n- Over-investing in large, general models may yield slow inference and high costs without clear benefit for the initial, focused use case. [9aa98ea88197007d] [bfe149b1f8e7d622]\n- Choosing complex attention-heavy fusion early can increase compute and engineering complexity, delaying shipping. [3b6be3edd259c18e]\n- Data quality issues (noisy or poorly aligned multimodal data) can undermine performance, forcing additional cleaning or retraining cycles. [bfe149b1f8e7d622]\n- Security, privacy, and bias concerns in large multimodal datasets require explicit handling; ignoring them can block deployment later. [8054a8ad91d54f01]\n- Black-box behavior and lack of interpretability may be problematic in higher-risk domains, constraining where the shipped system can be used. [bfe149b1f8e7d622]\n\n## Next Steps\n- Adopt a MiniGPT-4 / InstructBLIP-style two-stage pipeline:\n  - Stage 1: Train a small projection/Q-Former on large aligned image–text data with frozen vision encoder + LLM; target similar scale (tens of thousands of steps, a few A100s for <1–2 days). [f509249fe42f7c0b] [124d2d04a7c7e545]\n  - Stage 2: Fine-tune on a curated, high-quality instruction dataset for your target tasks; keep this short and iterative (minutes–hours on 1–few GPUs). [f509249fe42f7c0b]\n- Start with simpler fusion (linear or lightweight attention) to minimize compute, then profile and only upgrade to heavier attention if task performance demands it. [3b6be3edd259c18e]\n- Optimize for a small, specialized model that targets your primary image-understanding use cases first, deferring broader multimodal/general capabilities. [9aa98ea88197007d]\n- Define explicit “ship” criteria tied to this pipeline:\n  - Accuracy/quality thresholds on core tasks (captioning, VQA, etc.).\n  - Latency and GPU cost targets consistent with MiniGPT-4 / InstructBLIP baselines.\n  - Basic safety checks on data and outputs (privacy, bias review). [8054a8ad91d54f01]\n- Plan for later iterations (post-ship) to:\n  - Expand datasets and modalities.\n  - Experiment with more advanced fusion and lighter architectures for better real-time performance. [343db583c5f4bc61] [bfe149b1f8e7d622]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- Existing multimodal LLM work suggests we can ship useful image-understanding features with relatively modest training runs if we (a) freeze large backbones, (b) use two-stage training, and (c) focus on small, high-quality instruction datasets for the final tuning. [f509249fe42f7c0b] [124d2d04a7c7e545]\n- The main effort tradeoff is between broader capability (more data, more GPUs, more fusion complexity) and a lean, specialized system that is cheaper and faster to iterate on. [9aa98ea88197007d] [3b6be3edd259c18e]\n\n## Key Findings\n- Two-stage training is a proven, efficient pattern:\n  - Stage 1: Large-scale aligned image–text pretraining with frozen vision encoder + LLM, training only a projection/Q-Former. [f509249fe42f7c0b] [124d2d04a7c7e545]\n  - Stage 2: Short, high-quality instruction fine-tuning to fix coherence and reliability issues. [f509249fe42f7c0b] [124d2d04a7c7e545]\n- Concrete effort baselines:\n  - MiniGPT-4: ~20k steps, batch size 256, ~10 hours on 4×A100 for stage 1; ~7 minutes on 1×A100 for stage 2. [f509249fe42f7c0b]\n  - InstructBLIP: up to 60k steps, 16×A100, ~1.5 days for instruction tuning (Q-Former only; encoders frozen). [124d2d04a7c7e545]\n- Freezing large components (vision encoder, LLM) and only training small adapters (linear projection, Q-Former) is standard and keeps compute low while still yielding strong image understanding. [f509249fe42f7c0b] [124d2d04a7c7e545] [4293ef0dc536f0e5]\n- Attention-based multimodal fusion improves capability but increases compute; simple linear layers are cheaper but less expressive. This is a key architecture/effort tradeoff. [3b6be3edd259c18e]\n- Smaller, specialized models can outperform large general ones on focused tasks, supporting a “ship a narrow, good-enough system first” strategy. [9aa98ea88197007d]\n- Current MLLMs already deliver strong image understanding (object/scene recognition, relationships, rich responses) using these pipelines, indicating that similar effort levels are sufficient to ship useful features. [615b9bb0b00f06c5] [4293ef0dc536f0e5] [d6d9aeae8500ca14]\n\n## Evidence\n- MiniGPT-4:\n  - Two-stage training; stage 1 trains only a linear projection with frozen vision encoder + LLM on large aligned image–text pairs. [f509249fe42f7c0b]\n  - Stage 1: 20,000 steps, batch size 256, ~10 hours on 4×A100. [f509249fe42f7c0b]\n  - Stage 2: small, high-quality dataset; ~7 minutes on 1×A100; fixes incoherent language and improves reliability. [f509249fe42f7c0b]\n- InstructBLIP:\n  - Two-stage process: vision–language pretraining from BLIP-2 checkpoints (fine-tune Q-Former only; encoders frozen), then instruction tuning. [124d2d04a7c7e545]\n  - Instruction tuning: up to 60k steps, validate every 3k, AdamW, 16×A100, ~1.5 days. [124d2d04a7c7e545]\n  - Modular design; strong image understanding and dialogue-aware responses. [4293ef0dc536f0e5]\n- Fusion and architecture:\n  - Linear fusion (e.g., Vitron) vs attention-based fusion (e.g., LWM Transformer); attention is more powerful but more computationally expensive. [3b6be3edd259c18e]\n  - Diverse architectures (HuggingGPT controller, GAN+CLIP/ImageBind stacks, etc.) show that design choices directly affect efficiency and generative quality. [280dd300f503a0c9]\n- Capability vs size:\n  - Debate between “big & comprehensive” vs “small & specialized”; evidence that smaller, targeted models can be superior on specific domains. [9aa98ea88197007d]\n\n## Risks\n- Over-investing in large, general models may yield slow inference and high costs without clear benefit for the initial, focused use case. [9aa98ea88197007d] [bfe149b1f8e7d622]\n- Choosing complex attention-heavy fusion early can increase compute and engineering complexity, delaying shipping. [3b6be3edd259c18e]\n- Data quality issues (noisy or poorly aligned multimodal data) can undermine performance, forcing additional cleaning or retraining cycles. [bfe149b1f8e7d622]\n- Security, privacy, and bias concerns in large multimodal datasets require explicit handling; ignoring them can block deployment later. [8054a8ad91d54f01]\n- Black-box behavior and lack of interpretability may be problematic in higher-risk domains, constraining where the shipped system can be used. [bfe149b1f8e7d622]\n\n## Next Steps\n- Adopt a MiniGPT-4 / InstructBLIP-style two-stage pipeline:\n  - Stage 1: Train a small projection/Q-Former on large aligned image–text data with frozen vision encoder + LLM; target similar scale (tens of thousands of steps, a few A100s for <1–2 days). [f509249fe42f7c0b] [124d2d04a7c7e545]\n  - Stage 2: Fine-tune on a curated, high-quality instruction dataset for your target tasks; keep this short and iterative (minutes–hours on 1–few GPUs). [f509249fe42f7c0b]\n- Start with simpler fusion (linear or lightweight attention) to minimize compute, then profile and only upgrade to heavier attention if task performance demands it. [3b6be3edd259c18e]\n- Optimize for a small, specialized model that targets your primary image-understanding use cases first, deferring broader multimodal/general capabilities. [9aa98ea88197007d]\n- Define explicit “ship” criteria tied to this pipeline:\n  - Accuracy/quality thresholds on core tasks (captioning, VQA, etc.).\n  - Latency and GPU cost targets consistent with MiniGPT-4 / InstructBLIP baselines.\n  - Basic safety checks on data and outputs (privacy, bias review). [8054a8ad91d54f01]\n- Plan for later iterations (post-ship) to:\n  - Expand datasets and modalities.\n  - Experiment with more advanced fusion and lighter architectures for better real-time performance. [343db583c5f4bc61] [bfe149b1f8e7d622]"
+  }
+}

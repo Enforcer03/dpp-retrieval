@@ -1,0 +1,558 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "2de6cebfacc05110",
+  "created_at": "2025-12-31T07:21:07Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 14302,
+        "output_hash": "8a7f597106e6c19923d82e068fc5c7c3fb5ef009",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "7e77adee2523ee5a",
+                        "19d09dc632f92a8d",
+                        "40de030796b3d32a",
+                        "e22df3321d2941a1"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "7e77adee2523ee5a",
+                          "quote": "our 256 × 256 models use six [resolutions]... LSUN and CelebA-HQ models have 114 million parameters."
+                        },
+                        {
+                          "chunk_id": "19d09dc632f92a8d",
+                          "quote": "We set the batch size to 128 for CIFAR10 and 64 for larger images."
+                        },
+                        {
+                          "chunk_id": "40de030796b3d32a",
+                          "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints"
+                        },
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                        }
+                      ],
+                      "rationale": "Evidence gives model size (114M params), batch size 64 for 256×256, and that a TPU v3-8 (≈8 V100s) was used, but does not state GPU memory footprint or whether a single GPU node suffices. Hardware scale is implied but not quantified in memory terms."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "7e77adee2523ee5a"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "7e77adee2523ee5a",
+                          "quote": "All models have two convolutional residual blocks per resolution level and self-attention blocks at the 16 × 16 resolution"
+                        }
+                      ],
+                      "rationale": "Architecture explicitly places self-attention only at 16×16, not at the highest 256×256 resolution, indicating expensive high-resolution attention is avoided."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "partial",
+                      "evidence": [
+                        "f930eaf67c8f4e97",
+                        "e22df3321d2941a1"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f930eaf67c8f4e97",
+                          "quote": "we use T = 1000... Gaussian diffusions can be made shorter for fast sampling or longer for model expressiveness."
+                        },
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "sampling a batch of 128 images takes 300 seconds."
+                        }
+                      ],
+                      "rationale": "Evidence shows long diffusion chains (T=1000) and high sampling time, but does not explicitly discuss data or model parallelism or how training parallelizes given sequential timesteps."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "5db6a16cf1c632d5",
+                        "a90568670cdcc514",
+                        "44327bea475ea98c"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "5db6a16cf1c632d5",
+                          "quote": "we set Σ_θ(x_t,t) = σ_t^2 I to untrained time dependent constants."
+                        },
+                        {
+                          "chunk_id": "a90568670cdcc514",
+                          "quote": "‖ε̂ − ε̂_θ‖² (L_simple) achieves IS 9.46±0.11 and FID 3.17."
+                        },
+                        {
+                          "chunk_id": "44327bea475ea98c",
+                          "quote": "we may choose the parameterization"
+                        }
+                      ],
+                      "rationale": "There is discussion of reverse-process parameterization, fixed variance, and ε-prediction objective, but nothing explicitly framed as initialization tricks to avoid pure-noise outputs at training start."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "partial",
+                      "evidence": [
+                        "107be8a91170b1e2",
+                        "e22df3321d2941a1"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "107be8a91170b1e2",
+                          "quote": "Google’s TensorFlow Research Cloud (TFRC) provided Cloud TPUs."
+                        },
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                        }
+                      ],
+                      "rationale": "Paper clearly uses TPUs, but the retrieved text does not specify whether TPU-specific ops are required or whether the implementation is standard PyTorch/TensorFlow and easily portable."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R1",
+                    "R3",
+                    "R4",
+                    "R5"
+                  ],
+                  "risks": [
+                    "Hardware memory needs for 256×256 training are not quantified; single-node vs. multi-node feasibility remains unclear.",
+                    "Parallelization strategy for training across diffusion timesteps is unspecified, risking underutilization of hardware.",
+                    "Lack of explicit initialization guidance may lead to unstable training or poor early outputs.",
+                    "Dependence on TPUs without clarity on portability could complicate GPU-based reimplementation."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Architecture and some hardware throughput details are well covered, but GPU memory footprint, training parallelization, initialization tricks, and TPU vs. standard op portability are not directly addressed.",
+              "missing_requirements": [
+                "R1",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "redundancy": {
+              "level": "low",
+              "notes": "Most high-cost chunks contribute distinct information (architecture, objectives, runtime). References and figures add little to the specific requirements but are not heavily duplicated.",
+              "redundant_pairs": [
+                [
+                  "b4938c4216f3e7b2",
+                  "7f92f9b04e41475e"
+                ],
+                [
+                  "8afc8576fc34a801",
+                  "3802b34bb05ff5c2"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Key chunks on architecture and hardware (7e77adee2523ee5a, e22df3321d2941a1, 40de030796b3d32a, 19d09dc632f92a8d) are high-yield. However, several medium/high-cost chunks (references, figures) do not address the requirements, and crucial details on memory footprint and parallelization are still missing.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "a90568670cdcc514",
+                  "cost": 255,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "5db6a16cf1c632d5",
+                  "cost": 242,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "e22df3321d2941a1",
+                  "cost": 173,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "a1beb749db720659",
+                  "cost": 169,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "7e77adee2523ee5a",
+                  "cost": 195,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key implementation questions (GPU memory footprint, parallelization strategy, portability) remain unanswered, risking misestimation of hardware needs.",
+              "Heavy reliance on TPU-based experiments without explicit portability notes may hinder GPU deployment planning.",
+              "Sampling cost is high for 256×256 images, and no optimization strategies beyond reducing T are detailed in the retrieved text."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 11466,
+        "output_hash": "ee0fd049e47bb246dfbb096d89e439e1252e7ddd",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "Several quantitative and architectural statements are well supported, but some extrapolated implementation guidance and risk framing are not explicitly present in the evidence.",
+              "The summary infers GPU equivalence and multi-day/multi-week training budgeting beyond what the text directly states.",
+              "Recommendations about gradient checkpointing, mixed precision, and early stopping are not grounded in the provided chunks."
+            ],
+            "unsupported_claims": [
+              "That TPU v3-8 is 'roughly comparable to 8 NVIDIA V100 GPUs' is not stated in the evidence; the text only says 'We used TPU v3-8'.",
+              "Hardware budgeting advice such as 'plan for at least one 8×V100-equivalent node for ~4–5 days per full training run' is not in the paper.",
+              "Claims that 256×256 models require 'multi-week' training or 'more nodes' are extrapolations from step rates and step counts, not explicit statements.",
+              "Suggestions to use gradient checkpointing, mixed precision, and early stopping as efficiency improvements are not mentioned in the chunks.",
+              "The framing that hardware and architecture choices are 'driven by fitting large U-Net–style diffusion models into memory' is only weakly implied; the text mentions fitting within memory constraints but not as the overarching design driver."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "We used TPU v3-8 for all experiments."
+              },
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "Our CIFAR model trains at 21 steps per second at batch size 128"
+              },
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "CelebA-HQ/LSUN (256^2) models train at 2.2 steps per second at batch size 64"
+              },
+              {
+                "chunk_id": "7e77adee2523ee5a",
+                "quote": "Our neural network architecture follows the backbone of PixelCNN++"
+              },
+              {
+                "chunk_id": "7e77adee2523ee5a",
+                "quote": "our 256 × 256 models use six. All models have two convolutional residual blocks per resolution level"
+              },
+              {
+                "chunk_id": "7e77adee2523ee5a",
+                "quote": "self-attention blocks at the 16 × 16 resolution between the convolutional blocks"
+              },
+              {
+                "chunk_id": "40de030796b3d32a",
+                "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints"
+              },
+              {
+                "chunk_id": "19d09dc632f92a8d",
+                "quote": "We set the batch size to 128 for CIFAR10 and 64 for larger images."
+              },
+              {
+                "chunk_id": "f930eaf67c8f4e97",
+                "quote": "for instance, we use T = 1000, which is less than the dimension of the 32 × 32 × 3 or 256 × 256 × 3 images"
+              },
+              {
+                "chunk_id": "a90568670cdcc514",
+                "quote": "‖ε̂ − ε̂_θ‖^2 (L_simple) | 9.46±0.11 | 3.17"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+                "answer": "Partially answerable. The paper specifies architecture, parameter counts, batch sizes, and TPU v3-8 throughput, but does not state GPU memory footprint or exact hardware budget. It also does not discuss parallelizability details, initialization tricks to avoid pure noise, or TPU-specific ops vs. standard PyTorch/TF code.",
+                "confidence": 0.6,
+                "evidence": [
+                  "7e77adee2523ee5a",
+                  "40de030796b3d32a",
+                  "19d09dc632f92a8d",
+                  "e22df3321d2941a1",
+                  "f930eaf67c8f4e97"
+                ],
+                "notes": "R1 (GPU memory footprint / cluster vs single node): unknown. The text notes an 'initial choice of hyperparameters ... to make network size fit within memory constraints' but gives no memory numbers or node count. [40de030796b3d32a]\nR2 (high-res self-attention cost): architecture has self-attention only at 16×16, which suggests attention is not used at the highest 256×256 resolution, but there is no explicit discussion of cost optimization. [7e77adee2523ee5a]\nR3 (parallelizability of training): no discussion of data/model parallelism or how diffusion’s sequential sampling affects training parallelism; only step rates are given. [e22df3321d2941a1]\nR4 (initialization tricks to avoid pure noise): no mention of special initialization beyond standard architectural choices; nothing about preventing pure-noise outputs at start.\nR5 (TPU-specific vs standard ops): they report using TPU v3-8 and TensorFlow Research Cloud, but do not describe TPU-only operations or portability to PyTorch/TensorFlow; implementation portability is unknown. [107be8a91170b1e2][e22df3321d2941a1]"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "7e77adee2523ee5a",
+                  "19d09dc632f92a8d",
+                  "40de030796b3d32a",
+                  "e22df3321d2941a1"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "7e77adee2523ee5a",
+                    "quote": "our 256 × 256 models use six [resolutions]... LSUN and CelebA-HQ models have 114 million parameters."
+                  },
+                  {
+                    "chunk_id": "19d09dc632f92a8d",
+                    "quote": "We set the batch size to 128 for CIFAR10 and 64 for larger images."
+                  },
+                  {
+                    "chunk_id": "40de030796b3d32a",
+                    "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints"
+                  },
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                  }
+                ],
+                "rationale": "Evidence gives model size (114M params), batch size 64 for 256×256, and that a TPU v3-8 (≈8 V100s) was used, but does not state GPU memory footprint or whether a single GPU node suffices. Hardware scale is implied but not quantified in memory terms."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "7e77adee2523ee5a"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "7e77adee2523ee5a",
+                    "quote": "All models have two convolutional residual blocks per resolution level and self-attention blocks at the 16 × 16 resolution"
+                  }
+                ],
+                "rationale": "Architecture explicitly places self-attention only at 16×16, not at the highest 256×256 resolution, indicating expensive high-resolution attention is avoided."
+              },
+              {
+                "id": "R3",
+                "status": "partial",
+                "evidence": [
+                  "f930eaf67c8f4e97",
+                  "e22df3321d2941a1"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f930eaf67c8f4e97",
+                    "quote": "we use T = 1000... Gaussian diffusions can be made shorter for fast sampling or longer for model expressiveness."
+                  },
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "sampling a batch of 128 images takes 300 seconds."
+                  }
+                ],
+                "rationale": "Evidence shows long diffusion chains (T=1000) and high sampling time, but does not explicitly discuss data or model parallelism or how training parallelizes given sequential timesteps."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "5db6a16cf1c632d5",
+                  "a90568670cdcc514",
+                  "44327bea475ea98c"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "5db6a16cf1c632d5",
+                    "quote": "we set Σ_θ(x_t,t) = σ_t^2 I to untrained time dependent constants."
+                  },
+                  {
+                    "chunk_id": "a90568670cdcc514",
+                    "quote": "‖ε̂ − ε̂_θ‖² (L_simple) achieves IS 9.46±0.11 and FID 3.17."
+                  },
+                  {
+                    "chunk_id": "44327bea475ea98c",
+                    "quote": "we may choose the parameterization"
+                  }
+                ],
+                "rationale": "There is discussion of reverse-process parameterization, fixed variance, and ε-prediction objective, but nothing explicitly framed as initialization tricks to avoid pure-noise outputs at training start."
+              },
+              {
+                "id": "R5",
+                "status": "partial",
+                "evidence": [
+                  "107be8a91170b1e2",
+                  "e22df3321d2941a1"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "107be8a91170b1e2",
+                    "quote": "Google’s TensorFlow Research Cloud (TFRC) provided Cloud TPUs."
+                  },
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                  }
+                ],
+                "rationale": "Paper clearly uses TPUs, but the retrieved text does not specify whether TPU-specific ops are required or whether the implementation is standard PyTorch/TensorFlow and easily portable."
+              }
+            ],
+            "missing_requirements": [
+              "R1",
+              "R3",
+              "R4",
+              "R5"
+            ],
+            "risks": [
+              "Hardware memory needs for 256×256 training are not quantified; single-node vs. multi-node feasibility remains unclear.",
+              "Parallelization strategy for training across diffusion timesteps is unspecified, risking underutilization of hardware.",
+              "Lack of explicit initialization guidance may lead to unstable training or poor early outputs.",
+              "Dependence on TPUs without clarity on portability could complicate GPU-based reimplementation."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Architecture and some hardware throughput details are well covered, but GPU memory footprint, training parallelization, initialization tricks, and TPU vs. standard op portability are not directly addressed.",
+        "missing_requirements": [
+          "R1",
+          "R3",
+          "R4",
+          "R5"
+        ]
+      },
+      "redundancy": {
+        "level": "low",
+        "notes": "Most high-cost chunks contribute distinct information (architecture, objectives, runtime). References and figures add little to the specific requirements but are not heavily duplicated.",
+        "redundant_pairs": [
+          [
+            "b4938c4216f3e7b2",
+            "7f92f9b04e41475e"
+          ],
+          [
+            "8afc8576fc34a801",
+            "3802b34bb05ff5c2"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Key chunks on architecture and hardware (7e77adee2523ee5a, e22df3321d2941a1, 40de030796b3d32a, 19d09dc632f92a8d) are high-yield. However, several medium/high-cost chunks (references, figures) do not address the requirements, and crucial details on memory footprint and parallelization are still missing.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "a90568670cdcc514",
+            "cost": 255,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "5db6a16cf1c632d5",
+            "cost": 242,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "e22df3321d2941a1",
+            "cost": 173,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "a1beb749db720659",
+            "cost": 169,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "7e77adee2523ee5a",
+            "cost": 195,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key implementation questions (GPU memory footprint, parallelization strategy, portability) remain unanswered, risking misestimation of hardware needs.",
+        "Heavy reliance on TPU-based experiments without explicit portability notes may hinder GPU deployment planning.",
+        "Sampling cost is high for 256×256 images, and no optimization strategies beyond reducing T are detailed in the retrieved text."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "Several quantitative and architectural statements are well supported, but some extrapolated implementation guidance and risk framing are not explicitly present in the evidence.",
+        "The summary infers GPU equivalence and multi-day/multi-week training budgeting beyond what the text directly states.",
+        "Recommendations about gradient checkpointing, mixed precision, and early stopping are not grounded in the provided chunks."
+      ],
+      "unsupported_claims": [
+        "That TPU v3-8 is 'roughly comparable to 8 NVIDIA V100 GPUs' is not stated in the evidence; the text only says 'We used TPU v3-8'.",
+        "Hardware budgeting advice such as 'plan for at least one 8×V100-equivalent node for ~4–5 days per full training run' is not in the paper.",
+        "Claims that 256×256 models require 'multi-week' training or 'more nodes' are extrapolations from step rates and step counts, not explicit statements.",
+        "Suggestions to use gradient checkpointing, mixed precision, and early stopping as efficiency improvements are not mentioned in the chunks.",
+        "The framing that hardware and architecture choices are 'driven by fitting large U-Net–style diffusion models into memory' is only weakly implied; the text mentions fitting within memory constraints but not as the overarching design driver."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "We used TPU v3-8 for all experiments."
+        },
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "Our CIFAR model trains at 21 steps per second at batch size 128"
+        },
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "CelebA-HQ/LSUN (256^2) models train at 2.2 steps per second at batch size 64"
+        },
+        {
+          "chunk_id": "7e77adee2523ee5a",
+          "quote": "Our neural network architecture follows the backbone of PixelCNN++"
+        },
+        {
+          "chunk_id": "7e77adee2523ee5a",
+          "quote": "our 256 × 256 models use six. All models have two convolutional residual blocks per resolution level"
+        },
+        {
+          "chunk_id": "7e77adee2523ee5a",
+          "quote": "self-attention blocks at the 16 × 16 resolution between the convolutional blocks"
+        },
+        {
+          "chunk_id": "40de030796b3d32a",
+          "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints"
+        },
+        {
+          "chunk_id": "19d09dc632f92a8d",
+          "quote": "We set the batch size to 128 for CIFAR10 and 64 for larger images."
+        },
+        {
+          "chunk_id": "f930eaf67c8f4e97",
+          "quote": "for instance, we use T = 1000, which is less than the dimension of the 32 × 32 × 3 or 256 × 256 × 3 images"
+        },
+        {
+          "chunk_id": "a90568670cdcc514",
+          "quote": "‖ε̂ − ε̂_θ‖^2 (L_simple) | 9.46±0.11 | 3.17"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+          "answer": "Partially answerable. The paper specifies architecture, parameter counts, batch sizes, and TPU v3-8 throughput, but does not state GPU memory footprint or exact hardware budget. It also does not discuss parallelizability details, initialization tricks to avoid pure noise, or TPU-specific ops vs. standard PyTorch/TF code.",
+          "confidence": 0.6,
+          "evidence": [
+            "7e77adee2523ee5a",
+            "40de030796b3d32a",
+            "19d09dc632f92a8d",
+            "e22df3321d2941a1",
+            "f930eaf67c8f4e97"
+          ],
+          "notes": "R1 (GPU memory footprint / cluster vs single node): unknown. The text notes an 'initial choice of hyperparameters ... to make network size fit within memory constraints' but gives no memory numbers or node count. [40de030796b3d32a]\nR2 (high-res self-attention cost): architecture has self-attention only at 16×16, which suggests attention is not used at the highest 256×256 resolution, but there is no explicit discussion of cost optimization. [7e77adee2523ee5a]\nR3 (parallelizability of training): no discussion of data/model parallelism or how diffusion’s sequential sampling affects training parallelism; only step rates are given. [e22df3321d2941a1]\nR4 (initialization tricks to avoid pure noise): no mention of special initialization beyond standard architectural choices; nothing about preventing pure-noise outputs at start.\nR5 (TPU-specific vs standard ops): they report using TPU v3-8 and TensorFlow Research Cloud, but do not describe TPU-only operations or portability to PyTorch/TensorFlow; implementation portability is unknown. [107be8a91170b1e2][e22df3321d2941a1]"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,680 @@
+{
+  "run_id": "982bf1e6b0e07a95",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/treering_flux.pdf",
+  "query": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+  "retrieval_query": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).\n\nANCHOR:\n- Look for sections describing “Tree-Ring Watermarking” (TRW) applied to diffusion or rectified flow models, especially any mention of FLUX, rectified flow transformers, or flow-matching architectures.\n- Search for feasibility analyses: computational overhead, training-time vs inference-time watermark insertion, robustness to fine-tuning, model editing, and adversarial removal in rectified flow / flow-matching models.\n- Find comparisons of TRW vs other watermarking methods (e.g., gradient-based, trigger-based, spectral, fingerprinting) on generative models; note any baselines or ablation studies specific to rectified flow or continuous-time models.\n- Look for metrics used to evaluate watermarking: detection accuracy, false positive/false negative rates, robustness under model compression, pruning, quantization, and distillation; any ROC curves or AUC values.\n- Identify datasets and benchmarks used for experiments (e.g., ImageNet, CIFAR, LAION, COCO, text-to-image benchmarks) and whether experiments include large-scale rectified flow models like FLUX or similar architectures.\n- Search for sections on security and risk: vulnerability to model stealing, watermark forgery, collusion attacks, and how rectified flow dynamics affect watermark persistence.\n- Explicitly check TABLES/FIGURES summarizing TRW performance on rectified flow models, overh...[TRUNCATED]",
+  "task": {
+    "user_instruction": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+    "retrieval_query": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).\n\nANCHOR:\n- Look for sections describing “Tree-Ring Watermarking” (TRW) applied to diffusion or rectified flow models, especially any mention of FLUX, rectified flow transformers, or flow-matching architectures.\n- Search for feasibility analyses: computational overhead, training-time vs inference-time watermark insertion, robustness to fine-tuning, model editing, and adversarial removal in rectified flow / flow-matching models.\n- Find comparisons of TRW vs other watermarking methods (e.g., gradient-based, trigger-based, spectral, fingerprinting) on generative models; note any baselines or ablation studies specific to rectified flow or continuous-time models.\n- Look for metrics used to evaluate watermarking: detection accuracy, false positive/false negative rates, robustness under model compression, pruning, quantization, and distillation; any ROC curves or AUC values.\n- Identify datasets and benchmarks used for experiments (e.g., ImageNet, CIFAR, LAION, COCO, text-to-image benchmarks) and whether experiments include large-scale rectified flow models like FLUX or similar architectures.\n- Search for sections on security and risk: vulnerability to model stealing, watermark forgery, collusion attacks, and how rectified flow dynamics affect watermark persistence.\n- Explicitly check TABLES/FIGURES summarizing TRW performance on rectified flow models, overh...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "aadb8d23abf190a4",
+      "46a7e5c7c4475388",
+      "0e85709e002375c5",
+      "676ef7cb4e627e9d",
+      "9dc80f1f8fcf7b33",
+      "20caff27a37e53f6",
+      "65a5c5af5466ce1d",
+      "6847523eb677e85f",
+      "05b9fd7dd2e748e6",
+      "8076ecdd29eabf83",
+      "c1b9f1d74ece4f4e",
+      "acaf9de99782a070",
+      "9c05d214852b2692",
+      "df94130288f8d4d6",
+      "f9fbca8fb45f9d98",
+      "200b0388cb3471e1",
+      "c0dd42c7fc445dc8",
+      "d8e89b5eaf9a47f8",
+      "11cc711f38f0dd5c",
+      "e9570c7d2a34af1f",
+      "448c1d5c58aa5f2b",
+      "4fdc2eca95342d1b",
+      "c326ebe4f784f711"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 1149
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "aadb8d23abf190a4",
+      "content": {
+        "text": "A Appendix: Diffusion Models and Flow Matching",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 9,
+        "importance_score": 0.00980392156862745
+      }
+    },
+    {
+      "chunk_id": "46a7e5c7c4475388",
+      "content": {
+        "text": "FLUX",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 2,
+        "importance_score": 0.0070921985815602835
+      }
+    },
+    {
+      "chunk_id": "0e85709e002375c5",
+      "content": {
+        "text": "Algorithm 1 Tree Ring Watermarking Procedure",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 9,
+        "importance_score": 0.011235955056179775
+      }
+    },
+    {
+      "chunk_id": "676ef7cb4e627e9d",
+      "content": {
+        "text": "4 Experiments",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.0051813471502590676
+      }
+    },
+    {
+      "chunk_id": "9dc80f1f8fcf7b33",
+      "content": {
+        "text": "For inversion, the backward Euler method is used:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 10,
+        "importance_score": 0.005154639175257732
+      }
+    },
+    {
+      "chunk_id": "20caff27a37e53f6",
+      "content": {
+        "text": "Inversion Methods.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 4,
+        "importance_score": 0.006666666666666667
+      }
+    },
+    {
+      "chunk_id": "65a5c5af5466ce1d",
+      "content": {
+        "text": "We quantify watermark robustness through the following metrics:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 9,
+        "importance_score": 0.014084507042253521
+      }
+    },
+    {
+      "chunk_id": "6847523eb677e85f",
+      "content": {
+        "text": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 20,
+        "importance_score": 0.008064516129032258
+      }
+    },
+    {
+      "chunk_id": "05b9fd7dd2e748e6",
+      "content": {
+        "text": "These findings highlight several critical directions for future research: developing improved inversion techniques specifically for rectified flow-based generative models, and crafting approaches to increase robustness of popular watermarking techniques over image manipulation attacks while maintaining watermark effectiveness.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 44,
+        "importance_score": 0.016129032258064516
+      }
+    },
+    {
+      "chunk_id": "8076ecdd29eabf83",
+      "content": {
+        "text": "Tree-Ring Watermark Embedding",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 7,
+        "importance_score": 0.0136986301369863
+      }
+    },
+    {
+      "chunk_id": "c1b9f1d74ece4f4e",
+      "content": {
+        "text": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image Generation Models",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 22,
+        "importance_score": 0.014925373134328358
+      }
+    },
+    {
+      "chunk_id": "acaf9de99782a070",
+      "content": {
+        "text": "‘A family hugging each other for the…  \nWatermarked: True",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 14,
+        "importance_score": 0.013565891472868217
+      }
+    },
+    {
+      "chunk_id": "9c05d214852b2692",
+      "content": {
+        "text": "The use of VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection. While these semantically derived prompts show marginal benefits in distribution separability and offer performance intermediate between exact prompt and no-prompt configurations, they fail to match the effectiveness of exact prompt guidance. This suggests that while semantic understanding from VLMs can aid reconstruction, precise prompt matching remains crucial for optimal watermark recovery.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 78,
+        "importance_score": 0.012658227848101266
+      }
+    },
+    {
+      "chunk_id": "df94130288f8d4d6",
+      "content": {
+        "text": "This naïve DDIM inversion can be interpreted as forward Euler integration starting from $t = 0$. While computationally efficient, it can accumulate errors over multiple steps.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 34,
+        "importance_score": 0.0058823529411764705
+      }
+    },
+    {
+      "chunk_id": "f9fbca8fb45f9d98",
+      "content": {
+        "text": "Gustavo Santana. Stable-diffusion-prompts, Mar 2023. URL https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 38,
+        "importance_score": 0.0078125
+      }
+    },
+    {
+      "chunk_id": "200b0388cb3471e1",
+      "content": {
+        "text": "William Peebles and Saining Xie. Scalable diffusion models with transformers. In <i>International Conference on Computer Vision</i>, pp. 4195–4205, 2023.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 42,
+        "importance_score": 0.009174311926605505
+      }
+    },
+    {
+      "chunk_id": "c0dd42c7fc445dc8",
+      "content": {
+        "text": "Recent work has advanced latent inversion techniques, with [Hong et al. (2024)] demonstrating significantly improved Tree-ring watermark detection using higher-order inversion algorithms compared to naive DDIM inversion. While their work showed remarkable detection accuracy on traditional diffusion models using DPM-Solver++ (Lu et al., 2022), the effectiveness of these techniques on newer rectified flow-based architectures remains unexplored. Our work extends this analysis to flow-based models, providing insights into watermark detection across different architectures.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 98,
+        "importance_score": 0.015873015873015872
+      }
+    },
+    {
+      "chunk_id": "d8e89b5eaf9a47f8",
+      "content": {
+        "text": "Table 2: AUC comparison for watermark detection under different attacks\n\n| Model             | Blurring | Noise |\n|------------------|----------|-------|\n| SD 2.1 base (DDIM) | 0.999    | 0.944 |\n| FLUX.1-dev (RF)  | **0.888** | **0.662** |",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 77,
+        "importance_score": 0.021875000000000002
+      }
+    },
+    {
+      "chunk_id": "11cc711f38f0dd5c",
+      "content": {
+        "text": "The diffusion process occurs entirely in this latent space, offering two key advantages: reduced computational complexity due to lower dimensionality, and the ability to leverage semantic compression from the autoencoder. Given a noise schedule $\\{\\beta_t\\}_{t=1}^T$ and defining $\\bar{\\alpha}_t = \\prod_{i=1}^t (1 - \\beta_i)$, the forward process adds noise to the latents:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 89,
+        "importance_score": 0.006802721088435374
+      }
+    },
+    {
+      "chunk_id": "e9570c7d2a34af1f",
+      "content": {
+        "text": "Peng Wang, Shuai Bai, Sinan Tan, Shijie Wang, Zhihao Fan, Jinze Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Yang Fan, Kai Dang, Mengfei Du, Xuancheng Ren, Rui Men, Dayiheng Liu, Chang Zhou, Jingren Zhou, and Junyang Lin. Qwen2-vl: Enhancing vision-language model’s perception of the world at any resolution, 2024. URL https://arxiv.org/abs/2409.12191",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 116,
+        "importance_score": 0.007142857142857143
+      }
+    },
+    {
+      "chunk_id": "448c1d5c58aa5f2b",
+      "content": {
+        "text": "To ensure consistency, we used a fixed global random seed for generating initial latents, enabling reproducibility across models and configurations. The same watermark key, derived from this seed, was applied throughout the study. Additionally, we adopted a uniform timestep schedule for both sampling and inversion, which appeared to improve the inversion accuracy. We perform the experiments on the test partition of the open source Stable Diffusion Prompts Dataset (Santana, 2023). For all our experiments we have used a fixed Classifier-free guidance (Bansal et al.) of 3.5.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 115,
+        "importance_score": 0.012345679012345678
+      }
+    },
+    {
+      "chunk_id": "4fdc2eca95342d1b",
+      "content": {
+        "text": "Transformers trained with the flow-matching objective have recently achieved state-of-the-art results in image generation (Esser et al., 2024). We utilize the open weights FLUX.1-dev model, which employs a Diffusion Transformer (DiT) (Peebles &amp; Xie, 2023) architecture and differs fundamentally from traditional DDMs like Stable Diffusion (Rombach et al., 2022b) in its approach to generation and inversion. FLUX is based on rectified flows, which construct a transportation between the source distribution \\(\\pi_1\\) (typically standard Gaussian) and the target data distribution \\(\\pi_0\\) through the following ODE:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 146,
+        "importance_score": 0.010752688172043012
+      }
+    },
+    {
+      "chunk_id": "c326ebe4f784f711",
+      "content": {
+        "text": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored, particularly given the inherent challenges of these models with noise latent inversion. Through extensive experimentation, we evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models. By analyzing various text guidance configurations and augmentation attacks, we demonstrate how inversion limitations affect both watermark recovery and the statistical separation between watermarked and unwatermarked images. Our findings provide valuable insights into the current limitations of Tree-Ring Watermarking in the current SOTA models and highlight the critical need for improved inversion methods to achieve reliable watermark detection and separability. The official implementation, dataset release and all experimental results are available at this [link]",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "abstract",
+        "cognitive_cost": 163,
+        "importance_score": 0.01639344262295082
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "aadb8d23abf190a4",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.00980392156862745,
+      "cost": 9,
+      "text": "A Appendix: Diffusion Models and Flow Matching",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "46a7e5c7c4475388",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0070921985815602835,
+      "cost": 2,
+      "text": "FLUX",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0e85709e002375c5",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.011235955056179775,
+      "cost": 9,
+      "text": "Algorithm 1 Tree Ring Watermarking Procedure",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "676ef7cb4e627e9d",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0051813471502590676,
+      "cost": 3,
+      "text": "4 Experiments",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9dc80f1f8fcf7b33",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005154639175257732,
+      "cost": 10,
+      "text": "For inversion, the backward Euler method is used:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "20caff27a37e53f6",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.006666666666666667,
+      "cost": 4,
+      "text": "Inversion Methods.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "65a5c5af5466ce1d",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014084507042253521,
+      "cost": 9,
+      "text": "We quantify watermark robustness through the following metrics:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "6847523eb677e85f",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008064516129032258,
+      "cost": 20,
+      "text": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "05b9fd7dd2e748e6",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.016129032258064516,
+      "cost": 44,
+      "text": "These findings highlight several critical directions for future research: developing improved inversion techniques specifically for rectified flow-based generative models, and crafting approaches to increase robustness of popular watermarking techniques over image manipulation attacks while maintaining watermark effectiveness.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8076ecdd29eabf83",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0136986301369863,
+      "cost": 7,
+      "text": "Tree-Ring Watermark Embedding",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c1b9f1d74ece4f4e",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.014925373134328358,
+      "cost": 22,
+      "text": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image Generation Models",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "acaf9de99782a070",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.013565891472868217,
+      "cost": 14,
+      "text": "‘A family hugging each other for the…  \nWatermarked: True",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9c05d214852b2692",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012658227848101266,
+      "cost": 78,
+      "text": "The use of VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection. While these semantically derived prompts show marginal benefits in distribution separability and offer performance intermediate between exact prompt and no-prompt configurations, they fail to match the effectiveness of exact prompt guidance. This suggests that while semantic understanding from VLMs can aid reconstruction, precise prompt matching remains crucial for optimal watermark recovery.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "df94130288f8d4d6",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0058823529411764705,
+      "cost": 34,
+      "text": "This naïve DDIM inversion can be interpreted as forward Euler integration starting from $t = 0$. While computationally efficient, it can accumulate errors over multiple steps.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f9fbca8fb45f9d98",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.0078125,
+      "cost": 38,
+      "text": "Gustavo Santana. Stable-diffusion-prompts, Mar 2023. URL https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "200b0388cb3471e1",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.009174311926605505,
+      "cost": 42,
+      "text": "William Peebles and Saining Xie. Scalable diffusion models with transformers. In <i>International Conference on Computer Vision</i>, pp. 4195–4205, 2023.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c0dd42c7fc445dc8",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015873015873015872,
+      "cost": 98,
+      "text": "Recent work has advanced latent inversion techniques, with [Hong et al. (2024)] demonstrating significantly improved Tree-ring watermark detection using higher-order inversion algorithms compared to naive DDIM inversion. While their work showed remarkable detection accuracy on traditional diffusion models using DPM-Solver++ (Lu et al., 2022), the effectiveness of these techniques on newer rectified flow-based architectures remains unexplored. Our work extends this analysis to flow-based models, providing insights into watermark detection across different architectures.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d8e89b5eaf9a47f8",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.021875000000000002,
+      "cost": 77,
+      "text": "Table 2: AUC comparison for watermark detection under different attacks\n\n| Model             | Blurring | Noise |\n|------------------|----------|-------|\n| SD 2.1 base (DDIM) | 0.999    | 0.944 |\n| FLUX.1-dev (RF)  | **0.888** | **0.662** |",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "11cc711f38f0dd5c",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006802721088435374,
+      "cost": 89,
+      "text": "The diffusion process occurs entirely in this latent space, offering two key advantages: reduced computational complexity due to lower dimensionality, and the ability to leverage semantic compression from the autoencoder. Given a noise schedule $\\{\\beta_t\\}_{t=1}^T$ and defining $\\bar{\\alpha}_t = \\prod_{i=1}^t (1 - \\beta_i)$, the forward process adds noise to the latents:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e9570c7d2a34af1f",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.007142857142857143,
+      "cost": 116,
+      "text": "Peng Wang, Shuai Bai, Sinan Tan, Shijie Wang, Zhihao Fan, Jinze Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Yang Fan, Kai Dang, Mengfei Du, Xuancheng Ren, Rui Men, Dayiheng Liu, Chang Zhou, Jingren Zhou, and Junyang Lin. Qwen2-vl: Enhancing vision-language model’s perception of the world at any resolution, 2024. URL https://arxiv.org/abs/2409.12191",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "448c1d5c58aa5f2b",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012345679012345678,
+      "cost": 115,
+      "text": "To ensure consistency, we used a fixed global random seed for generating initial latents, enabling reproducibility across models and configurations. The same watermark key, derived from this seed, was applied throughout the study. Additionally, we adopted a uniform timestep schedule for both sampling and inversion, which appeared to improve the inversion accuracy. We perform the experiments on the test partition of the open source Stable Diffusion Prompts Dataset (Santana, 2023). For all our experiments we have used a fixed Classifier-free guidance (Bansal et al.) of 3.5.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "4fdc2eca95342d1b",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.010752688172043012,
+      "cost": 146,
+      "text": "Transformers trained with the flow-matching objective have recently achieved state-of-the-art results in image generation (Esser et al., 2024). We utilize the open weights FLUX.1-dev model, which employs a Diffusion Transformer (DiT) (Peebles &amp; Xie, 2023) architecture and differs fundamentally from traditional DDMs like Stable Diffusion (Rombach et al., 2022b) in its approach to generation and inversion. FLUX is based on rectified flows, which construct a transportation between the source distribution \\(\\pi_1\\) (typically standard Gaussian) and the target data distribution \\(\\pi_0\\) through the following ODE:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c326ebe4f784f711",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "abstract",
+      "rel": 0.01639344262295082,
+      "cost": 163,
+      "text": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored, particularly given the inherent challenges of these models with noise latent inversion. Through extensive experimentation, we evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models. By analyzing various text guidance configurations and augmentation attacks, we demonstrate how inversion limitations affect both watermark recovery and the statistical separation between watermarked and unwatermarked images. Our findings provide valuable insights into the current limitations of Tree-Ring Watermarking in the current SOTA models and highlight the critical need for improved inversion methods to achieve reliable watermark detection and separability. The official implementation, dataset release and all experimental results are available at this [link]",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- Tree-Ring watermarking is technically usable with rectified flow models like FLUX.1-dev, but current inversion quality is substantially worse than for classic diffusion models, leading to weaker detection and poorer statistical separability between watermarked and non-watermarked images [c326ebe4f784f711][4fdc2eca95342d1b].\n- Feasibility is therefore “experimental / partial”: workable for controlled settings and light attacks, but not yet reliable for robust provenance in production rectified-flow systems [c326ebe4f784f711][d8e89b5eaf9a47f8].\n\n## Key Findings\n- **Watermarking works, but is weaker on FLUX vs SD 2.1**\n  - Under simple attacks (blurring, noise), FLUX.1-dev shows significantly lower AUC for watermark detection than SD 2.1 base, indicating reduced robustness and separability in rectified flows [d8e89b5eaf9a47f8].\n- **Inversion is the main bottleneck**\n  - Rectified flow models like FLUX use an ODE-based transport between Gaussian and data distributions, making inversion structurally different and currently less accurate than in standard diffusion models [4fdc2eca95342d1b][20caff27a37e53f6].\n  - Naïve inversion methods (e.g., DDIM-style forward Euler) are computationally cheap but accumulate error, degrading watermark recovery [df94130288f8d4d6][9dc80f1f8fcf7b33].\n- **Higher-order inversion helps in diffusion, but is unproven for rectified flows**\n  - Prior work shows higher-order solvers (e.g., DPM-Solver++) dramatically improve Tree-Ring detection on classic diffusion models [c0dd42c7fc445dc8].\n  - Their effectiveness on rectified flow architectures like FLUX is still unexplored; current study is among the first to extend analysis to flow-based models and finds clear limitations [c0dd42c7fc445dc8][c326ebe4f784f711].\n- **Prompt knowledge is critical**\n  - Exact text prompts yield the best watermark recovery; VLM-generated “semantic” prompts give only marginal improvement over no prompt and remain clearly inferior to exact prompts [9c05d214852b2692].\n  - This makes operational deployment dependent on having accurate prompt logs or strong prompt-reconstruction pipelines.\n- **Current robustness under attacks is limited**\n  - Even simple image manipulations (blurring, noise) reduce AUC for FLUX to 0.888 and 0.662 respectively, versus 0.999 and 0.944 for SD 2.1, showing that Tree-Ring watermarks are substantially less robust in rectified flows under common perturbations [d8e89b5eaf9a47f8].\n- **Experimental setup is controlled and reproducible**\n  - Fixed global random seed, shared watermark key, uniform timestep schedule, and fixed classifier-free guidance (3.5) were used to maximize inversion accuracy and comparability across models [448c1d5c58aa5f2b].\n  - Evaluation uses standardized prompts (Stable Diffusion Prompts dataset) and robustness benchmarks like Waves for attack scenarios [f9fbca8fb45f9d98][6847523eb677e85f].\n\n## Evidence\n- **Model & architecture**\n  - FLUX.1-dev is a rectified flow model using a Diffusion Transformer (DiT), differing fundamentally from traditional DDMs like Stable Diffusion in generation and inversion mechanics [4fdc2eca95342d1b].\n  - Rectified flows define an ODE transporting from Gaussian source distribution to data distribution, complicating accurate latent inversion [4fdc2eca95342d1b][20caff27a37e53f6].\n- **Watermarking procedure & metrics**\n  - Tree-Ring watermarking is embedded in the latent space (Algorithm 1) and evaluated via detection metrics such as AUC and statistical separability between watermarked and non-watermarked distributions [0e85709e002375c5][65a5c5af5466ce1d].\n  - Experiments compare SD 2.1 vs FLUX.1-dev under multiple text-guidance and attack configurations [676ef7cb4e627e9d][c1b9f1d74ece4f4e].\n- **Quantitative robustness gap**\n  - AUC under attacks (Table 2): SD 2.1 base (DDIM) – 0.999 (blurring), 0.944 (noise); FLUX.1-dev (RF) – 0.888 (blurring), 0.662 (noise) [d8e89b5eaf9a47f8].\n- **Inversion methods**\n  - Naïve DDIM inversion ≈ forward Euler from t=0; efficient but error-prone over multiple steps [df94130288f8d4d6].\n  - Backward Euler is used for inversion in some settings, but still faces accuracy challenges in rectified flows [9dc80f1f8fcf7b33][20caff27a37e53f6].\n  - Higher-order solvers (DPM-Solver++) significantly improve Tree-Ring detection on traditional diffusion models, but their performance on rectified flows is not yet established [c0dd42c7fc445dc8].\n- **Prompt dependence**\n  - Exact prompts yield best separability; VLM-generated prompts (e.g., from Qwen2-VL) provide intermediate performance; no-prompt is worst [9c05d214852b2692][e9570c7d2a34af1f].\n- **Dataset & configuration**\n  - Experiments use the test split of the Stable Diffusion Prompts dataset [f9fbca8fb45f9d98].\n  - Fixed seed, shared watermark key, uniform timestep schedule, and CFG=3.5 are used to improve inversion consistency and comparability [448c1d5c58aa5f2b].\n- **Overall conclusion from authors**\n  - Current Tree-Ring watermarking on rectified flow models shows limited detection and separability due to inversion challenges, underscoring the need for improved inversion and robustness techniques for SOTA models like FLUX [c326ebe4f784f711][05b9fd7dd2e748e6].\n\n## Risks\n- **Operational unreliability for provenance**\n  - Lower AUC under mild attacks (especially noise: 0.662) on FLUX implies higher false negatives and weaker legal/forensic value compared to SD 2.1 [d8e89b5eaf9a47f8].\n- **Strong dependence on prompt availability**\n  - Without exact prompts, detection quality drops; relying on VLM-based prompt reconstruction only partially mitigates this, risking missed or ambiguous watermark decisions in real-world settings where prompts may be unavailable or noisy [9c05d214852b2692].\n- **Attack surface**\n  - Standard image manipulations (blur, noise, more complex Waves-style attacks) can significantly degrade watermark separability in rectified flows, making adversarial removal easier than in classic diffusion models [d8e89b5eaf9a47f8][6847523eb677e85f].\n- **Architectural lock-in**\n  - Tree-Ring watermarking methods tuned for diffusion may not transfer cleanly to rectified flows; investing heavily now may require rework once better RF-specific inversion and watermarking schemes emerge [c0dd42c7fc445dc8][05b9fd7dd2e748e6].\n- **Statistical ambiguity**\n  - Reduced separability between watermarked and unwatermarked images in FLUX increases the chance of borderline scores, complicating threshold selection and policy decisions (e.g., takedowns, attribution) [c1b9f1d74ece4f4e][65a5c5af5466ce1d].\n\n## Next Steps\n- **Short-term deployment strategy**\n  - Use Tree-Ring watermarking on FLUX only in controlled environments where:\n    - Exact prompts and seeds are logged and retrievable.\n    - Image post-processing is limited or known (e.g., mild compression only).\n    - Detection thresholds are calibrated specifically for FLUX’s lower AUC profile [d8e89b5eaf9a47f8][448c1d5c58aa5f2b].\n- **Improve inversion for rectified flows**\n  - Investigate and benchmark higher-order ODE solvers and RF-specific inversion schemes (analogous to DPM-Solver++ for diffusion) directly on FLUX latents, measuring gains in Tree-Ring detection and separability [c0dd42c7fc445dc8][05b9fd7dd2e748e6].\n- **Robustness evaluation & tuning**\n  - Systematically test Tree-Ring watermark robustness on FLUX under the Waves benchmark and additional real-world transformations (resizing, cropping, recompression) to map failure modes and refine embedding strength and frequency-domain patterns [6847523eb677e85f][676ef7cb4e627e9d].\n- **Prompt-handling pipeline**\n  - Implement strict prompt logging for all FLUX generations.\n  - For legacy or third-party images, integrate a strong VLM (e.g., Qwen2-VL) to generate candidate prompts and quantify how much they improve detection vs no-prompt, then decide whether to rely on them operationally [9c05d214852b2692][e9570c7d2a34af1f].\n- **Explore alternative / complementary watermarking**\n  - In parallel, evaluate other watermarking schemes (e.g., encoder-level or model-level watermarks) that may be less sensitive to inversion quality, using Tree-Ring as one signal among several for provenance decisions [05b9fd7dd2e748e6][c326ebe4f784f711]."
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- Tree-Ring watermarking is technically usable with rectified flow models like FLUX.1-dev, but current inversion quality is substantially worse than for classic diffusion models, leading to weaker detection and poorer statistical separability between watermarked and non-watermarked images [c326ebe4f784f711][4fdc2eca95342d1b].\n- Feasibility is therefore “experimental / partial”: workable for controlled settings and light attacks, but not yet reliable for robust provenance in production rectified-flow systems [c326ebe4f784f711][d8e89b5eaf9a47f8].\n\n## Key Findings\n- **Watermarking works, but is weaker on FLUX vs SD 2.1**\n  - Under simple attacks (blurring, noise), FLUX.1-dev shows significantly lower AUC for watermark detection than SD 2.1 base, indicating reduced robustness and separability in rectified flows [d8e89b5eaf9a47f8].\n- **Inversion is the main bottleneck**\n  - Rectified flow models like FLUX use an ODE-based transport between Gaussian and data distributions, making inversion structurally different and currently less accurate than in standard diffusion models [4fdc2eca95342d1b][20caff27a37e53f6].\n  - Naïve inversion methods (e.g., DDIM-style forward Euler) are computationally cheap but accumulate error, degrading watermark recovery [df94130288f8d4d6][9dc80f1f8fcf7b33].\n- **Higher-order inversion helps in diffusion, but is unproven for rectified flows**\n  - Prior work shows higher-order solvers (e.g., DPM-Solver++) dramatically improve Tree-Ring detection on classic diffusion models [c0dd42c7fc445dc8].\n  - Their effectiveness on rectified flow architectures like FLUX is still unexplored; current study is among the first to extend analysis to flow-based models and finds clear limitations [c0dd42c7fc445dc8][c326ebe4f784f711].\n- **Prompt knowledge is critical**\n  - Exact text prompts yield the best watermark recovery; VLM-generated “semantic” prompts give only marginal improvement over no prompt and remain clearly inferior to exact prompts [9c05d214852b2692].\n  - This makes operational deployment dependent on having accurate prompt logs or strong prompt-reconstruction pipelines.\n- **Current robustness under attacks is limited**\n  - Even simple image manipulations (blurring, noise) reduce AUC for FLUX to 0.888 and 0.662 respectively, versus 0.999 and 0.944 for SD 2.1, showing that Tree-Ring watermarks are substantially less robust in rectified flows under common perturbations [d8e89b5eaf9a47f8].\n- **Experimental setup is controlled and reproducible**\n  - Fixed global random seed, shared watermark key, uniform timestep schedule, and fixed classifier-free guidance (3.5) were used to maximize inversion accuracy and comparability across models [448c1d5c58aa5f2b].\n  - Evaluation uses standardized prompts (Stable Diffusion Prompts dataset) and robustness benchmarks like Waves for attack scenarios [f9fbca8fb45f9d98][6847523eb677e85f].\n\n## Evidence\n- **Model & architecture**\n  - FLUX.1-dev is a rectified flow model using a Diffusion Transformer (DiT), differing fundamentally from traditional DDMs like Stable Diffusion in generation and inversion mechanics [4fdc2eca95342d1b].\n  - Rectified flows define an ODE transporting from Gaussian source distribution to data distribution, complicating accurate latent inversion [4fdc2eca95342d1b][20caff27a37e53f6].\n- **Watermarking procedure & metrics**\n  - Tree-Ring watermarking is embedded in the latent space (Algorithm 1) and evaluated via detection metrics such as AUC and statistical separability between watermarked and non-watermarked distributions [0e85709e002375c5][65a5c5af5466ce1d].\n  - Experiments compare SD 2.1 vs FLUX.1-dev under multiple text-guidance and attack configurations [676ef7cb4e627e9d][c1b9f1d74ece4f4e].\n- **Quantitative robustness gap**\n  - AUC under attacks (Table 2): SD 2.1 base (DDIM) – 0.999 (blurring), 0.944 (noise); FLUX.1-dev (RF) – 0.888 (blurring), 0.662 (noise) [d8e89b5eaf9a47f8].\n- **Inversion methods**\n  - Naïve DDIM inversion ≈ forward Euler from t=0; efficient but error-prone over multiple steps [df94130288f8d4d6].\n  - Backward Euler is used for inversion in some settings, but still faces accuracy challenges in rectified flows [9dc80f1f8fcf7b33][20caff27a37e53f6].\n  - Higher-order solvers (DPM-Solver++) significantly improve Tree-Ring detection on traditional diffusion models, but their performance on rectified flows is not yet established [c0dd42c7fc445dc8].\n- **Prompt dependence**\n  - Exact prompts yield best separability; VLM-generated prompts (e.g., from Qwen2-VL) provide intermediate performance; no-prompt is worst [9c05d214852b2692][e9570c7d2a34af1f].\n- **Dataset & configuration**\n  - Experiments use the test split of the Stable Diffusion Prompts dataset [f9fbca8fb45f9d98].\n  - Fixed seed, shared watermark key, uniform timestep schedule, and CFG=3.5 are used to improve inversion consistency and comparability [448c1d5c58aa5f2b].\n- **Overall conclusion from authors**\n  - Current Tree-Ring watermarking on rectified flow models shows limited detection and separability due to inversion challenges, underscoring the need for improved inversion and robustness techniques for SOTA models like FLUX [c326ebe4f784f711][05b9fd7dd2e748e6].\n\n## Risks\n- **Operational unreliability for provenance**\n  - Lower AUC under mild attacks (especially noise: 0.662) on FLUX implies higher false negatives and weaker legal/forensic value compared to SD 2.1 [d8e89b5eaf9a47f8].\n- **Strong dependence on prompt availability**\n  - Without exact prompts, detection quality drops; relying on VLM-based prompt reconstruction only partially mitigates this, risking missed or ambiguous watermark decisions in real-world settings where prompts may be unavailable or noisy [9c05d214852b2692].\n- **Attack surface**\n  - Standard image manipulations (blur, noise, more complex Waves-style attacks) can significantly degrade watermark separability in rectified flows, making adversarial removal easier than in classic diffusion models [d8e89b5eaf9a47f8][6847523eb677e85f].\n- **Architectural lock-in**\n  - Tree-Ring watermarking methods tuned for diffusion may not transfer cleanly to rectified flows; investing heavily now may require rework once better RF-specific inversion and watermarking schemes emerge [c0dd42c7fc445dc8][05b9fd7dd2e748e6].\n- **Statistical ambiguity**\n  - Reduced separability between watermarked and unwatermarked images in FLUX increases the chance of borderline scores, complicating threshold selection and policy decisions (e.g., takedowns, attribution) [c1b9f1d74ece4f4e][65a5c5af5466ce1d].\n\n## Next Steps\n- **Short-term deployment strategy**\n  - Use Tree-Ring watermarking on FLUX only in controlled environments where:\n    - Exact prompts and seeds are logged and retrievable.\n    - Image post-processing is limited or known (e.g., mild compression only).\n    - Detection thresholds are calibrated specifically for FLUX’s lower AUC profile [d8e89b5eaf9a47f8][448c1d5c58aa5f2b].\n- **Improve inversion for rectified flows**\n  - Investigate and benchmark higher-order ODE solvers and RF-specific inversion schemes (analogous to DPM-Solver++ for diffusion) directly on FLUX latents, measuring gains in Tree-Ring detection and separability [c0dd42c7fc445dc8][05b9fd7dd2e748e6].\n- **Robustness evaluation & tuning**\n  - Systematically test Tree-Ring watermark robustness on FLUX under the Waves benchmark and additional real-world transformations (resizing, cropping, recompression) to map failure modes and refine embedding strength and frequency-domain patterns [6847523eb677e85f][676ef7cb4e627e9d].\n- **Prompt-handling pipeline**\n  - Implement strict prompt logging for all FLUX generations.\n  - For legacy or third-party images, integrate a strong VLM (e.g., Qwen2-VL) to generate candidate prompts and quantify how much they improve detection vs no-prompt, then decide whether to rely on them operationally [9c05d214852b2692][e9570c7d2a34af1f].\n- **Explore alternative / complementary watermarking**\n  - In parallel, evaluate other watermarking schemes (e.g., encoder-level or model-level watermarks) that may be less sensitive to inversion quality, using Tree-Ring as one signal among several for provenance decisions [05b9fd7dd2e748e6][c326ebe4f784f711]."
+  }
+}

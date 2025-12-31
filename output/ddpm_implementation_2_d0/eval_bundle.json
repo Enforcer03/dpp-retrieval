@@ -1,0 +1,404 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "2de6cebfacc05110",
+  "created_at": "2025-12-31T08:41:47Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 11282,
+        "output_hash": "c9f1caa9c1345172c1ba9cf0da61bababa987478",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "40de030796b3d32a",
+                        "e22df3321d2941a1"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "40de030796b3d32a",
+                          "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints"
+                        },
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                        },
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "CelebA-HQ/LSUN (256^2) models train at 2.2 steps per second at batch size 64"
+                        }
+                      ],
+                      "rationale": "Evidence gives device type (TPU v3-8 ~ 8 V100 GPUs), batch size and throughput for 256×256 models, and that architecture was sized to fit memory, but it does not state the actual GPU memory footprint or whether a single node versus cluster is required. Hence only partial coverage."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No retrieved chunk describes architectural details such as self-attention usage or its resolution; requirement about expensive self-attention at high resolutions is not addressed."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "Nothing in the evidence discusses training parallelizability, distributed training, or how diffusion’s sequential sampling affects training; requirement is not covered."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No mention of initialization schemes or tricks to avoid pure-noise outputs at the start of training appears in the retrieved chunks."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "covered",
+                      "evidence": [
+                        "107be8a91170b1e2",
+                        "e22df3321d2941a1"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "107be8a91170b1e2",
+                          "quote": "Google’s TensorFlow Research Cloud (TFRC) provided Cloud TPUs."
+                        },
+                        {
+                          "chunk_id": "e22df3321d2941a1",
+                          "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                        }
+                      ],
+                      "rationale": "Evidence clearly states that experiments used Cloud TPUs (TPU v3-8). This shows reliance on specific hardware accelerators rather than generic GPU-only setups, satisfying the requirement."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R2",
+                    "R3",
+                    "R4"
+                  ],
+                  "risks": [
+                    "Lack of explicit GPU memory footprint may lead to under- or over-provisioning hardware when reproducing 256×256 models.",
+                    "No information on self-attention placement or cost could cause architectural choices that are either unnecessarily expensive or incompatible with original results.",
+                    "Absence of guidance on training parallelization and distributed setups risks inefficient or unstable large-scale training.",
+                    "Missing initialization details may result in training instabilities or degraded early training behavior compared with the original implementation.",
+                    "Reliance on TPUs in the original work may complicate replication on pure GPU clusters without further implementation details."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Hardware type, throughput, and memory-constrained design are documented, but crucial details about memory footprint, attention architecture, parallelization, and initialization are absent.",
+              "missing_requirements": [
+                "R2",
+                "R3",
+                "R4"
+              ]
+            },
+            "redundancy": {
+              "level": "low",
+              "notes": "Most retrieved chunks are distinct (references, figures, experimental details). Only minor overlap around TPU usage and training details; no heavy duplication.",
+              "redundant_pairs": [
+                [
+                  "107be8a91170b1e2",
+                  "e22df3321d2941a1"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "High-cost chunk e22df3321d2941a1 yields substantial hardware and throughput info. However, several medium-cost chunks (figures, references) add little to the specific requirements, indicating some inefficiency.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "e22df3321d2941a1",
+                  "cost": 173,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "ac419d177969b0be",
+                  "cost": 144,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "40de030796b3d32a",
+                  "cost": 48,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key architectural questions (self-attention usage, initialization) are unanswered, risking misaligned implementation strategy.",
+              "No explicit discussion of distributed training or parallelization may hinder scaling beyond a single TPU/GPU node.",
+              "Dependence on TPU-specific environment could limit direct transferability to other hardware without additional documentation."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 7462,
+        "output_hash": "9b1fea5105c3653a9f2f5d14a91c44bc238bad94",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "Summary extrapolates from TPU v3-8 to '8× high-end GPUs' and single 8-GPU node memory without textual support.",
+              "Claims about simplifying memory/compute from fixing β_t are interpretive; text only states that L_T is constant and ignored.",
+              "Recommendations on data/model parallelism, mixed precision, and specific hardware budgeting are not present in the source text.",
+              "Summary implies an 'order of magnitude slower' statement for 256×256 vs CIFAR-10 that is not explicitly quantified in the text."
+            ],
+            "unsupported_claims": [
+              "Plan for at least 8× high-end GPUs (or equivalent) to match TPU v3-8 behavior.",
+              "Begin with the published architecture sized to fit within a single 8-GPU node’s memory.",
+              "If training time is a bottleneck, prioritize data/model parallelism across more devices or mixed-precision training.",
+              "Forward-process variances β_t being fixed 'simplifies memory and compute' (this effect is not explicitly stated).",
+              "Higher-resolution datasets run 'an order of magnitude slower' than CIFAR-10 (not explicitly stated, only raw step rates are given)."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+              },
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "Our CIFAR model trains at 21 steps per second at batch size 128."
+              },
+              {
+                "chunk_id": "e22df3321d2941a1",
+                "quote": "Our CelebA-HQ/LSUN (256^2) models train at 2.2 steps per second at batch size 64."
+              },
+              {
+                "chunk_id": "40de030796b3d32a",
+                "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints."
+              },
+              {
+                "chunk_id": "153dc7c5f73856d6",
+                "quote": "we ... fix them to constants ... the approximate posterior q has no learnable parameters."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+                "answer": "Partially addressed. The text specifies TPU v3-8 (similar to 8 V100 GPUs) for all experiments and gives training throughput and batch sizes for CIFAR-10 and 256×256 models, but it does not state GPU memory footprint, whether a single GPU node is sufficient, self-attention resolution details, parallelizability/distributed training strategy, initialization tricks, or reliance on specific frameworks beyond mentioning Cloud TPUs.",
+                "confidence": 0.55,
+                "evidence": [
+                  "e22df3321d2941a1",
+                  "40de030796b3d32a",
+                  "153dc7c5f73856d6",
+                  "107be8a91170b1e2"
+                ],
+                "notes": "R1: No explicit GPU memory footprint or cluster vs single-node requirement; only TPU v3-8 throughput and batch sizes are given [e22df3321d2941a1]. R2: No mention of self-attention layers or their resolution in the provided chunks (unknown). R3: No discussion of data/model parallelism or distributed training; only that all experiments used TPU v3-8 [e22df3321d2941a1]. R4: No initialization tricks are described in the provided text (unknown). R5: The work used Cloud TPUs and TensorFlow Research Cloud support is acknowledged [107be8a91170b1e2], and TPU v3-8 hardware is specified [e22df3321d2941a1]; there is no explicit mention of PyTorch or TensorFlow code in these chunks."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "40de030796b3d32a",
+                  "e22df3321d2941a1"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "40de030796b3d32a",
+                    "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints"
+                  },
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                  },
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "CelebA-HQ/LSUN (256^2) models train at 2.2 steps per second at batch size 64"
+                  }
+                ],
+                "rationale": "Evidence gives device type (TPU v3-8 ~ 8 V100 GPUs), batch size and throughput for 256×256 models, and that architecture was sized to fit memory, but it does not state the actual GPU memory footprint or whether a single node versus cluster is required. Hence only partial coverage."
+              },
+              {
+                "id": "R2",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No retrieved chunk describes architectural details such as self-attention usage or its resolution; requirement about expensive self-attention at high resolutions is not addressed."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "Nothing in the evidence discusses training parallelizability, distributed training, or how diffusion’s sequential sampling affects training; requirement is not covered."
+              },
+              {
+                "id": "R4",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No mention of initialization schemes or tricks to avoid pure-noise outputs at the start of training appears in the retrieved chunks."
+              },
+              {
+                "id": "R5",
+                "status": "covered",
+                "evidence": [
+                  "107be8a91170b1e2",
+                  "e22df3321d2941a1"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "107be8a91170b1e2",
+                    "quote": "Google’s TensorFlow Research Cloud (TFRC) provided Cloud TPUs."
+                  },
+                  {
+                    "chunk_id": "e22df3321d2941a1",
+                    "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+                  }
+                ],
+                "rationale": "Evidence clearly states that experiments used Cloud TPUs (TPU v3-8). This shows reliance on specific hardware accelerators rather than generic GPU-only setups, satisfying the requirement."
+              }
+            ],
+            "missing_requirements": [
+              "R2",
+              "R3",
+              "R4"
+            ],
+            "risks": [
+              "Lack of explicit GPU memory footprint may lead to under- or over-provisioning hardware when reproducing 256×256 models.",
+              "No information on self-attention placement or cost could cause architectural choices that are either unnecessarily expensive or incompatible with original results.",
+              "Absence of guidance on training parallelization and distributed setups risks inefficient or unstable large-scale training.",
+              "Missing initialization details may result in training instabilities or degraded early training behavior compared with the original implementation.",
+              "Reliance on TPUs in the original work may complicate replication on pure GPU clusters without further implementation details."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Hardware type, throughput, and memory-constrained design are documented, but crucial details about memory footprint, attention architecture, parallelization, and initialization are absent.",
+        "missing_requirements": [
+          "R2",
+          "R3",
+          "R4"
+        ]
+      },
+      "redundancy": {
+        "level": "low",
+        "notes": "Most retrieved chunks are distinct (references, figures, experimental details). Only minor overlap around TPU usage and training details; no heavy duplication.",
+        "redundant_pairs": [
+          [
+            "107be8a91170b1e2",
+            "e22df3321d2941a1"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "High-cost chunk e22df3321d2941a1 yields substantial hardware and throughput info. However, several medium-cost chunks (figures, references) add little to the specific requirements, indicating some inefficiency.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "e22df3321d2941a1",
+            "cost": 173,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "ac419d177969b0be",
+            "cost": 144,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "40de030796b3d32a",
+            "cost": 48,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key architectural questions (self-attention usage, initialization) are unanswered, risking misaligned implementation strategy.",
+        "No explicit discussion of distributed training or parallelization may hinder scaling beyond a single TPU/GPU node.",
+        "Dependence on TPU-specific environment could limit direct transferability to other hardware without additional documentation."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "Summary extrapolates from TPU v3-8 to '8× high-end GPUs' and single 8-GPU node memory without textual support.",
+        "Claims about simplifying memory/compute from fixing β_t are interpretive; text only states that L_T is constant and ignored.",
+        "Recommendations on data/model parallelism, mixed precision, and specific hardware budgeting are not present in the source text.",
+        "Summary implies an 'order of magnitude slower' statement for 256×256 vs CIFAR-10 that is not explicitly quantified in the text."
+      ],
+      "unsupported_claims": [
+        "Plan for at least 8× high-end GPUs (or equivalent) to match TPU v3-8 behavior.",
+        "Begin with the published architecture sized to fit within a single 8-GPU node’s memory.",
+        "If training time is a bottleneck, prioritize data/model parallelism across more devices or mixed-precision training.",
+        "Forward-process variances β_t being fixed 'simplifies memory and compute' (this effect is not explicitly stated).",
+        "Higher-resolution datasets run 'an order of magnitude slower' than CIFAR-10 (not explicitly stated, only raw step rates are given)."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments."
+        },
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "Our CIFAR model trains at 21 steps per second at batch size 128."
+        },
+        {
+          "chunk_id": "e22df3321d2941a1",
+          "quote": "Our CelebA-HQ/LSUN (256^2) models train at 2.2 steps per second at batch size 64."
+        },
+        {
+          "chunk_id": "40de030796b3d32a",
+          "quote": "initial choice of hyperparameters early on to make network size fit within memory constraints."
+        },
+        {
+          "chunk_id": "153dc7c5f73856d6",
+          "quote": "we ... fix them to constants ... the approximate posterior q has no learnable parameters."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+          "answer": "Partially addressed. The text specifies TPU v3-8 (similar to 8 V100 GPUs) for all experiments and gives training throughput and batch sizes for CIFAR-10 and 256×256 models, but it does not state GPU memory footprint, whether a single GPU node is sufficient, self-attention resolution details, parallelizability/distributed training strategy, initialization tricks, or reliance on specific frameworks beyond mentioning Cloud TPUs.",
+          "confidence": 0.55,
+          "evidence": [
+            "e22df3321d2941a1",
+            "40de030796b3d32a",
+            "153dc7c5f73856d6",
+            "107be8a91170b1e2"
+          ],
+          "notes": "R1: No explicit GPU memory footprint or cluster vs single-node requirement; only TPU v3-8 throughput and batch sizes are given [e22df3321d2941a1]. R2: No mention of self-attention layers or their resolution in the provided chunks (unknown). R3: No discussion of data/model parallelism or distributed training; only that all experiments used TPU v3-8 [e22df3321d2941a1]. R4: No initialization tricks are described in the provided text (unknown). R5: The work used Cloud TPUs and TensorFlow Research Cloud support is acknowledged [107be8a91170b1e2], and TPU v3-8 hardware is specified [e22df3321d2941a1]; there is no explicit mention of PyTorch or TensorFlow code in these chunks."
+        }
+      ]
+    }
+  }
+}

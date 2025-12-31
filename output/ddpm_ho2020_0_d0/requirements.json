@@ -1,0 +1,30 @@
+{
+  "id": "ddpm_ho2020_d0",
+  "parent": {
+    "path": "ddpm.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Is DDPM sampling a good replacement for current GAN generation stack?"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "How bad is the sampling speed really? Are we talking milliseconds or full seconds per image compared to our current GANs?"
+    },
+    {
+      "id": "R2",
+      "description": "Is the training actually stable unlike GANs which are known for instability like mode collapse?"
+    },
+    {
+      "id": "R3",
+      "description": "What are some major hyperparameters that may be required to tune for decent results or are hyperparameters adaptable for multiple datasets?"
+    },
+    {
+      "id": "R4",
+      "description": "Do the images look sharp in the examples, or is there a trade-off for the stability we get?"
+    }
+  ],
+  "notes": {}
+}

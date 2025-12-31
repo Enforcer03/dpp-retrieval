@@ -1,0 +1,820 @@
+{
+  "run_id": "982bf1e6b0e07a95",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/treering_flux.pdf",
+  "query": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.",
+  "retrieval_query": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.\n\nANCHOR:\n- Look for sections discussing “Tree-Ring Watermarking” applied to Rectified Flow (RF) models, rectified flow matching, and flow-based generative models; include comparisons to diffusion models and standard watermarking schemes.\n- Retrieve details on training/inference procedures for Tree-Ring Watermarking in RF models, including how the watermark is embedded in latent space, conditioning, or noise schedules.\n- Identify quantitative results: watermark detection accuracy, false positive/false negative rates, robustness under common image transformations (cropping, resizing, compression, noise), and impact on sample quality (FID, IS, CLIP score).\n- Find baselines and ablations: unwatermarked RF models, other watermarking methods (e.g., DWT/DCT-based, diffusion watermarking, invisible watermarks), and different RF architectures or backbones.\n- Extract evidence on security and robustness: resistance to model editing, fine-tuning, adversarial removal attacks, and collusion attacks; any theoretical guarantees or threat models described.\n- Look for discussion of risks and limitations: vulnerability to post-processing, distribution shift, model stealing, or detection errors; implications for provenance and copyright enforcement.\n- Identify “Next Steps” or “Future Work” sections describing open problems, proposed improvements, or extensions to other...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.",
+    "retrieval_query": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.\n\nANCHOR:\n- Look for sections discussing “Tree-Ring Watermarking” applied to Rectified Flow (RF) models, rectified flow matching, and flow-based generative models; include comparisons to diffusion models and standard watermarking schemes.\n- Retrieve details on training/inference procedures for Tree-Ring Watermarking in RF models, including how the watermark is embedded in latent space, conditioning, or noise schedules.\n- Identify quantitative results: watermark detection accuracy, false positive/false negative rates, robustness under common image transformations (cropping, resizing, compression, noise), and impact on sample quality (FID, IS, CLIP score).\n- Find baselines and ablations: unwatermarked RF models, other watermarking methods (e.g., DWT/DCT-based, diffusion watermarking, invisible watermarks), and different RF architectures or backbones.\n- Extract evidence on security and robustness: resistance to model editing, fine-tuning, adversarial removal attacks, and collusion attacks; any theoretical guarantees or threat models described.\n- Look for discussion of risks and limitations: vulnerability to post-processing, distribution shift, model stealing, or detection errors; implications for provenance and copyright enforcement.\n- Identify “Next Steps” or “Future Work” sections describing open problems, proposed improvements, or extensions to other...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "aadb8d23abf190a4",
+      "65a5c5af5466ce1d",
+      "21fac287fccd9a6d",
+      "20caff27a37e53f6",
+      "c2e0a380f93ebff4",
+      "c1b9f1d74ece4f4e",
+      "b4c0cb87601bb209",
+      "949d733ce2d27465",
+      "05b9fd7dd2e748e6",
+      "000a3a8002054645",
+      "9a65af574a9de698",
+      "eef05919fcf91cc6",
+      "acaf9de99782a070",
+      "8767d43ace527e6c",
+      "4776a267e51de637",
+      "6847523eb677e85f",
+      "9c05d214852b2692",
+      "df94130288f8d4d6",
+      "448c1d5c58aa5f2b",
+      "1184c0487248f82e",
+      "a6b5d1ed98ed3e14",
+      "8ba006aa21056da6",
+      "07f2fd513b23cfb2",
+      "11cc711f38f0dd5c",
+      "fd4378f28a16bb1c",
+      "e9570c7d2a34af1f",
+      "c326ebe4f784f711",
+      "f8b8eaed5124712d"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 2002
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "aadb8d23abf190a4",
+      "content": {
+        "text": "A Appendix: Diffusion Models and Flow Matching",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 9,
+        "importance_score": 0.009433962264150943
+      }
+    },
+    {
+      "chunk_id": "65a5c5af5466ce1d",
+      "content": {
+        "text": "We quantify watermark robustness through the following metrics:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 9,
+        "importance_score": 0.0136986301369863
+      }
+    },
+    {
+      "chunk_id": "21fac287fccd9a6d",
+      "content": {
+        "text": "2 Related Works",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.0055248618784530384
+      }
+    },
+    {
+      "chunk_id": "20caff27a37e53f6",
+      "content": {
+        "text": "Inversion Methods.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 4,
+        "importance_score": 0.006944444444444444
+      }
+    },
+    {
+      "chunk_id": "c2e0a380f93ebff4",
+      "content": {
+        "text": "For more details and a thorough discussion, refer Appendix Section A.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 13,
+        "importance_score": 0.005747126436781609
+      }
+    },
+    {
+      "chunk_id": "c1b9f1d74ece4f4e",
+      "content": {
+        "text": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image Generation Models",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 22,
+        "importance_score": 0.015151515151515152
+      }
+    },
+    {
+      "chunk_id": "b4c0cb87601bb209",
+      "content": {
+        "text": "4.2 Results and Analysis",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 6,
+        "importance_score": 0.005988023952095809
+      }
+    },
+    {
+      "chunk_id": "949d733ce2d27465",
+      "content": {
+        "text": "The Tree-Ring watermark embedding follows a Fourier space modification approach:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 13,
+        "importance_score": 0.014084507042253521
+      }
+    },
+    {
+      "chunk_id": "05b9fd7dd2e748e6",
+      "content": {
+        "text": "These findings highlight several critical directions for future research: developing improved inversion techniques specifically for rectified flow-based generative models, and crafting approaches to increase robustness of popular watermarking techniques over image manipulation attacks while maintaining watermark effectiveness.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 44,
+        "importance_score": 0.016129032258064516
+      }
+    },
+    {
+      "chunk_id": "000a3a8002054645",
+      "content": {
+        "text": "A.1 Latent Diffusion Models",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 8,
+        "importance_score": 0.006711409395973154
+      }
+    },
+    {
+      "chunk_id": "9a65af574a9de698",
+      "content": {
+        "text": "which can be written in differential form as:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 9,
+        "importance_score": 0.005494505494505495
+      }
+    },
+    {
+      "chunk_id": "eef05919fcf91cc6",
+      "content": {
+        "text": "This can be improved through gradient descent steps:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 9,
+        "importance_score": 0.007194244604316547
+      }
+    },
+    {
+      "chunk_id": "acaf9de99782a070",
+      "content": {
+        "text": "‘A family hugging each other for the…  \nWatermarked: True",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 14,
+        "importance_score": 0.015486725663716814
+      }
+    },
+    {
+      "chunk_id": "8767d43ace527e6c",
+      "content": {
+        "text": "The RF model can generate high-quality images in much fewer timesteps compared to DDPM, owing to the nearly linear transition trajectory established during training.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 29,
+        "importance_score": 0.007751937984496124
+      }
+    },
+    {
+      "chunk_id": "4776a267e51de637",
+      "content": {
+        "text": "A notable observation from our experiments is that, even when using identical prompts, images generated from the original and reconstructed noise latents show perceptible differences, as illustrated in Figure 4.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 37,
+        "importance_score": 0.008333333333333333
+      }
+    },
+    {
+      "chunk_id": "6847523eb677e85f",
+      "content": {
+        "text": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 20,
+        "importance_score": 0.007575757575757576
+      }
+    },
+    {
+      "chunk_id": "9c05d214852b2692",
+      "content": {
+        "text": "The use of VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection. While these semantically derived prompts show marginal benefits in distribution separability and offer performance intermediate between exact prompt and no-prompt configurations, they fail to match the effectiveness of exact prompt guidance. This suggests that while semantic understanding from VLMs can aid reconstruction, precise prompt matching remains crucial for optimal watermark recovery.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 78,
+        "importance_score": 0.012195121951219513
+      }
+    },
+    {
+      "chunk_id": "df94130288f8d4d6",
+      "content": {
+        "text": "This naïve DDIM inversion can be interpreted as forward Euler integration starting from $t = 0$. While computationally efficient, it can accumulate errors over multiple steps.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 34,
+        "importance_score": 0.00558659217877095
+      }
+    },
+    {
+      "chunk_id": "448c1d5c58aa5f2b",
+      "content": {
+        "text": "To ensure consistency, we used a fixed global random seed for generating initial latents, enabling reproducibility across models and configurations. The same watermark key, derived from this seed, was applied throughout the study. Additionally, we adopted a uniform timestep schedule for both sampling and inversion, which appeared to improve the inversion accuracy. We perform the experiments on the test partition of the open source Stable Diffusion Prompts Dataset (Santana, 2023). For all our experiments we have used a fixed Classifier-free guidance (Bansal et al.) of 3.5.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 115,
+        "importance_score": 0.011235955056179775
+      }
+    },
+    {
+      "chunk_id": "1184c0487248f82e",
+      "content": {
+        "text": "The rapid advancement of generative AI models has raised pressing concerns about the authenticity and provenance of digital content. While watermarking techniques for AI-generated images have emerged as a promising solution, their effectiveness heavily depends on reliable detection and clear separability between watermarked and non-watermarked content. Recent approaches like Tree Ring Watermarking (Wen et al., 2024) have shown promise, but their effectiveness remains unexplored for newer architectures.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 88,
+        "importance_score": 0.014925373134328358
+      }
+    },
+    {
+      "chunk_id": "a6b5d1ed98ed3e14",
+      "content": {
+        "text": "The observed differences in watermark recovery between FLUX.1-dev and traditional diffusion models stem from fundamental architectural and training methodology differences. Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled throughout the network, unlike older diffusion models’ UNet architecture where text conditioning occurs primarily through cross-attention layers. This architectural difference makes image generation in Flux more fundamentally dependent on prompt information. Additionally, Flux uses a T5 text encoder with different latent characteristics than the CLIP encoder used in stable diffusion models, further altering information flow through the model. Most importantly, the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility. This straightened path inherently discards information that would be useful during inversion. Higher-order numerical methods might offer incremental improvements, but cannot fully overcome these fundamental architectural limitations.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 184,
+        "importance_score": 0.014705882352941176
+      }
+    },
+    {
+      "chunk_id": "8ba006aa21056da6",
+      "content": {
+        "text": "Recent advances in text-conditioned generative models, particularly rectified flow models, have demonstrated remarkable capabilities in high-resolution image synthesis. Unlike traditional diffusion models, rectified flows model transportation between distributions through linear interpolation of marginals, enabling efficient sampling with fewer discretization steps. However, the implications of these architectural differences on watermarking mechanisms remain unexplored.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 69,
+        "importance_score": 0.015625
+      }
+    },
+    {
+      "chunk_id": "07f2fd513b23cfb2",
+      "content": {
+        "text": "For sampling, the ODE equation (9) is discretized and solved using the Euler method. The model starts with a Gaussian noise sample $\\mathbf{x}_{t_N} \\sim \\mathcal{N}(0, I)$. Given a series of $N$ discrete timesteps $t = \\{t_N, \\ldots, t_0\\}$, the model iteratively applies:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 82,
+        "importance_score": 0.005847953216374269
+      }
+    },
+    {
+      "chunk_id": "11cc711f38f0dd5c",
+      "content": {
+        "text": "The diffusion process occurs entirely in this latent space, offering two key advantages: reduced computational complexity due to lower dimensionality, and the ability to leverage semantic compression from the autoencoder. Given a noise schedule $\\{\\beta_t\\}_{t=1}^T$ and defining $\\bar{\\alpha}_t = \\prod_{i=1}^t (1 - \\beta_i)$, the forward process adds noise to the latents:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 89,
+        "importance_score": 0.006666666666666667
+      }
+    },
+    {
+      "chunk_id": "fd4378f28a16bb1c",
+      "content": {
+        "text": "This work investigates watermark detection and separability in flow-based generative models, focusing on the FLUX model. We analyze two critical aspects: the reconstruction and detection of embedded watermarks through noise latent inversion, and the statistical separability between watermarked and non-watermarked distributions under various attack scenarios. Our findings demonstrate that while flow-based models present unique challenges for watermark detection, careful consideration of model configuration and inversion methodology can achieve reliable separation.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 87,
+        "importance_score": 0.015384615384615385
+      }
+    },
+    {
+      "chunk_id": "e9570c7d2a34af1f",
+      "content": {
+        "text": "Peng Wang, Shuai Bai, Sinan Tan, Shijie Wang, Zhihao Fan, Jinze Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Yang Fan, Kai Dang, Mengfei Du, Xuancheng Ren, Rui Men, Dayiheng Liu, Chang Zhou, Jingren Zhou, and Junyang Lin. Qwen2-vl: Enhancing vision-language model’s perception of the world at any resolution, 2024. URL https://arxiv.org/abs/2409.12191",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 116,
+        "importance_score": 0.007407407407407408
+      }
+    },
+    {
+      "chunk_id": "c326ebe4f784f711",
+      "content": {
+        "text": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored, particularly given the inherent challenges of these models with noise latent inversion. Through extensive experimentation, we evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models. By analyzing various text guidance configurations and augmentation attacks, we demonstrate how inversion limitations affect both watermark recovery and the statistical separation between watermarked and unwatermarked images. Our findings provide valuable insights into the current limitations of Tree-Ring Watermarking in the current SOTA models and highlight the critical need for improved inversion methods to achieve reliable watermark detection and separability. The official implementation, dataset release and all experimental results are available at this [link]",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "abstract",
+        "cognitive_cost": 163,
+        "importance_score": 0.01639344262295082
+      }
+    },
+    {
+      "chunk_id": "f8b8eaed5124712d",
+      "content": {
+        "text": "Table 1: Watermark Extraction Metrics\n\n| Model      | Configuration          | \\multicolumn{2}{c|}{Latent Noise Reconstruction} | \\(\\frac{1}{n}\\sum|\\hat{w}_i - w_i|\\) |\n|-----------|------------------------|-------------------------|-------------------------|-----------------------------|\n|           |                        | NMAE \\(\\frac{|e^0 - w^1|_1}{|w^1|_1}\\) | NMSE \\(\\frac{|e^0 - w^1|_2^2}{|w^1|_2^2}\\) |                             |\n| FLUX.1-dev | No Attack (No Prompt) | \\(0.303_{\\pm 0.056}\\)   | \\(0.106_{\\pm 0.042}\\)   | \\(22.772_{\\pm 0.550}\\)      |\n|           | No Attack (With Prompt) | \\(0.232_{\\pm 0.046}\\)  | \\(0.063_{\\pm 0.029}\\)   | \\(22.123_{\\pm 0.351}\\)      |\n|           | No Attack (With VLM)   | \\(0.290_{\\pm 0.050}\\)   | \\(0.096_{\\pm 0.037}\\)   | \\(22.701_{\\pm 0.477}\\)      |\n|           | Blur (No Prompt)       | \\(\\mathbf{1.259_{\\pm 0.016}}\\) | \\(\\mathbf{1.594_{\\pm 0.040}}\\) | \\(37.514_{\\pm 1.066}\\)      |\n|           | Blur (With Prompt)     | \\(\\mathbf{1.261_{\\pm 0.017}}\\) | \\(\\mathbf{1.597_{\\pm 0.042}}\\) | \\(37.718_{\\pm 1.049}\\)      |\n|           | Noise (No Prompt)      | \\(\\mathbf{1.325_{\\pm 0.043}}\\) | \\(\\mathbf{1.772_{\\pm 0.018}}\\) | \\(38.656_{\\pm 1.372}\\)      |\n|           | Noise (With Prompt)    | \\(\\mathbf{1.343_{\\pm 0.043}}\\) | \\(\\mathbf{1.821_{\\pm 0.106}}\\) | \\(39.309_{\\pm 1.302}\\)      |\n| SD 2.1 base | No Attack (No Prompt) | \\(0.345_{\\pm 0.050}\\)   | \\(0.132_{\\pm 0.047}\\)   | \\(45.601_{\\pm 1.702}\\)      |\n|           | No Attack (With Prompt) | \\(0.338_{\\pm 0.061}\\)  | \\(0.128_{\\pm 0.047}\\)   | \\(45.070_{\\pm 1.749}\\)      |\n\nNote: Subscripts denote standard deviations. Last column represents average L1 distance in Fourier space.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 648,
+        "importance_score": 0.01881720430107527
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "aadb8d23abf190a4",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.009433962264150943,
+      "cost": 9,
+      "text": "A Appendix: Diffusion Models and Flow Matching",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "65a5c5af5466ce1d",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0136986301369863,
+      "cost": 9,
+      "text": "We quantify watermark robustness through the following metrics:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "21fac287fccd9a6d",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0055248618784530384,
+      "cost": 3,
+      "text": "2 Related Works",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "20caff27a37e53f6",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.006944444444444444,
+      "cost": 4,
+      "text": "Inversion Methods.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c2e0a380f93ebff4",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005747126436781609,
+      "cost": 13,
+      "text": "For more details and a thorough discussion, refer Appendix Section A.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c1b9f1d74ece4f4e",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.015151515151515152,
+      "cost": 22,
+      "text": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image Generation Models",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "b4c0cb87601bb209",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005988023952095809,
+      "cost": 6,
+      "text": "4.2 Results and Analysis",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "949d733ce2d27465",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014084507042253521,
+      "cost": 13,
+      "text": "The Tree-Ring watermark embedding follows a Fourier space modification approach:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "05b9fd7dd2e748e6",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.016129032258064516,
+      "cost": 44,
+      "text": "These findings highlight several critical directions for future research: developing improved inversion techniques specifically for rectified flow-based generative models, and crafting approaches to increase robustness of popular watermarking techniques over image manipulation attacks while maintaining watermark effectiveness.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "000a3a8002054645",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.006711409395973154,
+      "cost": 8,
+      "text": "A.1 Latent Diffusion Models",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9a65af574a9de698",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005494505494505495,
+      "cost": 9,
+      "text": "which can be written in differential form as:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "eef05919fcf91cc6",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007194244604316547,
+      "cost": 9,
+      "text": "This can be improved through gradient descent steps:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "acaf9de99782a070",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.015486725663716814,
+      "cost": 14,
+      "text": "‘A family hugging each other for the…  \nWatermarked: True",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8767d43ace527e6c",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007751937984496124,
+      "cost": 29,
+      "text": "The RF model can generate high-quality images in much fewer timesteps compared to DDPM, owing to the nearly linear transition trajectory established during training.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "4776a267e51de637",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008333333333333333,
+      "cost": 37,
+      "text": "A notable observation from our experiments is that, even when using identical prompts, images generated from the original and reconstructed noise latents show perceptible differences, as illustrated in Figure 4.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "6847523eb677e85f",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007575757575757576,
+      "cost": 20,
+      "text": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9c05d214852b2692",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012195121951219513,
+      "cost": 78,
+      "text": "The use of VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection. While these semantically derived prompts show marginal benefits in distribution separability and offer performance intermediate between exact prompt and no-prompt configurations, they fail to match the effectiveness of exact prompt guidance. This suggests that while semantic understanding from VLMs can aid reconstruction, precise prompt matching remains crucial for optimal watermark recovery.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "df94130288f8d4d6",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.00558659217877095,
+      "cost": 34,
+      "text": "This naïve DDIM inversion can be interpreted as forward Euler integration starting from $t = 0$. While computationally efficient, it can accumulate errors over multiple steps.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "448c1d5c58aa5f2b",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.011235955056179775,
+      "cost": 115,
+      "text": "To ensure consistency, we used a fixed global random seed for generating initial latents, enabling reproducibility across models and configurations. The same watermark key, derived from this seed, was applied throughout the study. Additionally, we adopted a uniform timestep schedule for both sampling and inversion, which appeared to improve the inversion accuracy. We perform the experiments on the test partition of the open source Stable Diffusion Prompts Dataset (Santana, 2023). For all our experiments we have used a fixed Classifier-free guidance (Bansal et al.) of 3.5.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "1184c0487248f82e",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014925373134328358,
+      "cost": 88,
+      "text": "The rapid advancement of generative AI models has raised pressing concerns about the authenticity and provenance of digital content. While watermarking techniques for AI-generated images have emerged as a promising solution, their effectiveness heavily depends on reliable detection and clear separability between watermarked and non-watermarked content. Recent approaches like Tree Ring Watermarking (Wen et al., 2024) have shown promise, but their effectiveness remains unexplored for newer architectures.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a6b5d1ed98ed3e14",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014705882352941176,
+      "cost": 184,
+      "text": "The observed differences in watermark recovery between FLUX.1-dev and traditional diffusion models stem from fundamental architectural and training methodology differences. Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled throughout the network, unlike older diffusion models’ UNet architecture where text conditioning occurs primarily through cross-attention layers. This architectural difference makes image generation in Flux more fundamentally dependent on prompt information. Additionally, Flux uses a T5 text encoder with different latent characteristics than the CLIP encoder used in stable diffusion models, further altering information flow through the model. Most importantly, the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility. This straightened path inherently discards information that would be useful during inversion. Higher-order numerical methods might offer incremental improvements, but cannot fully overcome these fundamental architectural limitations.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8ba006aa21056da6",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015625,
+      "cost": 69,
+      "text": "Recent advances in text-conditioned generative models, particularly rectified flow models, have demonstrated remarkable capabilities in high-resolution image synthesis. Unlike traditional diffusion models, rectified flows model transportation between distributions through linear interpolation of marginals, enabling efficient sampling with fewer discretization steps. However, the implications of these architectural differences on watermarking mechanisms remain unexplored.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "07f2fd513b23cfb2",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005847953216374269,
+      "cost": 82,
+      "text": "For sampling, the ODE equation (9) is discretized and solved using the Euler method. The model starts with a Gaussian noise sample $\\mathbf{x}_{t_N} \\sim \\mathcal{N}(0, I)$. Given a series of $N$ discrete timesteps $t = \\{t_N, \\ldots, t_0\\}$, the model iteratively applies:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "11cc711f38f0dd5c",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006666666666666667,
+      "cost": 89,
+      "text": "The diffusion process occurs entirely in this latent space, offering two key advantages: reduced computational complexity due to lower dimensionality, and the ability to leverage semantic compression from the autoencoder. Given a noise schedule $\\{\\beta_t\\}_{t=1}^T$ and defining $\\bar{\\alpha}_t = \\prod_{i=1}^t (1 - \\beta_i)$, the forward process adds noise to the latents:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "fd4378f28a16bb1c",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015384615384615385,
+      "cost": 87,
+      "text": "This work investigates watermark detection and separability in flow-based generative models, focusing on the FLUX model. We analyze two critical aspects: the reconstruction and detection of embedded watermarks through noise latent inversion, and the statistical separability between watermarked and non-watermarked distributions under various attack scenarios. Our findings demonstrate that while flow-based models present unique challenges for watermark detection, careful consideration of model configuration and inversion methodology can achieve reliable separation.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e9570c7d2a34af1f",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.007407407407407408,
+      "cost": 116,
+      "text": "Peng Wang, Shuai Bai, Sinan Tan, Shijie Wang, Zhihao Fan, Jinze Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Yang Fan, Kai Dang, Mengfei Du, Xuancheng Ren, Rui Men, Dayiheng Liu, Chang Zhou, Jingren Zhou, and Junyang Lin. Qwen2-vl: Enhancing vision-language model’s perception of the world at any resolution, 2024. URL https://arxiv.org/abs/2409.12191",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c326ebe4f784f711",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "abstract",
+      "rel": 0.01639344262295082,
+      "cost": 163,
+      "text": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored, particularly given the inherent challenges of these models with noise latent inversion. Through extensive experimentation, we evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models. By analyzing various text guidance configurations and augmentation attacks, we demonstrate how inversion limitations affect both watermark recovery and the statistical separation between watermarked and unwatermarked images. Our findings provide valuable insights into the current limitations of Tree-Ring Watermarking in the current SOTA models and highlight the critical need for improved inversion methods to achieve reliable watermark detection and separability. The official implementation, dataset release and all experimental results are available at this [link]",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f8b8eaed5124712d",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.01881720430107527,
+      "cost": 648,
+      "text": "Table 1: Watermark Extraction Metrics\n\n| Model      | Configuration          | \\multicolumn{2}{c|}{Latent Noise Reconstruction} | \\(\\frac{1}{n}\\sum|\\hat{w}_i - w_i|\\) |\n|-----------|------------------------|-------------------------|-------------------------|-----------------------------|\n|           |                        | NMAE \\(\\frac{|e^0 - w^1|_1}{|w^1|_1}\\) | NMSE \\(\\frac{|e^0 - w^1|_2^2}{|w^1|_2^2}\\) |                             |\n| FLUX.1-dev | No Attack (No Prompt) | \\(0.303_{\\pm 0.056}\\)   | \\(0.106_{\\pm 0.042}\\)   | \\(22.772_{\\pm 0.550}\\)      |\n|           | No Attack (With Prompt) | \\(0.232_{\\pm 0.046}\\)  | \\(0.063_{\\pm 0.029}\\)   | \\(22.123_{\\pm 0.351}\\)      |\n|           | No Attack (With VLM)   | \\(0.290_{\\pm 0.050}\\)   | \\(0.096_{\\pm 0.037}\\)   | \\(22.701_{\\pm 0.477}\\)      |\n|           | Blur (No Prompt)       | \\(\\mathbf{1.259_{\\pm 0.016}}\\) | \\(\\mathbf{1.594_{\\pm 0.040}}\\) | \\(37.514_{\\pm 1.066}\\)      |\n|           | Blur (With Prompt)     | \\(\\mathbf{1.261_{\\pm 0.017}}\\) | \\(\\mathbf{1.597_{\\pm 0.042}}\\) | \\(37.718_{\\pm 1.049}\\)      |\n|           | Noise (No Prompt)      | \\(\\mathbf{1.325_{\\pm 0.043}}\\) | \\(\\mathbf{1.772_{\\pm 0.018}}\\) | \\(38.656_{\\pm 1.372}\\)      |\n|           | Noise (With Prompt)    | \\(\\mathbf{1.343_{\\pm 0.043}}\\) | \\(\\mathbf{1.821_{\\pm 0.106}}\\) | \\(39.309_{\\pm 1.302}\\)      |\n| SD 2.1 base | No Attack (No Prompt) | \\(0.345_{\\pm 0.050}\\)   | \\(0.132_{\\pm 0.047}\\)   | \\(45.601_{\\pm 1.702}\\)      |\n|           | No Attack (With Prompt) | \\(0.338_{\\pm 0.061}\\)  | \\(0.128_{\\pm 0.047}\\)   | \\(45.070_{\\pm 1.749}\\)      |\n\nNote: Subscripts denote standard deviations. Last column represents average L1 distance in Fourier space.",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- Tree-Ring Watermarking, effective in diffusion models, faces significant challenges in rectified flow (RF) architectures like FLUX.1-dev due to poor noise-latent invertibility and architectural differences that discard information needed for watermark recovery [c326ebe4f784f711][a6b5d1ed98ed3e14].\n- Compared to SD 2.1, RF models show weaker watermark extraction quality and reduced statistical separability between watermarked and non-watermarked images, especially under common image manipulations [c326ebe4f784f711][fd4378f28a16bb1c].\n\n## Key Findings\n- **Inversion is fundamentally harder in RF models**\n  - Rectified flow training optimizes nearly straight transport paths between noise and data, improving forward sampling but sacrificing invertibility and the recoverability of the original noise latent needed for Tree-Ring decoding [8767d43ace527e6c][a6b5d1ed98ed3e14].\n  - Even with identical prompts, images regenerated from reconstructed noise latents differ perceptibly from originals, indicating substantial inversion error that directly harms watermark recovery [4776a267e51de637].\n\n- **Watermark extraction quality is lower and more fragile in FLUX.1-dev**\n  - For FLUX.1-dev with no attack:\n    - No prompt: NMAE ≈ 0.303, NMSE ≈ 0.106, average |ŵ−w| ≈ 22.77 [f8b8eaed5124712d].\n    - With exact prompt: NMAE improves to ≈ 0.232, NMSE to ≈ 0.063, |ŵ−w| ≈ 22.12 (best FLUX configuration) [f8b8eaed5124712d].\n    - With VLM prompt: intermediate performance (NMAE ≈ 0.290, NMSE ≈ 0.096, |ŵ−w| ≈ 22.70) [f8b8eaed5124712d][9c05d214852b2692].\n  - SD 2.1 base (no attack, no prompt) shows higher |ŵ−w| ≈ 45.60, indicating a different error scale and behavior; the study emphasizes that RF and diffusion models differ substantially in watermark separability and extraction dynamics [f8b8eaed5124712d][c326ebe4f784f711].\n\n- **Attacks rapidly destroy watermark recoverability in FLUX.1-dev**\n  - Simple augmentations (blur, added noise) cause NMAE and NMSE to exceed 1.0 in FLUX.1-dev, signaling near-complete failure of latent reconstruction:\n    - Blur (no prompt): NMAE ≈ 1.259, NMSE ≈ 1.594, |ŵ−w| ≈ 37.51 [f8b8eaed5124712d].\n    - Blur (with prompt): similar degradation (NMAE ≈ 1.261, NMSE ≈ 1.597) [f8b8eaed5124712d].\n    - Noise (no prompt): NMAE ≈ 1.325, NMSE ≈ 1.772, |ŵ−w| ≈ 38.66 [f8b8eaed5124712d].\n    - Noise (with prompt): NMAE ≈ 1.343, NMSE ≈ 1.821, |ŵ−w| ≈ 39.31 [f8b8eaed5124712d].\n  - These results show Tree-Ring watermarks in RF models are highly non-robust to common post-processing, undermining practical provenance guarantees [fd4378f28a16bb1c][c326ebe4f784f711].\n\n- **Prompt information is critical but not sufficient**\n  - Exact prompts significantly improve inversion and watermark extraction in FLUX.1-dev relative to no-prompt, but still do not reach the reliability seen in traditional diffusion models [f8b8eaed5124712d][c326ebe4f784f711].\n  - VLM-generated semantic prompts yield only modest gains over no-prompt and remain clearly inferior to exact prompts, indicating that approximate semantic guidance cannot fully compensate for RF inversion limitations [9c05d214852b2692].\n\n- **Architectural and training choices drive limitations**\n  - FLUX’s Multimodal Diffusion Transformer deeply entangles text and image features, making generation more tightly dependent on prompts than UNet-based diffusion models; combined with T5-based text encoding and rectified flow objectives, this leads to efficient forward sampling but structurally poor backward reconstruction [a6b5d1ed98ed3e14][8ba006aa21056da6].\n  - Higher-order numerical solvers may slightly improve inversion but cannot overcome the fundamental information loss induced by straightened transport paths [a6b5d1ed98ed3e14].\n\n- **Overall separability is weaker in RF models**\n  - The study finds that, across configurations and attacks, RF-based FLUX.1-dev exhibits reduced statistical separability between watermarked and non-watermarked images compared to SD 2.1, limiting reliable detection thresholds in operational settings [fd4378f28a16bb1c][c326ebe4f784f711].\n\n## Evidence\n- Motivation and scope:\n  - Tree-Ring watermarking is important for authenticity, but its behavior in rectified flow models was previously unstudied [1184c0487248f82e][c326ebe4f784f711].\n  - The work directly compares SD 2.1 (diffusion) vs FLUX.1-dev (rectified flow) under multiple guidance and attack settings [c326ebe4f784f711][fd4378f28a16bb1c].\n- Methodological setup:\n  - Tree-Ring watermark embedded via Fourier-space modification of the initial noise latent [949d733ce2d27465].\n  - Fixed global random seed and single watermark key across experiments; uniform timestep schedule for sampling and inversion; classifier-free guidance fixed at 3.5 [448c1d5c58aa5f2b].\n  - Robustness evaluated via latent reconstruction metrics (NMAE, NMSE, average |ŵ−w|) and attack benchmarks such as blur and noise, aligned with standardized robustness evaluations like Waves [65a5c5af5466ce1d][6847523eb677e85f][f8b8eaed5124712d].\n- Model and dynamics:\n  - RF models use linear interpolation of marginals and Euler ODE integration for efficient sampling with fewer steps [8ba006aa21056da6][07f2fd513b23cfb2][8767d43ace527e6c].\n  - Diffusion models operate in latent space with a noise schedule and forward noising process, supporting more faithful inversion via DDIM-like schemes, though still imperfect [11cc711f38f0dd5c][df94130288f8d4d6][000a3a8002054645].\n- Conclusions and research directions:\n  - The study concludes that current Tree-Ring watermarking is limited on SOTA RF models and stresses the need for improved inversion and more robust watermark designs for flow-based architectures [c326ebe4f784f711][05b9fd7dd2e748e6][fd4378f28a16bb1c].\n\n## Risks\n- **Operational provenance risk**\n  - Deploying Tree-Ring watermarking on RF models like FLUX.1-dev may give a false sense of security: modest detection in clean conditions but rapid failure under mild blur/noise or other common edits [f8b8eaed5124712d][fd4378f28a16bb1c].\n- **Policy and compliance gaps**\n  - Regulatory or platform policies that assume diffusion-style watermark robustness may not hold for RF architectures, leading to undetected AI-generated content and weakened content authenticity frameworks [1184c0487248f82e][c326ebe4f784f711].\n- **Architectural lock-in**\n  - The rectified flow objective and MM DiT architecture inherently trade off invertibility for sampling efficiency; retrofitting robust watermarking may be structurally constrained, limiting future flexibility if RF becomes dominant [a6b5d1ed98ed3e14][8ba006aa21056da6].\n- **Over-reliance on prompt availability**\n  - Effective detection in RF models currently depends heavily on access to the exact generation prompt; in many real-world scenarios this metadata is unavailable or unreliable, degrading detection performance [f8b8eaed5124712d][9c05d214852b2692].\n\n## Next Steps\n- **Short term (deployment and evaluation)**\n  - Avoid relying solely on Tree-Ring watermarking for provenance in RF-based systems; combine with alternative signals (metadata, cryptographic signatures, model-side logging).\n  - When Tree-Ring is used with RF models, enforce storage of exact prompts and generation parameters to maximize inversion quality, and explicitly document that robustness under common edits is weak [f8b8eaed5124712d][9c05d214852b2692].\n  - Benchmark RF models under broader attack suites (e.g., Waves scenarios) to quantify practical detection limits before policy or product commitments [6847523eb677e85f][fd4378f28a16bb1c].\n\n- **Medium term (research and model design)**\n  - Develop inversion methods tailored to rectified flows that better approximate the original noise latent, potentially via learned inverse models or joint training objectives that preserve invertibility-relevant information [05b9fd7dd2e748e6][a6b5d1ed98ed3e14].\n  - Explore watermarking schemes that do not depend on precise noise-latent recovery—e.g., feature-space or decoder-space watermarks more compatible with RF dynamics.\n  - Investigate architectural or training modifications (e.g., partial relaxation of straight-path constraints, auxiliary losses) that improve backward reconstruction without severely harming sampling efficiency [a6b5d1ed98ed3e14][8ba006aa21056da6].\n\n- **Long term (standards and ecosystem)**\n  - Contribute RF-specific watermark robustness benchmarks and metrics to emerging standards, ensuring that evaluations distinguish between diffusion and rectified flow regimes [65a5c5af5466ce1d][fd4378f28a16bb1c].\n  - Coordinate with policymakers and industry consortia to clarify that watermark guarantees are architecture-dependent, and to encourage multi-layer provenance strategies for RF-based generative systems [1184c0487248f82e][c326ebe4f784f711]."
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- Tree-Ring Watermarking, effective in diffusion models, faces significant challenges in rectified flow (RF) architectures like FLUX.1-dev due to poor noise-latent invertibility and architectural differences that discard information needed for watermark recovery [c326ebe4f784f711][a6b5d1ed98ed3e14].\n- Compared to SD 2.1, RF models show weaker watermark extraction quality and reduced statistical separability between watermarked and non-watermarked images, especially under common image manipulations [c326ebe4f784f711][fd4378f28a16bb1c].\n\n## Key Findings\n- **Inversion is fundamentally harder in RF models**\n  - Rectified flow training optimizes nearly straight transport paths between noise and data, improving forward sampling but sacrificing invertibility and the recoverability of the original noise latent needed for Tree-Ring decoding [8767d43ace527e6c][a6b5d1ed98ed3e14].\n  - Even with identical prompts, images regenerated from reconstructed noise latents differ perceptibly from originals, indicating substantial inversion error that directly harms watermark recovery [4776a267e51de637].\n\n- **Watermark extraction quality is lower and more fragile in FLUX.1-dev**\n  - For FLUX.1-dev with no attack:\n    - No prompt: NMAE ≈ 0.303, NMSE ≈ 0.106, average |ŵ−w| ≈ 22.77 [f8b8eaed5124712d].\n    - With exact prompt: NMAE improves to ≈ 0.232, NMSE to ≈ 0.063, |ŵ−w| ≈ 22.12 (best FLUX configuration) [f8b8eaed5124712d].\n    - With VLM prompt: intermediate performance (NMAE ≈ 0.290, NMSE ≈ 0.096, |ŵ−w| ≈ 22.70) [f8b8eaed5124712d][9c05d214852b2692].\n  - SD 2.1 base (no attack, no prompt) shows higher |ŵ−w| ≈ 45.60, indicating a different error scale and behavior; the study emphasizes that RF and diffusion models differ substantially in watermark separability and extraction dynamics [f8b8eaed5124712d][c326ebe4f784f711].\n\n- **Attacks rapidly destroy watermark recoverability in FLUX.1-dev**\n  - Simple augmentations (blur, added noise) cause NMAE and NMSE to exceed 1.0 in FLUX.1-dev, signaling near-complete failure of latent reconstruction:\n    - Blur (no prompt): NMAE ≈ 1.259, NMSE ≈ 1.594, |ŵ−w| ≈ 37.51 [f8b8eaed5124712d].\n    - Blur (with prompt): similar degradation (NMAE ≈ 1.261, NMSE ≈ 1.597) [f8b8eaed5124712d].\n    - Noise (no prompt): NMAE ≈ 1.325, NMSE ≈ 1.772, |ŵ−w| ≈ 38.66 [f8b8eaed5124712d].\n    - Noise (with prompt): NMAE ≈ 1.343, NMSE ≈ 1.821, |ŵ−w| ≈ 39.31 [f8b8eaed5124712d].\n  - These results show Tree-Ring watermarks in RF models are highly non-robust to common post-processing, undermining practical provenance guarantees [fd4378f28a16bb1c][c326ebe4f784f711].\n\n- **Prompt information is critical but not sufficient**\n  - Exact prompts significantly improve inversion and watermark extraction in FLUX.1-dev relative to no-prompt, but still do not reach the reliability seen in traditional diffusion models [f8b8eaed5124712d][c326ebe4f784f711].\n  - VLM-generated semantic prompts yield only modest gains over no-prompt and remain clearly inferior to exact prompts, indicating that approximate semantic guidance cannot fully compensate for RF inversion limitations [9c05d214852b2692].\n\n- **Architectural and training choices drive limitations**\n  - FLUX’s Multimodal Diffusion Transformer deeply entangles text and image features, making generation more tightly dependent on prompts than UNet-based diffusion models; combined with T5-based text encoding and rectified flow objectives, this leads to efficient forward sampling but structurally poor backward reconstruction [a6b5d1ed98ed3e14][8ba006aa21056da6].\n  - Higher-order numerical solvers may slightly improve inversion but cannot overcome the fundamental information loss induced by straightened transport paths [a6b5d1ed98ed3e14].\n\n- **Overall separability is weaker in RF models**\n  - The study finds that, across configurations and attacks, RF-based FLUX.1-dev exhibits reduced statistical separability between watermarked and non-watermarked images compared to SD 2.1, limiting reliable detection thresholds in operational settings [fd4378f28a16bb1c][c326ebe4f784f711].\n\n## Evidence\n- Motivation and scope:\n  - Tree-Ring watermarking is important for authenticity, but its behavior in rectified flow models was previously unstudied [1184c0487248f82e][c326ebe4f784f711].\n  - The work directly compares SD 2.1 (diffusion) vs FLUX.1-dev (rectified flow) under multiple guidance and attack settings [c326ebe4f784f711][fd4378f28a16bb1c].\n- Methodological setup:\n  - Tree-Ring watermark embedded via Fourier-space modification of the initial noise latent [949d733ce2d27465].\n  - Fixed global random seed and single watermark key across experiments; uniform timestep schedule for sampling and inversion; classifier-free guidance fixed at 3.5 [448c1d5c58aa5f2b].\n  - Robustness evaluated via latent reconstruction metrics (NMAE, NMSE, average |ŵ−w|) and attack benchmarks such as blur and noise, aligned with standardized robustness evaluations like Waves [65a5c5af5466ce1d][6847523eb677e85f][f8b8eaed5124712d].\n- Model and dynamics:\n  - RF models use linear interpolation of marginals and Euler ODE integration for efficient sampling with fewer steps [8ba006aa21056da6][07f2fd513b23cfb2][8767d43ace527e6c].\n  - Diffusion models operate in latent space with a noise schedule and forward noising process, supporting more faithful inversion via DDIM-like schemes, though still imperfect [11cc711f38f0dd5c][df94130288f8d4d6][000a3a8002054645].\n- Conclusions and research directions:\n  - The study concludes that current Tree-Ring watermarking is limited on SOTA RF models and stresses the need for improved inversion and more robust watermark designs for flow-based architectures [c326ebe4f784f711][05b9fd7dd2e748e6][fd4378f28a16bb1c].\n\n## Risks\n- **Operational provenance risk**\n  - Deploying Tree-Ring watermarking on RF models like FLUX.1-dev may give a false sense of security: modest detection in clean conditions but rapid failure under mild blur/noise or other common edits [f8b8eaed5124712d][fd4378f28a16bb1c].\n- **Policy and compliance gaps**\n  - Regulatory or platform policies that assume diffusion-style watermark robustness may not hold for RF architectures, leading to undetected AI-generated content and weakened content authenticity frameworks [1184c0487248f82e][c326ebe4f784f711].\n- **Architectural lock-in**\n  - The rectified flow objective and MM DiT architecture inherently trade off invertibility for sampling efficiency; retrofitting robust watermarking may be structurally constrained, limiting future flexibility if RF becomes dominant [a6b5d1ed98ed3e14][8ba006aa21056da6].\n- **Over-reliance on prompt availability**\n  - Effective detection in RF models currently depends heavily on access to the exact generation prompt; in many real-world scenarios this metadata is unavailable or unreliable, degrading detection performance [f8b8eaed5124712d][9c05d214852b2692].\n\n## Next Steps\n- **Short term (deployment and evaluation)**\n  - Avoid relying solely on Tree-Ring watermarking for provenance in RF-based systems; combine with alternative signals (metadata, cryptographic signatures, model-side logging).\n  - When Tree-Ring is used with RF models, enforce storage of exact prompts and generation parameters to maximize inversion quality, and explicitly document that robustness under common edits is weak [f8b8eaed5124712d][9c05d214852b2692].\n  - Benchmark RF models under broader attack suites (e.g., Waves scenarios) to quantify practical detection limits before policy or product commitments [6847523eb677e85f][fd4378f28a16bb1c].\n\n- **Medium term (research and model design)**\n  - Develop inversion methods tailored to rectified flows that better approximate the original noise latent, potentially via learned inverse models or joint training objectives that preserve invertibility-relevant information [05b9fd7dd2e748e6][a6b5d1ed98ed3e14].\n  - Explore watermarking schemes that do not depend on precise noise-latent recovery—e.g., feature-space or decoder-space watermarks more compatible with RF dynamics.\n  - Investigate architectural or training modifications (e.g., partial relaxation of straight-path constraints, auxiliary losses) that improve backward reconstruction without severely harming sampling efficiency [a6b5d1ed98ed3e14][8ba006aa21056da6].\n\n- **Long term (standards and ecosystem)**\n  - Contribute RF-specific watermark robustness benchmarks and metrics to emerging standards, ensuring that evaluations distinguish between diffusion and rectified flow regimes [65a5c5af5466ce1d][fd4378f28a16bb1c].\n  - Coordinate with policymakers and industry consortia to clarify that watermark guarantees are architecture-dependent, and to encourage multi-layer provenance strategies for RF-based generative systems [1184c0487248f82e][c326ebe4f784f711]."
+  }
+}

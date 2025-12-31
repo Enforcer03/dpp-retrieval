@@ -1,0 +1,34 @@
+{
+  "id": "qwen2audio_deployment_d0",
+  "parent": {
+    "path": "qwen2audio.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "GPU Constraints",
+      "description": "Will this model fit on our standard inference GPUs (e.g., 24GB VRAM), or is it too big (approx 8B params)?"
+    },
+    {
+      "id": "R2",
+      "category": "Latency",
+      "description": "Is the latency low enough for a conversation, or is there a noticeable lag before it starts responding?"
+    },
+    {
+      "id": "R3",
+      "category": "Input Limits",
+      "description": "Is there a hard limit on audio length (like 30 seconds) that would break our use case for long files?"
+    },
+    {
+      "id": "R4",
+      "category": "Safety",
+      "description": "Does it refuse to process certain audio types (safety refusals) that might be false positives for us?"
+    }
+  ],
+  "notes": {}
+}

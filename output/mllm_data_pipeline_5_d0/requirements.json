@@ -1,0 +1,39 @@
+{
+  "id": "mllm_data_pipeline_d0",
+  "parent": {
+    "path": "mllm_review.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Data & Training Pipeline: Determining how much effort allows us to ship."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Dataset Size",
+      "description": "Does the review say massive data is non-negotiable? Can we get away with a small, high-quality instruction dataset?"
+    },
+    {
+      "id": "R2",
+      "category": "Training Strategy",
+      "description": "Do we absolutely have to pre-train from scratch, or does the survey point to fine-tuning pre-trained models (Two-Stage pipeline) as a viable path?"
+    },
+    {
+      "id": "R3",
+      "category": "Metrics",
+      "description": "Are automated metrics like POPE or MME reliable enough to be our main unit test, or do we need humans?"
+    },
+    {
+      "id": "R4",
+      "category": "Extensibility",
+      "description": "How hard is it to add new modalities to existing models(like Audio) later if we pick a specific architecture now?"
+    },
+    {
+      "id": "R5",
+      "category": "Forgetting",
+      "description": "Does instruction tuning tends to make the model 'forget' its original text-only capabilities?"
+    }
+  ],
+  "notes": {}
+}

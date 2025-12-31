@@ -1,0 +1,34 @@
+{
+  "id": "qwen2audio_summary_d0",
+  "parent": {
+    "path": "qwen2audio.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Summarize the key capabilities and architecture of Qwen2-Audio."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Visual Element",
+      "description": "Must reference the 'Model Architecture' figure or description, specifically the dual-encoder or initialization strategy (Whisper-large)."
+    },
+    {
+      "id": "R2",
+      "category": "Data Retrieval",
+      "description": "Must cite performance rankings from the 'AIR-Bench' results table, noting its position relative to models like Gemini Pro."
+    },
+    {
+      "id": "R3",
+      "category": "Modes",
+      "description": "Must describe the two distinct interaction modes: 'Voice Chat' (free interaction) and 'Audio Analysis' (instruction following)."
+    },
+    {
+      "id": "R4",
+      "category": "Input Scope",
+      "description": "Must clarify that the model accepts diverse audio inputs including Speech, Sound Events, and Music."
+    }
+  ],
+  "notes": {}
+}

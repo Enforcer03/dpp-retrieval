@@ -1,0 +1,670 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "982bf1e6b0e07a95",
+  "created_at": "2025-12-31T08:59:35Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 17534,
+        "output_hash": "67b3484afc1f757853a4ed5a350d55681bd09954",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "a6b5d1ed98ed3e14",
+                        "bf00d0361b190a65",
+                        "fc27eed87276c60f",
+                        "f8b8eaed5124712d",
+                        "98e0a1670aa761b8"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "The observed differences in watermark recovery between FLUX.1-dev and traditional diffusion models stem from fundamental architectural and training methodology differences."
+                        },
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+                        },
+                        {
+                          "chunk_id": "bf00d0361b190a65",
+                          "quote": "application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev"
+                        },
+                        {
+                          "chunk_id": "bf00d0361b190a65",
+                          "quote": "This behavior stands in stark contrast with DDIM, where ... latent watermark signals remain highly resilient even under various attack scenarios."
+                        }
+                      ],
+                      "rationale": "Evidence explains FLUX’s worse robustness via MM DiT architecture and rectified-flow objective reducing invertibility and watermark recoverability, and contrasts with SD 2.1 robustness. It does not specifically analyze latent-space noise sensitivity, so the causal explanation is architectural/training rather than a direct statement about latent noise sensitivity."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "f8b8eaed5124712d",
+                        "5079eca6d92150ba"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "5079eca6d92150ba",
+                          "quote": "we employ Qwen2-VL-2B-Instruct ... to generate image-grounded captions as alternative prompts."
+                        },
+                        {
+                          "chunk_id": "f8b8eaed5124712d",
+                          "quote": "FLUX.1-dev | No Attack (With VLM) | 0.290_{± 0.050} | 0.096_{± 0.037}"
+                        },
+                        {
+                          "chunk_id": "f8b8eaed5124712d",
+                          "quote": "No Attack (No Prompt) | 0.303_{± 0.056} ... No Attack (With Prompt) | 0.232_{± 0.046}"
+                        }
+                      ],
+                      "rationale": "Table 1 shows NMSE for FLUX with VLM prompts (0.096) is better than no-prompt (0.106) but worse than true prompt (0.063), indicating VLM prompts partially work yet reconstruction error remains higher than ideal. This directly addresses usefulness of VLM-generated inversion prompts."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No chunks report false positive rate, TPR@1%FPR, or explicit statistical separability vs random noise. Metrics are NMAE/NMSE and Fourier distances only; classification-style detection statistics are absent."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "1184c0487248f82e",
+                        "bf00d0361b190a65",
+                        "a6b5d1ed98ed3e14",
+                        "05b9fd7dd2e748e6"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1184c0487248f82e",
+                          "quote": "Tree Ring Watermarking ... effectiveness remains unexplored for newer architectures."
+                        },
+                        {
+                          "chunk_id": "bf00d0361b190a65",
+                          "quote": "Tree Ring Watermarking ... is less effective on FLUX.1-dev"
+                        },
+                        {
+                          "chunk_id": "05b9fd7dd2e748e6",
+                          "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+                        }
+                      ],
+                      "rationale": "Evidence states Tree Ring watermarking is less effective on FLUX and calls for architecture-specific methods, implying SD-tuned settings are suboptimal. However, there is no explicit experiment varying radius/channel parameters for FLUX, so it does not concretely answer whether parameter tweaks vs reuse are sufficient."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "partial",
+                      "evidence": [
+                        "65a5c5af5466ce1d",
+                        "f8b8eaed5124712d",
+                        "bf00d0361b190a65",
+                        "fc27eed87276c60f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "65a5c5af5466ce1d",
+                          "quote": "We quantify watermark robustness through the following metrics:"
+                        },
+                        {
+                          "chunk_id": "f8b8eaed5124712d",
+                          "quote": "Blur (No Prompt) | 1.259_{± 0.016} | 1.594_{± 0.040}"
+                        },
+                        {
+                          "chunk_id": "f8b8eaed5124712d",
+                          "quote": "Noise (No Prompt) | 1.325_{± 0.043} | 1.772_{± 0.018}"
+                        },
+                        {
+                          "chunk_id": "bf00d0361b190a65",
+                          "quote": "application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev"
+                        }
+                      ],
+                      "rationale": "Latent Noise Reconstruction (NMAE/NMSE) is clearly defined and measured, but there is no explicit discussion of metric stability over datasets, thresholds, or its sufficiency as a primary compliance check. Data show it degrades severely under attacks, suggesting limitations, yet the text does not directly assess its reliability for copyright compliance."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R3"
+                  ],
+                  "risks": [
+                    "Lack of FPR/TPR statistics (R3) prevents rigorous claims about detection reliability and separability from random noise.",
+                    "Only partial analysis of whether SD watermark parameters can be reused for FLUX (R4) may lead to misconfigured watermark deployments.",
+                    "No explicit stability assessment of Latent Noise Reconstruction for compliance decisions (R5) risks over-reliance on a metric that degrades sharply under attacks.",
+                    "Causal explanation for FLUX’s worse robustness focuses on architecture and training; sensitivity of latent space to noise is not directly quantified (R1)."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Some requirements are well supported (VLM prompt effectiveness, architectural reasons for weaker robustness), but key detection-statistics questions (FPR/TPR) and concrete parameter-tuning guidance are missing or only implied. Latent Noise Reconstruction is measured but not evaluated as a compliance-standard metric.",
+              "missing_requirements": [
+                "R3"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate FLUX’s weaker robustness and architectural causes, and several discuss Tree Ring watermarking’s reduced effectiveness on FLUX. However, most high-cost chunks add distinct quantitative or architectural details.",
+              "redundant_pairs": [
+                [
+                  "1184c0487248f82e",
+                  "bf00d0361b190a65"
+                ],
+                [
+                  "a6b5d1ed98ed3e14",
+                  "8767d43ace527e6c"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "One very expensive chunk (f8b8eaed5124712d) provides essential quantitative metrics and is high-yield. Another high-cost chunk (a6b5d1ed98ed3e14) is also high-yield for architectural explanation. Some mid-cost citation-only chunks add little to the specific requirements.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "f8b8eaed5124712d",
+                  "cost": 648,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "a6b5d1ed98ed3e14",
+                  "cost": 184,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "d72cce2b3ea9a5d6",
+                  "cost": 136,
+                  "yield": "low"
+                }
+              ]
+            },
+            "risk_flags": [
+              "No evidence for TPR/FPR or ROC-style metrics limits ability to benchmark detection performance rigorously.",
+              "Absence of explicit experiments on watermark radius/channel tuning for FLUX may mislead practitioners into reusing SD parameters.",
+              "Metric stability and operational thresholds for Latent Noise Reconstruction are not analyzed, posing compliance-assessment risk.",
+              "Explanation of FLUX’s vulnerability does not directly quantify latent-space noise sensitivity, leaving part of R1’s question unresolved."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 21554,
+        "output_hash": "684eaf444b509ebbb8c7a53db9e901547b123c4a",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "FLUX.1-dev | No Attack (No Prompt) | 0.303±0.056 | 0.106±0.042"
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "No Attack (With Prompt) | 0.232±0.046 | 0.063±0.029"
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "Blur (No Prompt) | 1.259±0.016 | 1.594±0.040"
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "Noise (No Prompt) | 1.325±0.043 | 1.772±0.018"
+              },
+              {
+                "chunk_id": "98e0a1670aa761b8",
+                "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images"
+              },
+              {
+                "chunk_id": "fc27eed87276c60f",
+                "quote": "Attacked scenarios show the distribution of the fourier space distance under noise, and blur manipulations."
+              },
+              {
+                "chunk_id": "bf00d0361b190a65",
+                "quote": "application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev"
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "rectified flow training objective optimizes for straight paths between source and target distributions"
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "This straightened path inherently discards information that would be useful during inversion."
+              },
+              {
+                "chunk_id": "5079eca6d92150ba",
+                "quote": "we employ Qwen2-VL-2B-Instruct ... to generate image-grounded captions as alternative prompts."
+              },
+              {
+                "chunk_id": "65a5c5af5466ce1d",
+                "quote": "We quantify watermark robustness through the following metrics:"
+              },
+              {
+                "chunk_id": "6847523eb677e85f",
+                "quote": "evaluated through benchmarks like Waves ... which provides standardized attack scenarios"
+              },
+              {
+                "chunk_id": "1184c0487248f82e",
+                "quote": "Tree Ring Watermarking ... effectiveness remains unexplored for newer architectures."
+              },
+              {
+                "chunk_id": "05b9fd7dd2e748e6",
+                "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+                "answer": "The summary aligns with this decision: it explicitly contrasts FLUX.1-dev and SD 2.1 watermark robustness, metrics, and architectural causes of the robustness gap.",
+                "confidence": 0.9,
+                "evidence": [
+                  "f8b8eaed5124712d",
+                  "98e0a1670aa761b8",
+                  "bf00d0361b190a65",
+                  "fc27eed87276c60f",
+                  "a6b5d1ed98ed3e14",
+                  "6847523eb677e85f"
+                ],
+                "notes": "Table 1 provides side-by-side metrics for FLUX and SD 2.1 under no-attack; text and figures describe FLUX degradation under attacks and prior robustness of SD 2.1."
+              }
+            ],
+            "requirements": [
+              {
+                "id": "R1",
+                "answer": "The summary attributes FLUX’s worse robustness mainly to architectural and training differences, not just a more noise-sensitive latent space. FLUX’s MM DiT with deeply entangled text–image features and T5 encoder makes generation more prompt-dependent than SD’s UNet+CLIP cross-attention. More importantly, the rectified flow objective enforces nearly straight trajectories between noise and data, which “inherently discards information” needed for inversion and watermark recovery, unlike traditional diffusion used in SD 2.1. Under attacks, Fourier-domain distances and loss of ring patterns show FLUX’s watermark signal is more easily destroyed, while prior work shows SD 2.1’s latent watermark remains resilient.",
+                "confidence": 0.9,
+                "evidence": [
+                  "a6b5d1ed98ed3e14",
+                  "8767d43ace527e6c",
+                  "40bc4484a922fb06",
+                  "bf00d0361b190a65",
+                  "fc27eed87276c60f",
+                  "98e0a1670aa761b8"
+                ],
+                "notes": "No explicit statement about latent space being more sensitive to noise; instead, evidence emphasizes architectural and objective-level invertibility limitations."
+              },
+              {
+                "id": "R2",
+                "answer": "Using a VLM-generated inversion prompt provides some benefit over no prompt but does not match original-prompt performance, and reconstruction error remains relatively high. For FLUX.1-dev without attacks, NMAE is 0.303 without prompt, 0.232 with the original prompt, and 0.290 with VLM prompt; NMSE is 0.106 (no prompt), 0.063 (original prompt), and 0.096 (VLM). This shows VLM prompts improve over no prompt but are noticeably worse than true prompts, so NMSE is still substantial and only partially useful.",
+                "confidence": 0.86,
+                "evidence": [
+                  "f8b8eaed5124712d",
+                  "5079eca6d92150ba"
+                ],
+                "notes": "The text does not explicitly label a usefulness threshold; assessment of ‘too high’ is relative, but the summary already frames VLM prompts as only partially mitigating degradation."
+              },
+              {
+                "id": "R3",
+                "answer": "unknown",
+                "confidence": 0.0,
+                "evidence": [],
+                "notes": "No chunks report false positive rate, TPR@1%FPR, or explicit statistical separability metrics between watermarked FLUX images and random noise."
+              },
+              {
+                "id": "R4",
+                "answer": "The summary implies that Tree Ring Watermarking, tuned for traditional diffusion like SD 2.1, is less effective on FLUX and that architecture-aware adaptations are needed. It recommends designing or adapting watermarking schemes specifically for rectified-flow/MM DiT architectures, suggesting that simply reusing SD settings (e.g., radius/channel parameters) is likely insufficient. However, there is no direct experiment varying radius or channels for FLUX, so this is an informed implication rather than a tested parameter sweep.",
+                "confidence": 0.6,
+                "evidence": [
+                  "1184c0487248f82e",
+                  "bf00d0361b190a65",
+                  "05b9fd7dd2e748e6",
+                  "a6b5d1ed98ed3e14"
+                ],
+                "notes": "Evidence supports that existing watermark design is mismatched to FLUX and needs adaptation, but does not specifically discuss radius/channel tuning."
+              },
+              {
+                "id": "R5",
+                "answer": "The summary does not claim that Latent Noise Reconstruction is stable enough to be the primary automated copyright-compliance check, nor does the evidence analyze its stability across datasets or conditions. Table 1 reports NMAE and NMSE with standard deviations for several scenarios, showing large degradation under attacks for FLUX, but there is no explicit discussion of metric reliability as a compliance gate. Thus, stability as a primary check is not established.",
+                "confidence": 0.78,
+                "evidence": [
+                  "f8b8eaed5124712d",
+                  "65a5c5af5466ce1d"
+                ],
+                "notes": "Metrics are defined and measured, but no claim or analysis about their operational stability or sufficiency for copyright compliance is provided."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "a6b5d1ed98ed3e14",
+                  "bf00d0361b190a65",
+                  "fc27eed87276c60f",
+                  "f8b8eaed5124712d",
+                  "98e0a1670aa761b8"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "The observed differences in watermark recovery between FLUX.1-dev and traditional diffusion models stem from fundamental architectural and training methodology differences."
+                  },
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+                  },
+                  {
+                    "chunk_id": "bf00d0361b190a65",
+                    "quote": "application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev"
+                  },
+                  {
+                    "chunk_id": "bf00d0361b190a65",
+                    "quote": "This behavior stands in stark contrast with DDIM, where ... latent watermark signals remain highly resilient even under various attack scenarios."
+                  }
+                ],
+                "rationale": "Evidence explains FLUX’s worse robustness via MM DiT architecture and rectified-flow objective reducing invertibility and watermark recoverability, and contrasts with SD 2.1 robustness. It does not specifically analyze latent-space noise sensitivity, so the causal explanation is architectural/training rather than a direct statement about latent noise sensitivity."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "f8b8eaed5124712d",
+                  "5079eca6d92150ba"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "5079eca6d92150ba",
+                    "quote": "we employ Qwen2-VL-2B-Instruct ... to generate image-grounded captions as alternative prompts."
+                  },
+                  {
+                    "chunk_id": "f8b8eaed5124712d",
+                    "quote": "FLUX.1-dev | No Attack (With VLM) | 0.290_{± 0.050} | 0.096_{± 0.037}"
+                  },
+                  {
+                    "chunk_id": "f8b8eaed5124712d",
+                    "quote": "No Attack (No Prompt) | 0.303_{± 0.056} ... No Attack (With Prompt) | 0.232_{± 0.046}"
+                  }
+                ],
+                "rationale": "Table 1 shows NMSE for FLUX with VLM prompts (0.096) is better than no-prompt (0.106) but worse than true prompt (0.063), indicating VLM prompts partially work yet reconstruction error remains higher than ideal. This directly addresses usefulness of VLM-generated inversion prompts."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No chunks report false positive rate, TPR@1%FPR, or explicit statistical separability vs random noise. Metrics are NMAE/NMSE and Fourier distances only; classification-style detection statistics are absent."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "1184c0487248f82e",
+                  "bf00d0361b190a65",
+                  "a6b5d1ed98ed3e14",
+                  "05b9fd7dd2e748e6"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1184c0487248f82e",
+                    "quote": "Tree Ring Watermarking ... effectiveness remains unexplored for newer architectures."
+                  },
+                  {
+                    "chunk_id": "bf00d0361b190a65",
+                    "quote": "Tree Ring Watermarking ... is less effective on FLUX.1-dev"
+                  },
+                  {
+                    "chunk_id": "05b9fd7dd2e748e6",
+                    "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+                  }
+                ],
+                "rationale": "Evidence states Tree Ring watermarking is less effective on FLUX and calls for architecture-specific methods, implying SD-tuned settings are suboptimal. However, there is no explicit experiment varying radius/channel parameters for FLUX, so it does not concretely answer whether parameter tweaks vs reuse are sufficient."
+              },
+              {
+                "id": "R5",
+                "status": "partial",
+                "evidence": [
+                  "65a5c5af5466ce1d",
+                  "f8b8eaed5124712d",
+                  "bf00d0361b190a65",
+                  "fc27eed87276c60f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "65a5c5af5466ce1d",
+                    "quote": "We quantify watermark robustness through the following metrics:"
+                  },
+                  {
+                    "chunk_id": "f8b8eaed5124712d",
+                    "quote": "Blur (No Prompt) | 1.259_{± 0.016} | 1.594_{± 0.040}"
+                  },
+                  {
+                    "chunk_id": "f8b8eaed5124712d",
+                    "quote": "Noise (No Prompt) | 1.325_{± 0.043} | 1.772_{± 0.018}"
+                  },
+                  {
+                    "chunk_id": "bf00d0361b190a65",
+                    "quote": "application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev"
+                  }
+                ],
+                "rationale": "Latent Noise Reconstruction (NMAE/NMSE) is clearly defined and measured, but there is no explicit discussion of metric stability over datasets, thresholds, or its sufficiency as a primary compliance check. Data show it degrades severely under attacks, suggesting limitations, yet the text does not directly assess its reliability for copyright compliance."
+              }
+            ],
+            "missing_requirements": [
+              "R3"
+            ],
+            "risks": [
+              "Lack of FPR/TPR statistics (R3) prevents rigorous claims about detection reliability and separability from random noise.",
+              "Only partial analysis of whether SD watermark parameters can be reused for FLUX (R4) may lead to misconfigured watermark deployments.",
+              "No explicit stability assessment of Latent Noise Reconstruction for compliance decisions (R5) risks over-reliance on a metric that degrades sharply under attacks.",
+              "Causal explanation for FLUX’s worse robustness focuses on architecture and training; sensitivity of latent space to noise is not directly quantified (R1)."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Some requirements are well supported (VLM prompt effectiveness, architectural reasons for weaker robustness), but key detection-statistics questions (FPR/TPR) and concrete parameter-tuning guidance are missing or only implied. Latent Noise Reconstruction is measured but not evaluated as a compliance-standard metric.",
+        "missing_requirements": [
+          "R3"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate FLUX’s weaker robustness and architectural causes, and several discuss Tree Ring watermarking’s reduced effectiveness on FLUX. However, most high-cost chunks add distinct quantitative or architectural details.",
+        "redundant_pairs": [
+          [
+            "1184c0487248f82e",
+            "bf00d0361b190a65"
+          ],
+          [
+            "a6b5d1ed98ed3e14",
+            "8767d43ace527e6c"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "One very expensive chunk (f8b8eaed5124712d) provides essential quantitative metrics and is high-yield. Another high-cost chunk (a6b5d1ed98ed3e14) is also high-yield for architectural explanation. Some mid-cost citation-only chunks add little to the specific requirements.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "f8b8eaed5124712d",
+            "cost": 648,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "a6b5d1ed98ed3e14",
+            "cost": 184,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "d72cce2b3ea9a5d6",
+            "cost": 136,
+            "yield": "low"
+          }
+        ]
+      },
+      "risk_flags": [
+        "No evidence for TPR/FPR or ROC-style metrics limits ability to benchmark detection performance rigorously.",
+        "Absence of explicit experiments on watermark radius/channel tuning for FLUX may mislead practitioners into reusing SD parameters.",
+        "Metric stability and operational thresholds for Latent Noise Reconstruction are not analyzed, posing compliance-assessment risk.",
+        "Explanation of FLUX’s vulnerability does not directly quantify latent-space noise sensitivity, leaving part of R1’s question unresolved."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "FLUX.1-dev | No Attack (No Prompt) | 0.303±0.056 | 0.106±0.042"
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "No Attack (With Prompt) | 0.232±0.046 | 0.063±0.029"
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "Blur (No Prompt) | 1.259±0.016 | 1.594±0.040"
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "Noise (No Prompt) | 1.325±0.043 | 1.772±0.018"
+        },
+        {
+          "chunk_id": "98e0a1670aa761b8",
+          "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images"
+        },
+        {
+          "chunk_id": "fc27eed87276c60f",
+          "quote": "Attacked scenarios show the distribution of the fourier space distance under noise, and blur manipulations."
+        },
+        {
+          "chunk_id": "bf00d0361b190a65",
+          "quote": "application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev"
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "rectified flow training objective optimizes for straight paths between source and target distributions"
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "This straightened path inherently discards information that would be useful during inversion."
+        },
+        {
+          "chunk_id": "5079eca6d92150ba",
+          "quote": "we employ Qwen2-VL-2B-Instruct ... to generate image-grounded captions as alternative prompts."
+        },
+        {
+          "chunk_id": "65a5c5af5466ce1d",
+          "quote": "We quantify watermark robustness through the following metrics:"
+        },
+        {
+          "chunk_id": "6847523eb677e85f",
+          "quote": "evaluated through benchmarks like Waves ... which provides standardized attack scenarios"
+        },
+        {
+          "chunk_id": "1184c0487248f82e",
+          "quote": "Tree Ring Watermarking ... effectiveness remains unexplored for newer architectures."
+        },
+        {
+          "chunk_id": "05b9fd7dd2e748e6",
+          "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+          "answer": "The summary aligns with this decision: it explicitly contrasts FLUX.1-dev and SD 2.1 watermark robustness, metrics, and architectural causes of the robustness gap.",
+          "confidence": 0.9,
+          "evidence": [
+            "f8b8eaed5124712d",
+            "98e0a1670aa761b8",
+            "bf00d0361b190a65",
+            "fc27eed87276c60f",
+            "a6b5d1ed98ed3e14",
+            "6847523eb677e85f"
+          ],
+          "notes": "Table 1 provides side-by-side metrics for FLUX and SD 2.1 under no-attack; text and figures describe FLUX degradation under attacks and prior robustness of SD 2.1."
+        }
+      ],
+      "requirements": [
+        {
+          "id": "R1",
+          "answer": "The summary attributes FLUX’s worse robustness mainly to architectural and training differences, not just a more noise-sensitive latent space. FLUX’s MM DiT with deeply entangled text–image features and T5 encoder makes generation more prompt-dependent than SD’s UNet+CLIP cross-attention. More importantly, the rectified flow objective enforces nearly straight trajectories between noise and data, which “inherently discards information” needed for inversion and watermark recovery, unlike traditional diffusion used in SD 2.1. Under attacks, Fourier-domain distances and loss of ring patterns show FLUX’s watermark signal is more easily destroyed, while prior work shows SD 2.1’s latent watermark remains resilient.",
+          "confidence": 0.9,
+          "evidence": [
+            "a6b5d1ed98ed3e14",
+            "8767d43ace527e6c",
+            "40bc4484a922fb06",
+            "bf00d0361b190a65",
+            "fc27eed87276c60f",
+            "98e0a1670aa761b8"
+          ],
+          "notes": "No explicit statement about latent space being more sensitive to noise; instead, evidence emphasizes architectural and objective-level invertibility limitations."
+        },
+        {
+          "id": "R2",
+          "answer": "Using a VLM-generated inversion prompt provides some benefit over no prompt but does not match original-prompt performance, and reconstruction error remains relatively high. For FLUX.1-dev without attacks, NMAE is 0.303 without prompt, 0.232 with the original prompt, and 0.290 with VLM prompt; NMSE is 0.106 (no prompt), 0.063 (original prompt), and 0.096 (VLM). This shows VLM prompts improve over no prompt but are noticeably worse than true prompts, so NMSE is still substantial and only partially useful.",
+          "confidence": 0.86,
+          "evidence": [
+            "f8b8eaed5124712d",
+            "5079eca6d92150ba"
+          ],
+          "notes": "The text does not explicitly label a usefulness threshold; assessment of ‘too high’ is relative, but the summary already frames VLM prompts as only partially mitigating degradation."
+        },
+        {
+          "id": "R3",
+          "answer": "unknown",
+          "confidence": 0.0,
+          "evidence": [],
+          "notes": "No chunks report false positive rate, TPR@1%FPR, or explicit statistical separability metrics between watermarked FLUX images and random noise."
+        },
+        {
+          "id": "R4",
+          "answer": "The summary implies that Tree Ring Watermarking, tuned for traditional diffusion like SD 2.1, is less effective on FLUX and that architecture-aware adaptations are needed. It recommends designing or adapting watermarking schemes specifically for rectified-flow/MM DiT architectures, suggesting that simply reusing SD settings (e.g., radius/channel parameters) is likely insufficient. However, there is no direct experiment varying radius or channels for FLUX, so this is an informed implication rather than a tested parameter sweep.",
+          "confidence": 0.6,
+          "evidence": [
+            "1184c0487248f82e",
+            "bf00d0361b190a65",
+            "05b9fd7dd2e748e6",
+            "a6b5d1ed98ed3e14"
+          ],
+          "notes": "Evidence supports that existing watermark design is mismatched to FLUX and needs adaptation, but does not specifically discuss radius/channel tuning."
+        },
+        {
+          "id": "R5",
+          "answer": "The summary does not claim that Latent Noise Reconstruction is stable enough to be the primary automated copyright-compliance check, nor does the evidence analyze its stability across datasets or conditions. Table 1 reports NMAE and NMSE with standard deviations for several scenarios, showing large degradation under attacks for FLUX, but there is no explicit discussion of metric reliability as a compliance gate. Thus, stability as a primary check is not established.",
+          "confidence": 0.78,
+          "evidence": [
+            "f8b8eaed5124712d",
+            "65a5c5af5466ce1d"
+          ],
+          "notes": "Metrics are defined and measured, but no claim or analysis about their operational stability or sufficiency for copyright compliance is provided."
+        }
+      ]
+    }
+  }
+}

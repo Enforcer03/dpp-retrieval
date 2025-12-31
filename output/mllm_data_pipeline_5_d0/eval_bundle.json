@@ -1,0 +1,614 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "53c3f87536a0ffaa",
+  "created_at": "2025-12-31T08:46:54Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 31454,
+        "output_hash": "c98f5a970ad15172218a2d98a283aeefaff97c50",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "f509249fe42f7c0b",
+                        "124d2d04a7c7e545",
+                        "48f55570f23fbf34",
+                        "bfe149b1f8e7d622"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "The second fine-tuning stage ... fine-tunes the model using a smaller but high-quality dataset"
+                        },
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU."
+                        },
+                        {
+                          "chunk_id": "48f55570f23fbf34",
+                          "quote": "Many advances have been made ... by constructing large-scale datasets for instruction fine-tuning."
+                        },
+                        {
+                          "chunk_id": "bfe149b1f8e7d622",
+                          "quote": "Obtaining high-quality video annotation data is an urgent problem that needs to be addressed."
+                        }
+                      ],
+                      "rationale": "Evidence shows small, high-quality instruction datasets are impactful and efficient (MiniGPT-4 second stage), and stresses data quality, but does not explicitly state that massive data is non-negotiable or that small datasets alone are sufficient; thus only partial coverage."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "f509249fe42f7c0b",
+                        "124d2d04a7c7e545",
+                        "e94316abb216c826"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "MiniGPT-4 employs a two-stage training approach."
+                        },
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer."
+                        },
+                        {
+                          "chunk_id": "124d2d04a7c7e545",
+                          "quote": "InstructBLIP employs a two-stage training process."
+                        },
+                        {
+                          "chunk_id": "124d2d04a7c7e545",
+                          "quote": "initializing the model from pre-trained BLIP-2 checkpoints."
+                        },
+                        {
+                          "chunk_id": "e94316abb216c826",
+                          "quote": "NeXT-GPT uses ImageBind to extract features from various modalities."
+                        }
+                      ],
+                      "rationale": "Multiple examples (MiniGPT-4, InstructBLIP, NeXT-GPT) clearly use frozen pre-trained encoders/LLMs with small trainable projections, demonstrating two-stage fine-tuning of pre-trained models as a viable and common path instead of pre-training from scratch."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No retrieved text mentions POPE, MME, or automated evaluation metrics versus human evaluation, so reliability of such metrics as main unit tests is not addressed."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "e94316abb216c826",
+                        "8a8d8a40cb7c0910",
+                        "48f55570f23fbf34",
+                        "04088e6b6a00e2d1"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "e94316abb216c826",
+                          "quote": "NeXT-GPT uses ImageBind to extract features from various modalities."
+                        },
+                        {
+                          "chunk_id": "e94316abb216c826",
+                          "quote": "Each modality’s features are then mapped to the LLM space via their respective projection layers."
+                        },
+                        {
+                          "chunk_id": "8a8d8a40cb7c0910",
+                          "quote": "The architecture of these models can be broadly categorized into three main components"
+                        },
+                        {
+                          "chunk_id": "48f55570f23fbf34",
+                          "quote": "Many advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning."
+                        },
+                        {
+                          "chunk_id": "04088e6b6a00e2d1",
+                          "quote": "MLLMs bring a new technological change to audio processing tasks."
+                        }
+                      ],
+                      "rationale": "Evidence shows modular architectures with modality-specific projection layers and use of ImageBind for various modalities, implying extensibility, and discusses audio as an added modality; however, it does not explicitly analyze how hard it is to add new modalities later for a chosen architecture, so requirement is only partially satisfied."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "Instruction tuning is described for InstructBLIP and MiniGPT-4, but there is no discussion of catastrophic forgetting or degradation of original text-only capabilities, so this requirement is not covered."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R3",
+                    "R5"
+                  ],
+                  "risks": [
+                    "Lack of evidence on evaluation metrics (POPE/MME) versus human evaluation leaves uncertainty about how to validate models before shipping.",
+                    "No information on whether instruction tuning harms text-only abilities, risking unexpected regressions in core language performance.",
+                    "Only implicit discussion of data scale and quality may lead to underestimating required dataset size for strong performance.",
+                    "Difficulty of adding new modalities later is not clearly quantified, which could cause architectural lock-in and costly refactors."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Two-stage fine-tuning on pre-trained models is well supported, and there is some indication that small, high-quality instruction datasets are valuable and that architectures are modular across modalities. However, there is no coverage of automated metrics like POPE/MME versus human evaluation, and no discussion of instruction-tuning-induced forgetting. The difficulty of adding new modalities is only indirectly addressed.",
+              "missing_requirements": [
+                "R3",
+                "R5"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks reiterate two-stage training and modular multimodal architectures (MiniGPT-4, InstructBLIP, NeXT-GPT) and general MLLM capabilities, which are related but not strictly redundant. Some overlap exists between the optional summaries and the underlying chunks, but within the selected chunks themselves, redundancy is moderate.",
+              "redundant_pairs": [
+                [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545"
+                ],
+                [
+                  "8a8d8a40cb7c0910",
+                  "155c3af351b3bf48"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Key requirements about training pipelines and data are supported by a few high-yield chunks (MiniGPT-4, InstructBLIP, NeXT-GPT). However, many chunks focus on general capabilities, ethics, or specific domains (video, audio) without addressing the specific questions (metrics reliability, forgetting), and critical requirements R3 and R5 remain uncovered despite ample budget.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "155c3af351b3bf48",
+                  "cost": 254,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "04088e6b6a00e2d1",
+                  "cost": 221,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "8e134d3aefdd1d12",
+                  "cost": 171,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "e94316abb216c826",
+                  "cost": 181,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "bfe149b1f8e7d622",
+                  "cost": 195,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "No evidence on the reliability of automated metrics like POPE or MME versus human evaluation, leaving evaluation strategy unclear.",
+              "No discussion of whether instruction tuning causes forgetting of text-only capabilities, which is important for maintaining baseline LLM performance.",
+              "Ambiguity about required data scale for strong performance could lead to under- or over-investment in data collection.",
+              "Only indirect treatment of modality extensibility may cause architectural choices that hinder adding audio or other modalities later."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 21297,
+        "output_hash": "1121dba84bd58a809954cc1d24697e9e5126a979",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "f509249fe42f7c0b",
+                "quote": "MiniGPT-4 employs a two-stage training approach"
+              },
+              {
+                "chunk_id": "124d2d04a7c7e545",
+                "quote": "The second stage, instruction tuning, involves training the model with a maximum of 60,000 steps"
+              },
+              {
+                "chunk_id": "e94316abb216c826",
+                "quote": "NeXT-GPT uses ImageBind to extract features from various modalities"
+              },
+              {
+                "chunk_id": "9aa98ea88197007d",
+                "quote": "there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one"
+              },
+              {
+                "chunk_id": "bfe149b1f8e7d622",
+                "quote": "annotation quality of large-scale video datasets varies greatly, which can introduce noise and affect model performance"
+              },
+              {
+                "chunk_id": "48f55570f23fbf34",
+                "quote": "Many advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning"
+              },
+              {
+                "chunk_id": "bfe149b1f8e7d622",
+                "quote": "current MLLMs have parameters in the order of billions, resulting in slow inference speeds"
+              },
+              {
+                "chunk_id": "8e134d3aefdd1d12",
+                "quote": "the complexity and the opacity of their internal mechanisms often result in reduced interpretability"
+              },
+              {
+                "chunk_id": "8054a8ad91d54f01",
+                "quote": "they inevitably encounter security issues such as privacy leakage and data bias"
+              },
+              {
+                "chunk_id": "8a8d8a40cb7c0910",
+                "quote": "architecture of these models can be broadly categorized into three main components: the multimodal input encoder"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                "answer": "R1: Evidence does not say massive data is non-negotiable; it highlights quality and specialized scope. Small, high-quality instruction datasets are portrayed as high leverage but not explicitly sufficient alone, so necessity of massive data is not established.",
+                "confidence": 0.63,
+                "evidence": [
+                  "bfe149b1f8e7d622",
+                  "48f55570f23fbf34",
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545",
+                  "9aa98ea88197007d"
+                ],
+                "notes": "Video section stresses that high-quality annotations are urgent and noisy labels hurt performance, but does not claim that only massive datasets work. Audio section credits “large-scale datasets for instruction fine-tuning” for advances, implying scale helps but not that it is strictly required. MiniGPT-4 and InstructBLIP descriptions emphasize two-stage pipelines with a smaller, high-quality fine-tuning stage, supporting the idea that high-quality instruction data is especially valuable. The big-vs-small debate suggests specialized models can perform well without necessarily requiring massive general-purpose data. However, nowhere is it stated that a small dataset alone is enough, so we cannot be stronger than this nuanced answer."
+              },
+              {
+                "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                "answer": "R2: The survey clearly presents two-stage pipelines that fine-tune pre-trained models (frozen encoders/LLMs plus adapters) as a viable and commonly used path; it does not require pre-training from scratch.",
+                "confidence": 0.9,
+                "evidence": [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545",
+                  "e94316abb216c826",
+                  "8a8d8a40cb7c0910"
+                ],
+                "notes": "MiniGPT-4 keeps the pre-trained vision encoder and LLM frozen and trains only a projection layer, then a short fine-tune, which is a textbook two-stage pipeline. InstructBLIP initializes from BLIP-2 checkpoints and tunes only Q-Former and then instruction-tunes, again reusing pre-trained components. NeXT-GPT uses ImageBind and Vicuna 7B with projection layers, another example of building on pre-trained backbones. This all supports that fine-tuning pre-trained models is a standard, viable approach; no evidence suggests pre-training from scratch is mandatory."
+              },
+              {
+                "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                "answer": "R3: unknown. The provided chunks do not discuss automated metrics like POPE or MME, nor do they compare automated metrics to human evaluation for MLLMs.",
+                "confidence": 0.0,
+                "evidence": [],
+                "notes": "No selected chunk mentions POPE, MME, or any specific automated evaluation metric, nor any statement about relying on humans versus metrics. Cannot answer without guessing."
+              },
+              {
+                "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                "answer": "R4: The text describes modular architectures with separate encoders and projection layers, and notes audio and other modalities, but does not explicitly address how hard it is to add a new modality like audio later to an existing model; difficulty remains unknown.",
+                "confidence": 0.38,
+                "evidence": [
+                  "e94316abb216c826",
+                  "8a8d8a40cb7c0910",
+                  "04088e6b6a00e2d1",
+                  "48f55570f23fbf34"
+                ],
+                "notes": "NeXT-GPT and the generic architecture show that modalities are handled via modality-specific encoders and projections, which suggests modularity, and audio sections show that audio has been integrated into MLLMs. However, there is no direct discussion of retrofitting new modalities into an already-trained system or the associated effort, so we cannot reliably judge how hard it is; we can only infer modularity, which is not enough under the rules."
+              },
+              {
+                "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                "answer": "R5: unknown. None of the evidence discusses whether instruction tuning causes forgetting of original text-only capabilities.",
+                "confidence": 0.0,
+                "evidence": [],
+                "notes": "The chunks that mention instruction tuning (e.g., InstructBLIP, MiniGPT-4) describe procedures and compute but do not mention catastrophic forgetting or degradation of text-only performance, so this requirement cannot be answered from the provided text."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545",
+                  "48f55570f23fbf34",
+                  "bfe149b1f8e7d622"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "The second fine-tuning stage ... fine-tunes the model using a smaller but high-quality dataset"
+                  },
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU."
+                  },
+                  {
+                    "chunk_id": "48f55570f23fbf34",
+                    "quote": "Many advances have been made ... by constructing large-scale datasets for instruction fine-tuning."
+                  },
+                  {
+                    "chunk_id": "bfe149b1f8e7d622",
+                    "quote": "Obtaining high-quality video annotation data is an urgent problem that needs to be addressed."
+                  }
+                ],
+                "rationale": "Evidence shows small, high-quality instruction datasets are impactful and efficient (MiniGPT-4 second stage), and stresses data quality, but does not explicitly state that massive data is non-negotiable or that small datasets alone are sufficient; thus only partial coverage."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545",
+                  "e94316abb216c826"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "MiniGPT-4 employs a two-stage training approach."
+                  },
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer."
+                  },
+                  {
+                    "chunk_id": "124d2d04a7c7e545",
+                    "quote": "InstructBLIP employs a two-stage training process."
+                  },
+                  {
+                    "chunk_id": "124d2d04a7c7e545",
+                    "quote": "initializing the model from pre-trained BLIP-2 checkpoints."
+                  },
+                  {
+                    "chunk_id": "e94316abb216c826",
+                    "quote": "NeXT-GPT uses ImageBind to extract features from various modalities."
+                  }
+                ],
+                "rationale": "Multiple examples (MiniGPT-4, InstructBLIP, NeXT-GPT) clearly use frozen pre-trained encoders/LLMs with small trainable projections, demonstrating two-stage fine-tuning of pre-trained models as a viable and common path instead of pre-training from scratch."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No retrieved text mentions POPE, MME, or automated evaluation metrics versus human evaluation, so reliability of such metrics as main unit tests is not addressed."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "e94316abb216c826",
+                  "8a8d8a40cb7c0910",
+                  "48f55570f23fbf34",
+                  "04088e6b6a00e2d1"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "e94316abb216c826",
+                    "quote": "NeXT-GPT uses ImageBind to extract features from various modalities."
+                  },
+                  {
+                    "chunk_id": "e94316abb216c826",
+                    "quote": "Each modality’s features are then mapped to the LLM space via their respective projection layers."
+                  },
+                  {
+                    "chunk_id": "8a8d8a40cb7c0910",
+                    "quote": "The architecture of these models can be broadly categorized into three main components"
+                  },
+                  {
+                    "chunk_id": "48f55570f23fbf34",
+                    "quote": "Many advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning."
+                  },
+                  {
+                    "chunk_id": "04088e6b6a00e2d1",
+                    "quote": "MLLMs bring a new technological change to audio processing tasks."
+                  }
+                ],
+                "rationale": "Evidence shows modular architectures with modality-specific projection layers and use of ImageBind for various modalities, implying extensibility, and discusses audio as an added modality; however, it does not explicitly analyze how hard it is to add new modalities later for a chosen architecture, so requirement is only partially satisfied."
+              },
+              {
+                "id": "R5",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "Instruction tuning is described for InstructBLIP and MiniGPT-4, but there is no discussion of catastrophic forgetting or degradation of original text-only capabilities, so this requirement is not covered."
+              }
+            ],
+            "missing_requirements": [
+              "R3",
+              "R5"
+            ],
+            "risks": [
+              "Lack of evidence on evaluation metrics (POPE/MME) versus human evaluation leaves uncertainty about how to validate models before shipping.",
+              "No information on whether instruction tuning harms text-only abilities, risking unexpected regressions in core language performance.",
+              "Only implicit discussion of data scale and quality may lead to underestimating required dataset size for strong performance.",
+              "Difficulty of adding new modalities later is not clearly quantified, which could cause architectural lock-in and costly refactors."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Two-stage fine-tuning on pre-trained models is well supported, and there is some indication that small, high-quality instruction datasets are valuable and that architectures are modular across modalities. However, there is no coverage of automated metrics like POPE/MME versus human evaluation, and no discussion of instruction-tuning-induced forgetting. The difficulty of adding new modalities is only indirectly addressed.",
+        "missing_requirements": [
+          "R3",
+          "R5"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks reiterate two-stage training and modular multimodal architectures (MiniGPT-4, InstructBLIP, NeXT-GPT) and general MLLM capabilities, which are related but not strictly redundant. Some overlap exists between the optional summaries and the underlying chunks, but within the selected chunks themselves, redundancy is moderate.",
+        "redundant_pairs": [
+          [
+            "f509249fe42f7c0b",
+            "124d2d04a7c7e545"
+          ],
+          [
+            "8a8d8a40cb7c0910",
+            "155c3af351b3bf48"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Key requirements about training pipelines and data are supported by a few high-yield chunks (MiniGPT-4, InstructBLIP, NeXT-GPT). However, many chunks focus on general capabilities, ethics, or specific domains (video, audio) without addressing the specific questions (metrics reliability, forgetting), and critical requirements R3 and R5 remain uncovered despite ample budget.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "155c3af351b3bf48",
+            "cost": 254,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "04088e6b6a00e2d1",
+            "cost": 221,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "8e134d3aefdd1d12",
+            "cost": 171,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "e94316abb216c826",
+            "cost": 181,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "bfe149b1f8e7d622",
+            "cost": 195,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "No evidence on the reliability of automated metrics like POPE or MME versus human evaluation, leaving evaluation strategy unclear.",
+        "No discussion of whether instruction tuning causes forgetting of text-only capabilities, which is important for maintaining baseline LLM performance.",
+        "Ambiguity about required data scale for strong performance could lead to under- or over-investment in data collection.",
+        "Only indirect treatment of modality extensibility may cause architectural choices that hinder adding audio or other modalities later."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "f509249fe42f7c0b",
+          "quote": "MiniGPT-4 employs a two-stage training approach"
+        },
+        {
+          "chunk_id": "124d2d04a7c7e545",
+          "quote": "The second stage, instruction tuning, involves training the model with a maximum of 60,000 steps"
+        },
+        {
+          "chunk_id": "e94316abb216c826",
+          "quote": "NeXT-GPT uses ImageBind to extract features from various modalities"
+        },
+        {
+          "chunk_id": "9aa98ea88197007d",
+          "quote": "there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one"
+        },
+        {
+          "chunk_id": "bfe149b1f8e7d622",
+          "quote": "annotation quality of large-scale video datasets varies greatly, which can introduce noise and affect model performance"
+        },
+        {
+          "chunk_id": "48f55570f23fbf34",
+          "quote": "Many advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning"
+        },
+        {
+          "chunk_id": "bfe149b1f8e7d622",
+          "quote": "current MLLMs have parameters in the order of billions, resulting in slow inference speeds"
+        },
+        {
+          "chunk_id": "8e134d3aefdd1d12",
+          "quote": "the complexity and the opacity of their internal mechanisms often result in reduced interpretability"
+        },
+        {
+          "chunk_id": "8054a8ad91d54f01",
+          "quote": "they inevitably encounter security issues such as privacy leakage and data bias"
+        },
+        {
+          "chunk_id": "8a8d8a40cb7c0910",
+          "quote": "architecture of these models can be broadly categorized into three main components: the multimodal input encoder"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+          "answer": "R1: Evidence does not say massive data is non-negotiable; it highlights quality and specialized scope. Small, high-quality instruction datasets are portrayed as high leverage but not explicitly sufficient alone, so necessity of massive data is not established.",
+          "confidence": 0.63,
+          "evidence": [
+            "bfe149b1f8e7d622",
+            "48f55570f23fbf34",
+            "f509249fe42f7c0b",
+            "124d2d04a7c7e545",
+            "9aa98ea88197007d"
+          ],
+          "notes": "Video section stresses that high-quality annotations are urgent and noisy labels hurt performance, but does not claim that only massive datasets work. Audio section credits “large-scale datasets for instruction fine-tuning” for advances, implying scale helps but not that it is strictly required. MiniGPT-4 and InstructBLIP descriptions emphasize two-stage pipelines with a smaller, high-quality fine-tuning stage, supporting the idea that high-quality instruction data is especially valuable. The big-vs-small debate suggests specialized models can perform well without necessarily requiring massive general-purpose data. However, nowhere is it stated that a small dataset alone is enough, so we cannot be stronger than this nuanced answer."
+        },
+        {
+          "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+          "answer": "R2: The survey clearly presents two-stage pipelines that fine-tune pre-trained models (frozen encoders/LLMs plus adapters) as a viable and commonly used path; it does not require pre-training from scratch.",
+          "confidence": 0.9,
+          "evidence": [
+            "f509249fe42f7c0b",
+            "124d2d04a7c7e545",
+            "e94316abb216c826",
+            "8a8d8a40cb7c0910"
+          ],
+          "notes": "MiniGPT-4 keeps the pre-trained vision encoder and LLM frozen and trains only a projection layer, then a short fine-tune, which is a textbook two-stage pipeline. InstructBLIP initializes from BLIP-2 checkpoints and tunes only Q-Former and then instruction-tunes, again reusing pre-trained components. NeXT-GPT uses ImageBind and Vicuna 7B with projection layers, another example of building on pre-trained backbones. This all supports that fine-tuning pre-trained models is a standard, viable approach; no evidence suggests pre-training from scratch is mandatory."
+        },
+        {
+          "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+          "answer": "R3: unknown. The provided chunks do not discuss automated metrics like POPE or MME, nor do they compare automated metrics to human evaluation for MLLMs.",
+          "confidence": 0.0,
+          "evidence": [],
+          "notes": "No selected chunk mentions POPE, MME, or any specific automated evaluation metric, nor any statement about relying on humans versus metrics. Cannot answer without guessing."
+        },
+        {
+          "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+          "answer": "R4: The text describes modular architectures with separate encoders and projection layers, and notes audio and other modalities, but does not explicitly address how hard it is to add a new modality like audio later to an existing model; difficulty remains unknown.",
+          "confidence": 0.38,
+          "evidence": [
+            "e94316abb216c826",
+            "8a8d8a40cb7c0910",
+            "04088e6b6a00e2d1",
+            "48f55570f23fbf34"
+          ],
+          "notes": "NeXT-GPT and the generic architecture show that modalities are handled via modality-specific encoders and projections, which suggests modularity, and audio sections show that audio has been integrated into MLLMs. However, there is no direct discussion of retrofitting new modalities into an already-trained system or the associated effort, so we cannot reliably judge how hard it is; we can only infer modularity, which is not enough under the rules."
+        },
+        {
+          "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+          "answer": "R5: unknown. None of the evidence discusses whether instruction tuning causes forgetting of original text-only capabilities.",
+          "confidence": 0.0,
+          "evidence": [],
+          "notes": "The chunks that mention instruction tuning (e.g., InstructBLIP, MiniGPT-4) describe procedures and compute but do not mention catastrophic forgetting or degradation of text-only performance, so this requirement cannot be answered from the provided text."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "id": "mllm_review_survey_d0",
+  "parent": {
+    "path": "mllm_review.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Data & Training Pipeline: Determining how much effort allows us to ship."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Does the review say massive data is non-negotiable? Can we get away with a small, high-quality datasets"
+    },
+    {
+      "id": "R2",
+      "description": "Do we absolutely have to pre-train from scratch, or does the survey point to fine-tuning pre-trained models as a viable path for getting great results or is there a tradeoff?"
+    },
+    {
+      "id": "R3",
+      "description": "Are automated metrics like POPE or MME reliable enough to be our main unit test, or do we need humans?"
+    },
+    {
+      "id": "R4",
+      "description": "How hard is it to add new modalities to existing models(like Audio) later if we pick a specific architecture now?"
+    },
+    {
+      "id": "R5",
+      "description": "Does instruction tuning tends to make the model 'forget' its original text-only capabilities?"
+    },
+    {
+      "id": "R6",
+      "description": "Are there simple recipes for 'alignment' to stop the model from generating toxic descriptions of images?"
+    }
+  ],
+  "notes": {}
+}

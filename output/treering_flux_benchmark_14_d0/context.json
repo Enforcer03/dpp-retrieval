@@ -1,0 +1,624 @@
+{
+  "run_id": "982bf1e6b0e07a95",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/treering_flux.pdf",
+  "query": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+  "retrieval_query": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.\n\nANCHOR:\n- Compare robustness of FLUX.1-dev vs Stable Diffusion 2.1 (SD 2.1) under distribution shift, noisy/occluded inputs, adversarial prompts, and out-of-domain concepts.\n- Look for quantitative robustness metrics: FID, CLIP score, Inception Score, precision/recall, diversity metrics, human preference studies, and failure rate statistics.\n- Identify evaluation benchmarks/datasets: LAION, COCO, MS-COCO captions, ImageNet-based prompts, DrawBench, PartiPrompts, and any robustness-specific suites (e.g., corrupted/noisy prompt sets).\n- Search for sections titled “Robustness”, “Generalization”, “Safety”, “Stress Testing”, “Ablation Studies”, and “Limitations” comparing FLUX.1-dev to diffusion baselines.\n- Extract architectural or training differences impacting robustness: model size, UNet vs transformer backbones, text encoder (CLIP, T5), guidance scales, training data filtering, safety filters.\n- Find evidence of robustness to prompt perturbations: paraphrasing, typos, multilingual prompts, long-context prompts, and compositional instructions.\n- Explicitly locate TABLES/FIGURES that report side-by-side comparisons of FLUX.1-dev and Stable Diffusion 2.1, including qualitative grids and quantitative score tables.\n- Note risks and failure modes: prompt injection, jailbreaks, harmful content leakage, mode collapse, sensitivity to seeds, and robustness t...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+    "retrieval_query": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.\n\nANCHOR:\n- Compare robustness of FLUX.1-dev vs Stable Diffusion 2.1 (SD 2.1) under distribution shift, noisy/occluded inputs, adversarial prompts, and out-of-domain concepts.\n- Look for quantitative robustness metrics: FID, CLIP score, Inception Score, precision/recall, diversity metrics, human preference studies, and failure rate statistics.\n- Identify evaluation benchmarks/datasets: LAION, COCO, MS-COCO captions, ImageNet-based prompts, DrawBench, PartiPrompts, and any robustness-specific suites (e.g., corrupted/noisy prompt sets).\n- Search for sections titled “Robustness”, “Generalization”, “Safety”, “Stress Testing”, “Ablation Studies”, and “Limitations” comparing FLUX.1-dev to diffusion baselines.\n- Extract architectural or training differences impacting robustness: model size, UNet vs transformer backbones, text encoder (CLIP, T5), guidance scales, training data filtering, safety filters.\n- Find evidence of robustness to prompt perturbations: paraphrasing, typos, multilingual prompts, long-context prompts, and compositional instructions.\n- Explicitly locate TABLES/FIGURES that report side-by-side comparisons of FLUX.1-dev and Stable Diffusion 2.1, including qualitative grids and quantitative score tables.\n- Note risks and failure modes: prompt injection, jailbreaks, harmful content leakage, mode collapse, sensitivity to seeds, and robustness t...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "867afd55cb6bb680",
+      "ca8fc4757eaefbd7",
+      "46a7e5c7c4475388",
+      "aadb8d23abf190a4",
+      "65a5c5af5466ce1d",
+      "fa1e2bfb5296948d",
+      "f9fbca8fb45f9d98",
+      "8767d43ace527e6c",
+      "fc27eed87276c60f",
+      "6847523eb677e85f",
+      "05b9fd7dd2e748e6",
+      "a6b5d1ed98ed3e14",
+      "40bc4484a922fb06",
+      "5079eca6d92150ba",
+      "98e0a1670aa761b8",
+      "3b99398f89f56cd4",
+      "1184c0487248f82e",
+      "bf00d0361b190a65",
+      "e9570c7d2a34af1f",
+      "d72cce2b3ea9a5d6",
+      "f8b8eaed5124712d"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 1741
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "867afd55cb6bb680",
+      "content": {
+        "text": "Evaluation",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 1,
+        "importance_score": 0.007692307692307693
+      }
+    },
+    {
+      "chunk_id": "ca8fc4757eaefbd7",
+      "content": {
+        "text": "VLM Generated Prompt for Inversion Guidance",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 8,
+        "importance_score": 0.009433962264150943
+      }
+    },
+    {
+      "chunk_id": "46a7e5c7c4475388",
+      "content": {
+        "text": "FLUX",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 2,
+        "importance_score": 0.009009009009009009
+      }
+    },
+    {
+      "chunk_id": "aadb8d23abf190a4",
+      "content": {
+        "text": "A Appendix: Diffusion Models and Flow Matching",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 9,
+        "importance_score": 0.0070921985815602835
+      }
+    },
+    {
+      "chunk_id": "65a5c5af5466ce1d",
+      "content": {
+        "text": "We quantify watermark robustness through the following metrics:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 9,
+        "importance_score": 0.011494252873563218
+      }
+    },
+    {
+      "chunk_id": "fa1e2bfb5296948d",
+      "content": {
+        "text": "B.2 QUALITATIVE RESULTS",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 7,
+        "importance_score": 0.006944444444444444
+      }
+    },
+    {
+      "chunk_id": "f9fbca8fb45f9d98",
+      "content": {
+        "text": "Gustavo Santana. Stable-diffusion-prompts, Mar 2023. URL https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 38,
+        "importance_score": 0.013157894736842105
+      }
+    },
+    {
+      "chunk_id": "8767d43ace527e6c",
+      "content": {
+        "text": "The RF model can generate high-quality images in much fewer timesteps compared to DDPM, owing to the nearly linear transition trajectory established during training.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 29,
+        "importance_score": 0.008
+      }
+    },
+    {
+      "chunk_id": "fc27eed87276c60f",
+      "content": {
+        "text": "Figure 2: Distribution of watermark distances in Fourier space. Attacked scenarios show the distribution of the fourier space distance under noise, and blur manipulations. It can be clearly seen that in non-attacked scenarios, the prompt guidance plays a significant role in accurate inversion. We note that in attack scenarios the distance in the fourier space is drastically increased for FLUX.1-dev.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 78,
+        "importance_score": 0.0175
+      }
+    },
+    {
+      "chunk_id": "6847523eb677e85f",
+      "content": {
+        "text": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 20,
+        "importance_score": 0.012345679012345678
+      }
+    },
+    {
+      "chunk_id": "05b9fd7dd2e748e6",
+      "content": {
+        "text": "These findings highlight several critical directions for future research: developing improved inversion techniques specifically for rectified flow-based generative models, and crafting approaches to increase robustness of popular watermarking techniques over image manipulation attacks while maintaining watermark effectiveness.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 44,
+        "importance_score": 0.014925373134328358
+      }
+    },
+    {
+      "chunk_id": "a6b5d1ed98ed3e14",
+      "content": {
+        "text": "The observed differences in watermark recovery between FLUX.1-dev and traditional diffusion models stem from fundamental architectural and training methodology differences. Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled throughout the network, unlike older diffusion models’ UNet architecture where text conditioning occurs primarily through cross-attention layers. This architectural difference makes image generation in Flux more fundamentally dependent on prompt information. Additionally, Flux uses a T5 text encoder with different latent characteristics than the CLIP encoder used in stable diffusion models, further altering information flow through the model. Most importantly, the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility. This straightened path inherently discards information that would be useful during inversion. Higher-order numerical methods might offer incremental improvements, but cannot fully overcome these fundamental architectural limitations.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 184,
+        "importance_score": 0.015873015873015872
+      }
+    },
+    {
+      "chunk_id": "40bc4484a922fb06",
+      "content": {
+        "text": "The relatively lower number of steps (28) for FLUX-dev is justified by its efficient rectified flow training objective and Euler integration scheme, which allows for larger step sizes while maintaining generation quality.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 39,
+        "importance_score": 0.012658227848101266
+      }
+    },
+    {
+      "chunk_id": "5079eca6d92150ba",
+      "content": {
+        "text": "For real-world scenarios where original prompts might be unavailable, we employ Qwen2-VL-2B-Instruct (Wang et al., 2024) to generate image-grounded captions as alternative prompts. This approach enables evaluation of both prompt-free and prompt-guided inversion scenarios.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 58,
+        "importance_score": 0.01639344262295082
+      }
+    },
+    {
+      "chunk_id": "98e0a1670aa761b8",
+      "content": {
+        "text": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion, maintaining consistent performance regardless of prompt guidance. This behavior contrasts significantly with FLUX.1-dev, where reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 59,
+        "importance_score": 0.009345794392523364
+      }
+    },
+    {
+      "chunk_id": "3b99398f89f56cd4",
+      "content": {
+        "text": "Bang An, Mucong Ding, Tahseen Rabbani, Aakriti Agrawal, Yuancheng Xu, Chenghao Deng, Sicheng Zhu, Abdirisak Mohamed, Yuxin Wen, Tom Goldstein, et al. Waves: Benchmarking the robustness of image watermarks. In <i>Forty-first International Conference on Machine Learning</i>.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 77,
+        "importance_score": 0.014705882352941176
+      }
+    },
+    {
+      "chunk_id": "1184c0487248f82e",
+      "content": {
+        "text": "The rapid advancement of generative AI models has raised pressing concerns about the authenticity and provenance of digital content. While watermarking techniques for AI-generated images have emerged as a promising solution, their effectiveness heavily depends on reliable detection and clear separability between watermarked and non-watermarked content. Recent approaches like Tree Ring Watermarking (Wen et al., 2024) have shown promise, but their effectiveness remains unexplored for newer architectures.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 88,
+        "importance_score": 0.012048192771084338
+      }
+    },
+    {
+      "chunk_id": "bf00d0361b190a65",
+      "content": {
+        "text": "Under attacked scenarios, the application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev as shown in [1] This degradation is particularly evident in the Fourier domain, where the characteristic ring patterns become increasingly difficult to distinguish from background frequencies. This behavior stands in stark contrast with DDIM, where previous work by Wen et al. (2024) has demonstrated that latent watermark signals remain highly resilient even under various attack scenarios.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 91,
+        "importance_score": 0.00847457627118644
+      }
+    },
+    {
+      "chunk_id": "e9570c7d2a34af1f",
+      "content": {
+        "text": "Peng Wang, Shuai Bai, Sinan Tan, Shijie Wang, Zhihao Fan, Jinze Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Yang Fan, Kai Dang, Mengfei Du, Xuancheng Ren, Rui Men, Dayiheng Liu, Chang Zhou, Jingren Zhou, and Junyang Lin. Qwen2-vl: Enhancing vision-language model’s perception of the world at any resolution, 2024. URL https://arxiv.org/abs/2409.12191",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 116,
+        "importance_score": 0.0125
+      }
+    },
+    {
+      "chunk_id": "d72cce2b3ea9a5d6",
+      "content": {
+        "text": "Let \\(x_t\\) denote the noisy image at timestep \\(t\\), with \\(x_0\\) and \\(x_T\\) representing the generated image and initial noise latent respectively. In frequency domain, \\(X_T\\) denotes the Fourier transform of \\(x_T\\). The data and noise distributions are denoted by \\(\\pi_0\\) and \\(\\pi_1 \\sim \\mathcal{N}(0, I)\\), respectively. We denote the parameters of a neural network by \\(\\theta\\) that can be used for adequate prediction targets and \\(c\\) for the text prompt used to guide the text-to-image generation models.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 136,
+        "importance_score": 0.016129032258064516
+      }
+    },
+    {
+      "chunk_id": "f8b8eaed5124712d",
+      "content": {
+        "text": "Table 1: Watermark Extraction Metrics\n\n| Model      | Configuration          | \\multicolumn{2}{c|}{Latent Noise Reconstruction} | \\(\\frac{1}{n}\\sum|\\hat{w}_i - w_i|\\) |\n|-----------|------------------------|-------------------------|-------------------------|-----------------------------|\n|           |                        | NMAE \\(\\frac{|e^0 - w^1|_1}{|w^1|_1}\\) | NMSE \\(\\frac{|e^0 - w^1|_2^2}{|w^1|_2^2}\\) |                             |\n| FLUX.1-dev | No Attack (No Prompt) | \\(0.303_{\\pm 0.056}\\)   | \\(0.106_{\\pm 0.042}\\)   | \\(22.772_{\\pm 0.550}\\)      |\n|           | No Attack (With Prompt) | \\(0.232_{\\pm 0.046}\\)  | \\(0.063_{\\pm 0.029}\\)   | \\(22.123_{\\pm 0.351}\\)      |\n|           | No Attack (With VLM)   | \\(0.290_{\\pm 0.050}\\)   | \\(0.096_{\\pm 0.037}\\)   | \\(22.701_{\\pm 0.477}\\)      |\n|           | Blur (No Prompt)       | \\(\\mathbf{1.259_{\\pm 0.016}}\\) | \\(\\mathbf{1.594_{\\pm 0.040}}\\) | \\(37.514_{\\pm 1.066}\\)      |\n|           | Blur (With Prompt)     | \\(\\mathbf{1.261_{\\pm 0.017}}\\) | \\(\\mathbf{1.597_{\\pm 0.042}}\\) | \\(37.718_{\\pm 1.049}\\)      |\n|           | Noise (No Prompt)      | \\(\\mathbf{1.325_{\\pm 0.043}}\\) | \\(\\mathbf{1.772_{\\pm 0.018}}\\) | \\(38.656_{\\pm 1.372}\\)      |\n|           | Noise (With Prompt)    | \\(\\mathbf{1.343_{\\pm 0.043}}\\) | \\(\\mathbf{1.821_{\\pm 0.106}}\\) | \\(39.309_{\\pm 1.302}\\)      |\n| SD 2.1 base | No Attack (No Prompt) | \\(0.345_{\\pm 0.050}\\)   | \\(0.132_{\\pm 0.047}\\)   | \\(45.601_{\\pm 1.702}\\)      |\n|           | No Attack (With Prompt) | \\(0.338_{\\pm 0.061}\\)  | \\(0.128_{\\pm 0.047}\\)   | \\(45.070_{\\pm 1.749}\\)      |\n\nNote: Subscripts denote standard deviations. Last column represents average L1 distance in Fourier space.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 648,
+        "importance_score": 0.018421052631578946
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "867afd55cb6bb680",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.007692307692307693,
+      "cost": 1,
+      "text": "Evaluation",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ca8fc4757eaefbd7",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.009433962264150943,
+      "cost": 8,
+      "text": "VLM Generated Prompt for Inversion Guidance",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "46a7e5c7c4475388",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.009009009009009009,
+      "cost": 2,
+      "text": "FLUX",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "aadb8d23abf190a4",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0070921985815602835,
+      "cost": 9,
+      "text": "A Appendix: Diffusion Models and Flow Matching",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "65a5c5af5466ce1d",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.011494252873563218,
+      "cost": 9,
+      "text": "We quantify watermark robustness through the following metrics:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "fa1e2bfb5296948d",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.006944444444444444,
+      "cost": 7,
+      "text": "B.2 QUALITATIVE RESULTS",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f9fbca8fb45f9d98",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.013157894736842105,
+      "cost": 38,
+      "text": "Gustavo Santana. Stable-diffusion-prompts, Mar 2023. URL https://huggingface.co/datasets/Gustavosta/Stable-Diffusion-Prompts",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8767d43ace527e6c",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008,
+      "cost": 29,
+      "text": "The RF model can generate high-quality images in much fewer timesteps compared to DDPM, owing to the nearly linear transition trajectory established during training.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "fc27eed87276c60f",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.0175,
+      "cost": 78,
+      "text": "Figure 2: Distribution of watermark distances in Fourier space. Attacked scenarios show the distribution of the fourier space distance under noise, and blur manipulations. It can be clearly seen that in non-attacked scenarios, the prompt guidance plays a significant role in accurate inversion. We note that in attack scenarios the distance in the fourier space is drastically increased for FLUX.1-dev.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "6847523eb677e85f",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012345679012345678,
+      "cost": 20,
+      "text": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "05b9fd7dd2e748e6",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014925373134328358,
+      "cost": 44,
+      "text": "These findings highlight several critical directions for future research: developing improved inversion techniques specifically for rectified flow-based generative models, and crafting approaches to increase robustness of popular watermarking techniques over image manipulation attacks while maintaining watermark effectiveness.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a6b5d1ed98ed3e14",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015873015873015872,
+      "cost": 184,
+      "text": "The observed differences in watermark recovery between FLUX.1-dev and traditional diffusion models stem from fundamental architectural and training methodology differences. Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled throughout the network, unlike older diffusion models’ UNet architecture where text conditioning occurs primarily through cross-attention layers. This architectural difference makes image generation in Flux more fundamentally dependent on prompt information. Additionally, Flux uses a T5 text encoder with different latent characteristics than the CLIP encoder used in stable diffusion models, further altering information flow through the model. Most importantly, the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility. This straightened path inherently discards information that would be useful during inversion. Higher-order numerical methods might offer incremental improvements, but cannot fully overcome these fundamental architectural limitations.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "40bc4484a922fb06",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012658227848101266,
+      "cost": 39,
+      "text": "The relatively lower number of steps (28) for FLUX-dev is justified by its efficient rectified flow training objective and Euler integration scheme, which allows for larger step sizes while maintaining generation quality.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "5079eca6d92150ba",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.01639344262295082,
+      "cost": 58,
+      "text": "For real-world scenarios where original prompts might be unavailable, we employ Qwen2-VL-2B-Instruct (Wang et al., 2024) to generate image-grounded captions as alternative prompts. This approach enables evaluation of both prompt-free and prompt-guided inversion scenarios.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "98e0a1670aa761b8",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.009345794392523364,
+      "cost": 59,
+      "text": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion, maintaining consistent performance regardless of prompt guidance. This behavior contrasts significantly with FLUX.1-dev, where reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3b99398f89f56cd4",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.014705882352941176,
+      "cost": 77,
+      "text": "Bang An, Mucong Ding, Tahseen Rabbani, Aakriti Agrawal, Yuancheng Xu, Chenghao Deng, Sicheng Zhu, Abdirisak Mohamed, Yuxin Wen, Tom Goldstein, et al. Waves: Benchmarking the robustness of image watermarks. In <i>Forty-first International Conference on Machine Learning</i>.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "1184c0487248f82e",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012048192771084338,
+      "cost": 88,
+      "text": "The rapid advancement of generative AI models has raised pressing concerns about the authenticity and provenance of digital content. While watermarking techniques for AI-generated images have emerged as a promising solution, their effectiveness heavily depends on reliable detection and clear separability between watermarked and non-watermarked content. Recent approaches like Tree Ring Watermarking (Wen et al., 2024) have shown promise, but their effectiveness remains unexplored for newer architectures.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "bf00d0361b190a65",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.00847457627118644,
+      "cost": 91,
+      "text": "Under attacked scenarios, the application of noise and blur perturbations significantly compromises the watermark detection capability in FLUX.1-dev as shown in [1] This degradation is particularly evident in the Fourier domain, where the characteristic ring patterns become increasingly difficult to distinguish from background frequencies. This behavior stands in stark contrast with DDIM, where previous work by Wen et al. (2024) has demonstrated that latent watermark signals remain highly resilient even under various attack scenarios.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e9570c7d2a34af1f",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.0125,
+      "cost": 116,
+      "text": "Peng Wang, Shuai Bai, Sinan Tan, Shijie Wang, Zhihao Fan, Jinze Bai, Keqin Chen, Xuejing Liu, Jialin Wang, Wenbin Ge, Yang Fan, Kai Dang, Mengfei Du, Xuancheng Ren, Rui Men, Dayiheng Liu, Chang Zhou, Jingren Zhou, and Junyang Lin. Qwen2-vl: Enhancing vision-language model’s perception of the world at any resolution, 2024. URL https://arxiv.org/abs/2409.12191",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d72cce2b3ea9a5d6",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.016129032258064516,
+      "cost": 136,
+      "text": "Let \\(x_t\\) denote the noisy image at timestep \\(t\\), with \\(x_0\\) and \\(x_T\\) representing the generated image and initial noise latent respectively. In frequency domain, \\(X_T\\) denotes the Fourier transform of \\(x_T\\). The data and noise distributions are denoted by \\(\\pi_0\\) and \\(\\pi_1 \\sim \\mathcal{N}(0, I)\\), respectively. We denote the parameters of a neural network by \\(\\theta\\) that can be used for adequate prediction targets and \\(c\\) for the text prompt used to guide the text-to-image generation models.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f8b8eaed5124712d",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.018421052631578946,
+      "cost": 648,
+      "text": "Table 1: Watermark Extraction Metrics\n\n| Model      | Configuration          | \\multicolumn{2}{c|}{Latent Noise Reconstruction} | \\(\\frac{1}{n}\\sum|\\hat{w}_i - w_i|\\) |\n|-----------|------------------------|-------------------------|-------------------------|-----------------------------|\n|           |                        | NMAE \\(\\frac{|e^0 - w^1|_1}{|w^1|_1}\\) | NMSE \\(\\frac{|e^0 - w^1|_2^2}{|w^1|_2^2}\\) |                             |\n| FLUX.1-dev | No Attack (No Prompt) | \\(0.303_{\\pm 0.056}\\)   | \\(0.106_{\\pm 0.042}\\)   | \\(22.772_{\\pm 0.550}\\)      |\n|           | No Attack (With Prompt) | \\(0.232_{\\pm 0.046}\\)  | \\(0.063_{\\pm 0.029}\\)   | \\(22.123_{\\pm 0.351}\\)      |\n|           | No Attack (With VLM)   | \\(0.290_{\\pm 0.050}\\)   | \\(0.096_{\\pm 0.037}\\)   | \\(22.701_{\\pm 0.477}\\)      |\n|           | Blur (No Prompt)       | \\(\\mathbf{1.259_{\\pm 0.016}}\\) | \\(\\mathbf{1.594_{\\pm 0.040}}\\) | \\(37.514_{\\pm 1.066}\\)      |\n|           | Blur (With Prompt)     | \\(\\mathbf{1.261_{\\pm 0.017}}\\) | \\(\\mathbf{1.597_{\\pm 0.042}}\\) | \\(37.718_{\\pm 1.049}\\)      |\n|           | Noise (No Prompt)      | \\(\\mathbf{1.325_{\\pm 0.043}}\\) | \\(\\mathbf{1.772_{\\pm 0.018}}\\) | \\(38.656_{\\pm 1.372}\\)      |\n|           | Noise (With Prompt)    | \\(\\mathbf{1.343_{\\pm 0.043}}\\) | \\(\\mathbf{1.821_{\\pm 0.106}}\\) | \\(39.309_{\\pm 1.302}\\)      |\n| SD 2.1 base | No Attack (No Prompt) | \\(0.345_{\\pm 0.050}\\)   | \\(0.132_{\\pm 0.047}\\)   | \\(45.601_{\\pm 1.702}\\)      |\n|           | No Attack (With Prompt) | \\(0.338_{\\pm 0.061}\\)  | \\(0.128_{\\pm 0.047}\\)   | \\(45.070_{\\pm 1.749}\\)      |\n\nNote: Subscripts denote standard deviations. Last column represents average L1 distance in Fourier space.",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- FLUX.1-dev shows substantially weaker robustness of latent watermarks under common image attacks than Stable Diffusion 2.1 (DDIM), largely due to architectural and training differences that favor fast sampling over invertibility and watermark recoverability. [a6b5d1ed98ed3e14][f8b8eaed5124712d][bf00d0361b190a65]\n\n## Key Findings\n- **Baseline (no-attack) inversion quality**  \n  - FLUX.1-dev achieves moderate latent reconstruction without attacks; prompt guidance measurably improves inversion (NMAE drops from 0.303→0.232; NMSE 0.106→0.063). [f8b8eaed5124712d]  \n  - SD 2.1 (DDIM) maintains robust separation between watermarked and non-watermarked images even with naive inversion and is largely insensitive to prompt guidance, indicating stronger inherent invertibility. [98e0a1670aa761b8]\n- **Attack robustness gap (blur/noise)**  \n  - For FLUX.1-dev, blur and noise attacks catastrophically degrade watermark reconstruction: NMAE jumps to ~1.26–1.34 and NMSE to ~1.59–1.82, far above no-attack values, with minimal benefit from prompts. [f8b8eaed5124712d]  \n  - In the Fourier domain, blur/noise attacks drastically increase distances and obscure ring patterns for FLUX.1-dev, while prior work shows SD 2.1’s latent watermark signals remain highly resilient under similar attacks. [fc27eed87276c60f][bf00d0361b190a65]\n- **Prompt dependence vs. SD 2.1**  \n  - FLUX.1-dev’s inversion quality is highly sensitive to prompt accuracy: no-prompt vs. correct-prompt vs. VLM-generated prompts show clear performance spread, confirming strong reliance on text conditioning for reconstruction. [f8b8eaed5124712d][5079eca6d92150ba]  \n  - SD 2.1 (DDIM) shows consistent watermark separability regardless of prompt guidance, indicating that watermark recovery is less entangled with text conditioning. [98e0a1670aa761b8]\n- **Architectural and training causes**  \n  - FLUX uses a Multimodal Diffusion Transformer (MM DiT) with deeply entangled text–image features and a T5 encoder, versus SD’s UNet + CLIP cross-attention; this makes FLUX generation more fundamentally prompt-dependent. [a6b5d1ed98ed3e14]  \n  - Rectified flow training in FLUX optimizes nearly straight trajectories between noise and data, enabling high-quality images in fewer steps (e.g., 28 steps with Euler integration) but discarding information critical for inversion and watermark recovery. [8767d43ace527e6c][40bc4484a922fb06][a6b5d1ed98ed3e14]\n- **Benchmarking context**  \n  - Robustness is evaluated via metrics like NMAE, NMSE, and Fourier-space distances, and via standardized attack suites such as Waves for watermark robustness. [65a5c5af5466ce1d][6847523eb677e85f][f8b8eaed5124712d][fc27eed87276c60f]  \n  - Tree Ring Watermarking, previously validated on diffusion models like SD 2.1, has not been fully adapted to newer rectified-flow architectures like FLUX, where effectiveness is clearly reduced under attack. [1184c0487248f82e][bf00d0361b190a65]\n\n## Evidence\n- Quantitative watermark extraction metrics for FLUX.1-dev and SD 2.1 (NMAE, NMSE, average |ŵᵢ − wᵢ|) across no-attack, blur, and noise conditions, with/without prompts and with VLM prompts. [f8b8eaed5124712d]  \n- Fourier-space distance distributions showing strong prompt-guided inversion in clean FLUX.1-dev cases and drastic distance increases under blur/noise attacks. [fc27eed87276c60f]  \n- Qualitative and prior quantitative findings that DDIM (SD 2.1) maintains robust separation of watermarked vs. non-watermarked images under naive inversion and attacks. [98e0a1670aa761b8][bf00d0361b190a65]  \n- Architectural description of FLUX (MM DiT, T5 encoder, rectified flow objective) and its implications for prompt dependence and poor invertibility. [a6b5d1ed98ed3e14][8767d43ace527e6c][40bc4484a922fb06]  \n- Use of Qwen2-VL-2B to generate prompts for real-world “no original prompt” scenarios, enabling comparison of prompt-free vs. prompt-guided inversion. [5079eca6d92150ba][e9570c7d2a34af1f]  \n- Use of Waves benchmark and Tree Ring Watermarking as the robustness and watermarking baselines. [3b99398f89f56cd4][1184c0487248f82e][6847523eb677e85f]\n\n## Risks\n- **Weaker provenance guarantees for FLUX-based systems**  \n  - Under realistic perturbations (blur, noise), FLUX.1-dev’s watermark signals become hard to distinguish from background frequencies, undermining reliable detection and separability of watermarked vs. non-watermarked content. [bf00d0361b190a65][fc27eed87276c60f]\n- **High sensitivity to prompt availability and accuracy**  \n  - Inversion and watermark recovery for FLUX.1-dev degrade significantly without accurate prompts; VLM-generated prompts only partially mitigate this, posing challenges for forensic use where original prompts are unknown. [f8b8eaed5124712d][5079eca6d92150ba]\n- **Architectural limitations not easily fixed by numerics**  \n  - The straightened rectified-flow trajectories inherently discard inversion-relevant information; higher-order solvers may offer only incremental gains, limiting how much robustness can be recovered without rethinking the training objective. [a6b5d1ed98ed3e14]\n- **Mismatch between existing watermark designs and new architectures**  \n  - Tree Ring Watermarking, tuned for traditional diffusion (e.g., SD 2.1), is less effective on FLUX.1-dev, risking overestimation of watermark robustness if benchmarks are not architecture-aware. [1184c0487248f82e][bf00d0361b190a65]\n\n## Next Steps\n- **Benchmark systematically against SD 2.1 using Waves**  \n  - Run side-by-side FLUX.1-dev vs. SD 2.1 evaluations across the full Waves attack suite (noise, blur, compression, cropping, etc.), reporting NMAE/NMSE and Fourier distances to quantify robustness gaps. [3b99398f89f56cd4][6847523eb677e85f][f8b8eaed5124712d]\n- **Stratify by prompt condition**  \n  - Evaluate FLUX.1-dev under: (1) original prompt, (2) Qwen2-VL-generated prompt, (3) no prompt, to measure how much robustness depends on prompt quality and to set operational expectations for forensic workflows. [5079eca6d92150ba][e9570c7d2a34af1f]\n- **Explore architecture- and objective-aware watermarking**  \n  - Design or adapt watermarking schemes specifically for rectified-flow and MM DiT architectures, potentially embedding signals earlier or more redundantly to survive the straightened trajectories. [a6b5d1ed98ed3e14][05b9fd7dd2e748e6]\n- **Investigate modified training for better invertibility**  \n  - Experiment with hybrid objectives that trade a small amount of sampling efficiency for improved invertibility (e.g., partial diffusion-style noise schedules or auxiliary inversion losses) and re-measure watermark robustness. [8767d43ace527e6c][40bc4484a922fb06][a6b5d1ed98ed3e14]\n- **Develop evaluation and deployment guidelines**  \n  - For systems built on FLUX.1-dev, document that watermark robustness is significantly weaker than SD 2.1 under attacks; recommend pairing FLUX with stronger external provenance mechanisms (e.g., cryptographic signatures) until architecture-aligned watermarking is mature. [1184c0487248f82e][bf00d0361b190a65]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- FLUX.1-dev shows substantially weaker robustness of latent watermarks under common image attacks than Stable Diffusion 2.1 (DDIM), largely due to architectural and training differences that favor fast sampling over invertibility and watermark recoverability. [a6b5d1ed98ed3e14][f8b8eaed5124712d][bf00d0361b190a65]\n\n## Key Findings\n- **Baseline (no-attack) inversion quality**  \n  - FLUX.1-dev achieves moderate latent reconstruction without attacks; prompt guidance measurably improves inversion (NMAE drops from 0.303→0.232; NMSE 0.106→0.063). [f8b8eaed5124712d]  \n  - SD 2.1 (DDIM) maintains robust separation between watermarked and non-watermarked images even with naive inversion and is largely insensitive to prompt guidance, indicating stronger inherent invertibility. [98e0a1670aa761b8]\n- **Attack robustness gap (blur/noise)**  \n  - For FLUX.1-dev, blur and noise attacks catastrophically degrade watermark reconstruction: NMAE jumps to ~1.26–1.34 and NMSE to ~1.59–1.82, far above no-attack values, with minimal benefit from prompts. [f8b8eaed5124712d]  \n  - In the Fourier domain, blur/noise attacks drastically increase distances and obscure ring patterns for FLUX.1-dev, while prior work shows SD 2.1’s latent watermark signals remain highly resilient under similar attacks. [fc27eed87276c60f][bf00d0361b190a65]\n- **Prompt dependence vs. SD 2.1**  \n  - FLUX.1-dev’s inversion quality is highly sensitive to prompt accuracy: no-prompt vs. correct-prompt vs. VLM-generated prompts show clear performance spread, confirming strong reliance on text conditioning for reconstruction. [f8b8eaed5124712d][5079eca6d92150ba]  \n  - SD 2.1 (DDIM) shows consistent watermark separability regardless of prompt guidance, indicating that watermark recovery is less entangled with text conditioning. [98e0a1670aa761b8]\n- **Architectural and training causes**  \n  - FLUX uses a Multimodal Diffusion Transformer (MM DiT) with deeply entangled text–image features and a T5 encoder, versus SD’s UNet + CLIP cross-attention; this makes FLUX generation more fundamentally prompt-dependent. [a6b5d1ed98ed3e14]  \n  - Rectified flow training in FLUX optimizes nearly straight trajectories between noise and data, enabling high-quality images in fewer steps (e.g., 28 steps with Euler integration) but discarding information critical for inversion and watermark recovery. [8767d43ace527e6c][40bc4484a922fb06][a6b5d1ed98ed3e14]\n- **Benchmarking context**  \n  - Robustness is evaluated via metrics like NMAE, NMSE, and Fourier-space distances, and via standardized attack suites such as Waves for watermark robustness. [65a5c5af5466ce1d][6847523eb677e85f][f8b8eaed5124712d][fc27eed87276c60f]  \n  - Tree Ring Watermarking, previously validated on diffusion models like SD 2.1, has not been fully adapted to newer rectified-flow architectures like FLUX, where effectiveness is clearly reduced under attack. [1184c0487248f82e][bf00d0361b190a65]\n\n## Evidence\n- Quantitative watermark extraction metrics for FLUX.1-dev and SD 2.1 (NMAE, NMSE, average |ŵᵢ − wᵢ|) across no-attack, blur, and noise conditions, with/without prompts and with VLM prompts. [f8b8eaed5124712d]  \n- Fourier-space distance distributions showing strong prompt-guided inversion in clean FLUX.1-dev cases and drastic distance increases under blur/noise attacks. [fc27eed87276c60f]  \n- Qualitative and prior quantitative findings that DDIM (SD 2.1) maintains robust separation of watermarked vs. non-watermarked images under naive inversion and attacks. [98e0a1670aa761b8][bf00d0361b190a65]  \n- Architectural description of FLUX (MM DiT, T5 encoder, rectified flow objective) and its implications for prompt dependence and poor invertibility. [a6b5d1ed98ed3e14][8767d43ace527e6c][40bc4484a922fb06]  \n- Use of Qwen2-VL-2B to generate prompts for real-world “no original prompt” scenarios, enabling comparison of prompt-free vs. prompt-guided inversion. [5079eca6d92150ba][e9570c7d2a34af1f]  \n- Use of Waves benchmark and Tree Ring Watermarking as the robustness and watermarking baselines. [3b99398f89f56cd4][1184c0487248f82e][6847523eb677e85f]\n\n## Risks\n- **Weaker provenance guarantees for FLUX-based systems**  \n  - Under realistic perturbations (blur, noise), FLUX.1-dev’s watermark signals become hard to distinguish from background frequencies, undermining reliable detection and separability of watermarked vs. non-watermarked content. [bf00d0361b190a65][fc27eed87276c60f]\n- **High sensitivity to prompt availability and accuracy**  \n  - Inversion and watermark recovery for FLUX.1-dev degrade significantly without accurate prompts; VLM-generated prompts only partially mitigate this, posing challenges for forensic use where original prompts are unknown. [f8b8eaed5124712d][5079eca6d92150ba]\n- **Architectural limitations not easily fixed by numerics**  \n  - The straightened rectified-flow trajectories inherently discard inversion-relevant information; higher-order solvers may offer only incremental gains, limiting how much robustness can be recovered without rethinking the training objective. [a6b5d1ed98ed3e14]\n- **Mismatch between existing watermark designs and new architectures**  \n  - Tree Ring Watermarking, tuned for traditional diffusion (e.g., SD 2.1), is less effective on FLUX.1-dev, risking overestimation of watermark robustness if benchmarks are not architecture-aware. [1184c0487248f82e][bf00d0361b190a65]\n\n## Next Steps\n- **Benchmark systematically against SD 2.1 using Waves**  \n  - Run side-by-side FLUX.1-dev vs. SD 2.1 evaluations across the full Waves attack suite (noise, blur, compression, cropping, etc.), reporting NMAE/NMSE and Fourier distances to quantify robustness gaps. [3b99398f89f56cd4][6847523eb677e85f][f8b8eaed5124712d]\n- **Stratify by prompt condition**  \n  - Evaluate FLUX.1-dev under: (1) original prompt, (2) Qwen2-VL-generated prompt, (3) no prompt, to measure how much robustness depends on prompt quality and to set operational expectations for forensic workflows. [5079eca6d92150ba][e9570c7d2a34af1f]\n- **Explore architecture- and objective-aware watermarking**  \n  - Design or adapt watermarking schemes specifically for rectified-flow and MM DiT architectures, potentially embedding signals earlier or more redundantly to survive the straightened trajectories. [a6b5d1ed98ed3e14][05b9fd7dd2e748e6]\n- **Investigate modified training for better invertibility**  \n  - Experiment with hybrid objectives that trade a small amount of sampling efficiency for improved invertibility (e.g., partial diffusion-style noise schedules or auxiliary inversion losses) and re-measure watermark robustness. [8767d43ace527e6c][40bc4484a922fb06][a6b5d1ed98ed3e14]\n- **Develop evaluation and deployment guidelines**  \n  - For systems built on FLUX.1-dev, document that watermark robustness is significantly weaker than SD 2.1 under attacks; recommend pairing FLUX with stronger external provenance mechanisms (e.g., cryptographic signatures) until architecture-aligned watermarking is mature. [1184c0487248f82e][bf00d0361b190a65]"
+  }
+}

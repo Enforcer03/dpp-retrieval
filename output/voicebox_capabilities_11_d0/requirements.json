@@ -1,0 +1,39 @@
+{
+  "id": "voicebox_capabilities_d0",
+  "parent": {
+    "path": "voicebox.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Evaluating Editing and Cross-Lingual capabilities."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "In-filling",
+      "description": "Can it cleanly fix a bad word in a recording without making a 'click' or pop sound at the edit point?"
+    },
+    {
+      "id": "R2",
+      "category": "Cloning",
+      "description": "How short can the voice sample be for cloning? Can it work with a 3-second clip?"
+    },
+    {
+      "id": "R3",
+      "category": "Cross-Lingual",
+      "description": "Does it support cross-lingual stuff out of the box (like making an English speaker speak French)?"
+    },
+    {
+      "id": "R4",
+      "category": "Denoising",
+      "description": "Does it also work as a denoiser? Can we feed it noisy audio and get clean speech out?"
+    },
+    {
+      "id": "R5",
+      "category": "Emotion",
+      "description": "How well does it capture the emotion of the prompt? Does it sound robotic or expressive?"
+    }
+  ],
+  "notes": {}
+}

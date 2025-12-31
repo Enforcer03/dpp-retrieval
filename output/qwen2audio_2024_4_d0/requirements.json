@@ -1,0 +1,38 @@
+{
+  "id": "qwen2audio_2024_d0",
+  "parent": {
+    "path": "qwen2audio.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?"
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Will this model fit on our standard inference GPUs (e.g., 24GB VRAM), or is it too big?"
+    },
+    {
+      "id": "R2",
+      "description": "Is the latency low enough for a conversation, or is there a noticeable lag before it starts responding?"
+    },
+    {
+      "id": "R3",
+      "description": "Is there a hard limit on audio length (like 30 seconds) that would break our use case for long files?"
+    },
+    {
+      "id": "R4",
+      "description": "How does it handle noisy audio or background chatter? Does it fail or just transcribe the noise?"
+    },
+    {
+      "id": "R5",
+      "description": "Does it refuse to process certain audio types (safety refusals) that might be false positives for us?"
+    },
+    {
+      "id": "R6",
+      "description": "Can we swap out the audio encoder part later, or is it tightly coupled to the Qwen text model?"
+    }
+  ],
+  "notes": {}
+}

@@ -1,0 +1,494 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "d2344554ccf8a277",
+  "created_at": "2025-12-31T08:48:04Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 14919,
+        "output_hash": "75d6f938c241b8116a7f21ca58452705a5668663",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Summarize the key capabilities and architecture of Qwen2-Audio.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "covered",
+                      "evidence": [
+                        "44387cbdedde2d01",
+                        "13365992b056843c",
+                        "94102e77dd4f199c"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "13365992b056843c",
+                          "quote": "initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+                        },
+                        {
+                          "chunk_id": "13365992b056843c",
+                          "quote": "Qwen2-Audio still incorporates the large language model Qwen-7B as its foundational component."
+                        },
+                        {
+                          "chunk_id": "94102e77dd4f199c",
+                          "quote": "conditioning on audio representations and previous text sequences"
+                        }
+                      ],
+                      "rationale": "Architecture text explicitly states Whisper-large-v3 initialization for the audio encoder and Qwen-7B LLM, matching the requested architecture/initialization detail."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "ab1684f1d8fd501e",
+                        "8e112c12da609d29"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "ab1684f1d8fd501e",
+                          "quote": "The results of the AIR-Bench chat benchmark encompass four dimensions: speech, sound, music, and mixed."
+                        },
+                        {
+                          "chunk_id": "ab1684f1d8fd501e",
+                          "quote": "Qwen2-Audio achieves remarkable performance without requiring any task-specific fine-tuning, surpassing its counterparts."
+                        },
+                        {
+                          "chunk_id": "8e112c12da609d29",
+                          "quote": "According to the evaluation results from AIR-Bench, Qwen2-Audio outperformed previous SOTAs, such as Gemini-1.5-pro"
+                        }
+                      ],
+                      "rationale": "AIR-Bench description plus explicit statement that Qwen2-Audio outperforms previous SOTAs including Gemini-1.5-pro satisfies the ranking/relative position requirement."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "covered",
+                      "evidence": [
+                        "8e112c12da609d29",
+                        "1694ba335df35a5e",
+                        "ea930ac5b9eec0ec"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "8e112c12da609d29",
+                          "quote": "implemented two distinct audio interaction modes for voice chat and audio analysis."
+                        },
+                        {
+                          "chunk_id": "8e112c12da609d29",
+                          "quote": "In the voice chat mode, users can freely engage in voice interactions with Qwen2-Audio without text input."
+                        },
+                        {
+                          "chunk_id": "1694ba335df35a5e",
+                          "quote": "In the audio analysis mode, users can leverage Qwen2-Audio to analyze a diverse range of audio types"
+                        }
+                      ],
+                      "rationale": "Text clearly defines two modes, Voice Chat as free interaction and Audio Analysis as instruction-based analysis, matching the requirement."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "covered",
+                      "evidence": [
+                        "1694ba335df35a5e",
+                        "8e112c12da609d29",
+                        "ab1684f1d8fd501e",
+                        "cc04c43027cfe78f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1694ba335df35a5e",
+                          "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms."
+                        },
+                        {
+                          "chunk_id": "ab1684f1d8fd501e",
+                          "quote": "AIR-Bench chat benchmark encompass four dimensions: speech, sound, music, and mixed."
+                        },
+                        {
+                          "chunk_id": "8e112c12da609d29",
+                          "quote": "capable of accepting various audio signal inputs and performing audio analysis or direct textual responses"
+                        }
+                      ],
+                      "rationale": "Evidence explicitly lists speech, sound, music, and mixed audio as supported inputs, satisfying the diversity requirement."
+                    }
+                  ],
+                  "missing_requirements": [],
+                  "risks": [
+                    "Although AIR-Bench superiority over Gemini-1.5-pro is stated, no numeric scores or exact rank positions are provided, which may limit precision of performance ranking claims.",
+                    "Model architecture figure itself is not shown; only textual description of initialization and components is available.",
+                    "If a summary over-emphasizes speech, it might underrepresent non-speech capabilities despite evidence of sound and music handling."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "good",
+              "notes": "All four requirements have direct supporting evidence: architecture and Whisper initialization, AIR-Bench ranking vs Gemini, dual interaction modes, and diverse audio inputs including speech, sound, and music.",
+              "missing_requirements": []
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks cover interaction modes and AIR-Bench; some overlap between 8e112c12da609d29, 1694ba335df35a5e, ea930ac5b9eec0ec for modes and between ab1684f1d8fd501e and cc04c43027cfe78f for AIR-Bench context.",
+              "redundant_pairs": [
+                [
+                  "8e112c12da609d29",
+                  "1694ba335df35a5e"
+                ],
+                [
+                  "8e112c12da609d29",
+                  "ea930ac5b9eec0ec"
+                ],
+                [
+                  "ab1684f1d8fd501e",
+                  "cc04c43027cfe78f"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Key requirements are well supported, but some high-cost chunks are mostly references or peripheral (bibliography, figure captions) and add limited value for the specific summary task.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "cc04c43027cfe78f",
+                  "cost": 475,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "8e112c12da609d29",
+                  "cost": 320,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "ab1684f1d8fd501e",
+                  "cost": 299,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "1694ba335df35a5e",
+                  "cost": 208,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "13365992b056843c",
+                  "cost": 179,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "AIR-Bench comparison to Gemini-1.5-pro is qualitative; absence of explicit numeric scores may lead to overconfident ranking statements.",
+              "No direct visual of the Model Architecture figure; reliance on text may miss finer architectural nuances.",
+              "Some retrieval budget spent on citation-heavy or reference-only chunks that do not directly support the user’s summarization requirements."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 9402,
+        "output_hash": "12108cd4484951f5a5393d5c106902d0558a9eb6",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "13365992b056843c",
+                "quote": "the initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+              },
+              {
+                "chunk_id": "94102e77dd4f199c",
+                "quote": "conditioning on audio representations and previous text sequences"
+              },
+              {
+                "chunk_id": "8e112c12da609d29",
+                "quote": "capable of accepting various audio signal inputs and performing audio analysis or direct textual responses"
+              },
+              {
+                "chunk_id": "1694ba335df35a5e",
+                "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+              },
+              {
+                "chunk_id": "ea930ac5b9eec0ec",
+                "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+              },
+              {
+                "chunk_id": "ab1684f1d8fd501e",
+                "quote": "The results of the AIR-Bench chat benchmark encompass four dimensions: speech, sound, music, and mixed."
+              },
+              {
+                "chunk_id": "8e112c12da609d29",
+                "quote": "According to the evaluation results from AIR-Bench, Qwen2-Audio outperformed previous SOTAs, such as Gemini-1.5-pro"
+              },
+              {
+                "chunk_id": "1694ba335df35a5e",
+                "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Summarize the key capabilities and architecture of Qwen2-Audio.",
+                "answer": "The summary accurately describes Qwen2-Audio’s key capabilities and architecture. It notes that Qwen2-Audio is an 8.2B-parameter audio–language model built on a Qwen-7B language backbone with an audio encoder initialized from Whisper-large-v3, including 16 kHz resampling, 128-channel mel-spectrograms, and stride-2 pooling so each encoder frame represents about 40 ms of audio, matching the architecture description. It explains that the model accepts diverse audio inputs such as speech, sound, music, and mixed audio and can perform audio analysis or conversational voice chat without explicit mode-switch prompts, consistent with the interaction description. It correctly identifies two distinct but jointly trained interaction modes: Audio Analysis (instruction-following analysis of speech, sound, music, and mixed audio via audio and/or text commands) and Voice Chat (free-form voice conversation with optional text), and notes that users do not need to manually switch modes. It also captures the training strategy (natural-language-prompt pre-training, supervised fine-tuning with higher-quality data, and a DPO stage) and summarizes performance, including that on AIR-Bench Qwen2-Audio achieves strong scores across speech, sound, music, and mixed-audio chat and surpasses prior LALMs and previous SOTAs such as Gemini-1.5-pro in audio-centric instruction-following benchmarks. This satisfies the requested focus on architecture and key capabilities, while also incorporating the required AIR-Bench performance ranking and interaction modes.",
+                "confidence": 0.93,
+                "evidence": [
+                  "13365992b056843c",
+                  "94102e77dd4f199c",
+                  "8e112c12da609d29",
+                  "1694ba335df35a5e",
+                  "ea930ac5b9eec0ec",
+                  "ab1684f1d8fd501e",
+                  "22413225fdfb6984"
+                ],
+                "notes": "R1: The summary references the architecture and explicitly mentions Whisper-large-v3 initialization and Qwen-7B backbone, matching the model architecture description. Evidence: the encoder is \"based on the Whisper-large-v3 model\" and Qwen2-Audio \"still incorporates the large language model Qwen-7B\" with 8.2B parameters. [13365992b056843c]\nR2: AIR-Bench performance and ranking are covered: AIR-Bench is described as a chat benchmark over speech, sound, music, and mixed audio, and the summary states Qwen2-Audio surpasses prior LALMs and previous SOTAs, with explicit mention that it \"outperformed previous SOTAs, such as Gemini-1.5-pro\" in audio-centric instruction-following tests. [ab1684f1d8fd501e][8e112c12da609d29]\nR3: The two interaction modes are clearly described. The paper states Qwen2-Audio \"operates in two distinct modes: Audio Analysis and Voice Chat\" and details that Audio Analysis handles diverse audio types with audio/text commands, while Voice Chat supports unrestricted dialogue; another passage notes both modes were jointly trained so users do not need to distinguish or switch between them. [1694ba335df35a5e][ea930ac5b9eec0ec]\nR4: The summary clarifies that the model accepts diverse audio inputs, including speech, sound, music, and mixed audio, consistent with the description that Audio Analysis can \"analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms\" and that Qwen2-Audio accepts \"various audio signal inputs\". [1694ba335df35a5e][8e112c12da609d29]\nOverall, the answer aligns with the decision and is well grounded in the cited evidence."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Summarize the key capabilities and architecture of Qwen2-Audio.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "covered",
+                "evidence": [
+                  "44387cbdedde2d01",
+                  "13365992b056843c",
+                  "94102e77dd4f199c"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "13365992b056843c",
+                    "quote": "initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+                  },
+                  {
+                    "chunk_id": "13365992b056843c",
+                    "quote": "Qwen2-Audio still incorporates the large language model Qwen-7B as its foundational component."
+                  },
+                  {
+                    "chunk_id": "94102e77dd4f199c",
+                    "quote": "conditioning on audio representations and previous text sequences"
+                  }
+                ],
+                "rationale": "Architecture text explicitly states Whisper-large-v3 initialization for the audio encoder and Qwen-7B LLM, matching the requested architecture/initialization detail."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "ab1684f1d8fd501e",
+                  "8e112c12da609d29"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "ab1684f1d8fd501e",
+                    "quote": "The results of the AIR-Bench chat benchmark encompass four dimensions: speech, sound, music, and mixed."
+                  },
+                  {
+                    "chunk_id": "ab1684f1d8fd501e",
+                    "quote": "Qwen2-Audio achieves remarkable performance without requiring any task-specific fine-tuning, surpassing its counterparts."
+                  },
+                  {
+                    "chunk_id": "8e112c12da609d29",
+                    "quote": "According to the evaluation results from AIR-Bench, Qwen2-Audio outperformed previous SOTAs, such as Gemini-1.5-pro"
+                  }
+                ],
+                "rationale": "AIR-Bench description plus explicit statement that Qwen2-Audio outperforms previous SOTAs including Gemini-1.5-pro satisfies the ranking/relative position requirement."
+              },
+              {
+                "id": "R3",
+                "status": "covered",
+                "evidence": [
+                  "8e112c12da609d29",
+                  "1694ba335df35a5e",
+                  "ea930ac5b9eec0ec"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "8e112c12da609d29",
+                    "quote": "implemented two distinct audio interaction modes for voice chat and audio analysis."
+                  },
+                  {
+                    "chunk_id": "8e112c12da609d29",
+                    "quote": "In the voice chat mode, users can freely engage in voice interactions with Qwen2-Audio without text input."
+                  },
+                  {
+                    "chunk_id": "1694ba335df35a5e",
+                    "quote": "In the audio analysis mode, users can leverage Qwen2-Audio to analyze a diverse range of audio types"
+                  }
+                ],
+                "rationale": "Text clearly defines two modes, Voice Chat as free interaction and Audio Analysis as instruction-based analysis, matching the requirement."
+              },
+              {
+                "id": "R4",
+                "status": "covered",
+                "evidence": [
+                  "1694ba335df35a5e",
+                  "8e112c12da609d29",
+                  "ab1684f1d8fd501e",
+                  "cc04c43027cfe78f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1694ba335df35a5e",
+                    "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms."
+                  },
+                  {
+                    "chunk_id": "ab1684f1d8fd501e",
+                    "quote": "AIR-Bench chat benchmark encompass four dimensions: speech, sound, music, and mixed."
+                  },
+                  {
+                    "chunk_id": "8e112c12da609d29",
+                    "quote": "capable of accepting various audio signal inputs and performing audio analysis or direct textual responses"
+                  }
+                ],
+                "rationale": "Evidence explicitly lists speech, sound, music, and mixed audio as supported inputs, satisfying the diversity requirement."
+              }
+            ],
+            "missing_requirements": [],
+            "risks": [
+              "Although AIR-Bench superiority over Gemini-1.5-pro is stated, no numeric scores or exact rank positions are provided, which may limit precision of performance ranking claims.",
+              "Model architecture figure itself is not shown; only textual description of initialization and components is available.",
+              "If a summary over-emphasizes speech, it might underrepresent non-speech capabilities despite evidence of sound and music handling."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "good",
+        "notes": "All four requirements have direct supporting evidence: architecture and Whisper initialization, AIR-Bench ranking vs Gemini, dual interaction modes, and diverse audio inputs including speech, sound, and music.",
+        "missing_requirements": []
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks cover interaction modes and AIR-Bench; some overlap between 8e112c12da609d29, 1694ba335df35a5e, ea930ac5b9eec0ec for modes and between ab1684f1d8fd501e and cc04c43027cfe78f for AIR-Bench context.",
+        "redundant_pairs": [
+          [
+            "8e112c12da609d29",
+            "1694ba335df35a5e"
+          ],
+          [
+            "8e112c12da609d29",
+            "ea930ac5b9eec0ec"
+          ],
+          [
+            "ab1684f1d8fd501e",
+            "cc04c43027cfe78f"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Key requirements are well supported, but some high-cost chunks are mostly references or peripheral (bibliography, figure captions) and add limited value for the specific summary task.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "cc04c43027cfe78f",
+            "cost": 475,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "8e112c12da609d29",
+            "cost": 320,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "ab1684f1d8fd501e",
+            "cost": 299,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "1694ba335df35a5e",
+            "cost": 208,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "13365992b056843c",
+            "cost": 179,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "AIR-Bench comparison to Gemini-1.5-pro is qualitative; absence of explicit numeric scores may lead to overconfident ranking statements.",
+        "No direct visual of the Model Architecture figure; reliance on text may miss finer architectural nuances.",
+        "Some retrieval budget spent on citation-heavy or reference-only chunks that do not directly support the user’s summarization requirements."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "13365992b056843c",
+          "quote": "the initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+        },
+        {
+          "chunk_id": "94102e77dd4f199c",
+          "quote": "conditioning on audio representations and previous text sequences"
+        },
+        {
+          "chunk_id": "8e112c12da609d29",
+          "quote": "capable of accepting various audio signal inputs and performing audio analysis or direct textual responses"
+        },
+        {
+          "chunk_id": "1694ba335df35a5e",
+          "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+        },
+        {
+          "chunk_id": "ea930ac5b9eec0ec",
+          "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+        },
+        {
+          "chunk_id": "ab1684f1d8fd501e",
+          "quote": "The results of the AIR-Bench chat benchmark encompass four dimensions: speech, sound, music, and mixed."
+        },
+        {
+          "chunk_id": "8e112c12da609d29",
+          "quote": "According to the evaluation results from AIR-Bench, Qwen2-Audio outperformed previous SOTAs, such as Gemini-1.5-pro"
+        },
+        {
+          "chunk_id": "1694ba335df35a5e",
+          "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Summarize the key capabilities and architecture of Qwen2-Audio.",
+          "answer": "The summary accurately describes Qwen2-Audio’s key capabilities and architecture. It notes that Qwen2-Audio is an 8.2B-parameter audio–language model built on a Qwen-7B language backbone with an audio encoder initialized from Whisper-large-v3, including 16 kHz resampling, 128-channel mel-spectrograms, and stride-2 pooling so each encoder frame represents about 40 ms of audio, matching the architecture description. It explains that the model accepts diverse audio inputs such as speech, sound, music, and mixed audio and can perform audio analysis or conversational voice chat without explicit mode-switch prompts, consistent with the interaction description. It correctly identifies two distinct but jointly trained interaction modes: Audio Analysis (instruction-following analysis of speech, sound, music, and mixed audio via audio and/or text commands) and Voice Chat (free-form voice conversation with optional text), and notes that users do not need to manually switch modes. It also captures the training strategy (natural-language-prompt pre-training, supervised fine-tuning with higher-quality data, and a DPO stage) and summarizes performance, including that on AIR-Bench Qwen2-Audio achieves strong scores across speech, sound, music, and mixed-audio chat and surpasses prior LALMs and previous SOTAs such as Gemini-1.5-pro in audio-centric instruction-following benchmarks. This satisfies the requested focus on architecture and key capabilities, while also incorporating the required AIR-Bench performance ranking and interaction modes.",
+          "confidence": 0.93,
+          "evidence": [
+            "13365992b056843c",
+            "94102e77dd4f199c",
+            "8e112c12da609d29",
+            "1694ba335df35a5e",
+            "ea930ac5b9eec0ec",
+            "ab1684f1d8fd501e",
+            "22413225fdfb6984"
+          ],
+          "notes": "R1: The summary references the architecture and explicitly mentions Whisper-large-v3 initialization and Qwen-7B backbone, matching the model architecture description. Evidence: the encoder is \"based on the Whisper-large-v3 model\" and Qwen2-Audio \"still incorporates the large language model Qwen-7B\" with 8.2B parameters. [13365992b056843c]\nR2: AIR-Bench performance and ranking are covered: AIR-Bench is described as a chat benchmark over speech, sound, music, and mixed audio, and the summary states Qwen2-Audio surpasses prior LALMs and previous SOTAs, with explicit mention that it \"outperformed previous SOTAs, such as Gemini-1.5-pro\" in audio-centric instruction-following tests. [ab1684f1d8fd501e][8e112c12da609d29]\nR3: The two interaction modes are clearly described. The paper states Qwen2-Audio \"operates in two distinct modes: Audio Analysis and Voice Chat\" and details that Audio Analysis handles diverse audio types with audio/text commands, while Voice Chat supports unrestricted dialogue; another passage notes both modes were jointly trained so users do not need to distinguish or switch between them. [1694ba335df35a5e][ea930ac5b9eec0ec]\nR4: The summary clarifies that the model accepts diverse audio inputs, including speech, sound, music, and mixed audio, consistent with the description that Audio Analysis can \"analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms\" and that Qwen2-Audio accepts \"various audio signal inputs\". [1694ba335df35a5e][8e112c12da609d29]\nOverall, the answer aligns with the decision and is well grounded in the cited evidence."
+        }
+      ]
+    }
+  }
+}

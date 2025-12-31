@@ -1,0 +1,792 @@
+{
+  "run_id": "d2344554ccf8a277",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/qwen2audio.pdf",
+  "query": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+  "retrieval_query": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?\n\nANCHOR:\n- Look for sections describing “Qwen2-Audio” model capabilities: ASR (automatic speech recognition), TTS (text-to-speech), speech translation, speaker diarization, audio embedding, and multimodal (audio-text) understanding to assess end‑to‑end audio stack coverage.\n- Compare Qwen2-Audio performance to existing stack components (e.g., Whisper, wav2vec 2.0, HuBERT, SpeechT5, NeMo, VITS, FastSpeech, RNN-T, Conformer) using WER/CER, BLEU, MOS, latency, throughput, and GPU/CPU memory usage.\n- Search for deployment details: supported frameworks (PyTorch, TensorRT, ONNX), quantization (INT8, FP16), streaming/real-time inference, batch processing, and hardware requirements for on-prem vs cloud.\n- Identify benchmarks and datasets used: LibriSpeech, Common Voice, AISHELL, VoxCeleb, MuST-C, multilingual corpora; check domain robustness (noisy, far-field, telephony, meeting audio).\n- Find “Overview”, “Architecture”, or “System Design” sections describing how Qwen2-Audio integrates with existing pipelines, APIs, and microservices; look for mention of model variants (base/large) and multilingual support.\n- Look for “Limitations”, “Risks”, or “Safety” sections: hallucinations, language coverage gaps, domain mismatch, licensing, privacy/compliance, and model update/rollback strategies.\n- Explicitly inspect TABLES/FIGURES comparing Qwen2-Audio to baselines ...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+    "retrieval_query": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?\n\nANCHOR:\n- Look for sections describing “Qwen2-Audio” model capabilities: ASR (automatic speech recognition), TTS (text-to-speech), speech translation, speaker diarization, audio embedding, and multimodal (audio-text) understanding to assess end‑to‑end audio stack coverage.\n- Compare Qwen2-Audio performance to existing stack components (e.g., Whisper, wav2vec 2.0, HuBERT, SpeechT5, NeMo, VITS, FastSpeech, RNN-T, Conformer) using WER/CER, BLEU, MOS, latency, throughput, and GPU/CPU memory usage.\n- Search for deployment details: supported frameworks (PyTorch, TensorRT, ONNX), quantization (INT8, FP16), streaming/real-time inference, batch processing, and hardware requirements for on-prem vs cloud.\n- Identify benchmarks and datasets used: LibriSpeech, Common Voice, AISHELL, VoxCeleb, MuST-C, multilingual corpora; check domain robustness (noisy, far-field, telephony, meeting audio).\n- Find “Overview”, “Architecture”, or “System Design” sections describing how Qwen2-Audio integrates with existing pipelines, APIs, and microservices; look for mention of model variants (base/large) and multilingual support.\n- Look for “Limitations”, “Risks”, or “Safety” sections: hallucinations, language coverage gaps, domain mismatch, licensing, privacy/compliance, and model update/rollback strategies.\n- Explicitly inspect TABLES/FIGURES comparing Qwen2-Audio to baselines ...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "44387cbdedde2d01",
+      "baf3247e601eaa93",
+      "15056f08ddd2009b",
+      "d7149e0022ccc38a",
+      "c3b67a99b746b83c",
+      "078bfc6544dde2f8",
+      "df20dcd07c397155",
+      "0e304b407b015544",
+      "f59bacfc03b4d6bb",
+      "2579ca39de94334e",
+      "185744e210ec84b6",
+      "50703aaaba0e90f0",
+      "6d8a1be0deaf050d",
+      "ea930ac5b9eec0ec",
+      "385ff7e8b850270a",
+      "a1ebf3b32ec86604",
+      "081c146ce3527de7",
+      "22413225fdfb6984",
+      "cb318940f9c84cc0",
+      "79ac0204d0e04b95",
+      "701cd4d8bf995033",
+      "294a839d7019260e",
+      "72731f2bb643e959",
+      "13365992b056843c",
+      "f00f06d5c87798bd",
+      "1694ba335df35a5e",
+      "8e112c12da609d29"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 2347
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "44387cbdedde2d01",
+      "content": {
+        "text": "Model Architecture",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 2,
+        "importance_score": 0.007751937984496124
+      }
+    },
+    {
+      "chunk_id": "baf3247e601eaa93",
+      "content": {
+        "text": "Qwen2-Audio Technical Report",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 7,
+        "importance_score": 0.014285714285714285
+      }
+    },
+    {
+      "chunk_id": "15056f08ddd2009b",
+      "content": {
+        "text": "Lastly, to objectively evaluate the chat capabilities of Qwen2-Audio, we measured its performance on the",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 21,
+        "importance_score": 0.015151515151515152
+      }
+    },
+    {
+      "chunk_id": "d7149e0022ccc38a",
+      "content": {
+        "text": "At the pre-training stage, we replace the hierarchical tags (Chu et al., 2023) with the natural language prompts. As shown in Figure 2. We find that using language prompts can improve better generalization ability and better instruction following ability.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 51,
+        "importance_score": 0.007575757575757576
+      }
+    },
+    {
+      "chunk_id": "c3b67a99b746b83c",
+      "content": {
+        "text": "\\(^2\\)https://console.cloud.google.com/vertex-ai/generative/multimodal/create",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 21,
+        "importance_score": 0.0070921985815602835
+      }
+    },
+    {
+      "chunk_id": "078bfc6544dde2f8",
+      "content": {
+        "text": "Jiayu Du, Xingyu Na, Yuechen Liu, and Hui Bu. AISHELL-2: transforming mandarin ASR research into industrial scale. abs/1808.10583, 2018.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 43,
+        "importance_score": 0.009523809523809525
+      }
+    },
+    {
+      "chunk_id": "df20dcd07c397155",
+      "content": {
+        "text": "1https://github.com/mjpost/sacrebleu",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 12,
+        "importance_score": 0.0072992700729927005
+      }
+    },
+    {
+      "chunk_id": "0e304b407b015544",
+      "content": {
+        "text": "Figure 3: Statistics (hours) of pre-training dataset.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 13,
+        "importance_score": 0.01174496644295302
+      }
+    },
+    {
+      "chunk_id": "f59bacfc03b4d6bb",
+      "content": {
+        "text": "The thorough pretraining of Qwen2-Audio has equipped the model with a comprehensive understanding of audio content. Building upon this, we employ instruction-based fine-tuning",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 33,
+        "importance_score": 0.0125
+      }
+    },
+    {
+      "chunk_id": "2579ca39de94334e",
+      "content": {
+        "text": "Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. Bleu: a method for automatic evaluation of machine translation. In Proceedings of the 40th annual meeting of the Association for Computational Linguistics, 2002.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 53,
+        "importance_score": 0.008
+      }
+    },
+    {
+      "chunk_id": "185744e210ec84b6",
+      "content": {
+        "text": "Figure 7: Example showing Qwen2-Audio’s capability in speech analysis.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 17,
+        "importance_score": 0.025735294117647058
+      }
+    },
+    {
+      "chunk_id": "50703aaaba0e90f0",
+      "content": {
+        "text": "Figure 2: The overview of three-stage training process of Qwen2-Audio.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 18,
+        "importance_score": 0.023333333333333334
+      }
+    },
+    {
+      "chunk_id": "6d8a1be0deaf050d",
+      "content": {
+        "text": "Figure 10: Example showing Qwen2-Audio’s robustness in mixed audio analysis.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 18,
+        "importance_score": 0.019886363636363636
+      }
+    },
+    {
+      "chunk_id": "ea930ac5b9eec0ec",
+      "content": {
+        "text": "For consistency and model uniformity, both interaction modes were jointly trained, thus users will not experience mode differentiation during use, nor is it necessary to switch between different modes using separate system prompts. The two modes are seamlessly integrated in actual use.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 48,
+        "importance_score": 0.007518796992481203
+      }
+    },
+    {
+      "chunk_id": "385ff7e8b850270a",
+      "content": {
+        "text": "In this section, we present a comprehensive evaluation of the Qwen2-Audio model, assessing its performance across various tasks without any task-specific fine-tuning. We begin by examining its English Automatic Speech Recognition (ASR) results, as depicted in Table 2, where Qwen2-Audio exhibits superior performance compared to previous multi-task learning models. Specifically, it achieves a 1.6% and 3.6% WER on the librispeech test-clean and test-other datasets, respectively. Compared with Whisper-large-v3 on Fleurs zh subset, we achieve better results than Whisper-large-v3. One point to note is that Qwen2-Audio is not evaluated in a zero-shot manner on the Common Voice 13 dataset, whereas Whisper’s results are obtained in a zero-shot fashion. However, on the Fleurs dataset, both Qwen2-Audio and Whisper are evaluated in a zero-shot manner. Furthermore, we evaluate Qwen2-Audio’s speech translation performance on the CoVoST2 dataset. The results reveal that Qwen2-Audio outperforms the baselines by a substantial margin across all seven translation directions. For sound, we analyze the performance of Qwen2-Audio on SER, and VSC, as summarized in Table 2. Across these tasks, Qwen2-Audio consistently outperforms the baselines by a significant margin.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 282,
+        "importance_score": 0.015625
+      }
+    },
+    {
+      "chunk_id": "a1ebf3b32ec86604",
+      "content": {
+        "text": "Junyi Ao, Rui Wang, Long Zhou, Chengyi Wang, Shuo Ren, Yu Wu, Shujie Liu, Tom Ko, Qing Li, Yu Zhang, et al. Speecht5: Unified-modal encoder-decoder pre-training for spoken language processing. arXiv:2110.07205, 2021.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 69,
+        "importance_score": 0.00980392156862745
+      }
+    },
+    {
+      "chunk_id": "081c146ce3527de7",
+      "content": {
+        "text": "Changhan Wang, Anne Wu, and Juan Miguel Pino. Covost 2: A massively multilingual speech-to-text translation corpus. abs/2007.10310, 2020. URL https://arxiv.org/abs/2007.10310.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 54,
+        "importance_score": 0.008403361344537815
+      }
+    },
+    {
+      "chunk_id": "22413225fdfb6984",
+      "content": {
+        "text": "In this paper, we present Qwen2-Audio, which builds upon Qwen-Audio’s capability to analyze various types of audio while also being endowed with voice interaction abilities. During the pre-training stage, we utilized natural language prompts to different data and tasks and have further expanded the data volume. In the SFT phase, we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data, thereby enabling seamless voice and text interaction. Additionally, we improved Qwen2-Audio’s response quality through the DPO stage. Objective metrics tested on diverse benchmarks demonstrate Qwen2-Audio’s proficiency in audio understanding and dialogue capabilities. The cases presented within the paper also illustrate Qwen2-Audio’s fluent and flexible voice interaction capability.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 160,
+        "importance_score": 0.015873015873015872
+      }
+    },
+    {
+      "chunk_id": "cb318940f9c84cc0",
+      "content": {
+        "text": "Shuzheng Si, Wentao Ma, Yuchuan Wu, Yinpei Dai, Haoyu Gao, Ting-En Lin, Hangyu Li, Rui Yan, Fei Huang, and Yongbin Li. Spokenwoz: A large-scale speech-text benchmark for spoken task-oriented dialogue in multiple domains. arXiv preprint arXiv:2305.13040, 2023.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 80,
+        "importance_score": 0.009615384615384616
+      }
+    },
+    {
+      "chunk_id": "79ac0204d0e04b95",
+      "content": {
+        "text": "In this report, we develop Qwen2-Audio, with a primary focus on enhancing its instruction-following capabilities. Qwen2-Audio is a Large Audio-Language Model (LALM) designed to process both audio and text inputs to generate textual outputs. Compared to previous models, Qwen2-Audio significantly scales up the training dataset. To reduce the gap between pre-training and post-training stages, we simplify the",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 86,
+        "importance_score": 0.012345679012345678
+      }
+    },
+    {
+      "chunk_id": "701cd4d8bf995033",
+      "content": {
+        "text": "Sanyuan Chen, Chengyi Wang, Zhengyang Chen, Yu Wu, Shujie Liu, Zhuo Chen, Jinyu Li, Naoyuki Kanda, Takuya Yoshioka, Xiong Xiao, Jian Wu, Long Zhou, Shuo Ren, Yanmin Qian, Yao Qian, Jian Wu, Michael Zeng, Xiangzhan Yu, and Furu Wei. Wavlm: Large-scale self-supervised pre-training for full stack speech processing. IEEE J. Sel. Top. Signal Process., 2022.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 116,
+        "importance_score": 0.012048192771084338
+      }
+    },
+    {
+      "chunk_id": "294a839d7019260e",
+      "content": {
+        "text": "- <b>Audio Analysis:</b> In the audio analysis mode, users are afforded the flexibility to have Qwen2-Audio analyze a diverse array of audio. User instructions can be given either through audio or text.  \nThis mode is often used for offline analysis of audio files.\n- <b>Voice Chat:</b> In the voice chat mode, users are encouraged to engage in voice conversations with Qwen2-Audio, asking a wide range of questions. Please feel free to consider it your voice chat assistant.  \nThis mode is often used for online interaction with LALMs.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "list",
+        "cognitive_cost": 120,
+        "importance_score": 0.011627906976744186
+      }
+    },
+    {
+      "chunk_id": "72731f2bb643e959",
+      "content": {
+        "text": "chat benchmark of the AIR-Bench (Yang et al., 2024). Note that since Gemini-1.5 (Reid et al., 2024)\\(^2\\) cannot correctly return some test samples due to its SAFETY reasons during testing, the number of samples of Gemini-1.5 on AIR-Bench-chat has been reduced by about 1/5. As shown in table 2, Qwen2-Audio demonstrates state-of-the-art (SOTA) instruction-following capabilities across speech, sound music and mixed-audio subsets. It shows substantial improvements compared to Qwen-Audio and significantly outperforms other LALMs.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 134,
+        "importance_score": 0.016129032258064516
+      }
+    },
+    {
+      "chunk_id": "13365992b056843c",
+      "content": {
+        "text": "Different from Qwen-Audio, the initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model (Radford et al., 2023). To preprocess the audio data, we resample it to a frequency of 16kHz and converts the raw waveform into 128-channel mel-spectrogram using a window size of 25ms and a hop size of 10ms. Additionally, a pooling layer with a stride of two is incorporated to reduce the length of the audio representation. As a result, each frame of the encoder output approximately corresponds to a 40ms segment of the original audio signal. Qwen2-Audio still incorporates the large language model Qwen-7B (Bai et al., 2023) as its foundational component. The total parameters of Qwen2-Audio is 8.2B parameters.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 179,
+        "importance_score": 0.014084507042253521
+      }
+    },
+    {
+      "chunk_id": "f00f06d5c87798bd",
+      "content": {
+        "text": "In practice, we have found that many previous test datasets are highly limited and cannot adequately reflect performance in real-world scenarios, such as some SLU (Spoken Language Understanding) and SER (Speech Emotion Recognition) datasets. Therefore, we mainly evaluated performance directly on AIR-Bench. We discovered that the scores from AIR-Bench align more closely with the actual user interaction experience. Meanwhile, in order to assess the universal understanding capabilities of Qwen2-Audio, as shown in Table 1, we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC). The evaluation is conducted across 13 datasets. The evaluation datasets are rigorously excluded from the training data to avoid data leakage. The models we compare include open-source models and callable APIs, such as Gemini.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 182,
+        "importance_score": 0.01639344262295082
+      }
+    },
+    {
+      "chunk_id": "1694ba335df35a5e",
+      "content": {
+        "text": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat. These two modes are differentiated by their functionality, but there is no need for users to distinguish between them during use. In the audio analysis mode, users can leverage Qwen2-Audio to analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms. Commands can be issued either through audio or text, and Qwen2-Audio will autonomously discern the command segments within the audio. Conversely, in voice chat mode, users can interact with Qwen2-Audio as if it were a conversational agent, engaging in unrestricted dialogue. Audio interaction is available, and users can switch to text interaction at any moment they choose. For instance, if a user inputs an audio clip where the initial part is the sound of typing on a keyboard, followed by the user asking \"What is this sound?\" in spoken language, Qwen2-Audio is expected to respond directly with \"This is the sound of a keyboard.\"",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 208,
+        "importance_score": 0.014925373134328358
+      }
+    },
+    {
+      "chunk_id": "8e112c12da609d29",
+      "content": {
+        "text": "We introduce the latest progress of Qwen-Audio, a large-scale audio-language model called Qwen2-Audio, which is capable of accepting various audio signal inputs and performing audio analysis or direct textual responses with regard to speech instructions. In contrast to complex hierarchical tags, we have simplified the pre-training process by utilizing natural language prompts for different data and tasks, and have further expanded the data volume. We have boosted the instruction-following capability of Qwen2-Audio and implemented two distinct audio interaction modes for voice chat and audio analysis. In the voice chat mode, users can freely engage in voice interactions with Qwen2-Audio without text input. In the audio analysis mode, users could provide audio and text instructions for analysis during the interaction. Note that we do not use any system prompts to switch between voice chat and audio analysis modes. Qwen2-Audio is capable of intelligently comprehending the content within audio and following voice commands to respond appropriately. For instance, in an audio segment that simultaneously contains sounds, multi-speaker conversations, and a voice command, Qwen2-Audio can directly understand the command and provide an interpretation and response to the audio. Additionally, DPO has optimized the model’s performance in terms of factuality and adherence to desired behavior. According to the evaluation results from AIR-Bench, Qwen2-Audio outperformed previous SOTAs, such as Gemini-1.5-pro, in tests focused on audio-centric instruction-following capabilities. Qwen2-Audio is open-sourced with the aim of fostering the advancement of the multi-modal language community.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "abstract",
+        "cognitive_cost": 320,
+        "importance_score": 0.013157894736842105
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "44387cbdedde2d01",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.007751937984496124,
+      "cost": 2,
+      "text": "Model Architecture",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "baf3247e601eaa93",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.014285714285714285,
+      "cost": 7,
+      "text": "Qwen2-Audio Technical Report",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "15056f08ddd2009b",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015151515151515152,
+      "cost": 21,
+      "text": "Lastly, to objectively evaluate the chat capabilities of Qwen2-Audio, we measured its performance on the",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d7149e0022ccc38a",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007575757575757576,
+      "cost": 51,
+      "text": "At the pre-training stage, we replace the hierarchical tags (Chu et al., 2023) with the natural language prompts. As shown in Figure 2. We find that using language prompts can improve better generalization ability and better instruction following ability.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c3b67a99b746b83c",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0070921985815602835,
+      "cost": 21,
+      "text": "\\(^2\\)https://console.cloud.google.com/vertex-ai/generative/multimodal/create",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "078bfc6544dde2f8",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.009523809523809525,
+      "cost": 43,
+      "text": "Jiayu Du, Xingyu Na, Yuechen Liu, and Hui Bu. AISHELL-2: transforming mandarin ASR research into industrial scale. abs/1808.10583, 2018.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "df20dcd07c397155",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.0072992700729927005,
+      "cost": 12,
+      "text": "1https://github.com/mjpost/sacrebleu",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0e304b407b015544",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.01174496644295302,
+      "cost": 13,
+      "text": "Figure 3: Statistics (hours) of pre-training dataset.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f59bacfc03b4d6bb",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0125,
+      "cost": 33,
+      "text": "The thorough pretraining of Qwen2-Audio has equipped the model with a comprehensive understanding of audio content. Building upon this, we employ instruction-based fine-tuning",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "2579ca39de94334e",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.008,
+      "cost": 53,
+      "text": "Kishore Papineni, Salim Roukos, Todd Ward, and Wei-Jing Zhu. Bleu: a method for automatic evaluation of machine translation. In Proceedings of the 40th annual meeting of the Association for Computational Linguistics, 2002.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "185744e210ec84b6",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.025735294117647058,
+      "cost": 17,
+      "text": "Figure 7: Example showing Qwen2-Audio’s capability in speech analysis.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "50703aaaba0e90f0",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.023333333333333334,
+      "cost": 18,
+      "text": "Figure 2: The overview of three-stage training process of Qwen2-Audio.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "6d8a1be0deaf050d",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.019886363636363636,
+      "cost": 18,
+      "text": "Figure 10: Example showing Qwen2-Audio’s robustness in mixed audio analysis.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ea930ac5b9eec0ec",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007518796992481203,
+      "cost": 48,
+      "text": "For consistency and model uniformity, both interaction modes were jointly trained, thus users will not experience mode differentiation during use, nor is it necessary to switch between different modes using separate system prompts. The two modes are seamlessly integrated in actual use.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "385ff7e8b850270a",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015625,
+      "cost": 282,
+      "text": "In this section, we present a comprehensive evaluation of the Qwen2-Audio model, assessing its performance across various tasks without any task-specific fine-tuning. We begin by examining its English Automatic Speech Recognition (ASR) results, as depicted in Table 2, where Qwen2-Audio exhibits superior performance compared to previous multi-task learning models. Specifically, it achieves a 1.6% and 3.6% WER on the librispeech test-clean and test-other datasets, respectively. Compared with Whisper-large-v3 on Fleurs zh subset, we achieve better results than Whisper-large-v3. One point to note is that Qwen2-Audio is not evaluated in a zero-shot manner on the Common Voice 13 dataset, whereas Whisper’s results are obtained in a zero-shot fashion. However, on the Fleurs dataset, both Qwen2-Audio and Whisper are evaluated in a zero-shot manner. Furthermore, we evaluate Qwen2-Audio’s speech translation performance on the CoVoST2 dataset. The results reveal that Qwen2-Audio outperforms the baselines by a substantial margin across all seven translation directions. For sound, we analyze the performance of Qwen2-Audio on SER, and VSC, as summarized in Table 2. Across these tasks, Qwen2-Audio consistently outperforms the baselines by a significant margin.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a1ebf3b32ec86604",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.00980392156862745,
+      "cost": 69,
+      "text": "Junyi Ao, Rui Wang, Long Zhou, Chengyi Wang, Shuo Ren, Yu Wu, Shujie Liu, Tom Ko, Qing Li, Yu Zhang, et al. Speecht5: Unified-modal encoder-decoder pre-training for spoken language processing. arXiv:2110.07205, 2021.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "081c146ce3527de7",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.008403361344537815,
+      "cost": 54,
+      "text": "Changhan Wang, Anne Wu, and Juan Miguel Pino. Covost 2: A massively multilingual speech-to-text translation corpus. abs/2007.10310, 2020. URL https://arxiv.org/abs/2007.10310.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "22413225fdfb6984",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015873015873015872,
+      "cost": 160,
+      "text": "In this paper, we present Qwen2-Audio, which builds upon Qwen-Audio’s capability to analyze various types of audio while also being endowed with voice interaction abilities. During the pre-training stage, we utilized natural language prompts to different data and tasks and have further expanded the data volume. In the SFT phase, we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data, thereby enabling seamless voice and text interaction. Additionally, we improved Qwen2-Audio’s response quality through the DPO stage. Objective metrics tested on diverse benchmarks demonstrate Qwen2-Audio’s proficiency in audio understanding and dialogue capabilities. The cases presented within the paper also illustrate Qwen2-Audio’s fluent and flexible voice interaction capability.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "cb318940f9c84cc0",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.009615384615384616,
+      "cost": 80,
+      "text": "Shuzheng Si, Wentao Ma, Yuchuan Wu, Yinpei Dai, Haoyu Gao, Ting-En Lin, Hangyu Li, Rui Yan, Fei Huang, and Yongbin Li. Spokenwoz: A large-scale speech-text benchmark for spoken task-oriented dialogue in multiple domains. arXiv preprint arXiv:2305.13040, 2023.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "79ac0204d0e04b95",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012345679012345678,
+      "cost": 86,
+      "text": "In this report, we develop Qwen2-Audio, with a primary focus on enhancing its instruction-following capabilities. Qwen2-Audio is a Large Audio-Language Model (LALM) designed to process both audio and text inputs to generate textual outputs. Compared to previous models, Qwen2-Audio significantly scales up the training dataset. To reduce the gap between pre-training and post-training stages, we simplify the",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "701cd4d8bf995033",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.012048192771084338,
+      "cost": 116,
+      "text": "Sanyuan Chen, Chengyi Wang, Zhengyang Chen, Yu Wu, Shujie Liu, Zhuo Chen, Jinyu Li, Naoyuki Kanda, Takuya Yoshioka, Xiong Xiao, Jian Wu, Long Zhou, Shuo Ren, Yanmin Qian, Yao Qian, Jian Wu, Michael Zeng, Xiangzhan Yu, and Furu Wei. Wavlm: Large-scale self-supervised pre-training for full stack speech processing. IEEE J. Sel. Top. Signal Process., 2022.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "294a839d7019260e",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "list",
+      "rel": 0.011627906976744186,
+      "cost": 120,
+      "text": "- <b>Audio Analysis:</b> In the audio analysis mode, users are afforded the flexibility to have Qwen2-Audio analyze a diverse array of audio. User instructions can be given either through audio or text.  \nThis mode is often used for offline analysis of audio files.\n- <b>Voice Chat:</b> In the voice chat mode, users are encouraged to engage in voice conversations with Qwen2-Audio, asking a wide range of questions. Please feel free to consider it your voice chat assistant.  \nThis mode is often used for online interaction with LALMs.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "72731f2bb643e959",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.016129032258064516,
+      "cost": 134,
+      "text": "chat benchmark of the AIR-Bench (Yang et al., 2024). Note that since Gemini-1.5 (Reid et al., 2024)\\(^2\\) cannot correctly return some test samples due to its SAFETY reasons during testing, the number of samples of Gemini-1.5 on AIR-Bench-chat has been reduced by about 1/5. As shown in table 2, Qwen2-Audio demonstrates state-of-the-art (SOTA) instruction-following capabilities across speech, sound music and mixed-audio subsets. It shows substantial improvements compared to Qwen-Audio and significantly outperforms other LALMs.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "13365992b056843c",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014084507042253521,
+      "cost": 179,
+      "text": "Different from Qwen-Audio, the initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model (Radford et al., 2023). To preprocess the audio data, we resample it to a frequency of 16kHz and converts the raw waveform into 128-channel mel-spectrogram using a window size of 25ms and a hop size of 10ms. Additionally, a pooling layer with a stride of two is incorporated to reduce the length of the audio representation. As a result, each frame of the encoder output approximately corresponds to a 40ms segment of the original audio signal. Qwen2-Audio still incorporates the large language model Qwen-7B (Bai et al., 2023) as its foundational component. The total parameters of Qwen2-Audio is 8.2B parameters.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f00f06d5c87798bd",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.01639344262295082,
+      "cost": 182,
+      "text": "In practice, we have found that many previous test datasets are highly limited and cannot adequately reflect performance in real-world scenarios, such as some SLU (Spoken Language Understanding) and SER (Speech Emotion Recognition) datasets. Therefore, we mainly evaluated performance directly on AIR-Bench. We discovered that the scores from AIR-Bench align more closely with the actual user interaction experience. Meanwhile, in order to assess the universal understanding capabilities of Qwen2-Audio, as shown in Table 1, we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC). The evaluation is conducted across 13 datasets. The evaluation datasets are rigorously excluded from the training data to avoid data leakage. The models we compare include open-source models and callable APIs, such as Gemini.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "1694ba335df35a5e",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014925373134328358,
+      "cost": 208,
+      "text": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat. These two modes are differentiated by their functionality, but there is no need for users to distinguish between them during use. In the audio analysis mode, users can leverage Qwen2-Audio to analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms. Commands can be issued either through audio or text, and Qwen2-Audio will autonomously discern the command segments within the audio. Conversely, in voice chat mode, users can interact with Qwen2-Audio as if it were a conversational agent, engaging in unrestricted dialogue. Audio interaction is available, and users can switch to text interaction at any moment they choose. For instance, if a user inputs an audio clip where the initial part is the sound of typing on a keyboard, followed by the user asking \"What is this sound?\" in spoken language, Qwen2-Audio is expected to respond directly with \"This is the sound of a keyboard.\"",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8e112c12da609d29",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "abstract",
+      "rel": 0.013157894736842105,
+      "cost": 320,
+      "text": "We introduce the latest progress of Qwen-Audio, a large-scale audio-language model called Qwen2-Audio, which is capable of accepting various audio signal inputs and performing audio analysis or direct textual responses with regard to speech instructions. In contrast to complex hierarchical tags, we have simplified the pre-training process by utilizing natural language prompts for different data and tasks, and have further expanded the data volume. We have boosted the instruction-following capability of Qwen2-Audio and implemented two distinct audio interaction modes for voice chat and audio analysis. In the voice chat mode, users can freely engage in voice interactions with Qwen2-Audio without text input. In the audio analysis mode, users could provide audio and text instructions for analysis during the interaction. Note that we do not use any system prompts to switch between voice chat and audio analysis modes. Qwen2-Audio is capable of intelligently comprehending the content within audio and following voice commands to respond appropriately. For instance, in an audio segment that simultaneously contains sounds, multi-speaker conversations, and a voice command, Qwen2-Audio can directly understand the command and provide an interpretation and response to the audio. Additionally, DPO has optimized the model’s performance in terms of factuality and adherence to desired behavior. According to the evaluation results from AIR-Bench, Qwen2-Audio outperformed previous SOTAs, such as Gemini-1.5-pro, in tests focused on audio-centric instruction-following capabilities. Qwen2-Audio is open-sourced with the aim of fostering the advancement of the multi-modal language community.",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- Qwen2-Audio is a unified Large Audio-Language Model (LALM) that accepts diverse audio (speech, sound, music, mixed) plus text and outputs text, with integrated “audio analysis” and “voice chat” modes that require no explicit mode switching by users. [8e112c12da609d29][1694ba335df35a5e][294a839d7019260e][ea930ac5b9eec0ec]\n- Architecturally, it uses a Whisper-large-v3–initialized audio encoder and a Qwen-7B language model, totaling 8.2B parameters, implying GPU-class deployment requirements similar to other ~7–8B LLMs. [13365992b056843c]\n- The model is positioned as a general-purpose audio stack: ASR, speech translation, emotion and sound classification, and open-ended spoken dialogue, with strong instruction-following and real-world-oriented evaluation. [79ac0204d0e04b95][f00f06d5c87798bd][22413225fdfb6984]\n\n## Key Findings\n- Qwen2-Audio is explicitly designed as a single model for both offline audio analysis (files, multi-type audio) and online voice chat, matching the goal of consolidating an audio stack into one system. [1694ba335df35a5e][294a839d7019260e][8e112c12da609d29]\n- The two interaction modes (audio analysis and voice chat) are jointly trained and seamlessly integrated; no system prompts or manual mode toggles are needed, simplifying application logic and UX. [ea930ac5b9eec0ec][8e112c12da609d29][1694ba335df35a5e]\n- Performance:\n  - ASR: 1.6% WER on LibriSpeech test-clean and 3.6% on test-other, outperforming previous multi-task models; on Fleurs zh it beats Whisper-large-v3 under comparable zero-shot conditions. [385ff7e8b850270a]\n  - Speech translation: Outperforms baselines “by a substantial margin” across seven CoVoST2 directions. [385ff7e8b850270a]\n  - SER and Vocal Sound Classification: Consistently and significantly better than baselines. [385ff7e8b850270a]\n  - AIR-Bench chat: SOTA instruction-following across speech, sound, music, and mixed-audio subsets, surpassing Qwen-Audio and other LALMs, and competitive with API models like Gemini. [72731f2bb643e959][f00f06d5c87798bd]\n- Training and alignment:\n  - Uses natural language prompts instead of hierarchical tags in pretraining, improving generalization and instruction following—important for flexible, multi-task deployment. [d7149e0022ccc38a][79ac0204d0e04b95]\n  - Three-stage process (pretraining, SFT, DPO) with expanded data volume and higher-quality SFT to improve dialogue quality, factuality, and adherence to desired behavior. [50703aaaba0e90f0][22413225fdfb6984][f59bacfc03b4d6bb][8e112c12da609d29]\n- Real-world orientation: Authors emphasize that many legacy SLU/SER benchmarks are not representative; AIR-Bench scores correlate better with actual user experience, suggesting the model is tuned for practical deployment scenarios rather than narrow benchmarks. [f00f06d5c87798bd]\n\n## Evidence\n- Unified capabilities and modes:\n  - Accepts “various audio signal inputs” and performs audio analysis or direct textual responses to speech instructions. [8e112c12da609d29]\n  - Two modes: Audio Analysis (offline, diverse audio types, commands via audio or text) and Voice Chat (online, free-form voice assistant), both available without explicit switching. [294a839d7019260e][1694ba335df35a5e][ea930ac5b9eec0ec]\n  - Example: Mixed audio with sounds, multi-speaker conversation, and a voice command; model extracts the command and responds appropriately. [8e112c12da609d29][1694ba335df35a5e]\n- Architecture and size:\n  - Audio encoder initialized from Whisper-large-v3; audio resampled to 16 kHz, converted to 128-channel mel-spectrogram (25 ms window, 10 ms hop), with pooling (stride 2) so each encoder frame ≈40 ms of audio. [13365992b056843c]\n  - Backbone LLM: Qwen-7B; total model size 8.2B parameters. [13365992b056843c]\n- Training and alignment:\n  - Replaces hierarchical tags with natural language prompts in pretraining, improving generalization and instruction following. [d7149e0022ccc38a][79ac0204d0e04b95]\n  - Three-stage training (pretraining, SFT, DPO) with expanded data volume and improved SFT data quantity/quality/complexity; DPO improves factuality and behavior alignment. [50703aaaba0e90f0][22413225fdfb6984][f59bacfc03b4d6bb][8e112c12da609d29]\n- Performance metrics:\n  - ASR: 1.6% WER (LibriSpeech test-clean), 3.6% (test-other); better than previous multi-task models; better than Whisper-large-v3 on Fleurs zh in zero-shot. [385ff7e8b850270a]\n  - Speech translation: Outperforms baselines on CoVoST2 across seven translation directions. [385ff7e8b850270a]\n  - SER & VSC: “Consistently outperforms the baselines by a significant margin.” [385ff7e8b850270a]\n  - AIR-Bench: SOTA instruction-following across speech, sound, music, mixed-audio subsets; significantly better than Qwen-Audio and other LALMs; Gemini-1.5 comparison constrained by safety-filtered samples. [72731f2bb643e959]\n  - Evaluation covers ASR, S2TT, SER, VSC across 13 datasets; training data excludes evaluation sets to avoid leakage. [f00f06d5c87798bd]\n- Intended use and positioning:\n  - Described as a “large-scale audio-language model” with enhanced instruction-following and “two distinct audio interaction modes for voice chat and audio analysis,” enabling seamless voice and text interaction. [8e112c12da609d29][22413225fdfb6984]\n  - Objective metrics and case studies show “fluent and flexible voice interaction capability.” [22413225fdfb6984]\n  - Authors explicitly note AIR-Bench scores align better with real user interaction than traditional SLU/SER datasets. [f00f06d5c87798bd]\n\n## Risks\n- Compute and latency:\n  - 8.2B parameters with a Whisper-large-v3–scale encoder implies non-trivial GPU/TPU requirements; on-device or low-latency mobile deployment may be challenging without quantization or distillation. [13365992b056843c]\n- Modality/output limitations:\n  - Model is designed to generate textual outputs; if your stack requires high-quality TTS, streaming partial hypotheses, or non-text outputs (e.g., embeddings for downstream models), these are not described and may require additional components. [79ac0204d0e04b95]\n- Benchmark vs. production gap:\n  - While AIR-Bench is argued to be more realistic, it is still a curated benchmark; domain-specific accents, noise profiles, or languages outside the reported datasets may underperform and require adaptation. [f00f06d5c87798bd][385ff7e8b850270a]\n- Integration complexity:\n  - Existing pipelines that rely on explicit task separation (ASR → NLU → TTS, or separate SER/VSC models) may need architectural changes to route everything through a single LALM and to reinterpret outputs as structured signals.\n- Safety and control:\n  - DPO improves “adherence to desired behavior,” but there is no detailed description of safety filters or enterprise controls; if you currently rely on strict content filters or deterministic ASR, moving to a generative LALM may introduce moderation and consistency challenges. [8e112c12da609d29][22413225fdfb6984]\n\n## Next Steps\n- Capability fit analysis\n  - Map your current audio stack (ASR, translation, intent/SLU, SER, sound classification, conversational agent) to Qwen2-Audio’s demonstrated tasks (ASR, S2TT, SER, VSC, chat) to identify which components can be fully replaced vs. where you still need specialized models. [385ff7e8b850270a][f00f06d5c87798bd]\n- Prototype deployment\n  - Stand up a GPU-backed service for Qwen2-Audio (8.2B params) and run side-by-side evaluations against your existing stack on representative traffic: WER, latency, user satisfaction, and failure modes (e.g., noisy audio, overlapping speakers). [13365992b056843c][1694ba335df35a5e]\n- Mode and UX design\n  - Exploit the unified “no explicit mode switch” design by simplifying client logic: send raw audio plus optional text instructions and rely on the model to infer whether to perform analysis or chat; validate this behavior on your key use cases. [1694ba335df35a5e][ea930ac5b9eec0ec][8e112c12da609d29]\n- Performance and cost optimization\n  - Experiment with quantization or model parallelism to meet your latency and cost targets; if necessary, consider a tiered architecture (Qwen2-Audio for complex/mixed-audio or conversational tasks, lighter ASR for simple transcription). [13365992b056843c]\n- Domain adaptation and evaluation\n  - Build an internal benchmark mirroring AIR-Bench’s multi-task style but using your domain audio (languages, accents, noise, device types) to verify that Qwen2-Audio’s SOTA results translate to your environment. [f00f06d5c87798bd][72731f2bb643e959]\n- Governance and safety\n  - Define policies for generative outputs (hallucinations, sensitive content) and, if needed, wrap Qwen2-Audio with additional moderation or post-processing layers, especially if replacing deterministic ASR or rule-based components. [8e112c12da609d29][22413225fdfb6984]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- Qwen2-Audio is a unified Large Audio-Language Model (LALM) that accepts diverse audio (speech, sound, music, mixed) plus text and outputs text, with integrated “audio analysis” and “voice chat” modes that require no explicit mode switching by users. [8e112c12da609d29][1694ba335df35a5e][294a839d7019260e][ea930ac5b9eec0ec]\n- Architecturally, it uses a Whisper-large-v3–initialized audio encoder and a Qwen-7B language model, totaling 8.2B parameters, implying GPU-class deployment requirements similar to other ~7–8B LLMs. [13365992b056843c]\n- The model is positioned as a general-purpose audio stack: ASR, speech translation, emotion and sound classification, and open-ended spoken dialogue, with strong instruction-following and real-world-oriented evaluation. [79ac0204d0e04b95][f00f06d5c87798bd][22413225fdfb6984]\n\n## Key Findings\n- Qwen2-Audio is explicitly designed as a single model for both offline audio analysis (files, multi-type audio) and online voice chat, matching the goal of consolidating an audio stack into one system. [1694ba335df35a5e][294a839d7019260e][8e112c12da609d29]\n- The two interaction modes (audio analysis and voice chat) are jointly trained and seamlessly integrated; no system prompts or manual mode toggles are needed, simplifying application logic and UX. [ea930ac5b9eec0ec][8e112c12da609d29][1694ba335df35a5e]\n- Performance:\n  - ASR: 1.6% WER on LibriSpeech test-clean and 3.6% on test-other, outperforming previous multi-task models; on Fleurs zh it beats Whisper-large-v3 under comparable zero-shot conditions. [385ff7e8b850270a]\n  - Speech translation: Outperforms baselines “by a substantial margin” across seven CoVoST2 directions. [385ff7e8b850270a]\n  - SER and Vocal Sound Classification: Consistently and significantly better than baselines. [385ff7e8b850270a]\n  - AIR-Bench chat: SOTA instruction-following across speech, sound, music, and mixed-audio subsets, surpassing Qwen-Audio and other LALMs, and competitive with API models like Gemini. [72731f2bb643e959][f00f06d5c87798bd]\n- Training and alignment:\n  - Uses natural language prompts instead of hierarchical tags in pretraining, improving generalization and instruction following—important for flexible, multi-task deployment. [d7149e0022ccc38a][79ac0204d0e04b95]\n  - Three-stage process (pretraining, SFT, DPO) with expanded data volume and higher-quality SFT to improve dialogue quality, factuality, and adherence to desired behavior. [50703aaaba0e90f0][22413225fdfb6984][f59bacfc03b4d6bb][8e112c12da609d29]\n- Real-world orientation: Authors emphasize that many legacy SLU/SER benchmarks are not representative; AIR-Bench scores correlate better with actual user experience, suggesting the model is tuned for practical deployment scenarios rather than narrow benchmarks. [f00f06d5c87798bd]\n\n## Evidence\n- Unified capabilities and modes:\n  - Accepts “various audio signal inputs” and performs audio analysis or direct textual responses to speech instructions. [8e112c12da609d29]\n  - Two modes: Audio Analysis (offline, diverse audio types, commands via audio or text) and Voice Chat (online, free-form voice assistant), both available without explicit switching. [294a839d7019260e][1694ba335df35a5e][ea930ac5b9eec0ec]\n  - Example: Mixed audio with sounds, multi-speaker conversation, and a voice command; model extracts the command and responds appropriately. [8e112c12da609d29][1694ba335df35a5e]\n- Architecture and size:\n  - Audio encoder initialized from Whisper-large-v3; audio resampled to 16 kHz, converted to 128-channel mel-spectrogram (25 ms window, 10 ms hop), with pooling (stride 2) so each encoder frame ≈40 ms of audio. [13365992b056843c]\n  - Backbone LLM: Qwen-7B; total model size 8.2B parameters. [13365992b056843c]\n- Training and alignment:\n  - Replaces hierarchical tags with natural language prompts in pretraining, improving generalization and instruction following. [d7149e0022ccc38a][79ac0204d0e04b95]\n  - Three-stage training (pretraining, SFT, DPO) with expanded data volume and improved SFT data quantity/quality/complexity; DPO improves factuality and behavior alignment. [50703aaaba0e90f0][22413225fdfb6984][f59bacfc03b4d6bb][8e112c12da609d29]\n- Performance metrics:\n  - ASR: 1.6% WER (LibriSpeech test-clean), 3.6% (test-other); better than previous multi-task models; better than Whisper-large-v3 on Fleurs zh in zero-shot. [385ff7e8b850270a]\n  - Speech translation: Outperforms baselines on CoVoST2 across seven translation directions. [385ff7e8b850270a]\n  - SER & VSC: “Consistently outperforms the baselines by a significant margin.” [385ff7e8b850270a]\n  - AIR-Bench: SOTA instruction-following across speech, sound, music, mixed-audio subsets; significantly better than Qwen-Audio and other LALMs; Gemini-1.5 comparison constrained by safety-filtered samples. [72731f2bb643e959]\n  - Evaluation covers ASR, S2TT, SER, VSC across 13 datasets; training data excludes evaluation sets to avoid leakage. [f00f06d5c87798bd]\n- Intended use and positioning:\n  - Described as a “large-scale audio-language model” with enhanced instruction-following and “two distinct audio interaction modes for voice chat and audio analysis,” enabling seamless voice and text interaction. [8e112c12da609d29][22413225fdfb6984]\n  - Objective metrics and case studies show “fluent and flexible voice interaction capability.” [22413225fdfb6984]\n  - Authors explicitly note AIR-Bench scores align better with real user interaction than traditional SLU/SER datasets. [f00f06d5c87798bd]\n\n## Risks\n- Compute and latency:\n  - 8.2B parameters with a Whisper-large-v3–scale encoder implies non-trivial GPU/TPU requirements; on-device or low-latency mobile deployment may be challenging without quantization or distillation. [13365992b056843c]\n- Modality/output limitations:\n  - Model is designed to generate textual outputs; if your stack requires high-quality TTS, streaming partial hypotheses, or non-text outputs (e.g., embeddings for downstream models), these are not described and may require additional components. [79ac0204d0e04b95]\n- Benchmark vs. production gap:\n  - While AIR-Bench is argued to be more realistic, it is still a curated benchmark; domain-specific accents, noise profiles, or languages outside the reported datasets may underperform and require adaptation. [f00f06d5c87798bd][385ff7e8b850270a]\n- Integration complexity:\n  - Existing pipelines that rely on explicit task separation (ASR → NLU → TTS, or separate SER/VSC models) may need architectural changes to route everything through a single LALM and to reinterpret outputs as structured signals.\n- Safety and control:\n  - DPO improves “adherence to desired behavior,” but there is no detailed description of safety filters or enterprise controls; if you currently rely on strict content filters or deterministic ASR, moving to a generative LALM may introduce moderation and consistency challenges. [8e112c12da609d29][22413225fdfb6984]\n\n## Next Steps\n- Capability fit analysis\n  - Map your current audio stack (ASR, translation, intent/SLU, SER, sound classification, conversational agent) to Qwen2-Audio’s demonstrated tasks (ASR, S2TT, SER, VSC, chat) to identify which components can be fully replaced vs. where you still need specialized models. [385ff7e8b850270a][f00f06d5c87798bd]\n- Prototype deployment\n  - Stand up a GPU-backed service for Qwen2-Audio (8.2B params) and run side-by-side evaluations against your existing stack on representative traffic: WER, latency, user satisfaction, and failure modes (e.g., noisy audio, overlapping speakers). [13365992b056843c][1694ba335df35a5e]\n- Mode and UX design\n  - Exploit the unified “no explicit mode switch” design by simplifying client logic: send raw audio plus optional text instructions and rely on the model to infer whether to perform analysis or chat; validate this behavior on your key use cases. [1694ba335df35a5e][ea930ac5b9eec0ec][8e112c12da609d29]\n- Performance and cost optimization\n  - Experiment with quantization or model parallelism to meet your latency and cost targets; if necessary, consider a tiered architecture (Qwen2-Audio for complex/mixed-audio or conversational tasks, lighter ASR for simple transcription). [13365992b056843c]\n- Domain adaptation and evaluation\n  - Build an internal benchmark mirroring AIR-Bench’s multi-task style but using your domain audio (languages, accents, noise, device types) to verify that Qwen2-Audio’s SOTA results translate to your environment. [f00f06d5c87798bd][72731f2bb643e959]\n- Governance and safety\n  - Define policies for generative outputs (hallucinations, sensitive content) and, if needed, wrap Qwen2-Audio with additional moderation or post-processing layers, especially if replacing deterministic ASR or rule-based components. [8e112c12da609d29][22413225fdfb6984]"
+  }
+}

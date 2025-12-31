@@ -1,0 +1,608 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "e3a908727085b349",
+  "created_at": "2025-12-31T07:37:07Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 16498,
+        "output_hash": "33357960e0ee47b0c1f55dad9c1ea8bcb7b98038",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "9722d5c8edf568cd",
+                        "a8ca5b1a0dde5a79",
+                        "33540da3db6c671f",
+                        "56f8d3ad2db2cf33"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "9722d5c8edf568cd",
+                          "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs, making it significantly faster compared to auto-regressive models."
+                        },
+                        {
+                          "chunk_id": "a8ca5b1a0dde5a79",
+                          "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+                        },
+                        {
+                          "chunk_id": "56f8d3ad2db2cf33",
+                          "quote": "VALL-E [Wang et al., 2023] is most related to Voicebox. It is a text conditioned LM trained on Encodec tokens"
+                        }
+                      ],
+                      "rationale": "Evidence states Voicebox is significantly faster than generic autoregressive models and describes VALL-E’s AR+NAR token pipeline, but does not provide concrete production latency or throughput comparisons specifically against VALL-E in a real deployment. Thus only theoretical/architectural speed advantages are supported."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "unknown",
+                      "evidence": [
+                        "1a61840ab4d20490",
+                        "a34d2601ab76a8e7"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1a61840ab4d20490",
+                          "quote": "Position Dependent Phones | true  | true"
+                        }
+                      ],
+                      "rationale": "Tables mention position dependent phones and phoneme-related settings but do not explain whether expensive phoneme alignment is required or whether raw audio+text suffices. Training data preprocessing details are missing."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No discussion of very long paragraph generation, stability over long durations, or voice drift artifacts is present in the retrieved chunks."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "392e962194b3c42b"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "392e962194b3c42b",
+                          "quote": "we show that a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model."
+                        }
+                      ],
+                      "rationale": "Authors describe a binary classifier that detects real vs generated speech, but there is no mention of watermarking or built-in watermark detectors. Safety tooling exists but is classifier-based, not watermark-based."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "partial",
+                      "evidence": [
+                        "a8ca5b1a0dde5a79",
+                        "9722d5c8edf568cd",
+                        "a34d2601ab76a8e7"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "a8ca5b1a0dde5a79",
+                          "quote": "flow-matching ... enables efficient and scalable training of CNFs via a simple vector field regression loss."
+                        },
+                        {
+                          "chunk_id": "a34d2601ab76a8e7",
+                          "quote": "we clip the gradient norm to 0.2 for training stability."
+                        }
+                      ],
+                      "rationale": "Text claims flow matching enables efficient, scalable training and mentions gradient clipping for stability, but provides no empirical comparison of training divergence rates versus other methods. Stability is implied, not rigorously contrasted."
+                    },
+                    {
+                      "id": "R6",
+                      "status": "unknown",
+                      "evidence": [
+                        "1a61840ab4d20490",
+                        "a34d2601ab76a8e7",
+                        "8630634a96d2c217",
+                        "a77580c2c85fd261"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1a61840ab4d20490",
+                          "quote": "Number of GPUs | 32    | 32"
+                        },
+                        {
+                          "chunk_id": "a34d2601ab76a8e7",
+                          "quote": "VB-En/VB-Multi audio models are trained for 500K/750K updates with an effective batch size of 240K frames."
+                        }
+                      ],
+                      "rationale": "Training uses 32 GPUs and 330M parameters, but there is no explicit statement about inference feasibility on consumer GPUs vs H100 clusters. Hardware requirements for deployment remain unspecified."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R2",
+                    "R3",
+                    "R6"
+                  ],
+                  "risks": [
+                    "Speed comparison is largely theoretical; no end-to-end production latency vs VALL-E is reported.",
+                    "Lack of clarity on phoneme alignment requirements may hide significant data preparation cost.",
+                    "No evidence on long-form stability; potential voice drift issues are unevaluated.",
+                    "Watermarking is absent; only a classifier-based detector is described, which may be brittle.",
+                    "Hardware requirements for practical deployment are unclear, risking underestimation of compute needs."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Evidence covers architectural speed advantages, quality vs VALL-E, and a classifier-based detector, but omits details on phoneme alignment needs, long-form drift behavior, and deployment hardware requirements.",
+              "missing_requirements": [
+                "R2",
+                "R3",
+                "R6"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate model architecture, training setup, and flow-matching advantages, while several user-specific concerns (alignment data, long-form drift, hardware) are not addressed.",
+              "redundant_pairs": [
+                [
+                  "a8ca5b1a0dde5a79",
+                  "9722d5c8edf568cd"
+                ],
+                [
+                  "1a61840ab4d20490",
+                  "8630634a96d2c217"
+                ],
+                [
+                  "a34d2601ab76a8e7",
+                  "1a61840ab4d20490"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Substantial budget was spent on architecture and training details, which only partially address the specific requirements. Key questions about phoneme alignment, long-form behavior, and deployment hardware remain unanswered.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "1a61840ab4d20490",
+                  "cost": 473,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "662857e5054c7f07",
+                  "cost": 207,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "116526bf44974ab0",
+                  "cost": 218,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "a34d2601ab76a8e7",
+                  "cost": 220,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "33540da3db6c671f",
+                  "cost": 387,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Important deployment questions (alignment data, hardware feasibility, long-form stability) are not answered by retrieved evidence.",
+              "Watermarking and robust safety mechanisms beyond a binary classifier are not documented.",
+              "Speed claims vs autoregressive models lack concrete production benchmarks, which may mislead operational expectations."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 14320,
+        "output_hash": "ac970699c9dc68ffc60e65292849204ff6e09bb8",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "The summary repeatedly claims Voicebox is significantly faster than typical autoregressive models, but the evidence only states this qualitatively without quantitative or production benchmarks.",
+              "The summary implies a direct speed comparison to VALL-E specifically, but no runtime or latency comparison to VALL-E is provided in the evidence.",
+              "The summary suggests operational recommendations (deployment strategy, NFEs sweeps, governance practices) that go beyond what is explicitly discussed in the cited chunks.",
+              "Some references in the evidence list appear to have incorrect chunk IDs (e.g., VALL-E tokenization cited as 56f8d3ad2db6c671f, which is not among the provided chunks)."
+            ],
+            "unsupported_claims": [
+              "Empirically, the flow-matching NAR approach achieves better or comparable quality, intelligibility, and style transfer than strong AR and NAR baselines while being significantly faster than typical AR models.",
+              "This AR+NAR token pipeline introduces sequential dependencies at the codebook/frame level, limiting parallelism and making inference slower than Voicebox’s continuous NAR flow.",
+              "Prefer flow-matched NAR CNFs like Voicebox over pure AR LMs for applications where latency and throughput are critical.",
+              "Implement policy and technical controls such as watermarking and usage logging to mitigate impersonation and fraud risks."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "a8ca5b1a0dde5a79",
+                "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+              },
+              {
+                "chunk_id": "9722d5c8edf568cd",
+                "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs, making it significantly faster compared to auto-regressive models."
+              },
+              {
+                "chunk_id": "33540da3db6c671f",
+                "quote": "VB-En      | 3.5 | 0.635 | 0.660     | 3.72"
+              },
+              {
+                "chunk_id": "a1acb2fee80cc7a3",
+                "quote": "Voicebox outperforms all baselines on all metrics in both cases."
+              },
+              {
+                "chunk_id": "392e962194b3c42b",
+                "quote": "a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R1: The paper states Voicebox can generate high quality speech with <10 NFEs and is 'significantly faster compared to auto-regressive models,' but provides no concrete production or wall-clock comparison to VALL-E specifically, so real production speed vs VALL-E is unknown.",
+                "confidence": 0.47,
+                "evidence": [
+                  "9722d5c8edf568cd",
+                  "33540da3db6c671f",
+                  "56f8d3ad2db2cf33"
+                ],
+                "notes": "Chunk 9722d5c8edf568cd claims Voicebox is significantly faster than autoregressive models in terms of NFEs, but there is no direct runtime or deployment comparison to VALL-E. Table 2 compares quality metrics, not speed. Thus, the question about real production speed vs VALL-E cannot be fully answered from the evidence."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R2: Training uses position-dependent phones and phoneme-related settings, but the chunks do not clearly state whether expensive phoneme-alignment data is required versus raw audio+text, so this is unknown.",
+                "confidence": 0.32,
+                "evidence": [
+                  "1a61840ab4d20490",
+                  "a34d2601ab76a8e7"
+                ],
+                "notes": "Table in 1a61840ab4d20490 lists 'Position Dependent Phones' and 'Phoneme Mask Percent', implying phoneme-level inputs, but there is no explicit description of alignment requirements or whether raw audio+text alone suffices."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R3: The provided chunks do not discuss behavior on very long paragraphs or any voice drift or degradation over long generations, so this is unknown.",
+                "confidence": 0.15,
+                "evidence": [],
+                "notes": "No chunk mentions long-form generation stability, drift, or artifacts over long paragraphs."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R4: The paper mentions a binary classifier that distinguishes real from generated speech, but does not mention watermark detectors; thus, watermarking appears absent and any watermark detectors would need to be built separately.",
+                "confidence": 0.63,
+                "evidence": [
+                  "392e962194b3c42b"
+                ],
+                "notes": "Chunk 392e962194b3c42b describes a real-vs-generated classifier as a safety measure. There is no mention of watermarking or watermark detectors in the provided evidence."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R5: Training stability of flow matching versus existing methods is not directly analyzed; gradient clipping is used 'for training stability', but there is no comparison of divergence rates, so relative stability is unknown.",
+                "confidence": 0.36,
+                "evidence": [
+                  "a34d2601ab76a8e7"
+                ],
+                "notes": "Chunk a34d2601ab76a8e7 notes gradient norm clipping 'for training stability', but does not compare flow matching stability to other objectives or report divergence statistics."
+              },
+              {
+                "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+                "answer": "R6: Training uses 32 GPUs and 330M-parameter models, but there is no explicit statement about inference hardware requirements; whether it can run on standard consumer GPUs versus large H100 clusters is unknown.",
+                "confidence": 0.34,
+                "evidence": [
+                  "8630634a96d2c217",
+                  "1a61840ab4d20490",
+                  "a34d2601ab76a8e7",
+                  "a77580c2c85fd261"
+                ],
+                "notes": "The chunks describe model size and training setup (32 GPUs, FP16), and a smaller ablation model, but do not specify inference memory or GPU class requirements."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "9722d5c8edf568cd",
+                  "a8ca5b1a0dde5a79",
+                  "33540da3db6c671f",
+                  "56f8d3ad2db2cf33"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "9722d5c8edf568cd",
+                    "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs, making it significantly faster compared to auto-regressive models."
+                  },
+                  {
+                    "chunk_id": "a8ca5b1a0dde5a79",
+                    "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+                  },
+                  {
+                    "chunk_id": "56f8d3ad2db2cf33",
+                    "quote": "VALL-E [Wang et al., 2023] is most related to Voicebox. It is a text conditioned LM trained on Encodec tokens"
+                  }
+                ],
+                "rationale": "Evidence states Voicebox is significantly faster than generic autoregressive models and describes VALL-E’s AR+NAR token pipeline, but does not provide concrete production latency or throughput comparisons specifically against VALL-E in a real deployment. Thus only theoretical/architectural speed advantages are supported."
+              },
+              {
+                "id": "R2",
+                "status": "unknown",
+                "evidence": [
+                  "1a61840ab4d20490",
+                  "a34d2601ab76a8e7"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1a61840ab4d20490",
+                    "quote": "Position Dependent Phones | true  | true"
+                  }
+                ],
+                "rationale": "Tables mention position dependent phones and phoneme-related settings but do not explain whether expensive phoneme alignment is required or whether raw audio+text suffices. Training data preprocessing details are missing."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No discussion of very long paragraph generation, stability over long durations, or voice drift artifacts is present in the retrieved chunks."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "392e962194b3c42b"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "392e962194b3c42b",
+                    "quote": "we show that a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model."
+                  }
+                ],
+                "rationale": "Authors describe a binary classifier that detects real vs generated speech, but there is no mention of watermarking or built-in watermark detectors. Safety tooling exists but is classifier-based, not watermark-based."
+              },
+              {
+                "id": "R5",
+                "status": "partial",
+                "evidence": [
+                  "a8ca5b1a0dde5a79",
+                  "9722d5c8edf568cd",
+                  "a34d2601ab76a8e7"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "a8ca5b1a0dde5a79",
+                    "quote": "flow-matching ... enables efficient and scalable training of CNFs via a simple vector field regression loss."
+                  },
+                  {
+                    "chunk_id": "a34d2601ab76a8e7",
+                    "quote": "we clip the gradient norm to 0.2 for training stability."
+                  }
+                ],
+                "rationale": "Text claims flow matching enables efficient, scalable training and mentions gradient clipping for stability, but provides no empirical comparison of training divergence rates versus other methods. Stability is implied, not rigorously contrasted."
+              },
+              {
+                "id": "R6",
+                "status": "unknown",
+                "evidence": [
+                  "1a61840ab4d20490",
+                  "a34d2601ab76a8e7",
+                  "8630634a96d2c217",
+                  "a77580c2c85fd261"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1a61840ab4d20490",
+                    "quote": "Number of GPUs | 32    | 32"
+                  },
+                  {
+                    "chunk_id": "a34d2601ab76a8e7",
+                    "quote": "VB-En/VB-Multi audio models are trained for 500K/750K updates with an effective batch size of 240K frames."
+                  }
+                ],
+                "rationale": "Training uses 32 GPUs and 330M parameters, but there is no explicit statement about inference feasibility on consumer GPUs vs H100 clusters. Hardware requirements for deployment remain unspecified."
+              }
+            ],
+            "missing_requirements": [
+              "R2",
+              "R3",
+              "R6"
+            ],
+            "risks": [
+              "Speed comparison is largely theoretical; no end-to-end production latency vs VALL-E is reported.",
+              "Lack of clarity on phoneme alignment requirements may hide significant data preparation cost.",
+              "No evidence on long-form stability; potential voice drift issues are unevaluated.",
+              "Watermarking is absent; only a classifier-based detector is described, which may be brittle.",
+              "Hardware requirements for practical deployment are unclear, risking underestimation of compute needs."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Evidence covers architectural speed advantages, quality vs VALL-E, and a classifier-based detector, but omits details on phoneme alignment needs, long-form drift behavior, and deployment hardware requirements.",
+        "missing_requirements": [
+          "R2",
+          "R3",
+          "R6"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate model architecture, training setup, and flow-matching advantages, while several user-specific concerns (alignment data, long-form drift, hardware) are not addressed.",
+        "redundant_pairs": [
+          [
+            "a8ca5b1a0dde5a79",
+            "9722d5c8edf568cd"
+          ],
+          [
+            "1a61840ab4d20490",
+            "8630634a96d2c217"
+          ],
+          [
+            "a34d2601ab76a8e7",
+            "1a61840ab4d20490"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Substantial budget was spent on architecture and training details, which only partially address the specific requirements. Key questions about phoneme alignment, long-form behavior, and deployment hardware remain unanswered.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "1a61840ab4d20490",
+            "cost": 473,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "662857e5054c7f07",
+            "cost": 207,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "116526bf44974ab0",
+            "cost": 218,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "a34d2601ab76a8e7",
+            "cost": 220,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "33540da3db6c671f",
+            "cost": 387,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Important deployment questions (alignment data, hardware feasibility, long-form stability) are not answered by retrieved evidence.",
+        "Watermarking and robust safety mechanisms beyond a binary classifier are not documented.",
+        "Speed claims vs autoregressive models lack concrete production benchmarks, which may mislead operational expectations."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "The summary repeatedly claims Voicebox is significantly faster than typical autoregressive models, but the evidence only states this qualitatively without quantitative or production benchmarks.",
+        "The summary implies a direct speed comparison to VALL-E specifically, but no runtime or latency comparison to VALL-E is provided in the evidence.",
+        "The summary suggests operational recommendations (deployment strategy, NFEs sweeps, governance practices) that go beyond what is explicitly discussed in the cited chunks.",
+        "Some references in the evidence list appear to have incorrect chunk IDs (e.g., VALL-E tokenization cited as 56f8d3ad2db6c671f, which is not among the provided chunks)."
+      ],
+      "unsupported_claims": [
+        "Empirically, the flow-matching NAR approach achieves better or comparable quality, intelligibility, and style transfer than strong AR and NAR baselines while being significantly faster than typical AR models.",
+        "This AR+NAR token pipeline introduces sequential dependencies at the codebook/frame level, limiting parallelism and making inference slower than Voicebox’s continuous NAR flow.",
+        "Prefer flow-matched NAR CNFs like Voicebox over pure AR LMs for applications where latency and throughput are critical.",
+        "Implement policy and technical controls such as watermarking and usage logging to mitigate impersonation and fraud risks."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "a8ca5b1a0dde5a79",
+          "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+        },
+        {
+          "chunk_id": "9722d5c8edf568cd",
+          "quote": "Voicebox can already generate very high quality speech with less than 10 NFEs, making it significantly faster compared to auto-regressive models."
+        },
+        {
+          "chunk_id": "33540da3db6c671f",
+          "quote": "VB-En      | 3.5 | 0.635 | 0.660     | 3.72"
+        },
+        {
+          "chunk_id": "a1acb2fee80cc7a3",
+          "quote": "Voicebox outperforms all baselines on all metrics in both cases."
+        },
+        {
+          "chunk_id": "392e962194b3c42b",
+          "quote": "a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R1: The paper states Voicebox can generate high quality speech with <10 NFEs and is 'significantly faster compared to auto-regressive models,' but provides no concrete production or wall-clock comparison to VALL-E specifically, so real production speed vs VALL-E is unknown.",
+          "confidence": 0.47,
+          "evidence": [
+            "9722d5c8edf568cd",
+            "33540da3db6c671f",
+            "56f8d3ad2db2cf33"
+          ],
+          "notes": "Chunk 9722d5c8edf568cd claims Voicebox is significantly faster than autoregressive models in terms of NFEs, but there is no direct runtime or deployment comparison to VALL-E. Table 2 compares quality metrics, not speed. Thus, the question about real production speed vs VALL-E cannot be fully answered from the evidence."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R2: Training uses position-dependent phones and phoneme-related settings, but the chunks do not clearly state whether expensive phoneme-alignment data is required versus raw audio+text, so this is unknown.",
+          "confidence": 0.32,
+          "evidence": [
+            "1a61840ab4d20490",
+            "a34d2601ab76a8e7"
+          ],
+          "notes": "Table in 1a61840ab4d20490 lists 'Position Dependent Phones' and 'Phoneme Mask Percent', implying phoneme-level inputs, but there is no explicit description of alignment requirements or whether raw audio+text alone suffices."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R3: The provided chunks do not discuss behavior on very long paragraphs or any voice drift or degradation over long generations, so this is unknown.",
+          "confidence": 0.15,
+          "evidence": [],
+          "notes": "No chunk mentions long-form generation stability, drift, or artifacts over long paragraphs."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R4: The paper mentions a binary classifier that distinguishes real from generated speech, but does not mention watermark detectors; thus, watermarking appears absent and any watermark detectors would need to be built separately.",
+          "confidence": 0.63,
+          "evidence": [
+            "392e962194b3c42b"
+          ],
+          "notes": "Chunk 392e962194b3c42b describes a real-vs-generated classifier as a safety measure. There is no mention of watermarking or watermark detectors in the provided evidence."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R5: Training stability of flow matching versus existing methods is not directly analyzed; gradient clipping is used 'for training stability', but there is no comparison of divergence rates, so relative stability is unknown.",
+          "confidence": 0.36,
+          "evidence": [
+            "a34d2601ab76a8e7"
+          ],
+          "notes": "Chunk a34d2601ab76a8e7 notes gradient norm clipping 'for training stability', but does not compare flow matching stability to other objectives or report divergence statistics."
+        },
+        {
+          "decision": "Evaluating Flow Matching vs. Autoregressive Models.",
+          "answer": "R6: Training uses 32 GPUs and 330M-parameter models, but there is no explicit statement about inference hardware requirements; whether it can run on standard consumer GPUs versus large H100 clusters is unknown.",
+          "confidence": 0.34,
+          "evidence": [
+            "8630634a96d2c217",
+            "1a61840ab4d20490",
+            "a34d2601ab76a8e7",
+            "a77580c2c85fd261"
+          ],
+          "notes": "The chunks describe model size and training setup (32 GPUs, FP16), and a smaller ablation model, but do not specify inference memory or GPU class requirements."
+        }
+      ]
+    }
+  }
+}

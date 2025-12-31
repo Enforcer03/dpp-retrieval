@@ -1,0 +1,506 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "d2344554ccf8a277",
+  "created_at": "2025-12-31T07:30:43Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10401,
+        "output_hash": "1313be990b0032ffb5e18831a4724ef706ff2ed5",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+                  "overall_verdict": "fail",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No chunks mention parameter count, VRAM usage, model size, or deployment hardware constraints, so fitness for 24GB GPUs cannot be assessed."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "The evidence discusses benchmarks and interaction modes but provides no latency, streaming, or time-to-first-token measurements for conversational use."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "There is no mention of maximum audio duration, context window for audio, or any hard cap like 30 seconds that would affect long files."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "1694ba335df35a5e",
+                        "6d8a1be0deaf050d",
+                        "f00f06d5c87798bd"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1694ba335df35a5e",
+                          "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms"
+                        },
+                        {
+                          "chunk_id": "6d8a1be0deaf050d",
+                          "quote": "Example showing Qwen2-Audio’s robustness in mixed audio analysis."
+                        },
+                        {
+                          "chunk_id": "f00f06d5c87798bd",
+                          "quote": "scores from AIR-Bench align more closely with the actual user interaction experience."
+                        }
+                      ],
+                      "rationale": "Evidence claims robustness on mixed audio and real-world style evaluation, implying some tolerance to complex audio, but does not explicitly address noisy backgrounds or whether noise is transcribed versus ignored."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "Safety behavior or refusal patterns for specific audio types are not described; SFT and DPO are mentioned but without concrete refusal policies."
+                    },
+                    {
+                      "id": "R6",
+                      "status": "partial",
+                      "evidence": [
+                        "94102e77dd4f199c",
+                        "44387cbdedde2d01"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "94102e77dd4f199c",
+                          "quote": "conditioning on audio representations and previous text sequences, where θ and φ denote the trainable parameters of the LLM and audio encoder respectively."
+                        },
+                        {
+                          "chunk_id": "44387cbdedde2d01",
+                          "quote": "Model Architecture"
+                        }
+                      ],
+                      "rationale": "The architecture separates parameters for the LLM and audio encoder, suggesting modular components, but there is no explicit statement about swapping encoders or interface stability, so future replaceability remains unclear."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R1",
+                    "R2",
+                    "R3",
+                    "R5"
+                  ],
+                  "risks": [
+                    "Lack of any deployment metrics (size, VRAM, latency) makes feasibility on existing GPU infrastructure unknown.",
+                    "No information on maximum audio length risks incompatibility with long-form audio use cases.",
+                    "Unclear robustness to noisy or crowded environments may degrade performance in real-world deployments.",
+                    "Safety and refusal behavior for different audio types is unspecified, posing potential false-positive or false-negative moderation risks.",
+                    "Modularity of the audio encoder is not guaranteed, so future architectural changes could require retraining or deep integration work."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "poor",
+              "notes": "Most deployment-focused requirements (model size, latency, audio length limits, safety refusals) are not addressed. Only mixed-audio robustness and the encoder–LLM separation receive partial coverage.",
+              "missing_requirements": [
+                "R1",
+                "R2",
+                "R3",
+                "R5"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks cover high-level capabilities, training, and benchmarks repeatedly without adding deployment details, while key operational metrics are absent.",
+              "redundant_pairs": [
+                [
+                  "22413225fdfb6984",
+                  "1694ba335df35a5e"
+                ],
+                [
+                  "f00f06d5c87798bd",
+                  "385ff7e8b850270a"
+                ],
+                [
+                  "0854d807595a9901",
+                  "f59bacfc03b4d6bb"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "The budget was spent on many citation and background chunks, but none provided the critical deployment metrics needed for the decision. Some high-cost chunks are mostly bibliographic or general evaluation.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "385ff7e8b850270a",
+                  "cost": 282,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "1694ba335df35a5e",
+                  "cost": 208,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "22413225fdfb6984",
+                  "cost": 160,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "f00f06d5c87798bd",
+                  "cost": 182,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "0854d807595a9901",
+                  "cost": 66,
+                  "yield": "low"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Decision-makers lack information on hardware fit and latency, so any consolidation decision based on this evidence would be speculative.",
+              "Absence of audio length limits and streaming details could lead to unexpected failures on long recordings.",
+              "Unspecified safety and refusal behavior may conflict with existing moderation policies or cause false positives.",
+              "Modularity of the audio encoder is not clearly documented, increasing integration and future migration risk."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 8455,
+        "output_hash": "9075df1559d78d730db39ae26f9c6ee75f18fe94",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "Summary makes several deployment- and operations-oriented claims (latency, infra sizing, replacing task-specific models) that are not supported by the provided chunks.",
+              "Claim that the model aims to replace task-specific models with a single generalist system is an extrapolation; the paper describes broad capabilities but not that explicit goal.",
+              "Statements about lack of very low-latency streaming ASR evidence and extreme-noise performance are framed as gaps, but they are speculative relative to the paper’s stated scope.",
+              "Next-step recommendations (canary rollout, monitoring metrics, governance processes) are reasonable advice but not grounded in the cited technical report.",
+              "Some risk statements about consolidation trade-offs (possible performance/latency sacrifice vs specialized systems) are conjectural and not evidenced in the chunks."
+            ],
+            "unsupported_claims": [
+              "The model is described as 'aiming to replace task-specific models with a single generalist system,' which is not explicitly stated in the evidence.",
+              "Implication that Qwen2-Audio can serve as a single-service 'audio gateway' replacing separate ASR, translation, and audio-understanding components is not directly supported.",
+              "Discussion of potential sacrifice of performance or latency versus highly optimized single-task systems is not backed by comparative deployment or latency data.",
+              "Recommendations about canary rollout, monitoring specific metrics, and governance processes are not drawn from the paper but from general best practices.",
+              "Statements about absence of evidence for very low-latency streaming ASR constraints and extreme-noise or domain-specific jargon tasks go beyond what the paper explicitly discusses."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "22413225fdfb6984",
+                "quote": "Qwen2-Audio… analyze various types of audio while also being endowed with voice interaction abilities."
+              },
+              {
+                "chunk_id": "1694ba335df35a5e",
+                "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+              },
+              {
+                "chunk_id": "ea930ac5b9eec0ec",
+                "quote": "both interaction modes were jointly trained… users will not experience mode differentiation during use."
+              },
+              {
+                "chunk_id": "94102e77dd4f199c",
+                "quote": "conditioning on audio representations and previous text sequences… where θ and φ denote… LLM and audio encoder."
+              },
+              {
+                "chunk_id": "f59bacfc03b4d6bb",
+                "quote": "we employ instruction-based fine-tuning"
+              },
+              {
+                "chunk_id": "0854d807595a9901",
+                "quote": "techniques to improve the ability of the model to align with human intent"
+              },
+              {
+                "chunk_id": "385ff7e8b850270a",
+                "quote": "it achieves a 1.6% and 3.6% WER on the librispeech test-clean and test-other datasets"
+              },
+              {
+                "chunk_id": "385ff7e8b850270a",
+                "quote": "Qwen2-Audio outperforms the baselines by a substantial margin across all seven translation directions."
+              },
+              {
+                "chunk_id": "f00f06d5c87798bd",
+                "quote": "we mainly evaluated performance directly on AIR-Bench."
+              },
+              {
+                "chunk_id": "a0c9924d6e9e718e",
+                "quote": "Code & Demo & Models: https://github.com/QwenLM/Qwen2-Audio"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+                "answer": "unknown",
+                "confidence": 0.1,
+                "evidence": [
+                  "22413225fdfb6984",
+                  "1694ba335df35a5e",
+                  "385ff7e8b850270a",
+                  "f00f06d5c87798bd",
+                  "a0c9924d6e9e718e"
+                ],
+                "notes": "The paper shows Qwen2-Audio supports ASR, S2TT, SER, VSC, and interactive audio analysis/voice chat, and provides code and models. However, there is no information on model size, VRAM requirements, latency, throughput, or hard audio-length limits, nor on safety refusal behavior or modularity of the audio encoder. Therefore, feasibility of consolidating an existing production audio stack, especially under constraints R1–R6, cannot be determined from the provided chunks."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+            "overall_verdict": "fail",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No chunks mention parameter count, VRAM usage, model size, or deployment hardware constraints, so fitness for 24GB GPUs cannot be assessed."
+              },
+              {
+                "id": "R2",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "The evidence discusses benchmarks and interaction modes but provides no latency, streaming, or time-to-first-token measurements for conversational use."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "There is no mention of maximum audio duration, context window for audio, or any hard cap like 30 seconds that would affect long files."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "1694ba335df35a5e",
+                  "6d8a1be0deaf050d",
+                  "f00f06d5c87798bd"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1694ba335df35a5e",
+                    "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms"
+                  },
+                  {
+                    "chunk_id": "6d8a1be0deaf050d",
+                    "quote": "Example showing Qwen2-Audio’s robustness in mixed audio analysis."
+                  },
+                  {
+                    "chunk_id": "f00f06d5c87798bd",
+                    "quote": "scores from AIR-Bench align more closely with the actual user interaction experience."
+                  }
+                ],
+                "rationale": "Evidence claims robustness on mixed audio and real-world style evaluation, implying some tolerance to complex audio, but does not explicitly address noisy backgrounds or whether noise is transcribed versus ignored."
+              },
+              {
+                "id": "R5",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "Safety behavior or refusal patterns for specific audio types are not described; SFT and DPO are mentioned but without concrete refusal policies."
+              },
+              {
+                "id": "R6",
+                "status": "partial",
+                "evidence": [
+                  "94102e77dd4f199c",
+                  "44387cbdedde2d01"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "94102e77dd4f199c",
+                    "quote": "conditioning on audio representations and previous text sequences, where θ and φ denote the trainable parameters of the LLM and audio encoder respectively."
+                  },
+                  {
+                    "chunk_id": "44387cbdedde2d01",
+                    "quote": "Model Architecture"
+                  }
+                ],
+                "rationale": "The architecture separates parameters for the LLM and audio encoder, suggesting modular components, but there is no explicit statement about swapping encoders or interface stability, so future replaceability remains unclear."
+              }
+            ],
+            "missing_requirements": [
+              "R1",
+              "R2",
+              "R3",
+              "R5"
+            ],
+            "risks": [
+              "Lack of any deployment metrics (size, VRAM, latency) makes feasibility on existing GPU infrastructure unknown.",
+              "No information on maximum audio length risks incompatibility with long-form audio use cases.",
+              "Unclear robustness to noisy or crowded environments may degrade performance in real-world deployments.",
+              "Safety and refusal behavior for different audio types is unspecified, posing potential false-positive or false-negative moderation risks.",
+              "Modularity of the audio encoder is not guaranteed, so future architectural changes could require retraining or deep integration work."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "poor",
+        "notes": "Most deployment-focused requirements (model size, latency, audio length limits, safety refusals) are not addressed. Only mixed-audio robustness and the encoder–LLM separation receive partial coverage.",
+        "missing_requirements": [
+          "R1",
+          "R2",
+          "R3",
+          "R5"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks cover high-level capabilities, training, and benchmarks repeatedly without adding deployment details, while key operational metrics are absent.",
+        "redundant_pairs": [
+          [
+            "22413225fdfb6984",
+            "1694ba335df35a5e"
+          ],
+          [
+            "f00f06d5c87798bd",
+            "385ff7e8b850270a"
+          ],
+          [
+            "0854d807595a9901",
+            "f59bacfc03b4d6bb"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "The budget was spent on many citation and background chunks, but none provided the critical deployment metrics needed for the decision. Some high-cost chunks are mostly bibliographic or general evaluation.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "385ff7e8b850270a",
+            "cost": 282,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "1694ba335df35a5e",
+            "cost": 208,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "22413225fdfb6984",
+            "cost": 160,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "f00f06d5c87798bd",
+            "cost": 182,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "0854d807595a9901",
+            "cost": 66,
+            "yield": "low"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Decision-makers lack information on hardware fit and latency, so any consolidation decision based on this evidence would be speculative.",
+        "Absence of audio length limits and streaming details could lead to unexpected failures on long recordings.",
+        "Unspecified safety and refusal behavior may conflict with existing moderation policies or cause false positives.",
+        "Modularity of the audio encoder is not clearly documented, increasing integration and future migration risk."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "Summary makes several deployment- and operations-oriented claims (latency, infra sizing, replacing task-specific models) that are not supported by the provided chunks.",
+        "Claim that the model aims to replace task-specific models with a single generalist system is an extrapolation; the paper describes broad capabilities but not that explicit goal.",
+        "Statements about lack of very low-latency streaming ASR evidence and extreme-noise performance are framed as gaps, but they are speculative relative to the paper’s stated scope.",
+        "Next-step recommendations (canary rollout, monitoring metrics, governance processes) are reasonable advice but not grounded in the cited technical report.",
+        "Some risk statements about consolidation trade-offs (possible performance/latency sacrifice vs specialized systems) are conjectural and not evidenced in the chunks."
+      ],
+      "unsupported_claims": [
+        "The model is described as 'aiming to replace task-specific models with a single generalist system,' which is not explicitly stated in the evidence.",
+        "Implication that Qwen2-Audio can serve as a single-service 'audio gateway' replacing separate ASR, translation, and audio-understanding components is not directly supported.",
+        "Discussion of potential sacrifice of performance or latency versus highly optimized single-task systems is not backed by comparative deployment or latency data.",
+        "Recommendations about canary rollout, monitoring specific metrics, and governance processes are not drawn from the paper but from general best practices.",
+        "Statements about absence of evidence for very low-latency streaming ASR constraints and extreme-noise or domain-specific jargon tasks go beyond what the paper explicitly discusses."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "22413225fdfb6984",
+          "quote": "Qwen2-Audio… analyze various types of audio while also being endowed with voice interaction abilities."
+        },
+        {
+          "chunk_id": "1694ba335df35a5e",
+          "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+        },
+        {
+          "chunk_id": "ea930ac5b9eec0ec",
+          "quote": "both interaction modes were jointly trained… users will not experience mode differentiation during use."
+        },
+        {
+          "chunk_id": "94102e77dd4f199c",
+          "quote": "conditioning on audio representations and previous text sequences… where θ and φ denote… LLM and audio encoder."
+        },
+        {
+          "chunk_id": "f59bacfc03b4d6bb",
+          "quote": "we employ instruction-based fine-tuning"
+        },
+        {
+          "chunk_id": "0854d807595a9901",
+          "quote": "techniques to improve the ability of the model to align with human intent"
+        },
+        {
+          "chunk_id": "385ff7e8b850270a",
+          "quote": "it achieves a 1.6% and 3.6% WER on the librispeech test-clean and test-other datasets"
+        },
+        {
+          "chunk_id": "385ff7e8b850270a",
+          "quote": "Qwen2-Audio outperforms the baselines by a substantial margin across all seven translation directions."
+        },
+        {
+          "chunk_id": "f00f06d5c87798bd",
+          "quote": "we mainly evaluated performance directly on AIR-Bench."
+        },
+        {
+          "chunk_id": "a0c9924d6e9e718e",
+          "quote": "Code & Demo & Models: https://github.com/QwenLM/Qwen2-Audio"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+          "answer": "unknown",
+          "confidence": 0.1,
+          "evidence": [
+            "22413225fdfb6984",
+            "1694ba335df35a5e",
+            "385ff7e8b850270a",
+            "f00f06d5c87798bd",
+            "a0c9924d6e9e718e"
+          ],
+          "notes": "The paper shows Qwen2-Audio supports ASR, S2TT, SER, VSC, and interactive audio analysis/voice chat, and provides code and models. However, there is no information on model size, VRAM requirements, latency, throughput, or hard audio-length limits, nor on safety refusal behavior or modularity of the audio encoder. Therefore, feasibility of consolidating an existing production audio stack, especially under constraints R1–R6, cannot be determined from the provided chunks."
+        }
+      ]
+    }
+  }
+}

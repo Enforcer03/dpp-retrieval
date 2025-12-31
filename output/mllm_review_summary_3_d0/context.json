@@ -1,0 +1,1044 @@
+{
+  "run_id": "53c3f87536a0ffaa",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/mllm_review.pdf",
+  "query": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.",
+  "retrieval_query": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.\n\nANCHOR:\n- Focus on “multimodal large language models” (MLLMs), “vision-language models” (VLMs), “LVLMs”, “foundation models” combining text, image, audio, video; look for taxonomy/architecture overviews and historical evolution sections.\n- Identify key trends in model architectures: encoder-decoder vs decoder-only, modality encoders (ViT, CNN, CLIP, BEiT), alignment modules (projection layers, Q-Former, cross-attention), unified token spaces, and instruction tuning for multimodal inputs.\n- Extract benchmarks and evaluation trends: VQA (VQAv2, GQA), captioning (MS-COCO), retrieval (Flickr30k), reasoning (MMMU, MME, MMBench, SEED-Bench), OCR-heavy tasks (TextVQA, DocVQA), and metrics like BLEU, CIDEr, ROUGE, accuracy.\n- Note representative models and baselines: Flamingo, PaLI, PaLM-E, GPT-4V(ision), Gemini, LLaVA, BLIP-2, Kosmos, MiniGPT-4, InstructBLIP, Qwen-VL, and open-source vs proprietary trends.\n- Look for sections on applications and evidence: multimodal reasoning, tool use, embodied agents/robotics, medical imaging, document understanding, and real-world deployment case studies.\n- Identify discussed risks and limitations: hallucinations in multimodal settings, robustness, spurious correlations, dataset bias, privacy, copyright, safety/abuse vectors, and evaluation gaps for reliability.\n- Search for “future work”, “open challenges”, or “resear...[TRUNCATED]",
+  "task": {
+    "user_instruction": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.",
+    "retrieval_query": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.\n\nANCHOR:\n- Focus on “multimodal large language models” (MLLMs), “vision-language models” (VLMs), “LVLMs”, “foundation models” combining text, image, audio, video; look for taxonomy/architecture overviews and historical evolution sections.\n- Identify key trends in model architectures: encoder-decoder vs decoder-only, modality encoders (ViT, CNN, CLIP, BEiT), alignment modules (projection layers, Q-Former, cross-attention), unified token spaces, and instruction tuning for multimodal inputs.\n- Extract benchmarks and evaluation trends: VQA (VQAv2, GQA), captioning (MS-COCO), retrieval (Flickr30k), reasoning (MMMU, MME, MMBench, SEED-Bench), OCR-heavy tasks (TextVQA, DocVQA), and metrics like BLEU, CIDEr, ROUGE, accuracy.\n- Note representative models and baselines: Flamingo, PaLI, PaLM-E, GPT-4V(ision), Gemini, LLaVA, BLIP-2, Kosmos, MiniGPT-4, InstructBLIP, Qwen-VL, and open-source vs proprietary trends.\n- Look for sections on applications and evidence: multimodal reasoning, tool use, embodied agents/robotics, medical imaging, document understanding, and real-world deployment case studies.\n- Identify discussed risks and limitations: hallucinations in multimodal settings, robustness, spurious correlations, dataset bias, privacy, copyright, safety/abuse vectors, and evaluation gaps for reliability.\n- Search for “future work”, “open challenges”, or “resear...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "cc48217508b5223f",
+      "7d142118c248be78",
+      "ee57897b07e7bb48",
+      "0a23e386024a84f1",
+      "a215da00386486ad",
+      "04f4dc3f87e0f4fa",
+      "02e36a964efea70a",
+      "4d334ceccef6adf5",
+      "587e7638e08e2451",
+      "d377d457e535ab50",
+      "d814224b3e1a0176",
+      "eca57f1482fcaa2e",
+      "7c57bb5b54d4bff7",
+      "7ee66b81f4335a4d",
+      "7fd88eb3f133cbc7",
+      "e4a52ad0e149962e",
+      "99c82fc8f00439fb",
+      "154bd532c76a2233",
+      "257a5ede49aac7fd",
+      "f509249fe42f7c0b",
+      "124d2d04a7c7e545",
+      "f58922a6a6db6540",
+      "298a03d35ceaa8fd",
+      "e290af259e47ffad",
+      "0aa52b555a560aa0",
+      "3b6be3edd259c18e",
+      "c4511a9ae3ccabc3",
+      "405a3c69de7820dc",
+      "615b9bb0b00f06c5",
+      "9aa98ea88197007d",
+      "d38c0ec93c724b37",
+      "12afee02edb3bf64",
+      "be2712ee1077a158",
+      "2bffbd74142e8ad7",
+      "a4b34339102511e5",
+      "4e270d95aa6cca02"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 5022
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "cc48217508b5223f",
+      "content": {
+        "text": "A Comprehensive Review of Multimodal Large Language Models: Performance and Challenges Across Different Tasks",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 17,
+        "importance_score": 0.015151515151515152
+      }
+    },
+    {
+      "chunk_id": "7d142118c248be78",
+      "content": {
+        "text": "Table III reviews and compares several representative video generation MLLMs, focusing on their architectural design, multimodal fusion, practical applications, and future research directions.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 31,
+        "importance_score": 0.005494505494505495
+      }
+    },
+    {
+      "chunk_id": "ee57897b07e7bb48",
+      "content": {
+        "text": "c) Multimodal Generation combining Images and Text:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 11,
+        "importance_score": 0.005076142131979695
+      }
+    },
+    {
+      "chunk_id": "0a23e386024a84f1",
+      "content": {
+        "text": "Speech recognition datasets LibriSpeech and GigaSpeech M-sets, and audio captioning datasets WavCaps and AudioCaps are used as pre-training datasets, and datasets under multiple tasks are used for instruction fine-tuning.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 45,
+        "importance_score": 0.005
+      }
+    },
+    {
+      "chunk_id": "a215da00386486ad",
+      "content": {
+        "text": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former, the position embeddings, and linear layers in both branches. The image encoder, audio encoder, and the final LLM is frozen during training. This work only reports the results experiments without presenting quantitative metrics to evaluate Video-LLaMA.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 69,
+        "importance_score": 0.0064516129032258064
+      }
+    },
+    {
+      "chunk_id": "04f4dc3f87e0f4fa",
+      "content": {
+        "text": "[88] Y. Li, H. Xu, H. Zhang, T. Chua, and S. Yan, “Vitron: A unified pixel-level vision LLM for understanding, generating, segmenting, editing, and translating,” 2024.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 53,
+        "importance_score": 0.007751937984496124
+      }
+    },
+    {
+      "chunk_id": "02e36a964efea70a",
+      "content": {
+        "text": "MiniGPT-4 is a multimodal model based on GPT-4 that combines text and image information, exhibiting excellent image understanding capabilities. MiniGPT-4 adopts a modular architecture design, which allows for rapid adaptation to various LLMs, enabling flexible understanding and reasoning",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 53,
+        "importance_score": 0.014925373134328358
+      }
+    },
+    {
+      "chunk_id": "4d334ceccef6adf5",
+      "content": {
+        "text": "We provide a systematic introduction to the current state-of-the-art in MLLMs. From the task perspective, we analyze the application of MLLMs in different tasks, including contributions and performance in natural language, visual and auditory tasks. However, despite their success in real-world applications, these models still face several challenges.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 64,
+        "importance_score": 0.005050505050505051
+      }
+    },
+    {
+      "chunk_id": "587e7638e08e2451",
+      "content": {
+        "text": "[107] A. Awadalla, L. Gao, J. Gardner, J. Hessel, Y. Han, Y. Zhu, K. Marda, Y. Bitton, S. Gadre, S. Sagawa et al., “Openflamingo: an open-source framework for training large autoregressive vision-language models,” arXiv preprint arXiv:2308.01390, 2023.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 90,
+        "importance_score": 0.006578947368421052
+      }
+    },
+    {
+      "chunk_id": "d377d457e535ab50",
+      "content": {
+        "text": "During training, X-InstructionBLIP freezes the parameters of the Q-Former used for extracting modality features and the top LLM. Only the Q-Former responsible for modal interaction and the projection layer are trained. Furthermore, X-InstructionBLIP outperforms other models in test tasks across 3D, audio, image, and silent video modalities.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 72,
+        "importance_score": 0.007462686567164179
+      }
+    },
+    {
+      "chunk_id": "d814224b3e1a0176",
+      "content": {
+        "text": "Besides MiniGPT-4 and InstructBLIP, there are other noteworthy multimodal models that also play significant roles in image understanding tasks. 3DMIT employs advanced three-dimensional information processing technology, enabling deep understanding and analysis of 3D images. GroundingGPT focuses on effectively correlating natural language and visual information to achieve cross-modal understanding and reasoning. Models like ModaVerse, Story-yo, LLaVA-MOLE, and CogCoM also exhibit outstanding image understanding capabilities to varying degrees, each with unique features and advantages, contributing significantly to image understanding tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 115,
+        "importance_score": 0.01282051282051282
+      }
+    },
+    {
+      "chunk_id": "eca57f1482fcaa2e",
+      "content": {
+        "text": "<b>Universal Encoder:</b> A more recent innovation is the universal encoder, which aims to standardize the encoding process across highly diverse data types, including audio, video, and functional Magnetic Resonance Imaging (fMRI). This encoder leverages a generalized approach to handle and integrate multiple forms of data, promoting consistency and efficiency in data processing. Each of these encoders converts raw inputs into feature vectors, which are then transformed into a fixed-length feature sequence. This standardization is critical as it prepares the data for further processing, ensuring that the subsequent layers of the model can perform feature fusion and decoding effectively.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 122,
+        "importance_score": 0.004807692307692308
+      }
+    },
+    {
+      "chunk_id": "7c57bb5b54d4bff7",
+      "content": {
+        "text": "Looking ahead, the research directions for video generation MLLMs should focus on developing more efficient model architectures and training techniques to reduce computational costs while maintaining performance. Exploring advanced multimodal fusion mechanisms, such as hierarchical fusion and cross-modal attention, can further enhance interactions between different modalities. Incorporating external knowledge, including commonsense and causal relationships, can improve the models’ understanding and reasoning capabilities. Enhanced model interpretability and controllability to support user customization and specific constraints is another key area.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 96,
+        "importance_score": 0.007407407407407408
+      }
+    },
+    {
+      "chunk_id": "7ee66b81f4335a4d",
+      "content": {
+        "text": "for different types of images. The model utilizes advanced inference agents and text generators to accurately describe and infer information from images, providing strong support for image understanding tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 32,
+        "importance_score": 0.005319148936170213
+      }
+    },
+    {
+      "chunk_id": "7fd88eb3f133cbc7",
+      "content": {
+        "text": "generate subsequent feature representations based on prior input modality information. During training, these models first train multimodal alignment using image caption datasets, followed by instruction tuning with various data to generate more compliant videos. Given the representative architecture and training methods of the NeXT-GPT model, we provide a detailed introduction of NeXT-GPT in terms of model architecture, dataset usage, training methods, and evaluation results.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 80,
+        "importance_score": 0.006711409395973154
+      }
+    },
+    {
+      "chunk_id": "e4a52ad0e149962e",
+      "content": {
+        "text": "In addition, in the vision tasks, MLLMs significantly enhance improves task comprehension, analysis, and generation. Integrating textual descriptions and image instructions commands allow for more accurate tasks such as image classification, target detection, and image annotation. For instance, MLLMs such as GPT-4V [13], and Gemini [18] combine image content with natural language descriptions to produce more vivid and precise annotation results. These",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 84,
+        "importance_score": 0.007633587786259542
+      }
+    },
+    {
+      "chunk_id": "99c82fc8f00439fb",
+      "content": {
+        "text": "[58] H. Touron, T. Lavril, I. Zaccardi, K. Martinet, M.-A. Lachaud, L. Barroux, R. Boivineau, F. Gayad, L. Hembrooke, F. Acher, et al., “LLaVA: Open-ended embodied foundation language models,” arXiv preprint arXiv:2302.13971, 2023.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 95,
+        "importance_score": 0.004975124378109453
+      }
+    },
+    {
+      "chunk_id": "154bd532c76a2233",
+      "content": {
+        "text": "To summarize, the sophisticated architecture of multimodal large language models empowers them to tackle complex tasks by harnessing and synthesizing data across text, images, and audio. This capability not only enhances the performance of AI applications but also opens up new avenues for innovation in how we understand and interact with technology.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 60,
+        "importance_score": 0.014285714285714285
+      }
+    },
+    {
+      "chunk_id": "257a5ede49aac7fd",
+      "content": {
+        "text": "[94] J. Xiao, X. Shang, A. Yao, and T.-S. Chua, “Next-q: Next phase of question-answering via text-to-video retrieval,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, 2021, pp. 9777–9786.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 68,
+        "importance_score": 0.005649717514124294
+      }
+    },
+    {
+      "chunk_id": "f509249fe42f7c0b",
+      "content": {
+        "text": "MiniGPT-4 employs a two-stage training approach. The initial pre-training stage involves training the model on a large collection of aligned image-text pairs, keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer. This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs. The second fine-tuning stage addresses the limitations observed after the first stage, such as incoherent linguistic outputs. It fine-tunes the model using a smaller but high-quality dataset, significantly improving its generation reliability. This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 142,
+        "importance_score": 0.007246376811594203
+      }
+    },
+    {
+      "chunk_id": "124d2d04a7c7e545",
+      "content": {
+        "text": "InstructBLIP employs a two-stage training process. The first stage involves vision-language pretraining, initializing the model from pre-trained BLIP-2 checkpoints. Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen. The second stage, instruction tuning, involves training the model with a maximum of 60,000 steps, validating performance every 3,000 steps. The AdamW optimizer is used with specific hyperparameters, and training is conducted on 16 Nvidia A100 GPUs over 1.5 days. Inference involves generating responses for image captioning and open-ended VQA tasks, and using vocabulary ranking for classification and multi-choice VQA tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 143,
+        "importance_score": 0.007936507936507936
+      }
+    },
+    {
+      "chunk_id": "f58922a6a6db6540",
+      "content": {
+        "text": "In the following contents, the image tasks of MLLMs encompass two main areas: image understanding and image generation. These capabilities showcase the models’ ability to analyze and create visual content by integrating and leveraging multimodal data. The advancements in these tasks underscore the transformative impact of MLLMs in the realm of AI, promising continued innovation and expanded applications.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 70,
+        "importance_score": 0.00641025641025641
+      }
+    },
+    {
+      "chunk_id": "298a03d35ceaa8fd",
+      "content": {
+        "text": "Through deep fusion of language and vision, these models have demonstrated remarkable performance surpassing single-modal models in tasks such as image understanding, question answering, and generation. In the future, research on image MLLMs will focus on optimizing model architectures, innovating multimodal fusion, constructing large-scale datasets, flexibly adapting to downstream tasks, and addressing challenges in interpretability, fairness, and privacy protection. As research continues to advance, image MLLMs are expected to find widespread applications in areas such as smart cities, autonomous driving, and medical image processing, providing intelligent and efficient assistance for human cognition and decision-making. At the same time, the development of this field will also bring significant enrichment and transformation to human perception, reasoning, and interaction in artificial intelligence, bringing more intelligent, natural, and human-centric human-machine collaboration experiences.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 166,
+        "importance_score": 0.010101010101010102
+      }
+    },
+    {
+      "chunk_id": "e290af259e47ffad",
+      "content": {
+        "text": "Lastly, the multimodal output decoder reconstructs the fused, integrated multimodal information back into a usable form tailored to specific tasks, such as Image captioning, the Decoder might generate descriptive text based on visual inputs. Video summarization tasks could produce annotations or summaries combining both visual and auditory data. Each Decoder is meticulously designed to optimize accuracy and quality, ensuring that the output precisely reflects the combined insights gained from the integrated modalities.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 85,
+        "importance_score": 0.008333333333333333
+      }
+    },
+    {
+      "chunk_id": "0aa52b555a560aa0",
+      "content": {
+        "text": "language features, but also introduce higher computational overhead. Some of the latest models, such as LLaVA-NeXT-Video [60] and Video-LLaMA-2 [64], attempt to introduce more advanced multimodal fusion modules, such as Self-Attention and Cross-Attention, further enhancing model performance. Innovations in multimodal fusion techniques will be a crucial driving force for the development of MLLMs.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 85,
+        "importance_score": 0.015873015873015872
+      }
+    },
+    {
+      "chunk_id": "3b6be3edd259c18e",
+      "content": {
+        "text": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities—such as text, images, and audio—into a shared semantic space. Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms (as utilized in LWM’s Transformer structure). Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 90,
+        "importance_score": 0.013888888888888888
+      }
+    },
+    {
+      "chunk_id": "c4511a9ae3ccabc3",
+      "content": {
+        "text": "MM-Interleaved is an end-to-end generative model designed for interleaved image-text data. It integrates a Visual Foundation Model (VFM), a LLM, and a Diffusion Model (DM) to handle both text and image generation tasks effectively. The architecture comprises three key components: a VFM-based Image Tokenizer that uses a pre-trained vision model, such as CLIP-ViT, to extract image features, which are then processed by a Perceiver Resampler to map each image to a fixed number of visual tokens; an LLM-based Multi-modal Model that utilizes a pre-trained LLM, such as Vicuna, to extract context features from interleaved image-text sequences; and a Diffusion Model used for generating images from text inputs by leveraging the strengths of denoising-diffusion probabilistic models. The integration of these components allows the system to preserve fine-grained image details and handle multiple images efficiently, reducing the computational and memory demands typically associated with multi-image scenarios.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 204,
+        "importance_score": 0.008064516129032258
+      }
+    },
+    {
+      "chunk_id": "405a3c69de7820dc",
+      "content": {
+        "text": "Another innovative model is MM-Interleaved [52], which builds upon the Multimodal Feature Synchronizer (MMFS). MMFS improves efficiency in extracting visual details for MLLMs by reducing the required number of visual annotations. MM-Interleaved optimizes the interaction between text and images through end-to-end training, particularly suitable for tasks requiring dynamic and efficient image attention mechanisms. It demonstrates remarkable performance across various multimodal benchmarks, highlighting its potential and advantages in image generation tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 98,
+        "importance_score": 0.012048192771084338
+      }
+    },
+    {
+      "chunk_id": "615b9bb0b00f06c5",
+      "content": {
+        "text": "In the realm of image understanding, MLLMs excel at interpreting and extracting meaningful information from images. They can identify objects, understand scenes, and even infer relationships between elements within an image. By combining visual data with textual descriptions, these models can provide comprehensive analyses that surpass traditional image processing methods. For instance, an MLLM can analyze a photograph to identify the objects present, describe their interactions, and correlate this with relevant textual information, offering a nuanced understanding of the visual content.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 97,
+        "importance_score": 0.0049504950495049506
+      }
+    },
+    {
+      "chunk_id": "9aa98ea88197007d",
+      "content": {
+        "text": "As model sizes continue to expand, there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one. On the one hand, creating general General Artificial Intelligence Generated Content systems to address a wide range of real-world tasks is an attractive goal. However, increasing evidence suggests that smaller, more targeted models can deliver superior performance in specific domains. Therefore, finding the right balance between generality and specialization—ensuring that multimodal large language models can excel in specific tasks while maintaining strong generalization capabilities—has become a pivotal issue for future research.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 122,
+        "importance_score": 0.00980392156862745
+      }
+    },
+    {
+      "chunk_id": "d38c0ec93c724b37",
+      "content": {
+        "text": "The development of image understanding technologies in MLLMs has grown through several stages, each building on the previous one. These stages reflect the evolution from early reliance on traditional feature extraction methods to the current widespread application of deep learning technologies, resulting in a diverse range of research achievements and innovations. The following are the developmental stages of image understanding techniques in MLLMs: 1. Image understanding based on traditional feature extraction methods; 2. Application of deep learning technologies in image understanding; 3. Multimodal image understanding and cross-modal learning; 4. Application of reinforcement learning in image understanding; 5. Integration of image generation and understanding.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 130,
+        "importance_score": 0.005555555555555556
+      }
+    },
+    {
+      "chunk_id": "12afee02edb3bf64",
+      "content": {
+        "text": "The adaptation and transfer capabilities of image MLLMs on downstream tasks have received significant attention. Some models employ universal instruction fine-tuning methods. For example, MiniGPT-4 [41] and LLaVA [49] achieve rapid adaptation to tasks such as image classification, object detection, and image-text generation by fine-tuning on task-specific data. Other models explore more efficient transfer learning methods. LLaMA-Adapter V2 [110], for instance, achieves fast adaptation to downstream tasks through learnable adapter modules while keeping the pre-trained model fixed. Yi-VL [111] introduces knowledge extraction and enhancement techniques, improving the model’s performance on open-domain tasks by acquiring task-relevant information from external knowledge bases. These adaptation and transfer methods tailored for downstream tasks provide valuable references for the flexible deployment of image MLLMs in practical applications.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 170,
+        "importance_score": 0.004901960784313725
+      }
+    },
+    {
+      "chunk_id": "be2712ee1077a158",
+      "content": {
+        "text": "comprehension class, Qwen-Audio developed Qwen-Audio-chat by instruction-tune-fining to support multi-task training, solved the problem of transforming text labels in different datasets, and extended the training to dozens of datasets covering more than 30 tasks, 8 languages, and various types of audio in order to improve generalized audio comprehension [103]. Similarly, MACAW-LLM, to address the limitations of current multimodal datasets that primarily emphasize specific task types, created the MACAW-LLM instruction dataset that covers a wide range of instructional tasks and combines a variety of data modalities to make it more varied and suitable for multimodal instruction-tuned LLMs [12]. The superior generative capabilities of the current LLMs were utilized to manage this dataset to ensure that the target text is correctly aligned with human instructions. Gemini trains several modalities, including text, image, audio, and video, from scratch, using a Decoder-only model structure, optimized for structural and optimization goals to improve the stability of large-scale training and inference, with speech recognition and speech translation capabilities in audio tasks [18].",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 224,
+        "importance_score": 0.01
+      }
+    },
+    {
+      "chunk_id": "2bffbd74142e8ad7",
+      "content": {
+        "text": "To achieve LLMs with multimodal inputs and outputs, some researchers are exploring using LLMs as decision-makers and leveraging existing pre-trained multimodal encoders and decoders as tools for processing multimodal inputs and outputs, such as Visual-ChatGPT [87], HuggingGPT [25], and AudioGPT [26]. However, the output of these models heavily depends on the quality of the chosen decoder and has limited controllability. To achieve better generation results, subsequent methods incorporate decoders into the model training framework. For instance, NeXT-GPT [19] includes projection modules between the encoder and LLM and between the decoder and LLM. The projection module between the encoder and LLM, similar to those in video understanding models, ensures accurate alignment of each modality’s features to the LLM’s feature space. The projection module between the decoder and LLM maps the LLM’s output features into representations understandable by each decoder. In the Vitrion [88] model, researchers directly train the LLM to produce output features better suited for the decoder. The EMO [89] model uses a VAE to generate dynamic speaking videos based on a reference facial image and voice audio. There is another category of models that do not use LLMs, such as the Large World Model [90] based on autoregressive models, which can",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 272,
+        "importance_score": 0.015625
+      }
+    },
+    {
+      "chunk_id": "a4b34339102511e5",
+      "content": {
+        "text": "TABLE II\n\nSummary of MLLMs on Video Understanding\n\n| MLLM | Language Model | Architecture | Dataset | Parameters | Alignment Module | Inference |\n|------|----------------|--------------|---------|------------|------------------|-----------|\n| [UNCLEAR] | LLaMA | Encoder-Decoder | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | Vicuna | LLaVA | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | GPT-4 | [UNCLEAR] | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | LLaMA-2 | [UNCLEAR] | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | LLaMA-3 | [UNCLEAR] | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n\n[UNCLEAR: many entries in this table are too small or rotated to be read clearly, including several model names, dataset names, parameter counts, and inference details]",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 343,
+        "importance_score": 0.01023391812865497
+      }
+    },
+    {
+      "chunk_id": "4e270d95aa6cca02",
+      "content": {
+        "text": "TABLE I\n\nSummary of MLLMs on Image Tasks\n\n| MLLM | Base Model | Architecture | Dataset | Parameters | Alignment Module | Inference |\n|------|-----------|--------------|---------|------------|------------------|-----------|\n| LLaVA | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.5 | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.5-7B | Vicuna-7B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 7B | Linear layer | 7B A100 |\n| LLaVA-1.5-13B | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.5-34B | Vicuna-34B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 34B | Linear layer | 7B A100 |\n| LLaVA-1.6 | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.6-7B | Vicuna-7B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 7B | Linear layer | 7B A100 |\n| LLaVA-1.6-13B | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.6-34B | Vicuna-34B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 34B | Linear layer | 7B A100 |\n| LLaVA-1.6-65B | Vicuna-65B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 65B | Linear layer | 7B A100 |\n| LLaVA-1.6-70B | Vicuna-70B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 70B | Linear layer | 7B A100 |\n| LLaVA-1.6-80B | Vicuna-80B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 80B | Linear layer | 7B A100 |\n| LLaVA-1.6-90B | Vicuna-90B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 90B | Linear layer | 7B A100 |\n| LLaVA-1.6-100B | Vicuna-100B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 100B | Linear layer | 7B A100 |\n| LLaVA-1.6-110B | Vicuna-110B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 110B | Linear layer | 7B A100 |\n| LLaVA-1.6-120B | Vicuna-120B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 120B | Linear layer | 7B A100 |\n| LLaVA-1.6-130B | Vicuna-130B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 130B | Linear layer | 7B A100 |\n| LLaVA-1.6-140B | Vicuna-140B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 140B | Linear layer | 7B A100 |\n| LLaVA-1.6-150B | Vicuna-150B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 150B | Linear layer | 7B A100 |\n| LLaVA-1.6-160B | Vicuna-160B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 160B | Linear layer | 7B A100 |\n| LLaVA-1.6-170B | Vicuna-170B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 170B | Linear layer | 7B A100 |\n| LLaVA-1.6-180B | Vicuna-180B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 180B | Linear layer | 7B A100 |\n| LLaVA-1.6-190B | Vicuna-190B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 190B | Linear layer | 7B A100 |\n| LLaVA-1.6-200B | Vicuna-200B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 200B | Linear layer | 7B A100 |\n\n[UNCLEAR: remaining rows and some column entries are too small to read accurately]",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 1324,
+        "importance_score": 0.7103935098724364
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "cc48217508b5223f",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.015151515151515152,
+      "cost": 17,
+      "text": "A Comprehensive Review of Multimodal Large Language Models: Performance and Challenges Across Different Tasks",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7d142118c248be78",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005494505494505495,
+      "cost": 31,
+      "text": "Table III reviews and compares several representative video generation MLLMs, focusing on their architectural design, multimodal fusion, practical applications, and future research directions.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ee57897b07e7bb48",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005076142131979695,
+      "cost": 11,
+      "text": "c) Multimodal Generation combining Images and Text:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0a23e386024a84f1",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005,
+      "cost": 45,
+      "text": "Speech recognition datasets LibriSpeech and GigaSpeech M-sets, and audio captioning datasets WavCaps and AudioCaps are used as pre-training datasets, and datasets under multiple tasks are used for instruction fine-tuning.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a215da00386486ad",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0064516129032258064,
+      "cost": 69,
+      "text": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former, the position embeddings, and linear layers in both branches. The image encoder, audio encoder, and the final LLM is frozen during training. This work only reports the results experiments without presenting quantitative metrics to evaluate Video-LLaMA.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "04f4dc3f87e0f4fa",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.007751937984496124,
+      "cost": 53,
+      "text": "[88] Y. Li, H. Xu, H. Zhang, T. Chua, and S. Yan, “Vitron: A unified pixel-level vision LLM for understanding, generating, segmenting, editing, and translating,” 2024.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "02e36a964efea70a",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014925373134328358,
+      "cost": 53,
+      "text": "MiniGPT-4 is a multimodal model based on GPT-4 that combines text and image information, exhibiting excellent image understanding capabilities. MiniGPT-4 adopts a modular architecture design, which allows for rapid adaptation to various LLMs, enabling flexible understanding and reasoning",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "4d334ceccef6adf5",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005050505050505051,
+      "cost": 64,
+      "text": "We provide a systematic introduction to the current state-of-the-art in MLLMs. From the task perspective, we analyze the application of MLLMs in different tasks, including contributions and performance in natural language, visual and auditory tasks. However, despite their success in real-world applications, these models still face several challenges.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "587e7638e08e2451",
+      "page": 21,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.006578947368421052,
+      "cost": 90,
+      "text": "[107] A. Awadalla, L. Gao, J. Gardner, J. Hessel, Y. Han, Y. Zhu, K. Marda, Y. Bitton, S. Gadre, S. Sagawa et al., “Openflamingo: an open-source framework for training large autoregressive vision-language models,” arXiv preprint arXiv:2308.01390, 2023.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d377d457e535ab50",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007462686567164179,
+      "cost": 72,
+      "text": "During training, X-InstructionBLIP freezes the parameters of the Q-Former used for extracting modality features and the top LLM. Only the Q-Former responsible for modal interaction and the projection layer are trained. Furthermore, X-InstructionBLIP outperforms other models in test tasks across 3D, audio, image, and silent video modalities.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d814224b3e1a0176",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.01282051282051282,
+      "cost": 115,
+      "text": "Besides MiniGPT-4 and InstructBLIP, there are other noteworthy multimodal models that also play significant roles in image understanding tasks. 3DMIT employs advanced three-dimensional information processing technology, enabling deep understanding and analysis of 3D images. GroundingGPT focuses on effectively correlating natural language and visual information to achieve cross-modal understanding and reasoning. Models like ModaVerse, Story-yo, LLaVA-MOLE, and CogCoM also exhibit outstanding image understanding capabilities to varying degrees, each with unique features and advantages, contributing significantly to image understanding tasks.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "eca57f1482fcaa2e",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.004807692307692308,
+      "cost": 122,
+      "text": "<b>Universal Encoder:</b> A more recent innovation is the universal encoder, which aims to standardize the encoding process across highly diverse data types, including audio, video, and functional Magnetic Resonance Imaging (fMRI). This encoder leverages a generalized approach to handle and integrate multiple forms of data, promoting consistency and efficiency in data processing. Each of these encoders converts raw inputs into feature vectors, which are then transformed into a fixed-length feature sequence. This standardization is critical as it prepares the data for further processing, ensuring that the subsequent layers of the model can perform feature fusion and decoding effectively.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7c57bb5b54d4bff7",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007407407407407408,
+      "cost": 96,
+      "text": "Looking ahead, the research directions for video generation MLLMs should focus on developing more efficient model architectures and training techniques to reduce computational costs while maintaining performance. Exploring advanced multimodal fusion mechanisms, such as hierarchical fusion and cross-modal attention, can further enhance interactions between different modalities. Incorporating external knowledge, including commonsense and causal relationships, can improve the models’ understanding and reasoning capabilities. Enhanced model interpretability and controllability to support user customization and specific constraints is another key area.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7ee66b81f4335a4d",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005319148936170213,
+      "cost": 32,
+      "text": "for different types of images. The model utilizes advanced inference agents and text generators to accurately describe and infer information from images, providing strong support for image understanding tasks.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7fd88eb3f133cbc7",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006711409395973154,
+      "cost": 80,
+      "text": "generate subsequent feature representations based on prior input modality information. During training, these models first train multimodal alignment using image caption datasets, followed by instruction tuning with various data to generate more compliant videos. Given the representative architecture and training methods of the NeXT-GPT model, we provide a detailed introduction of NeXT-GPT in terms of model architecture, dataset usage, training methods, and evaluation results.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e4a52ad0e149962e",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007633587786259542,
+      "cost": 84,
+      "text": "In addition, in the vision tasks, MLLMs significantly enhance improves task comprehension, analysis, and generation. Integrating textual descriptions and image instructions commands allow for more accurate tasks such as image classification, target detection, and image annotation. For instance, MLLMs such as GPT-4V [13], and Gemini [18] combine image content with natural language descriptions to produce more vivid and precise annotation results. These",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "99c82fc8f00439fb",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.004975124378109453,
+      "cost": 95,
+      "text": "[58] H. Touron, T. Lavril, I. Zaccardi, K. Martinet, M.-A. Lachaud, L. Barroux, R. Boivineau, F. Gayad, L. Hembrooke, F. Acher, et al., “LLaVA: Open-ended embodied foundation language models,” arXiv preprint arXiv:2302.13971, 2023.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "154bd532c76a2233",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014285714285714285,
+      "cost": 60,
+      "text": "To summarize, the sophisticated architecture of multimodal large language models empowers them to tackle complex tasks by harnessing and synthesizing data across text, images, and audio. This capability not only enhances the performance of AI applications but also opens up new avenues for innovation in how we understand and interact with technology.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "257a5ede49aac7fd",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.005649717514124294,
+      "cost": 68,
+      "text": "[94] J. Xiao, X. Shang, A. Yao, and T.-S. Chua, “Next-q: Next phase of question-answering via text-to-video retrieval,” in Proceedings of the IEEE/CVF conference on computer vision and pattern recognition, 2021, pp. 9777–9786.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f509249fe42f7c0b",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007246376811594203,
+      "cost": 142,
+      "text": "MiniGPT-4 employs a two-stage training approach. The initial pre-training stage involves training the model on a large collection of aligned image-text pairs, keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer. This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs. The second fine-tuning stage addresses the limitations observed after the first stage, such as incoherent linguistic outputs. It fine-tunes the model using a smaller but high-quality dataset, significantly improving its generation reliability. This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "124d2d04a7c7e545",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007936507936507936,
+      "cost": 143,
+      "text": "InstructBLIP employs a two-stage training process. The first stage involves vision-language pretraining, initializing the model from pre-trained BLIP-2 checkpoints. Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen. The second stage, instruction tuning, involves training the model with a maximum of 60,000 steps, validating performance every 3,000 steps. The AdamW optimizer is used with specific hyperparameters, and training is conducted on 16 Nvidia A100 GPUs over 1.5 days. Inference involves generating responses for image captioning and open-ended VQA tasks, and using vocabulary ranking for classification and multi-choice VQA tasks.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f58922a6a6db6540",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.00641025641025641,
+      "cost": 70,
+      "text": "In the following contents, the image tasks of MLLMs encompass two main areas: image understanding and image generation. These capabilities showcase the models’ ability to analyze and create visual content by integrating and leveraging multimodal data. The advancements in these tasks underscore the transformative impact of MLLMs in the realm of AI, promising continued innovation and expanded applications.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "298a03d35ceaa8fd",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.010101010101010102,
+      "cost": 166,
+      "text": "Through deep fusion of language and vision, these models have demonstrated remarkable performance surpassing single-modal models in tasks such as image understanding, question answering, and generation. In the future, research on image MLLMs will focus on optimizing model architectures, innovating multimodal fusion, constructing large-scale datasets, flexibly adapting to downstream tasks, and addressing challenges in interpretability, fairness, and privacy protection. As research continues to advance, image MLLMs are expected to find widespread applications in areas such as smart cities, autonomous driving, and medical image processing, providing intelligent and efficient assistance for human cognition and decision-making. At the same time, the development of this field will also bring significant enrichment and transformation to human perception, reasoning, and interaction in artificial intelligence, bringing more intelligent, natural, and human-centric human-machine collaboration experiences.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e290af259e47ffad",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008333333333333333,
+      "cost": 85,
+      "text": "Lastly, the multimodal output decoder reconstructs the fused, integrated multimodal information back into a usable form tailored to specific tasks, such as Image captioning, the Decoder might generate descriptive text based on visual inputs. Video summarization tasks could produce annotations or summaries combining both visual and auditory data. Each Decoder is meticulously designed to optimize accuracy and quality, ensuring that the output precisely reflects the combined insights gained from the integrated modalities.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0aa52b555a560aa0",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015873015873015872,
+      "cost": 85,
+      "text": "language features, but also introduce higher computational overhead. Some of the latest models, such as LLaVA-NeXT-Video [60] and Video-LLaMA-2 [64], attempt to introduce more advanced multimodal fusion modules, such as Self-Attention and Cross-Attention, further enhancing model performance. Innovations in multimodal fusion techniques will be a crucial driving force for the development of MLLMs.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3b6be3edd259c18e",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.013888888888888888,
+      "cost": 90,
+      "text": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities—such as text, images, and audio—into a shared semantic space. Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms (as utilized in LWM’s Transformer structure). Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c4511a9ae3ccabc3",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008064516129032258,
+      "cost": 204,
+      "text": "MM-Interleaved is an end-to-end generative model designed for interleaved image-text data. It integrates a Visual Foundation Model (VFM), a LLM, and a Diffusion Model (DM) to handle both text and image generation tasks effectively. The architecture comprises three key components: a VFM-based Image Tokenizer that uses a pre-trained vision model, such as CLIP-ViT, to extract image features, which are then processed by a Perceiver Resampler to map each image to a fixed number of visual tokens; an LLM-based Multi-modal Model that utilizes a pre-trained LLM, such as Vicuna, to extract context features from interleaved image-text sequences; and a Diffusion Model used for generating images from text inputs by leveraging the strengths of denoising-diffusion probabilistic models. The integration of these components allows the system to preserve fine-grained image details and handle multiple images efficiently, reducing the computational and memory demands typically associated with multi-image scenarios.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "405a3c69de7820dc",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012048192771084338,
+      "cost": 98,
+      "text": "Another innovative model is MM-Interleaved [52], which builds upon the Multimodal Feature Synchronizer (MMFS). MMFS improves efficiency in extracting visual details for MLLMs by reducing the required number of visual annotations. MM-Interleaved optimizes the interaction between text and images through end-to-end training, particularly suitable for tasks requiring dynamic and efficient image attention mechanisms. It demonstrates remarkable performance across various multimodal benchmarks, highlighting its potential and advantages in image generation tasks.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "615b9bb0b00f06c5",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0049504950495049506,
+      "cost": 97,
+      "text": "In the realm of image understanding, MLLMs excel at interpreting and extracting meaningful information from images. They can identify objects, understand scenes, and even infer relationships between elements within an image. By combining visual data with textual descriptions, these models can provide comprehensive analyses that surpass traditional image processing methods. For instance, an MLLM can analyze a photograph to identify the objects present, describe their interactions, and correlate this with relevant textual information, offering a nuanced understanding of the visual content.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9aa98ea88197007d",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.00980392156862745,
+      "cost": 122,
+      "text": "As model sizes continue to expand, there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one. On the one hand, creating general General Artificial Intelligence Generated Content systems to address a wide range of real-world tasks is an attractive goal. However, increasing evidence suggests that smaller, more targeted models can deliver superior performance in specific domains. Therefore, finding the right balance between generality and specialization—ensuring that multimodal large language models can excel in specific tasks while maintaining strong generalization capabilities—has become a pivotal issue for future research.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d38c0ec93c724b37",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005555555555555556,
+      "cost": 130,
+      "text": "The development of image understanding technologies in MLLMs has grown through several stages, each building on the previous one. These stages reflect the evolution from early reliance on traditional feature extraction methods to the current widespread application of deep learning technologies, resulting in a diverse range of research achievements and innovations. The following are the developmental stages of image understanding techniques in MLLMs: 1. Image understanding based on traditional feature extraction methods; 2. Application of deep learning technologies in image understanding; 3. Multimodal image understanding and cross-modal learning; 4. Application of reinforcement learning in image understanding; 5. Integration of image generation and understanding.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "12afee02edb3bf64",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.004901960784313725,
+      "cost": 170,
+      "text": "The adaptation and transfer capabilities of image MLLMs on downstream tasks have received significant attention. Some models employ universal instruction fine-tuning methods. For example, MiniGPT-4 [41] and LLaVA [49] achieve rapid adaptation to tasks such as image classification, object detection, and image-text generation by fine-tuning on task-specific data. Other models explore more efficient transfer learning methods. LLaMA-Adapter V2 [110], for instance, achieves fast adaptation to downstream tasks through learnable adapter modules while keeping the pre-trained model fixed. Yi-VL [111] introduces knowledge extraction and enhancement techniques, improving the model’s performance on open-domain tasks by acquiring task-relevant information from external knowledge bases. These adaptation and transfer methods tailored for downstream tasks provide valuable references for the flexible deployment of image MLLMs in practical applications.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "be2712ee1077a158",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.01,
+      "cost": 224,
+      "text": "comprehension class, Qwen-Audio developed Qwen-Audio-chat by instruction-tune-fining to support multi-task training, solved the problem of transforming text labels in different datasets, and extended the training to dozens of datasets covering more than 30 tasks, 8 languages, and various types of audio in order to improve generalized audio comprehension [103]. Similarly, MACAW-LLM, to address the limitations of current multimodal datasets that primarily emphasize specific task types, created the MACAW-LLM instruction dataset that covers a wide range of instructional tasks and combines a variety of data modalities to make it more varied and suitable for multimodal instruction-tuned LLMs [12]. The superior generative capabilities of the current LLMs were utilized to manage this dataset to ensure that the target text is correctly aligned with human instructions. Gemini trains several modalities, including text, image, audio, and video, from scratch, using a Decoder-only model structure, optimized for structural and optimization goals to improve the stability of large-scale training and inference, with speech recognition and speech translation capabilities in audio tasks [18].",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "2bffbd74142e8ad7",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015625,
+      "cost": 272,
+      "text": "To achieve LLMs with multimodal inputs and outputs, some researchers are exploring using LLMs as decision-makers and leveraging existing pre-trained multimodal encoders and decoders as tools for processing multimodal inputs and outputs, such as Visual-ChatGPT [87], HuggingGPT [25], and AudioGPT [26]. However, the output of these models heavily depends on the quality of the chosen decoder and has limited controllability. To achieve better generation results, subsequent methods incorporate decoders into the model training framework. For instance, NeXT-GPT [19] includes projection modules between the encoder and LLM and between the decoder and LLM. The projection module between the encoder and LLM, similar to those in video understanding models, ensures accurate alignment of each modality’s features to the LLM’s feature space. The projection module between the decoder and LLM maps the LLM’s output features into representations understandable by each decoder. In the Vitrion [88] model, researchers directly train the LLM to produce output features better suited for the decoder. The EMO [89] model uses a VAE to generate dynamic speaking videos based on a reference facial image and voice audio. There is another category of models that do not use LLMs, such as the Large World Model [90] based on autoregressive models, which can",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a4b34339102511e5",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.01023391812865497,
+      "cost": 343,
+      "text": "TABLE II\n\nSummary of MLLMs on Video Understanding\n\n| MLLM | Language Model | Architecture | Dataset | Parameters | Alignment Module | Inference |\n|------|----------------|--------------|---------|------------|------------------|-----------|\n| [UNCLEAR] | LLaMA | Encoder-Decoder | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | Vicuna | LLaVA | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | GPT-4 | [UNCLEAR] | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | LLaMA-2 | [UNCLEAR] | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n| [UNCLEAR] | LLaMA-3 | [UNCLEAR] | COCO Caption, CC3M, CC12M, SBU, COCO Caption, OCR-VQA | [UNCLEAR] | Linear layer | 8 × A100 |\n\n[UNCLEAR: many entries in this table are too small or rotated to be read clearly, including several model names, dataset names, parameter counts, and inference details]",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "4e270d95aa6cca02",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.7103935098724364,
+      "cost": 1324,
+      "text": "TABLE I\n\nSummary of MLLMs on Image Tasks\n\n| MLLM | Base Model | Architecture | Dataset | Parameters | Alignment Module | Inference |\n|------|-----------|--------------|---------|------------|------------------|-----------|\n| LLaVA | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.5 | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.5-7B | Vicuna-7B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 7B | Linear layer | 7B A100 |\n| LLaVA-1.5-13B | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.5-34B | Vicuna-34B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 34B | Linear layer | 7B A100 |\n| LLaVA-1.6 | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.6-7B | Vicuna-7B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 7B | Linear layer | 7B A100 |\n| LLaVA-1.6-13B | Vicuna-13B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 13B | Linear layer | 7B A100 |\n| LLaVA-1.6-34B | Vicuna-34B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 34B | Linear layer | 7B A100 |\n| LLaVA-1.6-65B | Vicuna-65B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 65B | Linear layer | 7B A100 |\n| LLaVA-1.6-70B | Vicuna-70B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 70B | Linear layer | 7B A100 |\n| LLaVA-1.6-80B | Vicuna-80B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 80B | Linear layer | 7B A100 |\n| LLaVA-1.6-90B | Vicuna-90B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 90B | Linear layer | 7B A100 |\n| LLaVA-1.6-100B | Vicuna-100B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 100B | Linear layer | 7B A100 |\n| LLaVA-1.6-110B | Vicuna-110B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 110B | Linear layer | 7B A100 |\n| LLaVA-1.6-120B | Vicuna-120B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 120B | Linear layer | 7B A100 |\n| LLaVA-1.6-130B | Vicuna-130B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 130B | Linear layer | 7B A100 |\n| LLaVA-1.6-140B | Vicuna-140B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 140B | Linear layer | 7B A100 |\n| LLaVA-1.6-150B | Vicuna-150B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 150B | Linear layer | 7B A100 |\n| LLaVA-1.6-160B | Vicuna-160B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 160B | Linear layer | 7B A100 |\n| LLaVA-1.6-170B | Vicuna-170B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 170B | Linear layer | 7B A100 |\n| LLaVA-1.6-180B | Vicuna-180B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 180B | Linear layer | 7B A100 |\n| LLaVA-1.6-190B | Vicuna-190B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 190B | Linear layer | 7B A100 |\n| LLaVA-1.6-200B | Vicuna-200B | LLaVA | COCO, CC3M, CC12M, SBU, COCO Caption | 200B | Linear layer | 7B A100 |\n\n[UNCLEAR: remaining rows and some column entries are too small to read accurately]",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- Multimodal LLMs (MLLMs) have rapidly advanced from simple text–image systems to unified architectures handling text, images, audio, video, and even fMRI, with strong performance on understanding and generation tasks but persistent challenges in efficiency, controllability, data, and safety. [4d334ceccef6adf5][eca57f1482fcaa2e][154bd532c76a2233]\n\n## Key Findings\n- **Standardized architectural pattern**\n  - Common pipeline: modality-specific encoders → multimodal fusion (linear or attention-based) → LLM → task-specific decoders for text, image, video, or audio outputs. [3b6be3edd259c18e][eca57f1482fcaa2e][e290af259e47ffad]\n  - Universal encoders are emerging to handle diverse data types (audio, video, fMRI) into a shared feature sequence, simplifying integration and scaling. [eca57f1482fcaa2e]\n\n- **Image tasks are the most mature**\n  - Large family of LLaVA-style models (7B–80B) using frozen vision encoders + linear alignment to Vicuna LLMs, trained on standard web-scale caption datasets (COCO, CC3M, CC12M, SBU). [4e270d95aa6cca02]\n  - Image understanding: strong capabilities in object/scene recognition, relational reasoning, and detailed captioning that surpass traditional vision-only methods. [615b9bb0b00f06c5][e4a52ad0e149962e]\n  - Image generation: integration of LLMs with diffusion models (e.g., MM-Interleaved) enables high-quality, multi-image generation with reduced memory and better fine-grained detail. [c4511a9ae3ccabc3][405a3c69de7820dc]\n  - Future focus: better architectures, more advanced fusion, larger and higher-quality datasets, improved transfer to downstream tasks, and addressing interpretability, fairness, and privacy. [298a03d35ceaa8fd][12afee02edb3bf64]\n\n- **Two-stage training and frozen backbones dominate**\n  - Typical recipe: pre-train alignment on large image–text (or multimodal) pairs with frozen encoders/LLM and a small trainable projection/Q-Former; then instruction-tune on curated, high-quality data.\n  - MiniGPT-4: 20k pre-training steps on image–text pairs with only a linear projector trained (10 hours on 4×A100), followed by a brief high-quality fine-tune (~7 minutes on 1×A100) to fix coherence. [f509249fe42f7c0b][02e36a964efea70a]\n  - InstructBLIP: BLIP-2 initialization, only Q-Former tuned in pre-training; then up to 60k instruction-tuning steps on 16×A100 over 1.5 days. [124d2d04a7c7e545]\n  - X-InstructionBLIP: freezes feature-extraction Q-Former and top LLM; only interaction Q-Former + projection trained, yet outperforms others across 3D, audio, image, and silent video. [d377d457e535ab50]\n\n- **Rapid expansion beyond images to audio and video**\n  - Audio: models like Qwen-Audio-chat and Gemini train on dozens of datasets, >30 tasks, 8 languages, and varied audio types, using instruction tuning to unify heterogeneous labels and support speech recognition, translation, and general audio comprehension. [0a23e386024a84f1][be2712ee1077a158]\n  - Video understanding and generation: Video-LLaMA, LLaVA-NeXT-Video, and NeXT-GPT use specialized Q-Formers and projection modules for temporal and audio-visual alignment; training often starts from image-caption alignment then instruction-tuning for video tasks. [a215da00386486ad][7fd88eb3f133cbc7][0aa52b555a560aa0]\n  - Video generation MLLMs are emerging but still computationally heavy; research is pushing toward more efficient architectures and better multimodal fusion. [7d142118c248be78][7c57bb5b54d4bff7]\n\n- **Multimodal fusion is a key performance lever**\n  - Simple linear layers (e.g., Vitron, many LLaVA variants) are efficient but limited in capturing complex cross-modal interactions. [3b6be3edd259c18e][4e270d95aa6cca02]\n  - Attention-based fusion (self- and cross-attention, as in LWM, LLaVA-NeXT-Video, Video-LLaMA-2) improves interaction quality at higher computational cost; innovation here is seen as a main driver of future gains. [3b6be3edd259c18e][0aa52b555a560aa0]\n  - MM-Interleaved and MMFS show that better visual tokenization and synchronized feature extraction can reduce the number of visual tokens while preserving detail, improving efficiency for multi-image scenarios. [c4511a9ae3ccabc3][405a3c69de7820dc]\n\n- **Strong transfer and adaptation mechanisms**\n  - Universal instruction fine-tuning (MiniGPT-4, LLaVA) enables rapid adaptation to classification, detection, and image–text generation with modest task-specific data. [12afee02edb3bf64]\n  - Parameter-efficient transfer: LLaMA-Adapter V2 uses small adapter modules with frozen backbones for fast adaptation; Yi-VL augments with external knowledge extraction to boost open-domain performance. [12afee02edb3bf64]\n  - Image understanding has evolved through stages: traditional features → deep learning → multimodal cross-modal learning → reinforcement learning → integrated understanding + generation. [d38c0ec93c724b37]\n\n- **Move from tool-orchestration to fully integrated multimodal I/O**\n  - Early systems (Visual-ChatGPT, HuggingGPT, AudioGPT) treat the LLM as a planner calling external encoders/decoders, but suffer from dependence on external tools and limited controllability. [2bffbd74142e8ad7]\n  - Newer models (NeXT-GPT, Vitron, EMO) integrate encoders/decoders via learned projection modules or directly train the LLM to emit decoder-ready features, enabling end-to-end multimodal input and output (e.g., talking-head video from image+audio). [2bffbd74142e8ad7][04f4dc3f87e0f4fa]\n\n- **General-purpose vs specialized models is an open design tradeoff**\n  - There is active debate between “big and comprehensive” generalist MLLMs and “small and specialized” domain models; evidence suggests smaller targeted models can outperform on narrow tasks, making balance between generalization and specialization a central research question. [9aa98ea88197007d]\n\n## Evidence\n- Systematic review notes SOTA coverage across natural language, vision, and audio tasks, while emphasizing remaining challenges. [4d334ceccef6adf5]\n- Architectural description of encoders, fusion, and decoders, including universal encoders and multimodal output decoders. [eca57f1482fcaa2e][e290af259e47ffad][154bd532c76a2233]\n- Detailed training recipes and compute for MiniGPT-4 and InstructBLIP. [f509249fe42f7c0b][124d2d04a7c7e545]\n- LLaVA family table showing reliance on linear alignment and standard caption datasets across many parameter scales. [4e270d95aa6cca02]\n- Reports of X-InstructionBLIP outperforming baselines across multiple modalities with limited trainable components. [d377d457e535ab50]\n- Descriptions of MM-Interleaved/MMFS, Vitron, NeXT-GPT, EMO, and other integrated multimodal generation systems. [c4511a9ae3ccabc3][405a3c69de7820dc][2bffbd74142e8ad7][04f4dc3f87e0f4fa]\n- Future directions for image and video MLLMs: architecture optimization, advanced fusion, large-scale datasets, interpretability, fairness, privacy, and external knowledge integration. [298a03d35ceaa8fd][7c57bb5b54d4bff7]\n\n## Risks\n- **Computational and data costs**\n  - Attention-based fusion and large-scale video/audio training significantly increase compute and memory requirements, limiting accessibility and slowing iteration. [3b6be3edd259c18e][7c57bb5b54d4bff7]\n  - Heavy reliance on large web-scale caption datasets (COCO, CC3M, CC12M, SBU) may embed dataset biases and limit domain coverage. [4e270d95aa6cca02][298a03d35ceaa8fd]\n\n- **Controllability and dependency on components**\n  - Tool-orchestration approaches depend heavily on external decoders’ quality and offer limited control over outputs; even integrated models can be hard to steer precisely across modalities. [2bffbd74142e8ad7][7c57bb5b54d4bff7]\n  - Freezing large backbones while training small adapters/projections can constrain how deeply modalities are integrated, potentially capping performance on complex reasoning.\n\n- **Safety, fairness, and privacy**\n  - Review explicitly flags interpretability, fairness, and privacy as open challenges for image MLLMs, which generalize to broader multimodal settings (e.g., sensitive visual or audio data). [298a03d35ceaa8fd]\n  - Multimodal data (faces, voices, medical images, fMRI) raises heightened privacy and misuse concerns if not carefully governed. [eca57f1482fcaa2e][298a03d35ceaa8fd]\n\n- **Over-generalization vs specialization**\n  - Pushing for ever-larger “general” MLLMs risks underperforming on specialized tasks compared with smaller, tuned models, and may waste compute without clear task benefits. [9aa98ea88197007d]\n\n## Next Steps\n- **Architecture and fusion choices**\n  - For near-term systems, adopt frozen encoders + LLM with lightweight projection/Q-Former modules and two-stage training to control compute, following MiniGPT-4/InstructBLIP patterns. [f509249fe42f7c0b][124d2d04a7c7e545]\n  - Experiment with hybrid fusion: start with linear alignment for efficiency, then selectively introduce cross-modal attention where task performance justifies the cost (e.g., fine-grained video reasoning). [3b6be3edd259c18e][0aa52b555a560aa0]\n\n- **Task and modality prioritization**\n  - If your use cases are image-centric (classification, VQA, captioning, editing), leverage LLaVA-style architectures and instruction-tuning; for multi-image generation, consider MM-Interleaved-like tokenization and diffusion backends. [4e270d95aa6cca02][c4511a9ae3ccabc3]\n  - For audio and video, follow Qwen-Audio/Gemini/NeXT-GPT patterns: multi-dataset instruction tuning across tasks and languages, with explicit projection modules for temporal and audio-visual alignment. [0a23e386024a84f1][be2712ee1077a158][7fd88eb3f133cbc7]\n\n- **Data and evaluation strategy**\n  - Build or curate high-quality, instruction-style multimodal datasets (similar to MACAW-LLM, MiniGPT-4’s second stage) to improve coherence and alignment with human instructions. [f509249fe42f7c0b][be2712ee1077a158]\n  - Complement generic caption datasets with domain-specific data and external knowledge sources (Yi-VL-style) for targeted applications. [12afee02edb3bf64]\n\n- **Model scaling and specialization**\n  - Decide early whether you need a generalist or specialized MLLM; for domain-specific deployments (e.g., medical imaging, autonomous driving), prioritize smaller specialized models with adapters and domain data. [9aa98ea88197007d][298a03d35ceaa8fd]\n  - Use parameter-efficient methods (adapters, Q-Formers) to support rapid adaptation to new downstream tasks without retraining full models. [12afee02edb3bf64][d377d457e535ab50]\n\n- **Governance and safety**\n  - Incorporate interpretability tools, bias audits, and privacy-preserving practices (e.g., careful handling of faces, voices, medical images) into the development pipeline, aligning with the review’s emphasis on fairness and privacy. [298a03d35ceaa8fd]\n  - For high-stakes applications, favor architectures with clearer control points (e.g., explicit decoders, modular projections) to enable constraint enforcement and user customization. [7c57bb5b54d4bff7][2bffbd74142e8ad7]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- Multimodal LLMs (MLLMs) have rapidly advanced from simple text–image systems to unified architectures handling text, images, audio, video, and even fMRI, with strong performance on understanding and generation tasks but persistent challenges in efficiency, controllability, data, and safety. [4d334ceccef6adf5][eca57f1482fcaa2e][154bd532c76a2233]\n\n## Key Findings\n- **Standardized architectural pattern**\n  - Common pipeline: modality-specific encoders → multimodal fusion (linear or attention-based) → LLM → task-specific decoders for text, image, video, or audio outputs. [3b6be3edd259c18e][eca57f1482fcaa2e][e290af259e47ffad]\n  - Universal encoders are emerging to handle diverse data types (audio, video, fMRI) into a shared feature sequence, simplifying integration and scaling. [eca57f1482fcaa2e]\n\n- **Image tasks are the most mature**\n  - Large family of LLaVA-style models (7B–80B) using frozen vision encoders + linear alignment to Vicuna LLMs, trained on standard web-scale caption datasets (COCO, CC3M, CC12M, SBU). [4e270d95aa6cca02]\n  - Image understanding: strong capabilities in object/scene recognition, relational reasoning, and detailed captioning that surpass traditional vision-only methods. [615b9bb0b00f06c5][e4a52ad0e149962e]\n  - Image generation: integration of LLMs with diffusion models (e.g., MM-Interleaved) enables high-quality, multi-image generation with reduced memory and better fine-grained detail. [c4511a9ae3ccabc3][405a3c69de7820dc]\n  - Future focus: better architectures, more advanced fusion, larger and higher-quality datasets, improved transfer to downstream tasks, and addressing interpretability, fairness, and privacy. [298a03d35ceaa8fd][12afee02edb3bf64]\n\n- **Two-stage training and frozen backbones dominate**\n  - Typical recipe: pre-train alignment on large image–text (or multimodal) pairs with frozen encoders/LLM and a small trainable projection/Q-Former; then instruction-tune on curated, high-quality data.\n  - MiniGPT-4: 20k pre-training steps on image–text pairs with only a linear projector trained (10 hours on 4×A100), followed by a brief high-quality fine-tune (~7 minutes on 1×A100) to fix coherence. [f509249fe42f7c0b][02e36a964efea70a]\n  - InstructBLIP: BLIP-2 initialization, only Q-Former tuned in pre-training; then up to 60k instruction-tuning steps on 16×A100 over 1.5 days. [124d2d04a7c7e545]\n  - X-InstructionBLIP: freezes feature-extraction Q-Former and top LLM; only interaction Q-Former + projection trained, yet outperforms others across 3D, audio, image, and silent video. [d377d457e535ab50]\n\n- **Rapid expansion beyond images to audio and video**\n  - Audio: models like Qwen-Audio-chat and Gemini train on dozens of datasets, >30 tasks, 8 languages, and varied audio types, using instruction tuning to unify heterogeneous labels and support speech recognition, translation, and general audio comprehension. [0a23e386024a84f1][be2712ee1077a158]\n  - Video understanding and generation: Video-LLaMA, LLaVA-NeXT-Video, and NeXT-GPT use specialized Q-Formers and projection modules for temporal and audio-visual alignment; training often starts from image-caption alignment then instruction-tuning for video tasks. [a215da00386486ad][7fd88eb3f133cbc7][0aa52b555a560aa0]\n  - Video generation MLLMs are emerging but still computationally heavy; research is pushing toward more efficient architectures and better multimodal fusion. [7d142118c248be78][7c57bb5b54d4bff7]\n\n- **Multimodal fusion is a key performance lever**\n  - Simple linear layers (e.g., Vitron, many LLaVA variants) are efficient but limited in capturing complex cross-modal interactions. [3b6be3edd259c18e][4e270d95aa6cca02]\n  - Attention-based fusion (self- and cross-attention, as in LWM, LLaVA-NeXT-Video, Video-LLaMA-2) improves interaction quality at higher computational cost; innovation here is seen as a main driver of future gains. [3b6be3edd259c18e][0aa52b555a560aa0]\n  - MM-Interleaved and MMFS show that better visual tokenization and synchronized feature extraction can reduce the number of visual tokens while preserving detail, improving efficiency for multi-image scenarios. [c4511a9ae3ccabc3][405a3c69de7820dc]\n\n- **Strong transfer and adaptation mechanisms**\n  - Universal instruction fine-tuning (MiniGPT-4, LLaVA) enables rapid adaptation to classification, detection, and image–text generation with modest task-specific data. [12afee02edb3bf64]\n  - Parameter-efficient transfer: LLaMA-Adapter V2 uses small adapter modules with frozen backbones for fast adaptation; Yi-VL augments with external knowledge extraction to boost open-domain performance. [12afee02edb3bf64]\n  - Image understanding has evolved through stages: traditional features → deep learning → multimodal cross-modal learning → reinforcement learning → integrated understanding + generation. [d38c0ec93c724b37]\n\n- **Move from tool-orchestration to fully integrated multimodal I/O**\n  - Early systems (Visual-ChatGPT, HuggingGPT, AudioGPT) treat the LLM as a planner calling external encoders/decoders, but suffer from dependence on external tools and limited controllability. [2bffbd74142e8ad7]\n  - Newer models (NeXT-GPT, Vitron, EMO) integrate encoders/decoders via learned projection modules or directly train the LLM to emit decoder-ready features, enabling end-to-end multimodal input and output (e.g., talking-head video from image+audio). [2bffbd74142e8ad7][04f4dc3f87e0f4fa]\n\n- **General-purpose vs specialized models is an open design tradeoff**\n  - There is active debate between “big and comprehensive” generalist MLLMs and “small and specialized” domain models; evidence suggests smaller targeted models can outperform on narrow tasks, making balance between generalization and specialization a central research question. [9aa98ea88197007d]\n\n## Evidence\n- Systematic review notes SOTA coverage across natural language, vision, and audio tasks, while emphasizing remaining challenges. [4d334ceccef6adf5]\n- Architectural description of encoders, fusion, and decoders, including universal encoders and multimodal output decoders. [eca57f1482fcaa2e][e290af259e47ffad][154bd532c76a2233]\n- Detailed training recipes and compute for MiniGPT-4 and InstructBLIP. [f509249fe42f7c0b][124d2d04a7c7e545]\n- LLaVA family table showing reliance on linear alignment and standard caption datasets across many parameter scales. [4e270d95aa6cca02]\n- Reports of X-InstructionBLIP outperforming baselines across multiple modalities with limited trainable components. [d377d457e535ab50]\n- Descriptions of MM-Interleaved/MMFS, Vitron, NeXT-GPT, EMO, and other integrated multimodal generation systems. [c4511a9ae3ccabc3][405a3c69de7820dc][2bffbd74142e8ad7][04f4dc3f87e0f4fa]\n- Future directions for image and video MLLMs: architecture optimization, advanced fusion, large-scale datasets, interpretability, fairness, privacy, and external knowledge integration. [298a03d35ceaa8fd][7c57bb5b54d4bff7]\n\n## Risks\n- **Computational and data costs**\n  - Attention-based fusion and large-scale video/audio training significantly increase compute and memory requirements, limiting accessibility and slowing iteration. [3b6be3edd259c18e][7c57bb5b54d4bff7]\n  - Heavy reliance on large web-scale caption datasets (COCO, CC3M, CC12M, SBU) may embed dataset biases and limit domain coverage. [4e270d95aa6cca02][298a03d35ceaa8fd]\n\n- **Controllability and dependency on components**\n  - Tool-orchestration approaches depend heavily on external decoders’ quality and offer limited control over outputs; even integrated models can be hard to steer precisely across modalities. [2bffbd74142e8ad7][7c57bb5b54d4bff7]\n  - Freezing large backbones while training small adapters/projections can constrain how deeply modalities are integrated, potentially capping performance on complex reasoning.\n\n- **Safety, fairness, and privacy**\n  - Review explicitly flags interpretability, fairness, and privacy as open challenges for image MLLMs, which generalize to broader multimodal settings (e.g., sensitive visual or audio data). [298a03d35ceaa8fd]\n  - Multimodal data (faces, voices, medical images, fMRI) raises heightened privacy and misuse concerns if not carefully governed. [eca57f1482fcaa2e][298a03d35ceaa8fd]\n\n- **Over-generalization vs specialization**\n  - Pushing for ever-larger “general” MLLMs risks underperforming on specialized tasks compared with smaller, tuned models, and may waste compute without clear task benefits. [9aa98ea88197007d]\n\n## Next Steps\n- **Architecture and fusion choices**\n  - For near-term systems, adopt frozen encoders + LLM with lightweight projection/Q-Former modules and two-stage training to control compute, following MiniGPT-4/InstructBLIP patterns. [f509249fe42f7c0b][124d2d04a7c7e545]\n  - Experiment with hybrid fusion: start with linear alignment for efficiency, then selectively introduce cross-modal attention where task performance justifies the cost (e.g., fine-grained video reasoning). [3b6be3edd259c18e][0aa52b555a560aa0]\n\n- **Task and modality prioritization**\n  - If your use cases are image-centric (classification, VQA, captioning, editing), leverage LLaVA-style architectures and instruction-tuning; for multi-image generation, consider MM-Interleaved-like tokenization and diffusion backends. [4e270d95aa6cca02][c4511a9ae3ccabc3]\n  - For audio and video, follow Qwen-Audio/Gemini/NeXT-GPT patterns: multi-dataset instruction tuning across tasks and languages, with explicit projection modules for temporal and audio-visual alignment. [0a23e386024a84f1][be2712ee1077a158][7fd88eb3f133cbc7]\n\n- **Data and evaluation strategy**\n  - Build or curate high-quality, instruction-style multimodal datasets (similar to MACAW-LLM, MiniGPT-4’s second stage) to improve coherence and alignment with human instructions. [f509249fe42f7c0b][be2712ee1077a158]\n  - Complement generic caption datasets with domain-specific data and external knowledge sources (Yi-VL-style) for targeted applications. [12afee02edb3bf64]\n\n- **Model scaling and specialization**\n  - Decide early whether you need a generalist or specialized MLLM; for domain-specific deployments (e.g., medical imaging, autonomous driving), prioritize smaller specialized models with adapters and domain data. [9aa98ea88197007d][298a03d35ceaa8fd]\n  - Use parameter-efficient methods (adapters, Q-Formers) to support rapid adaptation to new downstream tasks without retraining full models. [12afee02edb3bf64][d377d457e535ab50]\n\n- **Governance and safety**\n  - Incorporate interpretability tools, bias audits, and privacy-preserving practices (e.g., careful handling of faces, voices, medical images) into the development pipeline, aligning with the review’s emphasis on fairness and privacy. [298a03d35ceaa8fd]\n  - For high-stakes applications, favor architectures with clearer control points (e.g., explicit decoders, modular projections) to enable constraint enforcement and user customization. [7c57bb5b54d4bff7][2bffbd74142e8ad7]"
+  }
+}

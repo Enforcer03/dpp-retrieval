@@ -1,0 +1,576 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "e3a908727085b349",
+  "created_at": "2025-12-31T08:55:48Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 11052,
+        "output_hash": "4f8ee61b36762bd9a5814532c7f7e5c0ddc53f1f",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "bfc84f074f6f7130",
+                        "6a6d78af8dd72a01"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "bfc84f074f6f7130",
+                          "quote": "Transient noise removal & content editing"
+                        },
+                        {
+                          "chunk_id": "6a6d78af8dd72a01",
+                          "quote": "The edited speech is computed as \\(\\hat{x} = x_{mis} + x_{ctx}\\)."
+                        }
+                      ],
+                      "rationale": "Evidence shows a frame-level infilling-based content editing mechanism and mentions transient noise removal, implying smooth edits, but there is no explicit claim about avoiding clicks or pops at edit points."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "unknown",
+                      "evidence": [
+                        "f65472bf5ec37b32"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f65472bf5ec37b32",
+                          "quote": "we truncate the target sequences to 4 seconds (at word boundaries)."
+                        }
+                      ],
+                      "rationale": "Prompt-length experiments mention truncation to 4 seconds but do not state the minimum viable sample length or support for 3-second cloning."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "covered",
+                      "evidence": [
+                        "806cea72b0cda9b8",
+                        "edbe8b871feb758f",
+                        "ff1b257a1da60f08",
+                        "12c19f9c07484725",
+                        "d026920d1e9adc59"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "Voicebox can be used for mono or cross-lingual zero-shot text-to-speech synthesis"
+                        },
+                        {
+                          "chunk_id": "12c19f9c07484725",
+                          "quote": "cross-lingual zero-shot TTS enables everyone to speak any language in their own voice."
+                        }
+                      ],
+                      "rationale": "Multiple chunks explicitly state that Voicebox supports mono- and cross-lingual zero-shot TTS and enables speaking other languages in the user’s own voice, satisfying cross-lingual capability out of the box."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "covered",
+                      "evidence": [
+                        "806cea72b0cda9b8",
+                        "bfc84f074f6f7130",
+                        "12c19f9c07484725",
+                        "edbe8b871feb758f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "Voicebox can be used for ... noise removal, content editing"
+                        },
+                        {
+                          "chunk_id": "12c19f9c07484725",
+                          "quote": "Content editing and speech denoising can be productivity tools for users"
+                        }
+                      ],
+                      "rationale": "Voicebox is explicitly described as supporting noise removal and speech denoising, indicating it can take noisy audio and output cleaner speech."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "partial",
+                      "evidence": [
+                        "a1acb2fee80cc7a3",
+                        "280beeac507466f7",
+                        "806cea72b0cda9b8"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "280beeac507466f7",
+                          "quote": "transferring audio style (voice, speaking style, emotion, and acoustic condition)"
+                        },
+                        {
+                          "chunk_id": "a1acb2fee80cc7a3",
+                          "quote": "MOS studies also confirm the quality and similarity of Voicebox are subjectively better"
+                        }
+                      ],
+                      "rationale": "Evidence states that Voicebox transfers emotion as part of style and achieves better MOS and similarity than baselines, but it does not directly characterize whether the output sounds robotic versus expressive."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R2"
+                  ],
+                  "risks": [
+                    "Editing quality at word boundaries is not evaluated for artifacts like clicks or pops; real-world seamlessness is uncertain.",
+                    "Minimum viable prompt length for reliable cloning is unspecified; 3-second clips may underperform or fail.",
+                    "Emotional expressiveness is implied via style transfer but not rigorously evaluated; outputs might still sound somewhat synthetic.",
+                    "Denoising performance is claimed but not quantified here; robustness on real noisy, conversational data is unclear."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Cross-lingual support and denoising are clearly documented. Content editing is described but not evaluated for artifact-free splicing. Emotional naturalness is only indirectly supported, and minimum sample length for cloning is not addressed.",
+              "missing_requirements": [
+                "R2"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks reiterate high-level capabilities (zero-shot TTS, cross-lingual, denoising, style transfer) without adding requirement-specific details, but they are not excessively repetitive.",
+              "redundant_pairs": [
+                [
+                  "806cea72b0cda9b8",
+                  "edbe8b871feb758f"
+                ],
+                [
+                  "12c19f9c07484725",
+                  "806cea72b0cda9b8"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Some high-cost chunks provide strong, central evidence (model capabilities, editing formalism), while others are mostly bibliographic or metric-focused and contribute little to the specific requirements.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "6a6d78af8dd72a01",
+                  "cost": 282,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "806cea72b0cda9b8",
+                  "cost": 273,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "91cafa24faafa594",
+                  "cost": 187,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "c81762f38ba86854",
+                  "cost": 178,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "12c19f9c07484725",
+                  "cost": 156,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Lack of explicit evaluation of edit-point artifacts (clicks/pops) may overstate practical editing quality.",
+              "No evidence on minimal prompt length for cloning; users might assume 3-second viability without support.",
+              "Expressiveness and emotional fidelity are not directly measured; MOS and style transfer may not capture robotic-sounding artifacts.",
+              "Denoising claims are not backed by quantitative metrics in the retrieved chunks, limiting confidence in real-world performance."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 8213,
+        "output_hash": "865f8800e9ce854964d78078eba6f0a7e686b7cb",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "806cea72b0cda9b8",
+                "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text"
+              },
+              {
+                "chunk_id": "edbe8b871feb758f",
+                "quote": "Voicebox is trained on 60K hours of English audiobooks and 50K hours of multilingual audiobooks in 6 languages"
+              },
+              {
+                "chunk_id": "806cea72b0cda9b8",
+                "quote": "Voicebox can be used for mono or cross-lingual zero-shot text-to-speech synthesis, noise removal, content editing"
+              },
+              {
+                "chunk_id": "6a6d78af8dd72a01",
+                "quote": "The edited speech is computed as \\hat{x} = x_{mis} + x_{ctx}."
+              },
+              {
+                "chunk_id": "bfc84f074f6f7130",
+                "quote": "Transient noise removal & content editing"
+              },
+              {
+                "chunk_id": "d026920d1e9adc59",
+                "quote": "Zero-shot TTS & alignment-preserved style transfer"
+              },
+              {
+                "chunk_id": "12c19f9c07484725",
+                "quote": "cross-lingual zero-shot TTS enables everyone to speak any language in their own voice."
+              },
+              {
+                "chunk_id": "a1acb2fee80cc7a3",
+                "quote": "Voicebox outperforms all baselines on all metrics in both cases."
+              },
+              {
+                "chunk_id": "806cea72b0cda9b8",
+                "quote": "outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility ... and audio similarity"
+              },
+              {
+                "chunk_id": "acb01355b3df89c5",
+                "quote": "lower classifier guidance strength produces lower FSD scores and more diverse samples."
+              },
+              {
+                "chunk_id": "df0f6e884185d2c5",
+                "quote": "Our first metric, multi-sample mean-absolute error (MS-MAE)"
+              },
+              {
+                "chunk_id": "f9eb1f052a1ab253",
+                "quote": "Our next metric, multi-sample correlation (MS-Corr)"
+              },
+              {
+                "chunk_id": "f94f89dfae6dc95d",
+                "quote": "Figure C3: FSD under different noisy levels."
+              },
+              {
+                "chunk_id": "c81762f38ba86854",
+                "quote": "Original audio vs Voicebox-generated audio ... 30% | 1.000 | 1.000 | 1.000"
+              },
+              {
+                "chunk_id": "392e962194b3c42",
+                "quote": "we show that a binary classification model is able to consistently distinguish between real world speech and that which is generated"
+              },
+              {
+                "chunk_id": "383135cc805c9893",
+                "quote": "current models may not transfer well to conversational speech"
+              },
+              {
+                "chunk_id": "280beeac507466f7",
+                "quote": "the model does not allow independent control of each attribute."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+                "answer": "R1: It supports content editing by infilling only modified regions, but the paper does not explicitly discuss absence of clicks/pops at edit points, so this is unknown. R2: The minimum viable prompt length for cloning is not specified; prompt-length experiments truncate to 4 seconds, so 3-second feasibility is unknown. R3: It supports cross-lingual zero-shot TTS and style transfer, including speaking other languages in the same voice, so cross-lingual is supported out of the box. R4: It is explicitly described as performing noise removal/speech denoising as a core capability, so it works as a denoiser. R5: It transfers style including emotion and achieves higher MOS and similarity than baselines, indicating relatively expressive, less robotic speech, though fine-grained emotional control is limited.",
+                "confidence": 0.8,
+                "evidence": [
+                  "6a6d78af8dd72a01",
+                  "bfc84f074f6f7130",
+                  "806cea72b0cda9b8",
+                  "f65472bf5ec37b32",
+                  "edbe8b871feb758f",
+                  "ff1b257a1da60f08",
+                  "d026920d1e9adc59",
+                  "12c19f9c07484725",
+                  "a1acb2fee80cc7a3",
+                  "280beeac507466f7"
+                ],
+                "notes": "R1: Editing mechanism shows frame-level infilling and preserving context but no explicit artifact analysis, so click/pop behavior cannot be confirmed. R2: Cross-lingual prompt-length study uses 4-second truncation; no 3-second or minimum-length cloning guarantee is given. R3: Cross-lingual zero-shot TTS and style transfer are repeatedly claimed, including speaking any language in one’s own voice. R4: Noise removal and speech denoising are listed as supported tasks. R5: Style transfer covers voice, speaking style, emotion, and acoustic condition, and MOS/similarity beat baselines; however, emotion is not independently controllable."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "bfc84f074f6f7130",
+                  "6a6d78af8dd72a01"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "bfc84f074f6f7130",
+                    "quote": "Transient noise removal & content editing"
+                  },
+                  {
+                    "chunk_id": "6a6d78af8dd72a01",
+                    "quote": "The edited speech is computed as \\(\\hat{x} = x_{mis} + x_{ctx}\\)."
+                  }
+                ],
+                "rationale": "Evidence shows a frame-level infilling-based content editing mechanism and mentions transient noise removal, implying smooth edits, but there is no explicit claim about avoiding clicks or pops at edit points."
+              },
+              {
+                "id": "R2",
+                "status": "unknown",
+                "evidence": [
+                  "f65472bf5ec37b32"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f65472bf5ec37b32",
+                    "quote": "we truncate the target sequences to 4 seconds (at word boundaries)."
+                  }
+                ],
+                "rationale": "Prompt-length experiments mention truncation to 4 seconds but do not state the minimum viable sample length or support for 3-second cloning."
+              },
+              {
+                "id": "R3",
+                "status": "covered",
+                "evidence": [
+                  "806cea72b0cda9b8",
+                  "edbe8b871feb758f",
+                  "ff1b257a1da60f08",
+                  "12c19f9c07484725",
+                  "d026920d1e9adc59"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "Voicebox can be used for mono or cross-lingual zero-shot text-to-speech synthesis"
+                  },
+                  {
+                    "chunk_id": "12c19f9c07484725",
+                    "quote": "cross-lingual zero-shot TTS enables everyone to speak any language in their own voice."
+                  }
+                ],
+                "rationale": "Multiple chunks explicitly state that Voicebox supports mono- and cross-lingual zero-shot TTS and enables speaking other languages in the user’s own voice, satisfying cross-lingual capability out of the box."
+              },
+              {
+                "id": "R4",
+                "status": "covered",
+                "evidence": [
+                  "806cea72b0cda9b8",
+                  "bfc84f074f6f7130",
+                  "12c19f9c07484725",
+                  "edbe8b871feb758f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "Voicebox can be used for ... noise removal, content editing"
+                  },
+                  {
+                    "chunk_id": "12c19f9c07484725",
+                    "quote": "Content editing and speech denoising can be productivity tools for users"
+                  }
+                ],
+                "rationale": "Voicebox is explicitly described as supporting noise removal and speech denoising, indicating it can take noisy audio and output cleaner speech."
+              },
+              {
+                "id": "R5",
+                "status": "partial",
+                "evidence": [
+                  "a1acb2fee80cc7a3",
+                  "280beeac507466f7",
+                  "806cea72b0cda9b8"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "280beeac507466f7",
+                    "quote": "transferring audio style (voice, speaking style, emotion, and acoustic condition)"
+                  },
+                  {
+                    "chunk_id": "a1acb2fee80cc7a3",
+                    "quote": "MOS studies also confirm the quality and similarity of Voicebox are subjectively better"
+                  }
+                ],
+                "rationale": "Evidence states that Voicebox transfers emotion as part of style and achieves better MOS and similarity than baselines, but it does not directly characterize whether the output sounds robotic versus expressive."
+              }
+            ],
+            "missing_requirements": [
+              "R2"
+            ],
+            "risks": [
+              "Editing quality at word boundaries is not evaluated for artifacts like clicks or pops; real-world seamlessness is uncertain.",
+              "Minimum viable prompt length for reliable cloning is unspecified; 3-second clips may underperform or fail.",
+              "Emotional expressiveness is implied via style transfer but not rigorously evaluated; outputs might still sound somewhat synthetic.",
+              "Denoising performance is claimed but not quantified here; robustness on real noisy, conversational data is unclear."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Cross-lingual support and denoising are clearly documented. Content editing is described but not evaluated for artifact-free splicing. Emotional naturalness is only indirectly supported, and minimum sample length for cloning is not addressed.",
+        "missing_requirements": [
+          "R2"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks reiterate high-level capabilities (zero-shot TTS, cross-lingual, denoising, style transfer) without adding requirement-specific details, but they are not excessively repetitive.",
+        "redundant_pairs": [
+          [
+            "806cea72b0cda9b8",
+            "edbe8b871feb758f"
+          ],
+          [
+            "12c19f9c07484725",
+            "806cea72b0cda9b8"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Some high-cost chunks provide strong, central evidence (model capabilities, editing formalism), while others are mostly bibliographic or metric-focused and contribute little to the specific requirements.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "6a6d78af8dd72a01",
+            "cost": 282,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "806cea72b0cda9b8",
+            "cost": 273,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "91cafa24faafa594",
+            "cost": 187,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "c81762f38ba86854",
+            "cost": 178,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "12c19f9c07484725",
+            "cost": 156,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Lack of explicit evaluation of edit-point artifacts (clicks/pops) may overstate practical editing quality.",
+        "No evidence on minimal prompt length for cloning; users might assume 3-second viability without support.",
+        "Expressiveness and emotional fidelity are not directly measured; MOS and style transfer may not capture robotic-sounding artifacts.",
+        "Denoising claims are not backed by quantitative metrics in the retrieved chunks, limiting confidence in real-world performance."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "806cea72b0cda9b8",
+          "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text"
+        },
+        {
+          "chunk_id": "edbe8b871feb758f",
+          "quote": "Voicebox is trained on 60K hours of English audiobooks and 50K hours of multilingual audiobooks in 6 languages"
+        },
+        {
+          "chunk_id": "806cea72b0cda9b8",
+          "quote": "Voicebox can be used for mono or cross-lingual zero-shot text-to-speech synthesis, noise removal, content editing"
+        },
+        {
+          "chunk_id": "6a6d78af8dd72a01",
+          "quote": "The edited speech is computed as \\hat{x} = x_{mis} + x_{ctx}."
+        },
+        {
+          "chunk_id": "bfc84f074f6f7130",
+          "quote": "Transient noise removal & content editing"
+        },
+        {
+          "chunk_id": "d026920d1e9adc59",
+          "quote": "Zero-shot TTS & alignment-preserved style transfer"
+        },
+        {
+          "chunk_id": "12c19f9c07484725",
+          "quote": "cross-lingual zero-shot TTS enables everyone to speak any language in their own voice."
+        },
+        {
+          "chunk_id": "a1acb2fee80cc7a3",
+          "quote": "Voicebox outperforms all baselines on all metrics in both cases."
+        },
+        {
+          "chunk_id": "806cea72b0cda9b8",
+          "quote": "outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility ... and audio similarity"
+        },
+        {
+          "chunk_id": "acb01355b3df89c5",
+          "quote": "lower classifier guidance strength produces lower FSD scores and more diverse samples."
+        },
+        {
+          "chunk_id": "df0f6e884185d2c5",
+          "quote": "Our first metric, multi-sample mean-absolute error (MS-MAE)"
+        },
+        {
+          "chunk_id": "f9eb1f052a1ab253",
+          "quote": "Our next metric, multi-sample correlation (MS-Corr)"
+        },
+        {
+          "chunk_id": "f94f89dfae6dc95d",
+          "quote": "Figure C3: FSD under different noisy levels."
+        },
+        {
+          "chunk_id": "c81762f38ba86854",
+          "quote": "Original audio vs Voicebox-generated audio ... 30% | 1.000 | 1.000 | 1.000"
+        },
+        {
+          "chunk_id": "392e962194b3c42",
+          "quote": "we show that a binary classification model is able to consistently distinguish between real world speech and that which is generated"
+        },
+        {
+          "chunk_id": "383135cc805c9893",
+          "quote": "current models may not transfer well to conversational speech"
+        },
+        {
+          "chunk_id": "280beeac507466f7",
+          "quote": "the model does not allow independent control of each attribute."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+          "answer": "R1: It supports content editing by infilling only modified regions, but the paper does not explicitly discuss absence of clicks/pops at edit points, so this is unknown. R2: The minimum viable prompt length for cloning is not specified; prompt-length experiments truncate to 4 seconds, so 3-second feasibility is unknown. R3: It supports cross-lingual zero-shot TTS and style transfer, including speaking other languages in the same voice, so cross-lingual is supported out of the box. R4: It is explicitly described as performing noise removal/speech denoising as a core capability, so it works as a denoiser. R5: It transfers style including emotion and achieves higher MOS and similarity than baselines, indicating relatively expressive, less robotic speech, though fine-grained emotional control is limited.",
+          "confidence": 0.8,
+          "evidence": [
+            "6a6d78af8dd72a01",
+            "bfc84f074f6f7130",
+            "806cea72b0cda9b8",
+            "f65472bf5ec37b32",
+            "edbe8b871feb758f",
+            "ff1b257a1da60f08",
+            "d026920d1e9adc59",
+            "12c19f9c07484725",
+            "a1acb2fee80cc7a3",
+            "280beeac507466f7"
+          ],
+          "notes": "R1: Editing mechanism shows frame-level infilling and preserving context but no explicit artifact analysis, so click/pop behavior cannot be confirmed. R2: Cross-lingual prompt-length study uses 4-second truncation; no 3-second or minimum-length cloning guarantee is given. R3: Cross-lingual zero-shot TTS and style transfer are repeatedly claimed, including speaking any language in one’s own voice. R4: Noise removal and speech denoising are listed as supported tasks. R5: Style transfer covers voice, speaking style, emotion, and acoustic condition, and MOS/similarity beat baselines; however, emotion is not independently controllable."
+        }
+      ]
+    }
+  }
+}

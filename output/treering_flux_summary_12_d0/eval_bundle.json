@@ -1,0 +1,430 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "982bf1e6b0e07a95",
+  "created_at": "2025-12-31T08:56:56Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 12031,
+        "output_hash": "9354f07c6b781ca56127d1270d32813269c34e58",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No chunk mentions Figure 2 or explicitly describes any 'Distance Distribution' plots or visual overlap/separation between watermarked and clean images."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "partial",
+                      "evidence": [
+                        "4776a267e51de637"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "4776a267e51de637",
+                          "quote": "images generated from the original and reconstructed noise latents show perceptible differences, as illustrated in Figure 4."
+                        }
+                      ],
+                      "rationale": "Figure 4 is referenced and described as showing perceptible differences between original and reconstructed generations, but there is no detailed qualitative description of how they differ; only a brief mention."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "partial",
+                      "evidence": [
+                        "c326ebe4f784f711",
+                        "fd4378f28a16bb1c",
+                        "f8b8eaed5124712d"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "c326ebe4f784f711",
+                          "quote": "current limitations of Tree-Ring Watermarking in the current SOTA models and highlight the critical need for improved inversion methods"
+                        },
+                        {
+                          "chunk_id": "fd4378f28a16bb1c",
+                          "quote": "flow-based models present unique challenges for watermark detection"
+                        },
+                        {
+                          "chunk_id": "f8b8eaed5124712d",
+                          "quote": "We evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models."
+                        }
+                      ],
+                      "rationale": "Evidence clearly states challenges and limitations for Tree-Ring watermarking on FLUX and provides comparative metrics vs SD 2.1, but it does not explicitly phrase that Tree-Ring watermarks are 'significantly less robust' on FLUX than on SD; the comparison is implied rather than directly stated."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "covered",
+                      "evidence": [
+                        "a6b5d1ed98ed3e14",
+                        "8767d43ace527e6c",
+                        "8ba006aa21056da6"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "the rectified flow training objective optimizes for straight paths between source and target distributions"
+                        },
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "prioritizing efficient forward sampling at the expense of invertibility."
+                        },
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "This straightened path inherently discards information that would be useful during inversion."
+                        }
+                      ],
+                      "rationale": "The text explicitly attributes poorer inversion and information loss to the rectified flow training objective and its straightened trajectory, which hampers accurate latent inversion and thus watermark recovery."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R1"
+                  ],
+                  "risks": [
+                    "Summary may omit discussion of statistical distance distributions and visual separability, leading to an incomplete picture of detection performance.",
+                    "Lack of explicit statement that Tree-Ring is significantly less robust on FLUX than SD could understate the severity of robustness degradation."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Key architectural and inversion-related limitations (R4) and general comparative limitations (R3) are supported, and Figure 4 is at least referenced (R2). However, there is no evidence about the 'Distance Distribution' plots (Figure 2), and the comparative robustness statement is not made in the exact required form.",
+              "missing_requirements": [
+                "R1"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks discuss similar themes of inversion difficulty and architectural causes (e.g., a6b5d1ed98ed3e14, 8ba006aa21056da6, 8767d43ace527e6c; also c326ebe4f784f711 and fd4378f28a16bb1c both summarize limitations and separability). This yields some conceptual redundancy but also reinforces key points.",
+              "redundant_pairs": [
+                [
+                  "a6b5d1ed98ed3e14",
+                  "8ba006aa21056da6"
+                ],
+                [
+                  "c326ebe4f784f711",
+                  "fd4378f28a16bb1c"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Several high-cost chunks provided strong value (e.g., a6b5d1ed98ed3e14, c326ebe4f784f711, f8b8eaed5124712d). However, some selected chunks are generic background (e.g., aadb8d23abf190a4, 21fac287fccd9a6d) and did not contribute directly to the specific requirements, while the crucial figure-related content for R1 was not retrieved.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "f8b8eaed5124712d",
+                  "cost": 648,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "c326ebe4f784f711",
+                  "cost": 163,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "a6b5d1ed98ed3e14",
+                  "cost": 184,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "448c1d5c58aa5f2b",
+                  "cost": 115,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "1184c0487248f82e",
+                  "cost": 88,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Figure-based requirement R1 is entirely unsupported by retrieved evidence, risking non-compliance with the specified summary constraints.",
+              "Comparative robustness between FLUX and SD is only implicitly supported; without explicit phrasing, downstream summaries may understate the robustness gap.",
+              "Absence of detailed qualitative description of Figure 4 limits the ability to meet strict narrative requirements about visual differences in FLUX reconstructions."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 7873,
+        "output_hash": "91f66afc50cfc40179780c8354c35d56d896472c",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "Does not mention or describe the Distance Distribution plots (Figure 2) required by R1; no evidence about these plots is cited.",
+              "Does not reference the qualitative reconstruction figures (Figure 4) for FLUX as required by R2; only a textual description of perceptible differences is used.",
+              "States or strongly implies that Tree-Ring watermarking is less robust on FLUX than on Stable Diffusion without clearly grounded, direct comparative robustness conclusions in the provided chunks.",
+              "Attributes failures to rectified flow objectives and straightened paths, which is supported, but omits explicit linkage to the ODE trajectory wording requested in R4."
+            ],
+            "unsupported_claims": [
+              "RF models show weaker watermark extraction quality and reduced statistical separability between watermarked and non-watermarked images, especially under common image manipulations.",
+              "Across configurations and attacks, RF-based FLUX.1-dev exhibits reduced statistical separability between watermarked and non-watermarked images compared to SD 2.1.",
+              "Tree-Ring watermarks in RF models are highly non-robust to common post-processing, undermining practical provenance guarantees."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "4776a267e51de637",
+                "quote": "images generated from the original and reconstructed noise latents show perceptible differences, as illustrated in Figure 4."
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+              },
+              {
+                "chunk_id": "c326ebe4f784f711",
+                "quote": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored"
+              },
+              {
+                "chunk_id": "fd4378f28a16bb1c",
+                "quote": "This work investigates watermark detection and separability in flow-based generative models, focusing on the FLUX model."
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "Table 1: Watermark Extraction Metrics"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.",
+                "answer": "Tree-Ring Watermarking on rectified flow models like FLUX.1-dev is limited by poor invertibility and architectural choices, leading to weaker watermark recovery and separability than in traditional diffusion models, but the provided summary fails to mention Distance Distribution plots (Figure 2) and does not explicitly reference the qualitative reconstruction differences shown in Figure 4, so it does not fully satisfy the specified requirements.",
+                "confidence": 0.63,
+                "evidence": [
+                  "c326ebe4f784f711",
+                  "a6b5d1ed98ed3e14",
+                  "4776a267e51de637",
+                  "f8b8eaed5124712d",
+                  "fd4378f28a16bb1c",
+                  "8767d43ace527e6c"
+                ],
+                "notes": "R1 is not met: no description of Distance Distribution plots (Figure 2) appears in the summary or evidence. R2 is only partially met: Figure 4 is mentioned in the paper text as illustrating perceptible differences, but the summary does not explicitly reference the figure; it paraphrases the textual observation instead [4776a267e51de637]. R3 is weakly supported: the summary claims significantly lower robustness on FLUX vs SD 2.1, but the provided chunks mainly give FLUX metrics and high-level statements about limitations, without a clear, quantitative cross-model robustness comparison beyond Table 1 values [f8b8eaed5124712d][c326ebe4f784f711]. R4 is partially satisfied: the summary correctly attributes limitations to the rectified flow training objective and straight paths that harm invertibility [a6b5d1ed98ed3e14][8767d43ace527e6c], but does not explicitly mention the ODE trajectory wording requested. Overall, the answer directionally aligns with the paper’s conclusions about limitations of Tree-Ring watermarking on rectified flow models, yet misses required figure-based descriptions and overstates some comparative robustness claims."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No chunk mentions Figure 2 or explicitly describes any 'Distance Distribution' plots or visual overlap/separation between watermarked and clean images."
+              },
+              {
+                "id": "R2",
+                "status": "partial",
+                "evidence": [
+                  "4776a267e51de637"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "4776a267e51de637",
+                    "quote": "images generated from the original and reconstructed noise latents show perceptible differences, as illustrated in Figure 4."
+                  }
+                ],
+                "rationale": "Figure 4 is referenced and described as showing perceptible differences between original and reconstructed generations, but there is no detailed qualitative description of how they differ; only a brief mention."
+              },
+              {
+                "id": "R3",
+                "status": "partial",
+                "evidence": [
+                  "c326ebe4f784f711",
+                  "fd4378f28a16bb1c",
+                  "f8b8eaed5124712d"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "c326ebe4f784f711",
+                    "quote": "current limitations of Tree-Ring Watermarking in the current SOTA models and highlight the critical need for improved inversion methods"
+                  },
+                  {
+                    "chunk_id": "fd4378f28a16bb1c",
+                    "quote": "flow-based models present unique challenges for watermark detection"
+                  },
+                  {
+                    "chunk_id": "f8b8eaed5124712d",
+                    "quote": "We evaluated and compared the detection and separability of watermarks between SD 2.1 and FLUX.1-dev models."
+                  }
+                ],
+                "rationale": "Evidence clearly states challenges and limitations for Tree-Ring watermarking on FLUX and provides comparative metrics vs SD 2.1, but it does not explicitly phrase that Tree-Ring watermarks are 'significantly less robust' on FLUX than on SD; the comparison is implied rather than directly stated."
+              },
+              {
+                "id": "R4",
+                "status": "covered",
+                "evidence": [
+                  "a6b5d1ed98ed3e14",
+                  "8767d43ace527e6c",
+                  "8ba006aa21056da6"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "the rectified flow training objective optimizes for straight paths between source and target distributions"
+                  },
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "prioritizing efficient forward sampling at the expense of invertibility."
+                  },
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "This straightened path inherently discards information that would be useful during inversion."
+                  }
+                ],
+                "rationale": "The text explicitly attributes poorer inversion and information loss to the rectified flow training objective and its straightened trajectory, which hampers accurate latent inversion and thus watermark recovery."
+              }
+            ],
+            "missing_requirements": [
+              "R1"
+            ],
+            "risks": [
+              "Summary may omit discussion of statistical distance distributions and visual separability, leading to an incomplete picture of detection performance.",
+              "Lack of explicit statement that Tree-Ring is significantly less robust on FLUX than SD could understate the severity of robustness degradation."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Key architectural and inversion-related limitations (R4) and general comparative limitations (R3) are supported, and Figure 4 is at least referenced (R2). However, there is no evidence about the 'Distance Distribution' plots (Figure 2), and the comparative robustness statement is not made in the exact required form.",
+        "missing_requirements": [
+          "R1"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks discuss similar themes of inversion difficulty and architectural causes (e.g., a6b5d1ed98ed3e14, 8ba006aa21056da6, 8767d43ace527e6c; also c326ebe4f784f711 and fd4378f28a16bb1c both summarize limitations and separability). This yields some conceptual redundancy but also reinforces key points.",
+        "redundant_pairs": [
+          [
+            "a6b5d1ed98ed3e14",
+            "8ba006aa21056da6"
+          ],
+          [
+            "c326ebe4f784f711",
+            "fd4378f28a16bb1c"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Several high-cost chunks provided strong value (e.g., a6b5d1ed98ed3e14, c326ebe4f784f711, f8b8eaed5124712d). However, some selected chunks are generic background (e.g., aadb8d23abf190a4, 21fac287fccd9a6d) and did not contribute directly to the specific requirements, while the crucial figure-related content for R1 was not retrieved.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "f8b8eaed5124712d",
+            "cost": 648,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "c326ebe4f784f711",
+            "cost": 163,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "a6b5d1ed98ed3e14",
+            "cost": 184,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "448c1d5c58aa5f2b",
+            "cost": 115,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "1184c0487248f82e",
+            "cost": 88,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Figure-based requirement R1 is entirely unsupported by retrieved evidence, risking non-compliance with the specified summary constraints.",
+        "Comparative robustness between FLUX and SD is only implicitly supported; without explicit phrasing, downstream summaries may understate the robustness gap.",
+        "Absence of detailed qualitative description of Figure 4 limits the ability to meet strict narrative requirements about visual differences in FLUX reconstructions."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "Does not mention or describe the Distance Distribution plots (Figure 2) required by R1; no evidence about these plots is cited.",
+        "Does not reference the qualitative reconstruction figures (Figure 4) for FLUX as required by R2; only a textual description of perceptible differences is used.",
+        "States or strongly implies that Tree-Ring watermarking is less robust on FLUX than on Stable Diffusion without clearly grounded, direct comparative robustness conclusions in the provided chunks.",
+        "Attributes failures to rectified flow objectives and straightened paths, which is supported, but omits explicit linkage to the ODE trajectory wording requested in R4."
+      ],
+      "unsupported_claims": [
+        "RF models show weaker watermark extraction quality and reduced statistical separability between watermarked and non-watermarked images, especially under common image manipulations.",
+        "Across configurations and attacks, RF-based FLUX.1-dev exhibits reduced statistical separability between watermarked and non-watermarked images compared to SD 2.1.",
+        "Tree-Ring watermarks in RF models are highly non-robust to common post-processing, undermining practical provenance guarantees."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "4776a267e51de637",
+          "quote": "images generated from the original and reconstructed noise latents show perceptible differences, as illustrated in Figure 4."
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "the rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+        },
+        {
+          "chunk_id": "c326ebe4f784f711",
+          "quote": "Tree-Ring Watermarking is a significant technique for authenticating AI-generated images. However, its effectiveness in rectified flow-based models remains unexplored"
+        },
+        {
+          "chunk_id": "fd4378f28a16bb1c",
+          "quote": "This work investigates watermark detection and separability in flow-based generative models, focusing on the FLUX model."
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "Table 1: Watermark Extraction Metrics"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models.",
+          "answer": "Tree-Ring Watermarking on rectified flow models like FLUX.1-dev is limited by poor invertibility and architectural choices, leading to weaker watermark recovery and separability than in traditional diffusion models, but the provided summary fails to mention Distance Distribution plots (Figure 2) and does not explicitly reference the qualitative reconstruction differences shown in Figure 4, so it does not fully satisfy the specified requirements.",
+          "confidence": 0.63,
+          "evidence": [
+            "c326ebe4f784f711",
+            "a6b5d1ed98ed3e14",
+            "4776a267e51de637",
+            "f8b8eaed5124712d",
+            "fd4378f28a16bb1c",
+            "8767d43ace527e6c"
+          ],
+          "notes": "R1 is not met: no description of Distance Distribution plots (Figure 2) appears in the summary or evidence. R2 is only partially met: Figure 4 is mentioned in the paper text as illustrating perceptible differences, but the summary does not explicitly reference the figure; it paraphrases the textual observation instead [4776a267e51de637]. R3 is weakly supported: the summary claims significantly lower robustness on FLUX vs SD 2.1, but the provided chunks mainly give FLUX metrics and high-level statements about limitations, without a clear, quantitative cross-model robustness comparison beyond Table 1 values [f8b8eaed5124712d][c326ebe4f784f711]. R4 is partially satisfied: the summary correctly attributes limitations to the rectified flow training objective and straight paths that harm invertibility [a6b5d1ed98ed3e14][8767d43ace527e6c], but does not explicitly mention the ODE trajectory wording requested. Overall, the answer directionally aligns with the paper’s conclusions about limitations of Tree-Ring watermarking on rectified flow models, yet misses required figure-based descriptions and overstates some comparative robustness claims."
+        }
+      ]
+    }
+  }
+}

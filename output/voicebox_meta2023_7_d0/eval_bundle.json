@@ -1,0 +1,662 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "e3a908727085b349",
+  "created_at": "2025-12-31T07:38:54Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 15710,
+        "output_hash": "830964c0287603482b3f025bc102fc109fd6f684",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "bfc84f074f6f7130",
+                        "3b0f0accc36f4dcd",
+                        "12c19f9c07484725"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "bfc84f074f6f7130",
+                          "quote": "Transient noise removal & content editing"
+                        },
+                        {
+                          "chunk_id": "3b0f0accc36f4dcd",
+                          "quote": "Voicebox is a text-guided infilling model"
+                        },
+                        {
+                          "chunk_id": "12c19f9c07484725",
+                          "quote": "Content editing and speech denoising can be productivity tools"
+                        }
+                      ],
+                      "rationale": "Evidence shows text-guided infilling, content editing, and transient noise removal, but nothing about click/pop artifacts or seamlessness at edit points."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "3c30f4acf734928f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "3c30f4acf734928f",
+                          "quote": "For each target text, we sample one 3-second long audio context"
+                        }
+                      ],
+                      "rationale": "Cross-lingual zero-shot TTS explicitly uses a 3-second audio context as the prompt, indicating cloning from 3-second samples is supported."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "covered",
+                      "evidence": [
+                        "ff1b257a1da60f08",
+                        "12c19f9c07484725",
+                        "3c30f4acf734928f",
+                        "eeda564ea53c848d"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "ff1b257a1da60f08",
+                          "quote": "Cross-lingual:"
+                        },
+                        {
+                          "chunk_id": "12c19f9c07484725",
+                          "quote": "cross-lingual zero-shot TTS enables everyone to speak any language in their own voice"
+                        },
+                        {
+                          "chunk_id": "3c30f4acf734928f",
+                          "quote": "cross-lingual zero-shot TTS results, where the audio context and the target text are in different languages"
+                        },
+                        {
+                          "chunk_id": "eeda564ea53c848d",
+                          "quote": "WER increases as we increase the prompt length for most directions"
+                        }
+                      ],
+                      "rationale": "Paper clearly describes cross-lingual zero-shot TTS where a speaker’s voice is used to speak other languages, with evaluation across many language directions."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "12c19f9c07484725",
+                        "bfc84f074f6f7130"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "12c19f9c07484725",
+                          "quote": "Content editing and speech denoising can be productivity tools"
+                        },
+                        {
+                          "chunk_id": "bfc84f074f6f7130",
+                          "quote": "Transient noise removal & content editing"
+                        }
+                      ],
+                      "rationale": "Speech denoising and transient noise removal are mentioned as capabilities, but there are no details or results showing quality of noisy-to-clean conversion."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "unknown",
+                      "evidence": [
+                        "e47d9b8419c2340d",
+                        "6674b14fe6498e17",
+                        "1959113231b0f8e2"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "e47d9b8419c2340d",
+                          "quote": "subjective metrics like mean opinion scores (MOS)"
+                        },
+                        {
+                          "chunk_id": "6674b14fe6498e17",
+                          "quote": "Measuring speech diversity and quality with FSD"
+                        }
+                      ],
+                      "rationale": "Text discusses evaluation metrics but provides no specific statements about emotional expressiveness or whether the voice sounds robotic vs expressive."
+                    },
+                    {
+                      "id": "R6",
+                      "status": "unknown",
+                      "evidence": [
+                        "49fda3c64e5cde23",
+                        "8bafd732ecaa2bdc",
+                        "383135cc805c9893",
+                        "8a3f1ec1ecb12383"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "49fda3c64e5cde23",
+                          "quote": "Voicebox: Text-Guided Multilingual Universal Speech Generation at Scale"
+                        },
+                        {
+                          "chunk_id": "8bafd732ecaa2bdc",
+                          "quote": "This paper presents Voicebox, the most versatile generative model for speech."
+                        }
+                      ],
+                      "rationale": "No mention of code release, pre-trained weights, or availability via the survey; cannot determine if it is purely academic or released."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R5",
+                    "R6"
+                  ],
+                  "risks": [
+                    "Editing quality at word boundaries may include artifacts since no evidence addresses click/pop behavior.",
+                    "Denoising performance and robustness to real-world noisy inputs are unclear despite claimed capability.",
+                    "Emotional expressiveness and naturalness vs robotic quality are unevaluated in the provided text.",
+                    "Model and weights availability is unknown, risking that capabilities are not practically accessible.",
+                    "Cross-lingual performance degrades with longer prompts, especially En→non-En, increasing WER. [eeda564ea53c848d]"
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Cross-lingual capabilities and 3-second prompt usage are well supported. Editing and denoising are only briefly mentioned, and there is no evidence on emotion or model availability.",
+              "missing_requirements": [
+                "R5",
+                "R6"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks focus on evaluation metrics and duration modeling that are tangential to the specific editing and cross-lingual capability questions.",
+              "redundant_pairs": [
+                [
+                  "e518edcc56a0a245",
+                  "df0f6e884185d2c5"
+                ],
+                [
+                  "6674b14fe6498e17",
+                  "1959113231b0f8e2"
+                ],
+                [
+                  "8bafd732ecaa2bdc",
+                  "12c19f9c07484725"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Key requirements (cross-lingual, 3-second prompts, editing/denoising mention) are covered, but substantial budget went to general metric and duration-model details not directly needed for the user’s questions.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "e47d9b8419c2340d",
+                  "cost": 154,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "12c19f9c07484725",
+                  "cost": 156,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "1959113231b0f8e2",
+                  "cost": 155,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "3b0f0accc36f4dcd",
+                  "cost": 289,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Lack of evidence on artifact-free editing at word boundaries may overstate practical editing quality.",
+              "Denoising capability is asserted but not empirically supported in the retrieved text.",
+              "No information on emotional expressiveness could mislead users expecting expressive TTS.",
+              "Model/code availability is not addressed, so deployability remains uncertain.",
+              "Cross-lingual WER increases with longer prompts, especially from English, indicating potential reliability issues. [eeda564ea53c848d]"
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 12751,
+        "output_hash": "12f493c01491ef86b72a0cb508ae76d74da159e0",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "49fda3c64e5cde23",
+                "quote": "Voicebox: Text-Guided Multilingual Universal Speech Generation at Scale"
+              },
+              {
+                "chunk_id": "8bafd732ecaa2bdc",
+                "quote": "This paper presents Voicebox, the most versatile generative model for speech."
+              },
+              {
+                "chunk_id": "3b0f0accc36f4dcd",
+                "quote": "Infilling can be considered as another type of task. It aims to predict speech content"
+              },
+              {
+                "chunk_id": "bfc84f074f6f7130",
+                "quote": "Transient noise removal & content editing"
+              },
+              {
+                "chunk_id": "12c19f9c07484725",
+                "quote": "Content editing and speech denoising can be productivity tools for users to create content more effortlessly."
+              },
+              {
+                "chunk_id": "d026920d1e9adc59",
+                "quote": "Zero-shot TTS & alignment-preserved style transfer"
+              },
+              {
+                "chunk_id": "ff1b257a1da60f08",
+                "quote": "Cross-lingual:"
+              },
+              {
+                "chunk_id": "3c30f4acf734928f",
+                "quote": "cross-lingual zero-shot TTS results, where the audio context and the target text are in different languages."
+              },
+              {
+                "chunk_id": "69b1da221bae920a",
+                "quote": "We create a test set for each language by selecting samples from the MLS test split"
+              },
+              {
+                "chunk_id": "eeda564ea53c848d",
+                "quote": "The speaker similarity consistently improves as the prompt length is increased"
+              },
+              {
+                "chunk_id": "612c7314f424c7ac",
+                "quote": "Table D12: Detailed configurations for conditional flow matching based duration models"
+              },
+              {
+                "chunk_id": "e518edcc56a0a245",
+                "quote": "we also present a few standalone metrics focusing on the duration model."
+              },
+              {
+                "chunk_id": "df0f6e884185d2c5",
+                "quote": "Our first metric, multi-sample mean-absolute error (MS-MAE)"
+              },
+              {
+                "chunk_id": "6674b14fe6498e17",
+                "quote": "Measuring speech diversity and quality with FSD"
+              },
+              {
+                "chunk_id": "1959113231b0f8e2",
+                "quote": "We adapt the metric for speech by using self-supervised wav2vec 2.0 features"
+              },
+              {
+                "chunk_id": "9f78a2a0a03f290d",
+                "quote": "Both Voicebox variants beat the baseline by a large margin."
+              },
+              {
+                "chunk_id": "e47d9b8419c2340d",
+                "quote": "Prior studies often adopt subjective metrics like mean opinion scores (MOS)"
+              },
+              {
+                "chunk_id": "8a3f1ec1ecb12383",
+                "quote": "Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript."
+              },
+              {
+                "chunk_id": "383135cc805c9893",
+                "quote": "Voicebox models presented in this paper are trained on read speech from audiobooks in up to six written languages."
+              },
+              {
+                "chunk_id": "69b1da221bae920a",
+                "quote": "a small amount of utterances were excluded due to MFA alignment failure."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+                "answer": "R1: unknown. No evidence about click/pop artifacts at edit boundaries.\nR2: Yes, 3-second clips are used as prompts for zero-shot TTS and cross-lingual transfer.\nR3: Yes, supports cross-lingual zero-shot TTS so an English speaker can speak other languages in their own voice.\nR4: Yes, denoising is an intended application, but detailed denoising quality is not quantified here.\nR5: unknown. No direct evidence on emotional expressiveness vs robotic sound.\nR6: unknown. No mention of code or pretrained weights availability.",
+                "confidence": 0.76,
+                "evidence": [
+                  "bfc84f074f6f7130",
+                  "12c19f9c07484725",
+                  "3b0f0accc36f4dcd",
+                  "d026920d1e9adc59",
+                  "ff1b257a1da60f08",
+                  "3c30f4acf734928f",
+                  "12c19f9c07484725"
+                ],
+                "notes": "R1: Only high-level 'content editing' and 'transient noise removal' are mentioned, not artifact-free splicing. [bfc84f074f6f7130][12c19f9c07484725]\nR2: Cross-lingual experiments explicitly use 'one 3-second long audio context' as prompts. [3c30f4acf734928f]\nR3: Paper discusses cross-lingual zero-shot TTS where audio context and target text are different languages, and applications where 'everyone' can speak any language in their own voice. [3c30f4acf734928f][12c19f9c07484725][ff1b257a1da60f08]\nR4: Speech denoising is listed as an application: 'speech denoising can be productivity tools'. No quantitative denoising metrics in provided chunks. [12c19f9c07484725]\nR5: Chunks discuss diversity, WER, and metrics, but not subjective emotion/expressiveness, so this remains unknown.\nR6: No chunk mentions code release or pretrained weights; only describes the model and experiments, so availability is unknown."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "bfc84f074f6f7130",
+                  "3b0f0accc36f4dcd",
+                  "12c19f9c07484725"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "bfc84f074f6f7130",
+                    "quote": "Transient noise removal & content editing"
+                  },
+                  {
+                    "chunk_id": "3b0f0accc36f4dcd",
+                    "quote": "Voicebox is a text-guided infilling model"
+                  },
+                  {
+                    "chunk_id": "12c19f9c07484725",
+                    "quote": "Content editing and speech denoising can be productivity tools"
+                  }
+                ],
+                "rationale": "Evidence shows text-guided infilling, content editing, and transient noise removal, but nothing about click/pop artifacts or seamlessness at edit points."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "3c30f4acf734928f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "3c30f4acf734928f",
+                    "quote": "For each target text, we sample one 3-second long audio context"
+                  }
+                ],
+                "rationale": "Cross-lingual zero-shot TTS explicitly uses a 3-second audio context as the prompt, indicating cloning from 3-second samples is supported."
+              },
+              {
+                "id": "R3",
+                "status": "covered",
+                "evidence": [
+                  "ff1b257a1da60f08",
+                  "12c19f9c07484725",
+                  "3c30f4acf734928f",
+                  "eeda564ea53c848d"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "ff1b257a1da60f08",
+                    "quote": "Cross-lingual:"
+                  },
+                  {
+                    "chunk_id": "12c19f9c07484725",
+                    "quote": "cross-lingual zero-shot TTS enables everyone to speak any language in their own voice"
+                  },
+                  {
+                    "chunk_id": "3c30f4acf734928f",
+                    "quote": "cross-lingual zero-shot TTS results, where the audio context and the target text are in different languages"
+                  },
+                  {
+                    "chunk_id": "eeda564ea53c848d",
+                    "quote": "WER increases as we increase the prompt length for most directions"
+                  }
+                ],
+                "rationale": "Paper clearly describes cross-lingual zero-shot TTS where a speaker’s voice is used to speak other languages, with evaluation across many language directions."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "12c19f9c07484725",
+                  "bfc84f074f6f7130"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "12c19f9c07484725",
+                    "quote": "Content editing and speech denoising can be productivity tools"
+                  },
+                  {
+                    "chunk_id": "bfc84f074f6f7130",
+                    "quote": "Transient noise removal & content editing"
+                  }
+                ],
+                "rationale": "Speech denoising and transient noise removal are mentioned as capabilities, but there are no details or results showing quality of noisy-to-clean conversion."
+              },
+              {
+                "id": "R5",
+                "status": "unknown",
+                "evidence": [
+                  "e47d9b8419c2340d",
+                  "6674b14fe6498e17",
+                  "1959113231b0f8e2"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "e47d9b8419c2340d",
+                    "quote": "subjective metrics like mean opinion scores (MOS)"
+                  },
+                  {
+                    "chunk_id": "6674b14fe6498e17",
+                    "quote": "Measuring speech diversity and quality with FSD"
+                  }
+                ],
+                "rationale": "Text discusses evaluation metrics but provides no specific statements about emotional expressiveness or whether the voice sounds robotic vs expressive."
+              },
+              {
+                "id": "R6",
+                "status": "unknown",
+                "evidence": [
+                  "49fda3c64e5cde23",
+                  "8bafd732ecaa2bdc",
+                  "383135cc805c9893",
+                  "8a3f1ec1ecb12383"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "49fda3c64e5cde23",
+                    "quote": "Voicebox: Text-Guided Multilingual Universal Speech Generation at Scale"
+                  },
+                  {
+                    "chunk_id": "8bafd732ecaa2bdc",
+                    "quote": "This paper presents Voicebox, the most versatile generative model for speech."
+                  }
+                ],
+                "rationale": "No mention of code release, pre-trained weights, or availability via the survey; cannot determine if it is purely academic or released."
+              }
+            ],
+            "missing_requirements": [
+              "R5",
+              "R6"
+            ],
+            "risks": [
+              "Editing quality at word boundaries may include artifacts since no evidence addresses click/pop behavior.",
+              "Denoising performance and robustness to real-world noisy inputs are unclear despite claimed capability.",
+              "Emotional expressiveness and naturalness vs robotic quality are unevaluated in the provided text.",
+              "Model and weights availability is unknown, risking that capabilities are not practically accessible.",
+              "Cross-lingual performance degrades with longer prompts, especially En→non-En, increasing WER. [eeda564ea53c848d]"
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Cross-lingual capabilities and 3-second prompt usage are well supported. Editing and denoising are only briefly mentioned, and there is no evidence on emotion or model availability.",
+        "missing_requirements": [
+          "R5",
+          "R6"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks focus on evaluation metrics and duration modeling that are tangential to the specific editing and cross-lingual capability questions.",
+        "redundant_pairs": [
+          [
+            "e518edcc56a0a245",
+            "df0f6e884185d2c5"
+          ],
+          [
+            "6674b14fe6498e17",
+            "1959113231b0f8e2"
+          ],
+          [
+            "8bafd732ecaa2bdc",
+            "12c19f9c07484725"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Key requirements (cross-lingual, 3-second prompts, editing/denoising mention) are covered, but substantial budget went to general metric and duration-model details not directly needed for the user’s questions.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "e47d9b8419c2340d",
+            "cost": 154,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "12c19f9c07484725",
+            "cost": 156,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "1959113231b0f8e2",
+            "cost": 155,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "3b0f0accc36f4dcd",
+            "cost": 289,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Lack of evidence on artifact-free editing at word boundaries may overstate practical editing quality.",
+        "Denoising capability is asserted but not empirically supported in the retrieved text.",
+        "No information on emotional expressiveness could mislead users expecting expressive TTS.",
+        "Model/code availability is not addressed, so deployability remains uncertain.",
+        "Cross-lingual WER increases with longer prompts, especially from English, indicating potential reliability issues. [eeda564ea53c848d]"
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "49fda3c64e5cde23",
+          "quote": "Voicebox: Text-Guided Multilingual Universal Speech Generation at Scale"
+        },
+        {
+          "chunk_id": "8bafd732ecaa2bdc",
+          "quote": "This paper presents Voicebox, the most versatile generative model for speech."
+        },
+        {
+          "chunk_id": "3b0f0accc36f4dcd",
+          "quote": "Infilling can be considered as another type of task. It aims to predict speech content"
+        },
+        {
+          "chunk_id": "bfc84f074f6f7130",
+          "quote": "Transient noise removal & content editing"
+        },
+        {
+          "chunk_id": "12c19f9c07484725",
+          "quote": "Content editing and speech denoising can be productivity tools for users to create content more effortlessly."
+        },
+        {
+          "chunk_id": "d026920d1e9adc59",
+          "quote": "Zero-shot TTS & alignment-preserved style transfer"
+        },
+        {
+          "chunk_id": "ff1b257a1da60f08",
+          "quote": "Cross-lingual:"
+        },
+        {
+          "chunk_id": "3c30f4acf734928f",
+          "quote": "cross-lingual zero-shot TTS results, where the audio context and the target text are in different languages."
+        },
+        {
+          "chunk_id": "69b1da221bae920a",
+          "quote": "We create a test set for each language by selecting samples from the MLS test split"
+        },
+        {
+          "chunk_id": "eeda564ea53c848d",
+          "quote": "The speaker similarity consistently improves as the prompt length is increased"
+        },
+        {
+          "chunk_id": "612c7314f424c7ac",
+          "quote": "Table D12: Detailed configurations for conditional flow matching based duration models"
+        },
+        {
+          "chunk_id": "e518edcc56a0a245",
+          "quote": "we also present a few standalone metrics focusing on the duration model."
+        },
+        {
+          "chunk_id": "df0f6e884185d2c5",
+          "quote": "Our first metric, multi-sample mean-absolute error (MS-MAE)"
+        },
+        {
+          "chunk_id": "6674b14fe6498e17",
+          "quote": "Measuring speech diversity and quality with FSD"
+        },
+        {
+          "chunk_id": "1959113231b0f8e2",
+          "quote": "We adapt the metric for speech by using self-supervised wav2vec 2.0 features"
+        },
+        {
+          "chunk_id": "9f78a2a0a03f290d",
+          "quote": "Both Voicebox variants beat the baseline by a large margin."
+        },
+        {
+          "chunk_id": "e47d9b8419c2340d",
+          "quote": "Prior studies often adopt subjective metrics like mean opinion scores (MOS)"
+        },
+        {
+          "chunk_id": "8a3f1ec1ecb12383",
+          "quote": "Voicebox depends on a phonemizer and a forced aligner to produce frame-level phonetic transcript."
+        },
+        {
+          "chunk_id": "383135cc805c9893",
+          "quote": "Voicebox models presented in this paper are trained on read speech from audiobooks in up to six written languages."
+        },
+        {
+          "chunk_id": "69b1da221bae920a",
+          "quote": "a small amount of utterances were excluded due to MFA alignment failure."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Evaluating Editing and Cross-Lingual capabilities.",
+          "answer": "R1: unknown. No evidence about click/pop artifacts at edit boundaries.\nR2: Yes, 3-second clips are used as prompts for zero-shot TTS and cross-lingual transfer.\nR3: Yes, supports cross-lingual zero-shot TTS so an English speaker can speak other languages in their own voice.\nR4: Yes, denoising is an intended application, but detailed denoising quality is not quantified here.\nR5: unknown. No direct evidence on emotional expressiveness vs robotic sound.\nR6: unknown. No mention of code or pretrained weights availability.",
+          "confidence": 0.76,
+          "evidence": [
+            "bfc84f074f6f7130",
+            "12c19f9c07484725",
+            "3b0f0accc36f4dcd",
+            "d026920d1e9adc59",
+            "ff1b257a1da60f08",
+            "3c30f4acf734928f",
+            "12c19f9c07484725"
+          ],
+          "notes": "R1: Only high-level 'content editing' and 'transient noise removal' are mentioned, not artifact-free splicing. [bfc84f074f6f7130][12c19f9c07484725]\nR2: Cross-lingual experiments explicitly use 'one 3-second long audio context' as prompts. [3c30f4acf734928f]\nR3: Paper discusses cross-lingual zero-shot TTS where audio context and target text are different languages, and applications where 'everyone' can speak any language in their own voice. [3c30f4acf734928f][12c19f9c07484725][ff1b257a1da60f08]\nR4: Speech denoising is listed as an application: 'speech denoising can be productivity tools'. No quantitative denoising metrics in provided chunks. [12c19f9c07484725]\nR5: Chunks discuss diversity, WER, and metrics, but not subjective emotion/expressiveness, so this remains unknown.\nR6: No chunk mentions code release or pretrained weights; only describes the model and experiments, so availability is unknown."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,960 @@
+{
+  "run_id": "e3a908727085b349",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/voicebox.pdf",
+  "query": "Evaluating Editing and Cross-Lingual capabilities.",
+  "retrieval_query": "Evaluating Editing and Cross-Lingual capabilities.\n\nANCHOR:\n- Editing capabilities of language models: text revision, code editing, instruction-following edits, style transfer, error correction; evaluation protocols, human vs automatic metrics (BLEU, ROUGE, COMET, GLEU, edit distance).\n- Cross-lingual capabilities: translation, cross-lingual transfer, multilingual understanding, zero-shot and few-shot cross-lingual performance; languages covered (high-resource vs low-resource).\n- Benchmarks and datasets: WMT, FLORES, XNLI, XTREME, XGLUE, TyDi QA, multilingual MT corpora; editing benchmarks like GEC (Grammatical Error Correction), code-edit datasets, instruction-edit datasets.\n- Baseline models and systems: GPT, LLaMA, PaLM, mT5, XLM-R, M2M-100, NLLB; comparison with traditional MT and rule-based editing tools.\n- Key findings on accuracy, fluency, faithfulness, hallucination rates, robustness to noisy input, and sensitivity to prompt phrasing for both editing and cross-lingual tasks.\n- Evidence sources: ablation studies, error analyses, human evaluation protocols, inter-annotator agreement, case studies on cross-lingual transfer and editing reliability.\n- Risks and failure modes: mistranslation, cultural bias, toxicity transfer across languages, privacy leakage in edited content, over-correction, style drift, and domain shift issues.\n- Next steps / future work: improved evaluation frameworks, multili...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Evaluating Editing and Cross-Lingual capabilities.",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Evaluating Editing and Cross-Lingual capabilities.",
+    "retrieval_query": "Evaluating Editing and Cross-Lingual capabilities.\n\nANCHOR:\n- Editing capabilities of language models: text revision, code editing, instruction-following edits, style transfer, error correction; evaluation protocols, human vs automatic metrics (BLEU, ROUGE, COMET, GLEU, edit distance).\n- Cross-lingual capabilities: translation, cross-lingual transfer, multilingual understanding, zero-shot and few-shot cross-lingual performance; languages covered (high-resource vs low-resource).\n- Benchmarks and datasets: WMT, FLORES, XNLI, XTREME, XGLUE, TyDi QA, multilingual MT corpora; editing benchmarks like GEC (Grammatical Error Correction), code-edit datasets, instruction-edit datasets.\n- Baseline models and systems: GPT, LLaMA, PaLM, mT5, XLM-R, M2M-100, NLLB; comparison with traditional MT and rule-based editing tools.\n- Key findings on accuracy, fluency, faithfulness, hallucination rates, robustness to noisy input, and sensitivity to prompt phrasing for both editing and cross-lingual tasks.\n- Evidence sources: ablation studies, error analyses, human evaluation protocols, inter-annotator agreement, case studies on cross-lingual transfer and editing reliability.\n- Risks and failure modes: mistranslation, cultural bias, toxicity transfer across languages, privacy leakage in edited content, over-correction, style drift, and domain shift issues.\n- Next steps / future work: improved evaluation frameworks, multili...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "bfc84f074f6f7130",
+      "d026920d1e9adc59",
+      "49fda3c64e5cde23",
+      "48767a225c04882c",
+      "ff1b257a1da60f08",
+      "a77580c2c85fd261",
+      "10b2891930791cc0",
+      "7607c9f8b2af6566",
+      "8bafd732ecaa2bdc",
+      "e47d9b8419c2340d",
+      "5d85e9dd8ce97e0e",
+      "f9eb1f052a1ab253",
+      "a1acb2fee80cc7a3",
+      "f94f89dfae6dc95d",
+      "df0f6e884185d2c5",
+      "f65472bf5ec37b32",
+      "280beeac507466f7",
+      "12c19f9c07484725",
+      "cd26777505f29aab",
+      "392e962194b3c42b",
+      "27b529bd8ec11917",
+      "4051e7b8e296cb0a",
+      "7f9c8bb0fc3b9bb4",
+      "383135cc805c9893",
+      "acb01355b3df89c5",
+      "69b1da221bae920a",
+      "577adf22bf9bb8d7",
+      "edbe8b871feb758f",
+      "a0c86c664948853f",
+      "c81762f38ba86854",
+      "91cafa24faafa594",
+      "6a6d78af8dd72a01",
+      "806cea72b0cda9b8"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 2910
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "bfc84f074f6f7130",
+      "content": {
+        "text": "Transient noise removal &amp; content editing",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 8,
+        "importance_score": 0.005649717514124294
+      }
+    },
+    {
+      "chunk_id": "d026920d1e9adc59",
+      "content": {
+        "text": "Zero-shot TTS &amp; alignment-preserved style transfer",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 12,
+        "importance_score": 0.006329113924050633
+      }
+    },
+    {
+      "chunk_id": "49fda3c64e5cde23",
+      "content": {
+        "text": "Voicebox: Text-Guided Multilingual Universal Speech Generation at Scale",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 14,
+        "importance_score": 0.009009009009009009
+      }
+    },
+    {
+      "chunk_id": "48767a225c04882c",
+      "content": {
+        "text": "Correctness and intelligibility",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 5,
+        "importance_score": 0.008771929824561403
+      }
+    },
+    {
+      "chunk_id": "ff1b257a1da60f08",
+      "content": {
+        "text": "Cross-lingual:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 5,
+        "importance_score": 0.014925373134328358
+      }
+    },
+    {
+      "chunk_id": "a77580c2c85fd261",
+      "content": {
+        "text": "We consider a reduced setup for this ablation to save the compute. All models were trained on an English audiobook dataset with 1K hours of speech using a smaller model configuration (12 layers,",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 39,
+        "importance_score": 0.007352941176470588
+      }
+    },
+    {
+      "chunk_id": "10b2891930791cc0",
+      "content": {
+        "text": "Rate the similarity of the synthesized speech samples to a given prompt.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 13,
+        "importance_score": 0.008
+      }
+    },
+    {
+      "chunk_id": "7607c9f8b2af6566",
+      "content": {
+        "text": "Figure 2: Trade-off between NFE and different metrics of interest.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 15,
+        "importance_score": 0.004286714285714286
+      }
+    },
+    {
+      "chunk_id": "8bafd732ecaa2bdc",
+      "content": {
+        "text": "This paper presents Voicebox, the most versatile generative model for speech. By learning to solve a text-guided speech infilling task on large scale multilingual datasets with a power model and training objective Voicebox demonstrates impressive task generalization capabilities. Voicebox achieves",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 51,
+        "importance_score": 0.007751937984496124
+      }
+    },
+    {
+      "chunk_id": "e47d9b8419c2340d",
+      "content": {
+        "text": "Prior studies often adopt subjective metrics like mean opinion scores (MOS) (Ribeiro et al. [2011]) which are not comparable across papers or even across studies in the same paper, because ratings can be biased by the quality of samples from other systems evaluated in the same trial. Some studies have also considered automatic quantitative metrics measuring signal-level similarity, such as mean cepstral distance (MCD) (Kubichek [1993], Skerry-Ryan et al. [2018]) for speech synthesis and voice conversion, and signal-to-noise/distortion ratio (SNR/SDR) (Le Roux et al. [2019]) for speech enhancement. These metrics assume the output is deterministic given input, which is often ill-posed",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 154,
+        "importance_score": 0.006666666666666667
+      }
+    },
+    {
+      "chunk_id": "5d85e9dd8ce97e0e",
+      "content": {
+        "text": "R. Ardila, M. Branson, K. Davis, M. Henretty, M. Kohler, J. Meyer, R. Morais, L. Saunders, F. M. Tyers, and G. Weber. Common voice: A massively-multilingual speech corpus. In International Conference on Language Resources and Evaluation, 2019.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 74,
+        "importance_score": 0.01282051282051282
+      }
+    },
+    {
+      "chunk_id": "f9eb1f052a1ab253",
+      "content": {
+        "text": "Our next metric, multi-sample correlation (MS-Corr), computes the average masked predicted duration and unmasked duration context per utterance,",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 28,
+        "importance_score": 0.005405405405405406
+      }
+    },
+    {
+      "chunk_id": "a1acb2fee80cc7a3",
+      "content": {
+        "text": "We ran subjective MOS studies comparing ground truth, YourTTS, and Voicebox. A3T is not included because of the bad performance and VALL-E is not included because the model is not available. Voicebox outperforms all baselines on all metrics in both cases. In particular, Voicebox transfers style much more effectively (+0.101/+0.108 SIM-r on cross-sentence/continuation) than VALL-E, and the gap is even bigger when compared against raw audio (+0.141 SIM-o on continuation). MOS studies also confirm the quality and similarity of Voicebox are subjectively better than YourTTS.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 130,
+        "importance_score": 0.012987012987012988
+      }
+    },
+    {
+      "chunk_id": "f94f89dfae6dc95d",
+      "content": {
+        "text": "Figure C3: FSD under different noisy levels. Feature: Wav2vec 2.0 layer-6 feature. Noise is added upon model output from Voicebox under unconditional setting.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 39,
+        "importance_score": 0.004286714285714286
+      }
+    },
+    {
+      "chunk_id": "df0f6e884185d2c5",
+      "content": {
+        "text": "Our first metric, multi-sample mean-absolute error (MS-MAE), is the masked absolute error per-utterance divided by the average number of masked phonemes per-utterance",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 38,
+        "importance_score": 0.008064516129032258
+      }
+    },
+    {
+      "chunk_id": "f65472bf5ec37b32",
+      "content": {
+        "text": "samples are in average 15 seconds long. To alleviate this out of domain issue and focus the study on varying the prompt length, we truncate the target sequences to 4 seconds (at word boundaries). We notice that WERs are higher compared to Table 3 likely because the ASR model struggles with incomplete sentences. Each subplot contains the trend for one of the target languages from all six source languages.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 81,
+        "importance_score": 0.014705882352941176
+      }
+    },
+    {
+      "chunk_id": "280beeac507466f7",
+      "content": {
+        "text": "Last but not least, while Voicebox yields impressive results on transferring audio style (voice, speaking style, emotion, and acoustic condition), the model does not allow independent control of each attribute. In other words, one cannot ask the model to generate speech that resembles voice of one sample while resembling the emotion of another sample. We leave disentangled control of attributes through prompting or text description for future work.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 80,
+        "importance_score": 0.004761904761904762
+      }
+    },
+    {
+      "chunk_id": "12c19f9c07484725",
+      "content": {
+        "text": "A high-quality and versatile generalist speech generation model like Voicebox can enable many applications that improve the quality of our life. For example, zero-shot TTS could bring the voice back to people who suffer from diseases or underwent surgeries such as laryngectomy the causes inability to speak. Zero-shot TTS can also be combined with visual speech recognition systems [Hsu et al., 2022] to avoid the need of typing. When paired with speech translation models, cross-lingual zero-shot TTS enables everyone to speak any language in their own voice. Content editing and speech denoising can be productivity tools for users to create content more effortlessly. Diverse speech sampling, as shown in the paper, can significantly reduces the cost of creating data for training speech-input models.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 156,
+        "importance_score": 0.011627906976744186
+      }
+    },
+    {
+      "chunk_id": "cd26777505f29aab",
+      "content": {
+        "text": "1. Voicebox represents a breakthrough in generative modeling for speech. By learning to solve a text-guided speech infilling task with large scale data, Voicebox can solve tasks it was not explicitly trained to accomplish via in-context learning.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "list",
+        "cognitive_cost": 48,
+        "importance_score": 0.0048543689320388345
+      }
+    },
+    {
+      "chunk_id": "392e962194b3c42b",
+      "content": {
+        "text": "We recognize the potential risks of a model capable of generating speech in the style of arbitrary people. In an effort to diminish these risks we show that a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 51,
+        "importance_score": 0.00558659217877095
+      }
+    },
+    {
+      "chunk_id": "27b529bd8ec11917",
+      "content": {
+        "text": "1024-dimensional Transformer embedding, 2048-dimensional feed-forward layer, 8 attention heads) for 150k steps with an effective batch size of 120k frames. These models are evaluated on the cross-sentence zero-shot TTS setup (Section 5.2) and diverse speech sampling (Section 5.5).",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 67,
+        "importance_score": 0.006493506493506494
+      }
+    },
+    {
+      "chunk_id": "4051e7b8e296cb0a",
+      "content": {
+        "text": "N. Zeghidour, A. Luebs, A. Omran, J. Skoglund, and M. Tagliasacchi. Soundstream: An end-to-end neural audio codec. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 30: 495–507, 2022.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 69,
+        "importance_score": 0.0049504950495049506
+      }
+    },
+    {
+      "chunk_id": "7f9c8bb0fc3b9bb4",
+      "content": {
+        "text": "D. Povey, A. Ghoshal, G. Boulianne, L. Burget, O. Glembek, N. Goel, M. Hannemann, P. Motlicek, Y. Qian, P. Schwarz, et al. The kaldi speech recognition toolkit. In <i>Workshop on automatic speech recognition and understanding</i>, 2011.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 81,
+        "importance_score": 0.008849557522123894
+      }
+    },
+    {
+      "chunk_id": "383135cc805c9893",
+      "content": {
+        "text": "Voicebox models presented in this paper are trained on read speech from audiobooks in up to six written languages. Hence, the current models may not transfer well to conversational speech [Godfrey et al., 1992], which is more casual and contains more non-verbal sounds such as laughing and back-channeling (e.g., um-hmm). We plan to tackle the problem by scaling the training data to incorporate more diverse speech.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 87,
+        "importance_score": 0.007633587786259542
+      }
+    },
+    {
+      "chunk_id": "acb01355b3df89c5",
+      "content": {
+        "text": "Finally, in Fig. 2e we examine FSD by generating samples for Librispeech test-other text. We find that lower classifier guidance strength produces lower FSD scores and more diverse samples. Increasing the NFE for each setting improves FSD. Fig. 2d shows the WER of the same test case. We find that for α = 0, WER increases slightly from 2.8 to 3.1 as NFE goes from 2 to 32. For a larger classifier guidance strength, WER remains more stable. Through FSD and subjective listening, we discovered that a lower NFE leads to generating less diverse samples especially when the guidance weight is lower (α = 0 or 0.3). Although those samples are of lower quality, they are easier for the ASR model to recognize because they tend not contain extreme audio styles like whispering or high background noise. As a result, WERs are lower.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 195,
+        "importance_score": 0.005681818181818182
+      }
+    },
+    {
+      "chunk_id": "69b1da221bae920a",
+      "content": {
+        "text": "We create a test set for each language by selecting samples from the MLS test split which have Whisper transcription WER lower than 20% (or 30% for Polish and Portuguese test splits which contains less than 1K samples), because we found MLS test set contains many examples with incomplete transcriptions missing a large portion of the utterance. In addition, a small amount of utterances were excluded due to MFA alignment failure. Table A1 lists the number of samples remained for each language.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 99,
+        "importance_score": 0.011494252873563218
+      }
+    },
+    {
+      "chunk_id": "577adf22bf9bb8d7",
+      "content": {
+        "text": "X. Tan, J. Chen, H. Liu, J. Cong, C. Zhang, Y. Liu, X. Wang, Y. Leng, Y. Yi, L. He, F. K. Soong, T. Qin, S. Zhao, and T.-Y. Liu. NaturalSpeech: End-to-end text to speech synthesis with human-level quality. <i>ArXiv</i>, abs/2205.04421, 2022.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 98,
+        "importance_score": 0.006944444444444444
+      }
+    },
+    {
+      "chunk_id": "edbe8b871feb758f",
+      "content": {
+        "text": "Voicebox is trained on 60K hours of English audiobooks and 50K hours of multilingual audiobooks in 6 languages for the mono and multilingual subsets. Voicebox achieves SOTA performance on mono-lingual/cross-lingual zero-shot TTS, speech denoising, speech editing, diverse speech sampling and an application to data creation for speech recognition. To tackle the lack of comparability due to the use of subjective metrics, this paper presents a series of metrics using public models to facilitate reproducible comparison and model development for speech generation studies.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 113,
+        "importance_score": 0.015384615384615385
+      }
+    },
+    {
+      "chunk_id": "a0c86c664948853f",
+      "content": {
+        "text": "Recent advances in large-scale generative models \\citep{Brown2020, Nichol2021, Ramesh2021} have led to a major paradigm shift towards building general-purpose models, which can perform many new tasks not explicitly trained on. These generative models learn to predict the missing data given the context. Post training, we can directly input a question, optionally with a few contextual question-answer examples, instead of fine-tuning with labeled data. To give a concrete example, the model can answer a question like, “What is the capital of Japan?” with an example of such a relationship in the context: “The capital of Germany is Berlin. The capital of Japan is”.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 140,
+        "importance_score": 0.005291005291005291
+      }
+    },
+    {
+      "chunk_id": "c81762f38ba86854",
+      "content": {
+        "text": "Table 8: Synthetic speech detection metrics\n\n| % Mask | Accuracy | Precision | Recall |\n|-------|----------|-----------|--------|\n| **Original audio vs Voicebox-generated audio** | | | |\n| 30% | 1.000 | 1.000 | 1.000 |\n| 50% | 1.000 | 1.000 | 1.000 |\n| 90% | 1.000 | 1.000 | 1.000 |\n| **Resynthesized audio vs Voicebox-generated audio** | | | |\n| 30% | 0.704 | 0.714 | 0.680 |\n| 50% | 0.809 | 0.796 | 0.831 |\n| 90% | 0.907 | 0.881 | 0.942 |",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 178,
+        "importance_score": 0.009510869565217392
+      }
+    },
+    {
+      "chunk_id": "91cafa24faafa594",
+      "content": {
+        "text": "T. B. Brown, B. Mann, N. Ryder, M. Subbiah, J. Kaplan, P. Dhariwal, A. Neelakantan, P. Shyam, G. Sastry, A. Askell, S. Agarwal, A. Herbert-Voss, G. Krueger, T. J. Henighan, R. Child, A. Ramesh, D. M. Ziegler, J. Wu, C. Winter, C. Hesse, M. Chen, E. Sigler, M. Litwin, S. Gray, B. Chess, J. Clark, C. Berner, S. McCandlish, A. Radford, I. Sutskever, and D. Amodei. Language models are few-shot learners. ArXiv, abs/2005.14165, 2020.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 187,
+        "importance_score": 0.013157894736842105
+      }
+    },
+    {
+      "chunk_id": "6a6d78af8dd72a01",
+      "content": {
+        "text": "For content editing, let $\\hat{y}$ be the new desired transcript with some words from the original transcript $y$ replaced, and $\\hat{l}$ be their original duration. A user first constructs $l_{\\text{ctx}}$ (of the same length as $\\hat{y}$) by copying the lengths of phones that are not replaced from $l$, and set the lengths to 0 for new phones. The duration of new phones $l_{\\text{mis}}$ is sampled given $l_{\\text{ctx}}$ and $\\hat{y}$, and the new duration $\\hat{l} = l_{\\text{mis}} + l_{\\text{ctx}}$. The new frame-level transcript is constructed with $\\hat{z} = \\text{rep}(\\hat{y}, \\hat{l})$. Similarly, the audio context $x_{\\text{ctx}}$ is of the same length as $\\hat{z}$, and is created by filling frames mapped to unreplaced phones with the corresponding frames in $x$, and leaving those for new phones with 0. The frames for the new phones $x_{\\text{mis}}$ are sampled given $\\hat{z}$ and $x_{\\text{ctx}}$. The edited speech is computed as $\\hat{x} = x_{\\text{mis}} + x_{\\text{ctx}}$.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 282,
+        "importance_score": 0.015625
+      }
+    },
+    {
+      "chunk_id": "806cea72b0cda9b8",
+      "content": {
+        "text": "Large-scale generative models such as GPT and DALL-E have revolutionized natural language processing and computer vision research. These models not only generate high fidelity text or image outputs, but are also generalists which can solve tasks not explicitly taught. In contrast, speech generative models are still primitive in terms of scale and task generalization. In this paper, we present Voicebox, the most versatile text-guided generative model for speech at scale. Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text, trained on over 50K hours of speech that are neither filtered nor enhanced. Similar to GPT, Voicebox can perform many different tasks through in-context learning, but is more flexible as it can also condition on future context. Voicebox can be used for mono or cross-lingual zero-shot text-to-speech synthesis, noise removal, content editing, style conversion, and diverse sample generation. In particular, Voicebox outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility (5.9% vs 1.9% word error rates) and audio similarity (0.580 vs 0.681) while being up to 20 times faster. See \\texttt{voicebox.metademolab.com} for a demo of the model",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "abstract",
+        "cognitive_cost": 273,
+        "importance_score": 0.011111111111111112
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "bfc84f074f6f7130",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005649717514124294,
+      "cost": 8,
+      "text": "Transient noise removal &amp; content editing",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d026920d1e9adc59",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.006329113924050633,
+      "cost": 12,
+      "text": "Zero-shot TTS &amp; alignment-preserved style transfer",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "49fda3c64e5cde23",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.009009009009009009,
+      "cost": 14,
+      "text": "Voicebox: Text-Guided Multilingual Universal Speech Generation at Scale",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "48767a225c04882c",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.008771929824561403,
+      "cost": 5,
+      "text": "Correctness and intelligibility",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ff1b257a1da60f08",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.014925373134328358,
+      "cost": 5,
+      "text": "Cross-lingual:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a77580c2c85fd261",
+      "page": 23,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007352941176470588,
+      "cost": 39,
+      "text": "We consider a reduced setup for this ablation to save the compute. All models were trained on an English audiobook dataset with 1K hours of speech using a smaller model configuration (12 layers,",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "10b2891930791cc0",
+      "page": 30,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008,
+      "cost": 13,
+      "text": "Rate the similarity of the synthesized speech samples to a given prompt.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7607c9f8b2af6566",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.004286714285714286,
+      "cost": 15,
+      "text": "Figure 2: Trade-off between NFE and different metrics of interest.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8bafd732ecaa2bdc",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007751937984496124,
+      "cost": 51,
+      "text": "This paper presents Voicebox, the most versatile generative model for speech. By learning to solve a text-guided speech infilling task on large scale multilingual datasets with a power model and training objective Voicebox demonstrates impressive task generalization capabilities. Voicebox achieves",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e47d9b8419c2340d",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006666666666666667,
+      "cost": 154,
+      "text": "Prior studies often adopt subjective metrics like mean opinion scores (MOS) (Ribeiro et al. [2011]) which are not comparable across papers or even across studies in the same paper, because ratings can be biased by the quality of samples from other systems evaluated in the same trial. Some studies have also considered automatic quantitative metrics measuring signal-level similarity, such as mean cepstral distance (MCD) (Kubichek [1993], Skerry-Ryan et al. [2018]) for speech synthesis and voice conversion, and signal-to-noise/distortion ratio (SNR/SDR) (Le Roux et al. [2019]) for speech enhancement. These metrics assume the output is deterministic given input, which is often ill-posed",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "5d85e9dd8ce97e0e",
+      "page": 17,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.01282051282051282,
+      "cost": 74,
+      "text": "R. Ardila, M. Branson, K. Davis, M. Henretty, M. Kohler, J. Meyer, R. Morais, L. Saunders, F. M. Tyers, and G. Weber. Common voice: A massively-multilingual speech corpus. In International Conference on Language Resources and Evaluation, 2019.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f9eb1f052a1ab253",
+      "page": 27,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005405405405405406,
+      "cost": 28,
+      "text": "Our next metric, multi-sample correlation (MS-Corr), computes the average masked predicted duration and unmasked duration context per utterance,",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a1acb2fee80cc7a3",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012987012987012988,
+      "cost": 130,
+      "text": "We ran subjective MOS studies comparing ground truth, YourTTS, and Voicebox. A3T is not included because of the bad performance and VALL-E is not included because the model is not available. Voicebox outperforms all baselines on all metrics in both cases. In particular, Voicebox transfers style much more effectively (+0.101/+0.108 SIM-r on cross-sentence/continuation) than VALL-E, and the gap is even bigger when compared against raw audio (+0.141 SIM-o on continuation). MOS studies also confirm the quality and similarity of Voicebox are subjectively better than YourTTS.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f94f89dfae6dc95d",
+      "page": 27,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.004286714285714286,
+      "cost": 39,
+      "text": "Figure C3: FSD under different noisy levels. Feature: Wav2vec 2.0 layer-6 feature. Noise is added upon model output from Voicebox under unconditional setting.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "df0f6e884185d2c5",
+      "page": 27,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008064516129032258,
+      "cost": 38,
+      "text": "Our first metric, multi-sample mean-absolute error (MS-MAE), is the masked absolute error per-utterance divided by the average number of masked phonemes per-utterance",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f65472bf5ec37b32",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014705882352941176,
+      "cost": 81,
+      "text": "samples are in average 15 seconds long. To alleviate this out of domain issue and focus the study on varying the prompt length, we truncate the target sequences to 4 seconds (at word boundaries). We notice that WERs are higher compared to Table 3 likely because the ASR model struggles with incomplete sentences. Each subplot contains the trend for one of the target languages from all six source languages.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "280beeac507466f7",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.004761904761904762,
+      "cost": 80,
+      "text": "Last but not least, while Voicebox yields impressive results on transferring audio style (voice, speaking style, emotion, and acoustic condition), the model does not allow independent control of each attribute. In other words, one cannot ask the model to generate speech that resembles voice of one sample while resembling the emotion of another sample. We leave disentangled control of attributes through prompting or text description for future work.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "12c19f9c07484725",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.011627906976744186,
+      "cost": 156,
+      "text": "A high-quality and versatile generalist speech generation model like Voicebox can enable many applications that improve the quality of our life. For example, zero-shot TTS could bring the voice back to people who suffer from diseases or underwent surgeries such as laryngectomy the causes inability to speak. Zero-shot TTS can also be combined with visual speech recognition systems [Hsu et al., 2022] to avoid the need of typing. When paired with speech translation models, cross-lingual zero-shot TTS enables everyone to speak any language in their own voice. Content editing and speech denoising can be productivity tools for users to create content more effortlessly. Diverse speech sampling, as shown in the paper, can significantly reduces the cost of creating data for training speech-input models.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "cd26777505f29aab",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "list",
+      "rel": 0.0048543689320388345,
+      "cost": 48,
+      "text": "1. Voicebox represents a breakthrough in generative modeling for speech. By learning to solve a text-guided speech infilling task with large scale data, Voicebox can solve tasks it was not explicitly trained to accomplish via in-context learning.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "392e962194b3c42b",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.00558659217877095,
+      "cost": 51,
+      "text": "We recognize the potential risks of a model capable of generating speech in the style of arbitrary people. In an effort to diminish these risks we show that a binary classification model is able to consistently distinguish between real world speech and that which is generated from our model.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "27b529bd8ec11917",
+      "page": 24,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006493506493506494,
+      "cost": 67,
+      "text": "1024-dimensional Transformer embedding, 2048-dimensional feed-forward layer, 8 attention heads) for 150k steps with an effective batch size of 120k frames. These models are evaluated on the cross-sentence zero-shot TTS setup (Section 5.2) and diverse speech sampling (Section 5.5).",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "4051e7b8e296cb0a",
+      "page": 21,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.0049504950495049506,
+      "cost": 69,
+      "text": "N. Zeghidour, A. Luebs, A. Omran, J. Skoglund, and M. Tagliasacchi. Soundstream: An end-to-end neural audio codec. IEEE/ACM Transactions on Audio, Speech, and Language Processing, 30: 495–507, 2022.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7f9c8bb0fc3b9bb4",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.008849557522123894,
+      "cost": 81,
+      "text": "D. Povey, A. Ghoshal, G. Boulianne, L. Burget, O. Glembek, N. Goel, M. Hannemann, P. Motlicek, Y. Qian, P. Schwarz, et al. The kaldi speech recognition toolkit. In <i>Workshop on automatic speech recognition and understanding</i>, 2011.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "383135cc805c9893",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007633587786259542,
+      "cost": 87,
+      "text": "Voicebox models presented in this paper are trained on read speech from audiobooks in up to six written languages. Hence, the current models may not transfer well to conversational speech [Godfrey et al., 1992], which is more casual and contains more non-verbal sounds such as laughing and back-channeling (e.g., um-hmm). We plan to tackle the problem by scaling the training data to incorporate more diverse speech.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "acb01355b3df89c5",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005681818181818182,
+      "cost": 195,
+      "text": "Finally, in Fig. 2e we examine FSD by generating samples for Librispeech test-other text. We find that lower classifier guidance strength produces lower FSD scores and more diverse samples. Increasing the NFE for each setting improves FSD. Fig. 2d shows the WER of the same test case. We find that for α = 0, WER increases slightly from 2.8 to 3.1 as NFE goes from 2 to 32. For a larger classifier guidance strength, WER remains more stable. Through FSD and subjective listening, we discovered that a lower NFE leads to generating less diverse samples especially when the guidance weight is lower (α = 0 or 0.3). Although those samples are of lower quality, they are easier for the ASR model to recognize because they tend not contain extreme audio styles like whispering or high background noise. As a result, WERs are lower.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "69b1da221bae920a",
+      "page": 23,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.011494252873563218,
+      "cost": 99,
+      "text": "We create a test set for each language by selecting samples from the MLS test split which have Whisper transcription WER lower than 20% (or 30% for Polish and Portuguese test splits which contains less than 1K samples), because we found MLS test set contains many examples with incomplete transcriptions missing a large portion of the utterance. In addition, a small amount of utterances were excluded due to MFA alignment failure. Table A1 lists the number of samples remained for each language.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "577adf22bf9bb8d7",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.006944444444444444,
+      "cost": 98,
+      "text": "X. Tan, J. Chen, H. Liu, J. Cong, C. Zhang, Y. Liu, X. Wang, Y. Leng, Y. Yi, L. He, F. K. Soong, T. Qin, S. Zhao, and T.-Y. Liu. NaturalSpeech: End-to-end text to speech synthesis with human-level quality. <i>ArXiv</i>, abs/2205.04421, 2022.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "edbe8b871feb758f",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015384615384615385,
+      "cost": 113,
+      "text": "Voicebox is trained on 60K hours of English audiobooks and 50K hours of multilingual audiobooks in 6 languages for the mono and multilingual subsets. Voicebox achieves SOTA performance on mono-lingual/cross-lingual zero-shot TTS, speech denoising, speech editing, diverse speech sampling and an application to data creation for speech recognition. To tackle the lack of comparability due to the use of subjective metrics, this paper presents a series of metrics using public models to facilitate reproducible comparison and model development for speech generation studies.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a0c86c664948853f",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005291005291005291,
+      "cost": 140,
+      "text": "Recent advances in large-scale generative models \\citep{Brown2020, Nichol2021, Ramesh2021} have led to a major paradigm shift towards building general-purpose models, which can perform many new tasks not explicitly trained on. These generative models learn to predict the missing data given the context. Post training, we can directly input a question, optionally with a few contextual question-answer examples, instead of fine-tuning with labeled data. To give a concrete example, the model can answer a question like, “What is the capital of Japan?” with an example of such a relationship in the context: “The capital of Germany is Berlin. The capital of Japan is”.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c81762f38ba86854",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.009510869565217392,
+      "cost": 178,
+      "text": "Table 8: Synthetic speech detection metrics\n\n| % Mask | Accuracy | Precision | Recall |\n|-------|----------|-----------|--------|\n| **Original audio vs Voicebox-generated audio** | | | |\n| 30% | 1.000 | 1.000 | 1.000 |\n| 50% | 1.000 | 1.000 | 1.000 |\n| 90% | 1.000 | 1.000 | 1.000 |\n| **Resynthesized audio vs Voicebox-generated audio** | | | |\n| 30% | 0.704 | 0.714 | 0.680 |\n| 50% | 0.809 | 0.796 | 0.831 |\n| 90% | 0.907 | 0.881 | 0.942 |",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "91cafa24faafa594",
+      "page": 17,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.013157894736842105,
+      "cost": 187,
+      "text": "T. B. Brown, B. Mann, N. Ryder, M. Subbiah, J. Kaplan, P. Dhariwal, A. Neelakantan, P. Shyam, G. Sastry, A. Askell, S. Agarwal, A. Herbert-Voss, G. Krueger, T. J. Henighan, R. Child, A. Ramesh, D. M. Ziegler, J. Wu, C. Winter, C. Hesse, M. Chen, E. Sigler, M. Litwin, S. Gray, B. Chess, J. Clark, C. Berner, S. McCandlish, A. Radford, I. Sutskever, and D. Amodei. Language models are few-shot learners. ArXiv, abs/2005.14165, 2020.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "6a6d78af8dd72a01",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015625,
+      "cost": 282,
+      "text": "For content editing, let $\\hat{y}$ be the new desired transcript with some words from the original transcript $y$ replaced, and $\\hat{l}$ be their original duration. A user first constructs $l_{\\text{ctx}}$ (of the same length as $\\hat{y}$) by copying the lengths of phones that are not replaced from $l$, and set the lengths to 0 for new phones. The duration of new phones $l_{\\text{mis}}$ is sampled given $l_{\\text{ctx}}$ and $\\hat{y}$, and the new duration $\\hat{l} = l_{\\text{mis}} + l_{\\text{ctx}}$. The new frame-level transcript is constructed with $\\hat{z} = \\text{rep}(\\hat{y}, \\hat{l})$. Similarly, the audio context $x_{\\text{ctx}}$ is of the same length as $\\hat{z}$, and is created by filling frames mapped to unreplaced phones with the corresponding frames in $x$, and leaving those for new phones with 0. The frames for the new phones $x_{\\text{mis}}$ are sampled given $\\hat{z}$ and $x_{\\text{ctx}}$. The edited speech is computed as $\\hat{x} = x_{\\text{mis}} + x_{\\text{ctx}}$.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "806cea72b0cda9b8",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "abstract",
+      "rel": 0.011111111111111112,
+      "cost": 273,
+      "text": "Large-scale generative models such as GPT and DALL-E have revolutionized natural language processing and computer vision research. These models not only generate high fidelity text or image outputs, but are also generalists which can solve tasks not explicitly taught. In contrast, speech generative models are still primitive in terms of scale and task generalization. In this paper, we present Voicebox, the most versatile text-guided generative model for speech at scale. Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text, trained on over 50K hours of speech that are neither filtered nor enhanced. Similar to GPT, Voicebox can perform many different tasks through in-context learning, but is more flexible as it can also condition on future context. Voicebox can be used for mono or cross-lingual zero-shot text-to-speech synthesis, noise removal, content editing, style conversion, and diverse sample generation. In particular, Voicebox outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility (5.9% vs 1.9% word error rates) and audio similarity (0.580 vs 0.681) while being up to 20 times faster. See \\texttt{voicebox.metademolab.com} for a demo of the model",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- Voicebox is a large-scale, non-autoregressive, text-guided speech infilling model trained on ~110K hours of audiobook speech (60K English, 50K multilingual in 6 languages), enabling zero-shot TTS, cross-lingual synthesis, denoising, and content editing via in-context learning rather than task-specific training. [806cea72b0cda9b8][edbe8b871feb758f][cd26777505f29aab]\n\n## Key Findings\n- **Editing & Denoising Capability**\n  - Supports speech content editing by selectively resynthesizing only the frames corresponding to modified words/phones while preserving the rest of the original audio, using duration-aware masking and infilling. [6a6d78af8dd72a01][bfc84f074f6f7130]\n  - Can perform speech denoising and transient noise removal as part of its general infilling/conditional generation capabilities. [bfc84f074f6f7130][806cea72b0cda9b8]\n- **Cross-Lingual & Zero-Shot TTS**\n  - Trained on multilingual audiobooks in six written languages and supports mono- and cross-lingual zero-shot TTS, including style transfer across languages. [edbe8b871feb758f][ff1b257a1da60f08][d026920d1e9adc59]\n  - When paired with speech translation, enables cross-lingual zero-shot TTS so users can speak any language in their own voice. [12c19f9c07484725]\n- **Quality, Intelligibility, and Style Transfer**\n  - Outperforms YourTTS and other baselines on MOS and similarity metrics; transfers style (voice, speaking style, emotion, acoustic condition) more effectively than VALL-E, with +0.101/+0.108 SIM-r gains (cross-sentence/continuation) and +0.141 SIM-o vs raw audio on continuation. [a1acb2fee80cc7a3]\n  - Achieves lower WER and higher similarity than VALL-E in zero-shot TTS (1.9% vs 5.9% WER; 0.681 vs 0.580 similarity) while being up to 20× faster. [806cea72b0cda9b8]\n- **Diversity vs Accuracy Trade-offs**\n  - Flow-matching sampling shows a trade-off between diversity (FSD) and intelligibility (WER): lower classifier guidance and higher NFE increase diversity but can slightly raise WER; low NFE yields less diverse but more ASR-friendly audio. [7607c9f8b2af6566][acb01355b3df89c5]\n- **Robust Evaluation Metrics**\n  - Introduces reproducible, public-model-based metrics (e.g., MS-MAE, MS-Corr, FSD) to replace non-comparable MOS-only evaluations, targeting correctness, intelligibility, and diversity. [48767a225c04882c][df0f6e884185d2c5][f9eb1f052a1ab253][f94f89dfae6dc95d]\n- **Synthetic Speech Detection**\n  - A binary classifier can reliably distinguish Voicebox-generated speech from real audio; detection accuracy reaches 1.0 vs original audio and up to 0.907 vs resynthesized audio at high mask ratios. [392e962194b3c42][c81762f38ba86854]\n\n## Evidence\n- **Model & Training**\n  - Non-autoregressive flow-matching model trained to infill speech given audio context and text; trained on >50K hours of unfiltered, unenhanced speech, plus 60K hours English and 50K hours multilingual audiobooks. [806cea72b0cda9b8][edbe8b871feb758f]\n  - Reduced ablation setup: English-only 1K-hour audiobook subset, 12-layer Transformer, 1024-d embeddings, 2048-d FFN, 8 heads, 150k steps, batch size 120k frames. [a77580c2c85fd261][27b529bd8ec11917]\n- **Editing Mechanism**\n  - Content editing formalism: construct new transcript and durations, copy durations for unchanged phones, set new phones to 0, sample missing durations and frames conditioned on context, then combine original and generated frames to form edited speech. [6a6d78af8dd72a01]\n- **Cross-Lingual Evaluation Setup**\n  - Cross-lingual tests use MLS test splits filtered by Whisper WER (<20%, or <30% for Polish/Portuguese) to avoid incomplete transcripts; some utterances removed due to alignment failures. [69b1da221bae920a]\n  - For prompt-length studies, long samples (~15s) truncated to 4s at word boundaries; higher WERs attributed to ASR difficulty on incomplete sentences. [f65472bf5ec37b32]\n- **Metrics & Benchmarks**\n  - Critique of MOS and deterministic signal metrics (MCD, SNR/SDR) for generative speech; Voicebox proposes multi-sample metrics (MS-MAE, MS-Corr) and FSD using public models for reproducible comparison. [e47d9b8419c2340d][df0f6e884185d2c5][f9eb1f052a1ab253][f94f89dfae6dc95d][edbe8b871feb758f]\n  - Subjective studies: Voicebox vs YourTTS and VALL-E show superior MOS and similarity, especially in style transfer. [a1acb2fee80cc7a3]\n  - Flow-matching trade-offs: as NFE increases from 2 to 32, WER slightly increases (2.8→3.1) at low guidance (α=0), while FSD improves; stronger guidance stabilizes WER. [7607c9f8b2af6566][acb01355b3df89c5]\n- **Detection & Safety**\n  - Synthetic speech detector performance across mask ratios: perfect (1.000 accuracy/precision/recall) vs original audio; up to 0.907 accuracy, 0.881 precision, 0.942 recall vs resynthesized audio at 90% mask. [c81762f38ba86854]\n  - Explicit acknowledgment of misuse risk for arbitrary voice-style generation and demonstration that detection is feasible. [392e962194b3c42]\n- **Limitations**\n  - Training data is read audiobooks; current models may not transfer well to conversational speech with casual style and non-verbal sounds; plan to scale to more diverse speech. [383135cc805c9893]\n  - No disentangled control over individual style attributes (voice vs emotion vs acoustic condition); cannot independently mix attributes from different samples. [280beeac507466f7]\n\n## Risks\n- **Misuse for Impersonation and Deepfakes**\n  - Ability to generate speech in arbitrary styles and voices, including cross-lingual, raises risk of impersonation, fraud, and misinformation despite detectability. [392e962194b3c42][12c19f9c07484725]\n- **Limited Attribute Control**\n  - Lack of disentangled control over voice, emotion, and acoustic conditions can hinder precise editing workflows and may cause unintended style changes when editing or transferring across languages. [280beeac507466f7]\n- **Domain Generalization**\n  - Models trained primarily on read audiobooks may degrade on conversational or noisy real-world speech, affecting editing, denoising, and cross-lingual performance in production settings. [383135cc805c9893]\n- **Evaluation Biases**\n  - MOS remains subjective and context-dependent; although new metrics are proposed, they rely on public ASR/feature models whose biases and domain limits can skew perceived intelligibility and diversity. [e47d9b8419c2340d][edbe8b871feb758f]\n\n## Next Steps\n- **For Editing & Denoising Deployment**\n  - Implement the duration- and mask-based editing pipeline (copy unchanged phone durations/frames, zero and resample only new phones) to minimize artifacts in content edits and transient noise removal. [6a6d78af8dd72a01][bfc84f074f6f7130]\n  - Tune NFE and classifier guidance to balance intelligibility (WER) vs diversity (FSD) for your target use case (e.g., prioritize lower NFE and higher guidance for ASR-friendly, clean edits). [7607c9f8b2af6566][acb01355b3df89c5]\n- **For Cross-Lingual TTS**\n  - Combine Voicebox with speech translation to enable “same-voice, different-language” applications; validate on MLS-like filtered test sets to ensure transcription quality. [12c19f9c07484725][69b1da221bae920a]\n  - Benchmark cross-lingual performance per language and prompt length, accounting for higher WER on truncated/incomplete sentences. [f65472bf5ec37b32][ff1b257a1da60f08]\n- **For Safety and Governance**\n  - Integrate a synthetic speech detector similar to the one evaluated (targeting ≥0.9 accuracy vs resynthesized audio) into any production pipeline that exposes zero-shot or cross-lingual TTS. [c81762f38ba86854][392e962194b3c42]\n  - Establish policy and access controls for arbitrary voice-style cloning, especially in cross-lingual scenarios.\n- **For Research & Model Improvement**\n  - Expand training data beyond audiobooks to conversational and noisy speech to improve robustness for real-world editing and cross-lingual use. [383135cc805c9893]\n  - Investigate disentangled control mechanisms (prompting or text descriptions) to independently manipulate voice, emotion, and acoustic conditions during editing and cross-lingual generation. [280beeac507466f7]\n  - Adopt and extend the proposed public-model-based metrics (MS-MAE, MS-Corr, FSD, WER) as standard evaluation tools for future speech generation and editing systems. [48767a225c04882c][df0f6e884185d2c5][f9eb1f052a1ab253][edbe8b871feb758f]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- Voicebox is a large-scale, non-autoregressive, text-guided speech infilling model trained on ~110K hours of audiobook speech (60K English, 50K multilingual in 6 languages), enabling zero-shot TTS, cross-lingual synthesis, denoising, and content editing via in-context learning rather than task-specific training. [806cea72b0cda9b8][edbe8b871feb758f][cd26777505f29aab]\n\n## Key Findings\n- **Editing & Denoising Capability**\n  - Supports speech content editing by selectively resynthesizing only the frames corresponding to modified words/phones while preserving the rest of the original audio, using duration-aware masking and infilling. [6a6d78af8dd72a01][bfc84f074f6f7130]\n  - Can perform speech denoising and transient noise removal as part of its general infilling/conditional generation capabilities. [bfc84f074f6f7130][806cea72b0cda9b8]\n- **Cross-Lingual & Zero-Shot TTS**\n  - Trained on multilingual audiobooks in six written languages and supports mono- and cross-lingual zero-shot TTS, including style transfer across languages. [edbe8b871feb758f][ff1b257a1da60f08][d026920d1e9adc59]\n  - When paired with speech translation, enables cross-lingual zero-shot TTS so users can speak any language in their own voice. [12c19f9c07484725]\n- **Quality, Intelligibility, and Style Transfer**\n  - Outperforms YourTTS and other baselines on MOS and similarity metrics; transfers style (voice, speaking style, emotion, acoustic condition) more effectively than VALL-E, with +0.101/+0.108 SIM-r gains (cross-sentence/continuation) and +0.141 SIM-o vs raw audio on continuation. [a1acb2fee80cc7a3]\n  - Achieves lower WER and higher similarity than VALL-E in zero-shot TTS (1.9% vs 5.9% WER; 0.681 vs 0.580 similarity) while being up to 20× faster. [806cea72b0cda9b8]\n- **Diversity vs Accuracy Trade-offs**\n  - Flow-matching sampling shows a trade-off between diversity (FSD) and intelligibility (WER): lower classifier guidance and higher NFE increase diversity but can slightly raise WER; low NFE yields less diverse but more ASR-friendly audio. [7607c9f8b2af6566][acb01355b3df89c5]\n- **Robust Evaluation Metrics**\n  - Introduces reproducible, public-model-based metrics (e.g., MS-MAE, MS-Corr, FSD) to replace non-comparable MOS-only evaluations, targeting correctness, intelligibility, and diversity. [48767a225c04882c][df0f6e884185d2c5][f9eb1f052a1ab253][f94f89dfae6dc95d]\n- **Synthetic Speech Detection**\n  - A binary classifier can reliably distinguish Voicebox-generated speech from real audio; detection accuracy reaches 1.0 vs original audio and up to 0.907 vs resynthesized audio at high mask ratios. [392e962194b3c42][c81762f38ba86854]\n\n## Evidence\n- **Model & Training**\n  - Non-autoregressive flow-matching model trained to infill speech given audio context and text; trained on >50K hours of unfiltered, unenhanced speech, plus 60K hours English and 50K hours multilingual audiobooks. [806cea72b0cda9b8][edbe8b871feb758f]\n  - Reduced ablation setup: English-only 1K-hour audiobook subset, 12-layer Transformer, 1024-d embeddings, 2048-d FFN, 8 heads, 150k steps, batch size 120k frames. [a77580c2c85fd261][27b529bd8ec11917]\n- **Editing Mechanism**\n  - Content editing formalism: construct new transcript and durations, copy durations for unchanged phones, set new phones to 0, sample missing durations and frames conditioned on context, then combine original and generated frames to form edited speech. [6a6d78af8dd72a01]\n- **Cross-Lingual Evaluation Setup**\n  - Cross-lingual tests use MLS test splits filtered by Whisper WER (<20%, or <30% for Polish/Portuguese) to avoid incomplete transcripts; some utterances removed due to alignment failures. [69b1da221bae920a]\n  - For prompt-length studies, long samples (~15s) truncated to 4s at word boundaries; higher WERs attributed to ASR difficulty on incomplete sentences. [f65472bf5ec37b32]\n- **Metrics & Benchmarks**\n  - Critique of MOS and deterministic signal metrics (MCD, SNR/SDR) for generative speech; Voicebox proposes multi-sample metrics (MS-MAE, MS-Corr) and FSD using public models for reproducible comparison. [e47d9b8419c2340d][df0f6e884185d2c5][f9eb1f052a1ab253][f94f89dfae6dc95d][edbe8b871feb758f]\n  - Subjective studies: Voicebox vs YourTTS and VALL-E show superior MOS and similarity, especially in style transfer. [a1acb2fee80cc7a3]\n  - Flow-matching trade-offs: as NFE increases from 2 to 32, WER slightly increases (2.8→3.1) at low guidance (α=0), while FSD improves; stronger guidance stabilizes WER. [7607c9f8b2af6566][acb01355b3df89c5]\n- **Detection & Safety**\n  - Synthetic speech detector performance across mask ratios: perfect (1.000 accuracy/precision/recall) vs original audio; up to 0.907 accuracy, 0.881 precision, 0.942 recall vs resynthesized audio at 90% mask. [c81762f38ba86854]\n  - Explicit acknowledgment of misuse risk for arbitrary voice-style generation and demonstration that detection is feasible. [392e962194b3c42]\n- **Limitations**\n  - Training data is read audiobooks; current models may not transfer well to conversational speech with casual style and non-verbal sounds; plan to scale to more diverse speech. [383135cc805c9893]\n  - No disentangled control over individual style attributes (voice vs emotion vs acoustic condition); cannot independently mix attributes from different samples. [280beeac507466f7]\n\n## Risks\n- **Misuse for Impersonation and Deepfakes**\n  - Ability to generate speech in arbitrary styles and voices, including cross-lingual, raises risk of impersonation, fraud, and misinformation despite detectability. [392e962194b3c42][12c19f9c07484725]\n- **Limited Attribute Control**\n  - Lack of disentangled control over voice, emotion, and acoustic conditions can hinder precise editing workflows and may cause unintended style changes when editing or transferring across languages. [280beeac507466f7]\n- **Domain Generalization**\n  - Models trained primarily on read audiobooks may degrade on conversational or noisy real-world speech, affecting editing, denoising, and cross-lingual performance in production settings. [383135cc805c9893]\n- **Evaluation Biases**\n  - MOS remains subjective and context-dependent; although new metrics are proposed, they rely on public ASR/feature models whose biases and domain limits can skew perceived intelligibility and diversity. [e47d9b8419c2340d][edbe8b871feb758f]\n\n## Next Steps\n- **For Editing & Denoising Deployment**\n  - Implement the duration- and mask-based editing pipeline (copy unchanged phone durations/frames, zero and resample only new phones) to minimize artifacts in content edits and transient noise removal. [6a6d78af8dd72a01][bfc84f074f6f7130]\n  - Tune NFE and classifier guidance to balance intelligibility (WER) vs diversity (FSD) for your target use case (e.g., prioritize lower NFE and higher guidance for ASR-friendly, clean edits). [7607c9f8b2af6566][acb01355b3df89c5]\n- **For Cross-Lingual TTS**\n  - Combine Voicebox with speech translation to enable “same-voice, different-language” applications; validate on MLS-like filtered test sets to ensure transcription quality. [12c19f9c07484725][69b1da221bae920a]\n  - Benchmark cross-lingual performance per language and prompt length, accounting for higher WER on truncated/incomplete sentences. [f65472bf5ec37b32][ff1b257a1da60f08]\n- **For Safety and Governance**\n  - Integrate a synthetic speech detector similar to the one evaluated (targeting ≥0.9 accuracy vs resynthesized audio) into any production pipeline that exposes zero-shot or cross-lingual TTS. [c81762f38ba86854][392e962194b3c42]\n  - Establish policy and access controls for arbitrary voice-style cloning, especially in cross-lingual scenarios.\n- **For Research & Model Improvement**\n  - Expand training data beyond audiobooks to conversational and noisy speech to improve robustness for real-world editing and cross-lingual use. [383135cc805c9893]\n  - Investigate disentangled control mechanisms (prompting or text descriptions) to independently manipulate voice, emotion, and acoustic conditions during editing and cross-lingual generation. [280beeac507466f7]\n  - Adopt and extend the proposed public-model-based metrics (MS-MAE, MS-Corr, FSD, WER) as standard evaluation tools for future speech generation and editing systems. [48767a225c04882c][df0f6e884185d2c5][f9eb1f052a1ab253][edbe8b871feb758f]"
+  }
+}

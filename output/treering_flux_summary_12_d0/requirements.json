@@ -1,0 +1,34 @@
+{
+  "id": "treering_flux_summary_d0",
+  "parent": {
+    "path": "treering_flux.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Visual Element",
+      "description": "Must describe the 'Distance Distribution' plots (Figure 2) which visually show the overlap/separation between watermarked and clean images."
+    },
+    {
+      "id": "R2",
+      "category": "Reconstruction",
+      "description": "Must reference the qualitative figures (Figure 4) showing that reconstructed images differ significantly from original generations in FLUX."
+    },
+    {
+      "id": "R3",
+      "category": "Core Conclusion",
+      "description": "Must state that Tree-Ring watermarks are significantly less robust on FLUX (Rectified Flow) compared to Stable Diffusion (DDIM)."
+    },
+    {
+      "id": "R4",
+      "category": "Root Cause",
+      "description": "Must attribute the failure to the 'Rectified Flow' training objective or the ODE trajectory which hampers accurate latent inversion."
+    }
+  ],
+  "notes": {}
+}

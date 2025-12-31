@@ -1,0 +1,34 @@
+{
+  "id": "mllm_review_summary_d0",
+  "parent": {
+    "path": "mllm_review.pdf"
+  },
+  "task": {
+    "decisions": [
+      "What is the current state of Multimodal LLMs according to this review? Summarize the key trends."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Visual Element",
+      "description": "Must reference the 'Taxonomy' or 'Timeline' figure to illustrate the rapid evolution of models (e.g., LLaVA, BLIP, Flamingo)."
+    },
+    {
+      "id": "R2",
+      "category": "Taxonomy",
+      "description": "Must classify models based on their 'Connector' modules (e.g., Projection vs. Q-Former) as a primary categorization method."
+    },
+    {
+      "id": "R3",
+      "category": "Scope",
+      "description": "Must list the supported modalities beyond image-text, specifically mentioning Audio and Video integration capabilities."
+    },
+    {
+      "id": "R4",
+      "category": "Challenges",
+      "description": "Must mention the challenges in evaluating these models, such as the reliance on specific benchmarks (POPE, MME) versus human eval."
+    }
+  ],
+  "notes": {}
+}

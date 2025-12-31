@@ -1,0 +1,38 @@
+{
+  "id": "voicebox_meta2023_d0",
+  "parent": {
+    "path": "voicebox.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Evaluating Flow Matching vs. Autoregressive Models."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Is this actually faster than VALL-E in a real production setting, or just theoretically faster?"
+    },
+    {
+      "id": "R2",
+      "description": "Do we need expensive phoneme-alignment data to train this, or can we just throw raw audio+text at it?"
+    },
+    {
+      "id": "R3",
+      "description": "Does the voice start to sound weird or 'drift' if we generate a really long paragraph?"
+    },
+    {
+      "id": "R4",
+      "description": "Are there any watermark detectors included, or do we have to build our own safety checks?"
+    },
+    {
+      "id": "R5",
+      "description": "Is the 'flow matching' more stable than existing methods, or does training often diverge and fail?"
+    },
+    {
+      "id": "R6",
+      "description": "Can we run this on standard consumer GPUs or does it require massive H100 clusters?"
+    }
+  ],
+  "notes": {}
+}

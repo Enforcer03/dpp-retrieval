@@ -1,0 +1,626 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "982bf1e6b0e07a95",
+  "created_at": "2025-12-31T08:58:08Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 11679,
+        "output_hash": "53886a24fa29d0ceb41a6df6c100da0476b4a3f1",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+                  "overall_verdict": "pass",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "covered",
+                      "evidence": [
+                        "65a5c5af5466ce1d",
+                        "6847523eb677e85f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "65a5c5af5466ce1d",
+                          "quote": "We quantify watermark robustness through the following metrics:"
+                        },
+                        {
+                          "chunk_id": "6847523eb677e85f",
+                          "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment."
+                        }
+                      ],
+                      "rationale": "Evidence names Waves as a robustness benchmark and describes standardized attack scenarios, plus explicit robustness metrics for evaluation, which are relevant to the use case."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "9c05d214852b2692",
+                        "98e0a1670aa761b8",
+                        "e9570c7d2a34af1f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "9c05d214852b2692",
+                          "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection."
+                        },
+                        {
+                          "chunk_id": "9c05d214852b2692",
+                          "quote": "they fail to match the effectiveness of exact prompt guidance."
+                        },
+                        {
+                          "chunk_id": "98e0a1670aa761b8",
+                          "quote": "FLUX.1-dev, where reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance."
+                        }
+                      ],
+                      "rationale": "Text directly evaluates VLM-generated prompts for detection, showing only marginal gains over no prompt and clearly worse than exact prompts, implying losing the original prompt significantly harms reliability."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "partial",
+                      "evidence": [
+                        "f8b8eaed5124712d",
+                        "b4610aa875f73007",
+                        "6847523eb677e85f"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f8b8eaed5124712d",
+                          "quote": "Blur (No Prompt) ... NMAE 1.259 ... NMSE 1.594"
+                        },
+                        {
+                          "chunk_id": "f8b8eaed5124712d",
+                          "quote": "Noise (No Prompt) ... NMAE 1.325 ... NMSE 1.772"
+                        },
+                        {
+                          "chunk_id": "b4610aa875f73007",
+                          "quote": "separability between watermarked and non-watermarked distributions becomes drastically reduced."
+                        }
+                      ],
+                      "rationale": "Evidence shows robustness collapse under blur and noise attacks, but does not provide explicit AUC values or specific results for cropping/resizing; fragility is clear but AUC and some transformations are missing."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "9dc80f1f8fcf7b33",
+                        "20caff27a37e53f6",
+                        "a6b5d1ed98ed3e14",
+                        "98e0a1670aa761b8"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "9dc80f1f8fcf7b33",
+                          "quote": "For inversion, the backward Euler method is used:"
+                        },
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "rectified flow training objective optimizes for straight paths ... prioritizing efficient forward sampling at the expense of invertibility."
+                        },
+                        {
+                          "chunk_id": "98e0a1670aa761b8",
+                          "quote": "DDIM (SD 2.1 base) exhibits robust separation ... through naive inversion"
+                        }
+                      ],
+                      "rationale": "Evidence explains that rectified flow harms invertibility and uses backward Euler for inversion, and contrasts behavior with DDIM, but does not quantify computational cost or speed differences, so hardness is conceptual not runtime-specific."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No provided chunk discusses visual image quality, perceptual degradation, or user studies comparing watermarked vs non-watermarked images; Fourier-space embedding effects on quality are not addressed."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R5"
+                  ],
+                  "risks": [
+                    "Lack of explicit AUC metrics and cropping/resizing results leaves uncertainty about robustness across common transformations.",
+                    "No evidence on visual quality impact of Fourier watermarking may hide potential usability or fidelity issues.",
+                    "Inversion difficulty for rectified flow is described conceptually but not benchmarked for runtime, limiting operational planning."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Benchmarks, metrics, prompt/VLM effects, and robustness to blur/noise are covered; AUC values, cropping/resizing, runtime comparisons, and image quality impact are missing.",
+              "missing_requirements": [
+                "R5"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate prompt sensitivity, rectified-flow invertibility issues, and robustness concerns, but each adds some nuance (architecture, metrics, attacks).",
+              "redundant_pairs": [
+                [
+                  "1184c0487248f82e",
+                  "c1b9f1d74ece4f4e"
+                ],
+                [
+                  "a6b5d1ed98ed3e14",
+                  "a0b0ba1cd576b24e"
+                ],
+                [
+                  "9c05d214852b2692",
+                  "98e0a1670aa761b8"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Some very high-cost chunks provide central insights (architecture, metrics), but others are mostly contextual or bibliographic; still, key requirements are mostly addressed.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "f8b8eaed5124712d",
+                  "cost": 648,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "a6b5d1ed98ed3e14",
+                  "cost": 184,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "11cc711f38f0dd5c",
+                  "cost": 89,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "b4610aa875f73007",
+                  "cost": 109,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "e9570c7d2a34af1f",
+                  "cost": 116,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "No evidence on perceptual image quality impact of Tree-Ring watermarking in Fourier space.",
+              "Robustness under cropping, resizing, and explicit AUC metrics is not documented.",
+              "Computational overhead of rectified-flow inversion vs DDIM is not quantified, complicating feasibility assessment."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 8698,
+        "output_hash": "7f983ad2c358fed470e2417d8ddc32120c839e01",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "a0b0ba1cd576b24e",
+                "quote": "the forward process of rectified flow is defined by a simple linear combination"
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "rectified flow training objective optimizes for straight paths between source and target distributions"
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "prioritizing efficient forward sampling at the expense of invertibility"
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled"
+              },
+              {
+                "chunk_id": "9c05d214852b2692",
+                "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection"
+              },
+              {
+                "chunk_id": "9c05d214852b2692",
+                "quote": "they fail to match the effectiveness of exact prompt guidance"
+              },
+              {
+                "chunk_id": "98e0a1670aa761b8",
+                "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion"
+              },
+              {
+                "chunk_id": "b4610aa875f73007",
+                "quote": "exact prompt guidance during inversion yields the lowest reconstruction error in both Fourier and spatial domains"
+              },
+              {
+                "chunk_id": "b4610aa875f73007",
+                "quote": "this advantage diminishes significantly under attacked scenarios, where the separability between watermarked and non-watermarked distributions becomes drastically reduced"
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "FLUX.1-dev | No Attack (With Prompt) | 0.232... | 0.063... | 22.123..."
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "SD 2.1 base | No Attack (No Prompt) | 0.345... | 0.132... | 45.601..."
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "Blur (No Prompt) | 1.259... | 1.594... | 37.514..."
+              },
+              {
+                "chunk_id": "f8b8eaed5124712d",
+                "quote": "Noise (No Prompt) | 1.325... | 1.772... | 38.656..."
+              },
+              {
+                "chunk_id": "9dc80f1f8fcf7b33",
+                "quote": "For inversion, the backward Euler method is used"
+              },
+              {
+                "chunk_id": "8076ecdd29eabf83",
+                "quote": "Tree-Ring Watermark Embedding"
+              },
+              {
+                "chunk_id": "4776a267e51de637",
+                "quote": "images generated from the original and reconstructed noise latents show perceptible differences"
+              },
+              {
+                "chunk_id": "448c1d5c58aa5f2b",
+                "quote": "we used a fixed global random seed for generating initial latents, enabling reproducibility across models and configurations"
+              },
+              {
+                "chunk_id": "6847523eb677e85f",
+                "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment"
+              },
+              {
+                "chunk_id": "65a5c5af5466ce1d",
+                "quote": "We quantify watermark robustness through the following metrics"
+              },
+              {
+                "chunk_id": "05b9fd7dd2e748e6",
+                "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+              },
+              {
+                "chunk_id": "1184c0487248f82e",
+                "quote": "Recent approaches like Tree Ring Watermarking... have shown promise, but their effectiveness remains unexplored for newer architectures"
+              },
+              {
+                "chunk_id": "c1b9f1d74ece4f4e",
+                "quote": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image Generation Models"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+                "answer": "Technically feasible but currently weak for real-world use: detection works reasonably on clean FLUX.1-dev images with exact prompts, but robustness and separability collapse under common attacks and when prompts are missing or approximated, making production deployment premature without improved inversion and more robust watermarking.",
+                "confidence": 0.86,
+                "evidence": [
+                  "b4610aa875f73007",
+                  "f8b8eaed5124712d",
+                  "98e0a1670aa761b8",
+                  "9c05d214852b2692",
+                  "6847523eb677e85f",
+                  "65a5c5af5466ce1d",
+                  "05b9fd7dd2e748e6",
+                  "1184c0487248f82e",
+                  "a6b5d1ed98ed3e14",
+                  "a0b0ba1cd576b24e"
+                ],
+                "notes": "Clean, prompt-known scenarios show acceptable reconstruction and bit error for FLUX.1-dev, but attacks (blur, noise, Waves-style) and prompt uncertainty drastically reduce separability and reliability."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+            "overall_verdict": "pass",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "covered",
+                "evidence": [
+                  "65a5c5af5466ce1d",
+                  "6847523eb677e85f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "65a5c5af5466ce1d",
+                    "quote": "We quantify watermark robustness through the following metrics:"
+                  },
+                  {
+                    "chunk_id": "6847523eb677e85f",
+                    "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment."
+                  }
+                ],
+                "rationale": "Evidence names Waves as a robustness benchmark and describes standardized attack scenarios, plus explicit robustness metrics for evaluation, which are relevant to the use case."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "9c05d214852b2692",
+                  "98e0a1670aa761b8",
+                  "e9570c7d2a34af1f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "9c05d214852b2692",
+                    "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection."
+                  },
+                  {
+                    "chunk_id": "9c05d214852b2692",
+                    "quote": "they fail to match the effectiveness of exact prompt guidance."
+                  },
+                  {
+                    "chunk_id": "98e0a1670aa761b8",
+                    "quote": "FLUX.1-dev, where reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance."
+                  }
+                ],
+                "rationale": "Text directly evaluates VLM-generated prompts for detection, showing only marginal gains over no prompt and clearly worse than exact prompts, implying losing the original prompt significantly harms reliability."
+              },
+              {
+                "id": "R3",
+                "status": "partial",
+                "evidence": [
+                  "f8b8eaed5124712d",
+                  "b4610aa875f73007",
+                  "6847523eb677e85f"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f8b8eaed5124712d",
+                    "quote": "Blur (No Prompt) ... NMAE 1.259 ... NMSE 1.594"
+                  },
+                  {
+                    "chunk_id": "f8b8eaed5124712d",
+                    "quote": "Noise (No Prompt) ... NMAE 1.325 ... NMSE 1.772"
+                  },
+                  {
+                    "chunk_id": "b4610aa875f73007",
+                    "quote": "separability between watermarked and non-watermarked distributions becomes drastically reduced."
+                  }
+                ],
+                "rationale": "Evidence shows robustness collapse under blur and noise attacks, but does not provide explicit AUC values or specific results for cropping/resizing; fragility is clear but AUC and some transformations are missing."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "9dc80f1f8fcf7b33",
+                  "20caff27a37e53f6",
+                  "a6b5d1ed98ed3e14",
+                  "98e0a1670aa761b8"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "9dc80f1f8fcf7b33",
+                    "quote": "For inversion, the backward Euler method is used:"
+                  },
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "rectified flow training objective optimizes for straight paths ... prioritizing efficient forward sampling at the expense of invertibility."
+                  },
+                  {
+                    "chunk_id": "98e0a1670aa761b8",
+                    "quote": "DDIM (SD 2.1 base) exhibits robust separation ... through naive inversion"
+                  }
+                ],
+                "rationale": "Evidence explains that rectified flow harms invertibility and uses backward Euler for inversion, and contrasts behavior with DDIM, but does not quantify computational cost or speed differences, so hardness is conceptual not runtime-specific."
+              },
+              {
+                "id": "R5",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No provided chunk discusses visual image quality, perceptual degradation, or user studies comparing watermarked vs non-watermarked images; Fourier-space embedding effects on quality are not addressed."
+              }
+            ],
+            "missing_requirements": [
+              "R5"
+            ],
+            "risks": [
+              "Lack of explicit AUC metrics and cropping/resizing results leaves uncertainty about robustness across common transformations.",
+              "No evidence on visual quality impact of Fourier watermarking may hide potential usability or fidelity issues.",
+              "Inversion difficulty for rectified flow is described conceptually but not benchmarked for runtime, limiting operational planning."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Benchmarks, metrics, prompt/VLM effects, and robustness to blur/noise are covered; AUC values, cropping/resizing, runtime comparisons, and image quality impact are missing.",
+        "missing_requirements": [
+          "R5"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate prompt sensitivity, rectified-flow invertibility issues, and robustness concerns, but each adds some nuance (architecture, metrics, attacks).",
+        "redundant_pairs": [
+          [
+            "1184c0487248f82e",
+            "c1b9f1d74ece4f4e"
+          ],
+          [
+            "a6b5d1ed98ed3e14",
+            "a0b0ba1cd576b24e"
+          ],
+          [
+            "9c05d214852b2692",
+            "98e0a1670aa761b8"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Some very high-cost chunks provide central insights (architecture, metrics), but others are mostly contextual or bibliographic; still, key requirements are mostly addressed.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "f8b8eaed5124712d",
+            "cost": 648,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "a6b5d1ed98ed3e14",
+            "cost": 184,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "11cc711f38f0dd5c",
+            "cost": 89,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "b4610aa875f73007",
+            "cost": 109,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "e9570c7d2a34af1f",
+            "cost": 116,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "No evidence on perceptual image quality impact of Tree-Ring watermarking in Fourier space.",
+        "Robustness under cropping, resizing, and explicit AUC metrics is not documented.",
+        "Computational overhead of rectified-flow inversion vs DDIM is not quantified, complicating feasibility assessment."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "a0b0ba1cd576b24e",
+          "quote": "the forward process of rectified flow is defined by a simple linear combination"
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "rectified flow training objective optimizes for straight paths between source and target distributions"
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "prioritizing efficient forward sampling at the expense of invertibility"
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled"
+        },
+        {
+          "chunk_id": "9c05d214852b2692",
+          "quote": "VLM-generated prompts demonstrates a noteworthy but constrained improvement in watermark detection"
+        },
+        {
+          "chunk_id": "9c05d214852b2692",
+          "quote": "they fail to match the effectiveness of exact prompt guidance"
+        },
+        {
+          "chunk_id": "98e0a1670aa761b8",
+          "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion"
+        },
+        {
+          "chunk_id": "b4610aa875f73007",
+          "quote": "exact prompt guidance during inversion yields the lowest reconstruction error in both Fourier and spatial domains"
+        },
+        {
+          "chunk_id": "b4610aa875f73007",
+          "quote": "this advantage diminishes significantly under attacked scenarios, where the separability between watermarked and non-watermarked distributions becomes drastically reduced"
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "FLUX.1-dev | No Attack (With Prompt) | 0.232... | 0.063... | 22.123..."
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "SD 2.1 base | No Attack (No Prompt) | 0.345... | 0.132... | 45.601..."
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "Blur (No Prompt) | 1.259... | 1.594... | 37.514..."
+        },
+        {
+          "chunk_id": "f8b8eaed5124712d",
+          "quote": "Noise (No Prompt) | 1.325... | 1.772... | 38.656..."
+        },
+        {
+          "chunk_id": "9dc80f1f8fcf7b33",
+          "quote": "For inversion, the backward Euler method is used"
+        },
+        {
+          "chunk_id": "8076ecdd29eabf83",
+          "quote": "Tree-Ring Watermark Embedding"
+        },
+        {
+          "chunk_id": "4776a267e51de637",
+          "quote": "images generated from the original and reconstructed noise latents show perceptible differences"
+        },
+        {
+          "chunk_id": "448c1d5c58aa5f2b",
+          "quote": "we used a fixed global random seed for generating initial latents, enabling reproducibility across models and configurations"
+        },
+        {
+          "chunk_id": "6847523eb677e85f",
+          "quote": "evaluated through benchmarks like Waves (An et al.), which provides standardized attack scenarios for robustness assessment"
+        },
+        {
+          "chunk_id": "65a5c5af5466ce1d",
+          "quote": "We quantify watermark robustness through the following metrics"
+        },
+        {
+          "chunk_id": "05b9fd7dd2e748e6",
+          "quote": "developing improved inversion techniques specifically for rectified flow-based generative models"
+        },
+        {
+          "chunk_id": "1184c0487248f82e",
+          "quote": "Recent approaches like Tree Ring Watermarking... have shown promise, but their effectiveness remains unexplored for newer architectures"
+        },
+        {
+          "chunk_id": "c1b9f1d74ece4f4e",
+          "quote": "Detection Limits and Statistical Separability of Tree Ring Watermarks in Rectified Flow-based Text-to-Image Generation Models"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX).",
+          "answer": "Technically feasible but currently weak for real-world use: detection works reasonably on clean FLUX.1-dev images with exact prompts, but robustness and separability collapse under common attacks and when prompts are missing or approximated, making production deployment premature without improved inversion and more robust watermarking.",
+          "confidence": 0.86,
+          "evidence": [
+            "b4610aa875f73007",
+            "f8b8eaed5124712d",
+            "98e0a1670aa761b8",
+            "9c05d214852b2692",
+            "6847523eb677e85f",
+            "65a5c5af5466ce1d",
+            "05b9fd7dd2e748e6",
+            "1184c0487248f82e",
+            "a6b5d1ed98ed3e14",
+            "a0b0ba1cd576b24e"
+          ],
+          "notes": "Clean, prompt-known scenarios show acceptable reconstruction and bit error for FLUX.1-dev, but attacks (blur, noise, Waves-style) and prompt uncertainty drastically reduce separability and reliability."
+        }
+      ]
+    }
+  }
+}

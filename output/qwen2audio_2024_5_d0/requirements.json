@@ -1,0 +1,34 @@
+{
+  "id": "qwen2audio_2024_d0",
+  "parent": {
+    "path": "qwen2audio.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Integration & Capabilities: Verifying it meets our specific product needs."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Does it support sound event detection (e.g., 'glass breaking') or is it strictly for speech-to-text?"
+    },
+    {
+      "id": "R2",
+      "description": "How well does it handle multiple speakers? Can it distinguish 'Speaker A' from 'Speaker B'?"
+    },
+    {
+      "id": "R3",
+      "description": "Is fine-tuning supported (e.g. LoRA) if we need to teach it specific medical or technical vocabulary?"
+    },
+    {
+      "id": "R4",
+      "description": "Does the 'voice chat' mode support interruption, or do we have to wait for it to finish speaking?"
+    },
+    {
+      "id": "R5",
+      "description": "What is the cost-per-minute compared to just using a cheap ASR API like Whisper?"
+    }
+  ],
+  "notes": {}
+}

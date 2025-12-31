@@ -1,0 +1,1128 @@
+{
+  "run_id": "53c3f87536a0ffaa",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/mllm_review.pdf",
+  "query": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.",
+  "retrieval_query": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.\n\nANCHOR:\n- Compare different “connector” architectures for LLM integration: API gateway, orchestration layer, vector DB retrievers, RAG pipelines, tools/agents, plugins, LangChain/LlamaIndex-style connectors, and enterprise ESB/iPaaS.\n- Evaluate LLM backbone options: OpenAI (GPT‑4.x, GPT‑4o), Anthropic (Claude), Google (Gemini), Meta (Llama 3), Mistral, Cohere; include on‑prem vs SaaS, proprietary vs open‑source, GPU/TPU requirements.\n- Look for benchmarks and metrics: latency (p95), throughput (tokens/sec), context window size, cost per 1K tokens, accuracy on internal tasks, robustness, observability, and scalability under concurrent load.\n- Identify decision criteria and risks: vendor lock‑in, model/connector abstraction layers, security/compliance (PII, SOC2, HIPAA), data residency, rate limits, failure modes, and fallbacks.\n- Search for architectural patterns and reference designs: microservices vs monolith, event‑driven vs request/response, synchronous vs async, streaming vs batch, multi‑LLM routing, ensemble models.\n- Find evidence from case studies or production deployments in similar domains (enterprise SaaS, financial services, healthcare, e‑commerce) and any A/B tests comparing connectors or backbones.\n- Explicitly look for TABLES/FIGURES summarizing architecture comparisons, performance benchmarks, cost breakdowns, and risk matrices; also...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.",
+    "retrieval_query": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.\n\nANCHOR:\n- Compare different “connector” architectures for LLM integration: API gateway, orchestration layer, vector DB retrievers, RAG pipelines, tools/agents, plugins, LangChain/LlamaIndex-style connectors, and enterprise ESB/iPaaS.\n- Evaluate LLM backbone options: OpenAI (GPT‑4.x, GPT‑4o), Anthropic (Claude), Google (Gemini), Meta (Llama 3), Mistral, Cohere; include on‑prem vs SaaS, proprietary vs open‑source, GPU/TPU requirements.\n- Look for benchmarks and metrics: latency (p95), throughput (tokens/sec), context window size, cost per 1K tokens, accuracy on internal tasks, robustness, observability, and scalability under concurrent load.\n- Identify decision criteria and risks: vendor lock‑in, model/connector abstraction layers, security/compliance (PII, SOC2, HIPAA), data residency, rate limits, failure modes, and fallbacks.\n- Search for architectural patterns and reference designs: microservices vs monolith, event‑driven vs request/response, synchronous vs async, streaming vs batch, multi‑LLM routing, ensemble models.\n- Find evidence from case studies or production deployments in similar domains (enterprise SaaS, financial services, healthcare, e‑commerce) and any A/B tests comparing connectors or backbones.\n- Explicitly look for TABLES/FIGURES summarizing architecture comparisons, performance benchmarks, cost breakdowns, and risk matrices; also...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "743404687b49fe9a",
+      "70a2d1dc0f1c2738",
+      "b0702d20f0e3a033",
+      "48ba9102bafd0237",
+      "e23ff1c504dc328b",
+      "7d3ae70a2ff2468b",
+      "e966089ab3149cf5",
+      "9c53f6c635c4a605",
+      "78956211adc2960c",
+      "12f84962dcc895b7",
+      "a215da00386486ad",
+      "17785d23908c28ab",
+      "9aa98ea88197007d",
+      "154bd532c76a2233",
+      "6d10b691e667495c",
+      "3b6be3edd259c18e",
+      "280dd300f503a0c9",
+      "f509249fe42f7c0b",
+      "16ceb39752f583b1",
+      "f4417f33a8643b0a",
+      "02e36a964efea70a",
+      "bd900c82f076c156",
+      "9e5855d0553e6f32",
+      "f58922a6a6db6540",
+      "0891db8b8185cee1",
+      "db47d544b74506f7",
+      "df025fd336498968",
+      "750d54ec0980e159",
+      "bb6d3e47db084cec",
+      "04088e6b6a00e2d1",
+      "eca57f1482fcaa2e",
+      "638a73543b3bd141",
+      "aef21bdb228b764b",
+      "48a9938b61748612",
+      "343db583c5f4bc61",
+      "8e134d3aefdd1d12",
+      "f127cb58f4672b85",
+      "f56bf7871dcd05c0",
+      "155c3af351b3bf48"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 3538
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "743404687b49fe9a",
+      "content": {
+        "text": "Architectures:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.01639344262295082
+      }
+    },
+    {
+      "chunk_id": "70a2d1dc0f1c2738",
+      "content": {
+        "text": "Security and Ethical Issues of MLLMs:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 9,
+        "importance_score": 0.006578947368421052
+      }
+    },
+    {
+      "chunk_id": "b0702d20f0e3a033",
+      "content": {
+        "text": "Datasets:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.0072992700729927005
+      }
+    },
+    {
+      "chunk_id": "48ba9102bafd0237",
+      "content": {
+        "text": "Model Introduction:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.009345794392523364
+      }
+    },
+    {
+      "chunk_id": "e23ff1c504dc328b",
+      "content": {
+        "text": "NeXT-GPT",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 4,
+        "importance_score": 0.0056179775280898875
+      }
+    },
+    {
+      "chunk_id": "7d3ae70a2ff2468b",
+      "content": {
+        "text": "Video-LLaMA",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 4,
+        "importance_score": 0.005128205128205128
+      }
+    },
+    {
+      "chunk_id": "e966089ab3149cf5",
+      "content": {
+        "text": "Late Fusion: Integrates the final outputs from individual modal pathways at the decision stage, often used in tasks requiring consolidated judgments from multiple data types.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "list",
+        "cognitive_cost": 29,
+        "importance_score": 0.005747126436781609
+      }
+    },
+    {
+      "chunk_id": "9c53f6c635c4a605",
+      "content": {
+        "text": "1) Audio Understanding:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 5,
+        "importance_score": 0.004761904761904762
+      }
+    },
+    {
+      "chunk_id": "78956211adc2960c",
+      "content": {
+        "text": "MLLMs in the image domain have made remarkable progress in recent years, demonstrating superior performance",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 18,
+        "importance_score": 0.00641025641025641
+      }
+    },
+    {
+      "chunk_id": "12f84962dcc895b7",
+      "content": {
+        "text": "Early Fusion: Combines input data at the initial stage, leveraging the raw interconnectedness of different modalities.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "list",
+        "cognitive_cost": 21,
+        "importance_score": 0.008333333333333333
+      }
+    },
+    {
+      "chunk_id": "a215da00386486ad",
+      "content": {
+        "text": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former, the position embeddings, and linear layers in both branches. The image encoder, audio encoder, and the final LLM is frozen during training. This work only reports the results experiments without presenting quantitative metrics to evaluate Video-LLaMA.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 69,
+        "importance_score": 0.011494252873563218
+      }
+    },
+    {
+      "chunk_id": "17785d23908c28ab",
+      "content": {
+        "text": "Furthermore, models like Idefics2 [56], and Mini-Gemini [57] each emphasize context-aware data generation, resource efficiency, and semantic information integration with visual expression, respectively. Idefics2 combines semantic and visual features for image generation in cross-modal tasks; Mini-Gemini excels as a lightweight model advantageous in resource-constrained or fast inference scenarios; Wiki-LLaVA emphasizes the integration of semantic information and visual expression, particularly suited for image-text scenarios.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 96,
+        "importance_score": 0.0049504950495049506
+      }
+    },
+    {
+      "chunk_id": "9aa98ea88197007d",
+      "content": {
+        "text": "As model sizes continue to expand, there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one. On the one hand, creating general General Artificial Intelligence Generated Content systems to address a wide range of real-world tasks is an attractive goal. However, increasing evidence suggests that smaller, more targeted models can deliver superior performance in specific domains. Therefore, finding the right balance between generality and specialization—ensuring that multimodal large language models can excel in specific tasks while maintaining strong generalization capabilities—has become a pivotal issue for future research.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 122,
+        "importance_score": 0.005434782608695652
+      }
+    },
+    {
+      "chunk_id": "154bd532c76a2233",
+      "content": {
+        "text": "To summarize, the sophisticated architecture of multimodal large language models empowers them to tackle complex tasks by harnessing and synthesizing data across text, images, and audio. This capability not only enhances the performance of AI applications but also opens up new avenues for innovation in how we understand and interact with technology.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 60,
+        "importance_score": 0.004830917874396135
+      }
+    },
+    {
+      "chunk_id": "6d10b691e667495c",
+      "content": {
+        "text": "Table IV provides a review and comparison of several representative audio MLLMs, highlighting their characteristics and challenges in terms of architecture design, multimodal fusion, dataset selection, and performance.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 36,
+        "importance_score": 0.01098901098901099
+      }
+    },
+    {
+      "chunk_id": "3b6be3edd259c18e",
+      "content": {
+        "text": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities—such as text, images, and audio—into a shared semantic space. Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms (as utilized in LWM’s Transformer structure). Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 90,
+        "importance_score": 0.008620689655172414
+      }
+    },
+    {
+      "chunk_id": "280dd300f503a0c9",
+      "content": {
+        "text": "Regarding model architecture, various MLLMs employ diverse designs. For instance, HuggingGPT [25] uses a LLM as the core controller, EMO incorporates specialized facial feature extraction and audio processing modules, while LWM [90] and NeXT-GPT [19] integrate advanced generative adversarial networks (such as VQGAN [112]) and vision-language models (like CLIP and ImageBind [75]). These architectural choices significantly impact the models’ generative capabilities and efficiency. For example, LWM boasts a parameter count of up to 1M and robust scalability, whereas NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B).",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 139,
+        "importance_score": 0.014705882352941176
+      }
+    },
+    {
+      "chunk_id": "f509249fe42f7c0b",
+      "content": {
+        "text": "MiniGPT-4 employs a two-stage training approach. The initial pre-training stage involves training the model on a large collection of aligned image-text pairs, keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer. This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs. The second fine-tuning stage addresses the limitations observed after the first stage, such as incoherent linguistic outputs. It fine-tunes the model using a smaller but high-quality dataset, significantly improving its generation reliability. This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 142,
+        "importance_score": 0.006289308176100629
+      }
+    },
+    {
+      "chunk_id": "16ceb39752f583b1",
+      "content": {
+        "text": "[96] R. B. Rothenstein, “Automated collection of speech data (spouses) for low-bias healthcare calls using template matching and machine learning,” Ecological Informatics, vol. 77, p. 102268, 2024.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 55,
+        "importance_score": 0.005208333333333333
+      }
+    },
+    {
+      "chunk_id": "f4417f33a8643b0a",
+      "content": {
+        "text": "[72] Y. Li, C. Wang, and J. Jia, “LLaMA-vid: An image is worth 2 tokens in large language models,” arXiv preprint arXiv:2311.17043, 2023.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 54,
+        "importance_score": 0.009615384615384616
+      }
+    },
+    {
+      "chunk_id": "02e36a964efea70a",
+      "content": {
+        "text": "MiniGPT-4 is a multimodal model based on GPT-4 that combines text and image information, exhibiting excellent image understanding capabilities. MiniGPT-4 adopts a modular architecture design, which allows for rapid adaptation to various LLMs, enabling flexible understanding and reasoning",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 53,
+        "importance_score": 0.010526315789473684
+      }
+    },
+    {
+      "chunk_id": "bd900c82f076c156",
+      "content": {
+        "text": "[10] M. Malik, K. Malik, K. Mehmood, and I. Makhdoom, “Automatic speech recognition: a survey,” Multimedia Tools and Applications, vol. 80, no. 6, pp. 9411–9457, 2021.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 60,
+        "importance_score": 0.008695652173913044
+      }
+    },
+    {
+      "chunk_id": "9e5855d0553e6f32",
+      "content": {
+        "text": "<b>Sequential Data:</b> For sequential data such as EEG and heartbeats, the encoder employs a combination of 1D-Convolutional Neural Networks (1D-CNN) and Long Short-Term Memory (LSTM) units. This setup is particularly effective in picking up temporal and spatial patterns in data, which is crucial for early diagnostics in medical applications.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 73,
+        "importance_score": 0.008849557522123894
+      }
+    },
+    {
+      "chunk_id": "f58922a6a6db6540",
+      "content": {
+        "text": "In the following contents, the image tasks of MLLMs encompass two main areas: image understanding and image generation. These capabilities showcase the models’ ability to analyze and create visual content by integrating and leveraging multimodal data. The advancements in these tasks underscore the transformative impact of MLLMs in the realm of AI, promising continued innovation and expanded applications.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 70,
+        "importance_score": 0.005291005291005291
+      }
+    },
+    {
+      "chunk_id": "0891db8b8185cee1",
+      "content": {
+        "text": "[82] J. Zhang, J. Dai, J. Ye, Y. Zhou, D. Zhang, Z. Liu, X. Zhang, H. Yuan, Z. Zhang, L. Li, et al., “AnyGPT: Unified multimodal LLM with discrete sequence modeling,” arXiv preprint arXiv:2402.12226, 2024.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 79,
+        "importance_score": 0.009523809523809525
+      }
+    },
+    {
+      "chunk_id": "db47d544b74506f7",
+      "content": {
+        "text": "first is the modality transformation, which is used to transform the various modalities of the input into a query with consistent modalities; second is the LLM module, in which ChatGPT is implanted, used for task analysis by the dialog engine together with the cue manager; the third is responsible for the assignment of the task to the appropriate audio base model; and finally, the generation of the response after the execution of the task.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 84,
+        "importance_score": 0.013333333333333334
+      }
+    },
+    {
+      "chunk_id": "df025fd336498968",
+      "content": {
+        "text": "In particular, MLLMs are sophisticated and comprehensive systems engineered to handle and decode multimodal data concurrently. The core principle of MLLMs lies in the integration and interplay of varied modalities, which significantly amplifies the effectiveness of the models. This multimodal approach not only enhances the understanding of individual data types but also fosters a more nuanced interaction between them, thereby expanding the scope and accuracy of AI applications. For instance, in tasks such as image captioning, MLLMs leverage both text and visual data to produce accurate and contextually relevant descriptions of images. This synergy enables the models to surpass the limitations of single-modality systems, offering richer and more detailed outputs. Additionally, the combination of audio and visual data can greatly improve the performance of tasks like video understanding and annotation, making MLLMs invaluable for processing and interpreting detailed multimedia signals.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 169,
+        "importance_score": 0.005649717514124294
+      }
+    },
+    {
+      "chunk_id": "750d54ec0980e159",
+      "content": {
+        "text": "The model consists of three main components: discrete unit extractor, LLM, and unit vocoder. discrete unit extractor uses Hidden-unit BERT (HuBERT) to convert continuous speech signals into a sequence of discrete units, LLM uses the Meta AI LLaMA model to sense multimodal inputs and generate multimodal outputs, and unit vocoder is multi-speaker unit Hi-Fi-GAN to decode discrete representations into speech signals.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 87,
+        "importance_score": 0.011235955056179775
+      }
+    },
+    {
+      "chunk_id": "bb6d3e47db084cec",
+      "content": {
+        "text": "As shown in Fig 1, we summarize MLLMs from recent years. This paper reviews the current state of the art of MLLM applications, introduces the basic concepts and main architectures of MLLMs in Section 2, describes their performance in different domains to identify their strengths and weaknesses in Section 3, highlights the transformative impact of MLLMs through a comparative analysis in Section 4, and provides a roadmap for future research in Section 5. Our discussion aims to incentivize continuous innovation and ensure that MLLMs remain at the forefront of AI technology development. Through a comprehensive review of current implementations and progress, this paper aims to summarize research results, provide valuable references, and offer guidance for future research in the field of MLLMs. Our goal is to inspire new ideas and directions for the continued development of MLLMs, ensuring that they remain at the forefront of AI technology development.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 182,
+        "importance_score": 0.015151515151515152
+      }
+    },
+    {
+      "chunk_id": "04088e6b6a00e2d1",
+      "content": {
+        "text": "Furthermore, in audio tasks, MLLMs bring a new technological change to audio processing tasks. Traditional audio processing usually relies on unidimensional signal processing methods, such as speech recognition [23] or audio classification [24], which have limitations in processing complex multimodal data.MLLMs are able to understand better and generate audio-related content by combining audio signals with textual and visual information through the combination of Large Language Models (LLMs). For example, in speech generation tasks, MLLMs can utilize textual and visual information to generate more natural and contextually relevant speech output [25], [26]. In audio understanding tasks, these models can perform sentiment recognition, audio classification, or audio event detection more accurately by combining visual cues and textual descriptions. In addition, MLLMs show strong potential in tasks such as cross-modal audio-text translation, audio-guided image generation, and multimodal sentiment analysis [27], [18]. These technological advances not only improve the effectiveness of audio processing, but also expand its scenarios in real-world applications such as smart homes, virtual assistants, movie and television production, etc.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 221,
+        "importance_score": 0.006493506493506494
+      }
+    },
+    {
+      "chunk_id": "eca57f1482fcaa2e",
+      "content": {
+        "text": "<b>Universal Encoder:</b> A more recent innovation is the universal encoder, which aims to standardize the encoding process across highly diverse data types, including audio, video, and functional Magnetic Resonance Imaging (fMRI). This encoder leverages a generalized approach to handle and integrate multiple forms of data, promoting consistency and efficiency in data processing. Each of these encoders converts raw inputs into feature vectors, which are then transformed into a fixed-length feature sequence. This standardization is critical as it prepares the data for further processing, ensuring that the subsequent layers of the model can perform feature fusion and decoding effectively.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 122,
+        "importance_score": 0.005050505050505051
+      }
+    },
+    {
+      "chunk_id": "638a73543b3bd141",
+      "content": {
+        "text": "Next, the constructed multimodal feature sequence is fed into the pre-trained LLM for processing. The Transformer model processes the input feature sequence through multiple layers of self-attention mechanisms and feedforward neural networks. Each layer, comprising self-attention and feedforward network modules, updates and integrates the feature representations, progressively extracting higher-level features. After passing through multiple Transformer layers, the model generates a feature representation sequence that encapsulates comprehensive information. Depending on the task requirements, a specific output layer can generate the final result. For instance, if the task is to generate a textual description, the integrated feature representation can be fed into a text generator to produce descriptive text.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 132,
+        "importance_score": 0.008264462809917356
+      }
+    },
+    {
+      "chunk_id": "aef21bdb228b764b",
+      "content": {
+        "text": "MiniGPT-4 is designed to align visual information from a pre-trained vision encoder with an advanced LLM. Specifically, it utilizes Vicuna as the language decoder, which is built upon LLaMA and can perform a wide range of complex linguistic tasks. For visual perception, the model employs the same visual encoder used in BLIP-2, consisting of a ViT backbone coupled with a pre-trained Q-Former. Both the language and vision models are open-sourced. A linear projection layer bridges the gap between the visual encoder and the LLM. The architecture allows MiniGPT-4 to handle diverse vision-language tasks without relying on external vision-side modules.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 132,
+        "importance_score": 0.0125
+      }
+    },
+    {
+      "chunk_id": "48a9938b61748612",
+      "content": {
+        "text": "SALMONN consists of two components designed to achieve audio-text alignment with high temporal resolution. First, the auditory signal processing uses a dual-encoder architecture: a Whisper-Large-v2 based speech encoder is responsible for audio speech recognition, and a fine-tuned BEATs-based audio encoder is responsible for encoding the non-speech signal. The outputs of the two auditory encoders are connected via a window-level Query Transformer in order to transform the encoder outputs into an augmented audio signal for input to the Vicuna LLM. Next, the enhanced LLM input and output are instruction tuning by a Low-Rank Adaptive Approach (LoRA) to achieve audio-text cross-modal alignment, thus providing the model with zero-shot capability.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 145,
+        "importance_score": 0.01
+      }
+    },
+    {
+      "chunk_id": "343db583c5f4bc61",
+      "content": {
+        "text": "Looking ahead, there are still many research directions worth exploring for MLLMs in the field of video understanding. Firstly, combining MLLMs with representation learning methods, such as contrastive learning and reinforcement learning, have the potential to further improve model performance. Secondly, more advanced multimodal fusion mechanisms, like Temporal Attention that considers temporal information, can better model the dynamic features of videos. Furthermore, more lightweight model designs that significantly reduce computational overhead while maintaining performance are more suitable for real-time application scenarios. Additionally, MLLMs based on high-level cognitive abilities, such as causal reasoning and logical reasoning, are closer to human-like video understanding. Finally, incorporating external knowledge (e.g., common sense, domain knowledge) to enhance MLLMs, enabling them to possess stronger analysis and reasoning capabilities, is also a promising research direction.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 166,
+        "importance_score": 0.005319148936170213
+      }
+    },
+    {
+      "chunk_id": "8e134d3aefdd1d12",
+      "content": {
+        "text": "Although MLLMs can significantly enhance task performance by integrating information from different modalities, the complexity and the opacity of their internal mechanisms often result in reduced interpretability. Understanding how different modalities are combined and the contribution of each modality to the final decision is crucial for a thorough analysis of multimodal data interactions. Currently, the integration of multimodal information is frequently treated as a “black box”, making it challenging for users to comprehend why and how the model reaches specific decisions. Future research should focus on addressing several key questions: How can we analyze the decision-making process in MLLMs based on different modal information? How can we enhance the trustworthiness of multimodal models in critical areas like healthcare and finance by improving their explanatory capabilities? Developing a deeper understanding of the interaction mechanisms between different modalities and their relevance to specific tasks will be essential for advancing model interpretability.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 171,
+        "importance_score": 0.010752688172043012
+      }
+    },
+    {
+      "chunk_id": "f127cb58f4672b85",
+      "content": {
+        "text": "Video-LLaMA is designed with two branches: the visual-language branch and the audio-language branch, which respectively convert video frames and audio signals into query representations compatible with LLM text input. In the visual-language branch, video frames are first processed by the BLIP2 [74] image encoder to obtain image features for each frame. These features are then added to their corresponding position embeddings and fed into the video Q-Former. The video Q-Former extracts features from all frames and outputs a fixed-length comprehensive representation. Finally, a linear layer maps the video features to the same dimension as the text features in the subsequent LLM. In the audio-language branch, the audio signal is divided into segments of 2 seconds each. Each segment is then converted into a 128-dimensional Mel-spectrogram feature. The encoder from the multimodal model ImageBind [75] is used to extract features from these audio segments. Similar to the",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 187,
+        "importance_score": 0.012345679012345678
+      }
+    },
+    {
+      "chunk_id": "f56bf7871dcd05c0",
+      "content": {
+        "text": "During training, NeXT-GPT keeps the encoders and decoders for each modality and the intermediate LLM frozen. Only the Transformer-based projection layers in the encoding and decoding stages are trainable, achieving lightweight multimodal alignment learning. Additionally, to enhance the capabilities and controllability of the LLM, NeXT-GPT uses the self-constructed MoST dataset for modality-switching instruction tuning. During instruction tuning, besides updating the projection layers, this model also applies LoRA [92] to further update the LLM’s parameters. For evaluating video understanding tasks, the method tests the model’s video captioning and video question answering capabilities on MSRVT [93], MSVD-QA [80], MSRVTT-QA [80], and NExTQA [94] datasets. Additionally, this work tests the model’s video generation ability on the MSRVTT dataset. NeXT-GPT demonstrates excellent performance in these evaluations.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 189,
+        "importance_score": 0.005405405405405406
+      }
+    },
+    {
+      "chunk_id": "155c3af351b3bf48",
+      "content": {
+        "text": "MLLMS are sophisticated artificial intelligence (AI) systems designed to process and integrate various types of data, including text, images, videos, audio, and physiological sequences [1], [2], [3]. As we have entered the era of multimodal data fusion, marked by rapid advancements in information technology and an explosive increase in data volume, the capabilities of single-modality systems no longer suffice for complex real-world tasks [4], [5], [6]. Thus, the development of MLLMs is not only an inevitable trend in technological evolution but also a critical enhancement for improving the effectiveness of AI applications. By synergizing information from multiple data sources, MLLMs cultivate a more comprehensive and accurate representation of information, this capability not only unlocks significant potential but also demonstrates substantial practical application value across a diverse range of fields. The integration of diverse datasets tailors MLLMs to perform more effectively, establishing them as indispensable next-generation technologies in the ongoing quest to harness the full potential of AI technologies [7], [8], [9]. Notably, MLLMs have shown remarkable performance across diverse multimodal tasks, including language, image, video, and audio processing. These models excel in integrating multimodal information to enhance the effectiveness of multimodal tasks.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 254,
+        "importance_score": 0.010869565217391304
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "743404687b49fe9a",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.01639344262295082,
+      "cost": 3,
+      "text": "Architectures:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "70a2d1dc0f1c2738",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.006578947368421052,
+      "cost": 9,
+      "text": "Security and Ethical Issues of MLLMs:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "b0702d20f0e3a033",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0072992700729927005,
+      "cost": 3,
+      "text": "Datasets:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "48ba9102bafd0237",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.009345794392523364,
+      "cost": 3,
+      "text": "Model Introduction:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e23ff1c504dc328b",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.0056179775280898875,
+      "cost": 4,
+      "text": "NeXT-GPT",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7d3ae70a2ff2468b",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005128205128205128,
+      "cost": 4,
+      "text": "Video-LLaMA",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e966089ab3149cf5",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "list",
+      "rel": 0.005747126436781609,
+      "cost": 29,
+      "text": "Late Fusion: Integrates the final outputs from individual modal pathways at the decision stage, often used in tasks requiring consolidated judgments from multiple data types.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9c53f6c635c4a605",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.004761904761904762,
+      "cost": 5,
+      "text": "1) Audio Understanding:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "78956211adc2960c",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.00641025641025641,
+      "cost": 18,
+      "text": "MLLMs in the image domain have made remarkable progress in recent years, demonstrating superior performance",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "12f84962dcc895b7",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "list",
+      "rel": 0.008333333333333333,
+      "cost": 21,
+      "text": "Early Fusion: Combines input data at the initial stage, leveraging the raw interconnectedness of different modalities.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a215da00386486ad",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.011494252873563218,
+      "cost": 69,
+      "text": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former, the position embeddings, and linear layers in both branches. The image encoder, audio encoder, and the final LLM is frozen during training. This work only reports the results experiments without presenting quantitative metrics to evaluate Video-LLaMA.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "17785d23908c28ab",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0049504950495049506,
+      "cost": 96,
+      "text": "Furthermore, models like Idefics2 [56], and Mini-Gemini [57] each emphasize context-aware data generation, resource efficiency, and semantic information integration with visual expression, respectively. Idefics2 combines semantic and visual features for image generation in cross-modal tasks; Mini-Gemini excels as a lightweight model advantageous in resource-constrained or fast inference scenarios; Wiki-LLaVA emphasizes the integration of semantic information and visual expression, particularly suited for image-text scenarios.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9aa98ea88197007d",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005434782608695652,
+      "cost": 122,
+      "text": "As model sizes continue to expand, there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one. On the one hand, creating general General Artificial Intelligence Generated Content systems to address a wide range of real-world tasks is an attractive goal. However, increasing evidence suggests that smaller, more targeted models can deliver superior performance in specific domains. Therefore, finding the right balance between generality and specialization—ensuring that multimodal large language models can excel in specific tasks while maintaining strong generalization capabilities—has become a pivotal issue for future research.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "154bd532c76a2233",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.004830917874396135,
+      "cost": 60,
+      "text": "To summarize, the sophisticated architecture of multimodal large language models empowers them to tackle complex tasks by harnessing and synthesizing data across text, images, and audio. This capability not only enhances the performance of AI applications but also opens up new avenues for innovation in how we understand and interact with technology.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "6d10b691e667495c",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.01098901098901099,
+      "cost": 36,
+      "text": "Table IV provides a review and comparison of several representative audio MLLMs, highlighting their characteristics and challenges in terms of architecture design, multimodal fusion, dataset selection, and performance.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3b6be3edd259c18e",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008620689655172414,
+      "cost": 90,
+      "text": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities—such as text, images, and audio—into a shared semantic space. Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms (as utilized in LWM’s Transformer structure). Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "280dd300f503a0c9",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014705882352941176,
+      "cost": 139,
+      "text": "Regarding model architecture, various MLLMs employ diverse designs. For instance, HuggingGPT [25] uses a LLM as the core controller, EMO incorporates specialized facial feature extraction and audio processing modules, while LWM [90] and NeXT-GPT [19] integrate advanced generative adversarial networks (such as VQGAN [112]) and vision-language models (like CLIP and ImageBind [75]). These architectural choices significantly impact the models’ generative capabilities and efficiency. For example, LWM boasts a parameter count of up to 1M and robust scalability, whereas NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B).",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f509249fe42f7c0b",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006289308176100629,
+      "cost": 142,
+      "text": "MiniGPT-4 employs a two-stage training approach. The initial pre-training stage involves training the model on a large collection of aligned image-text pairs, keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer. This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs. The second fine-tuning stage addresses the limitations observed after the first stage, such as incoherent linguistic outputs. It fine-tunes the model using a smaller but high-quality dataset, significantly improving its generation reliability. This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "16ceb39752f583b1",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.005208333333333333,
+      "cost": 55,
+      "text": "[96] R. B. Rothenstein, “Automated collection of speech data (spouses) for low-bias healthcare calls using template matching and machine learning,” Ecological Informatics, vol. 77, p. 102268, 2024.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f4417f33a8643b0a",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.009615384615384616,
+      "cost": 54,
+      "text": "[72] Y. Li, C. Wang, and J. Jia, “LLaMA-vid: An image is worth 2 tokens in large language models,” arXiv preprint arXiv:2311.17043, 2023.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "02e36a964efea70a",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.010526315789473684,
+      "cost": 53,
+      "text": "MiniGPT-4 is a multimodal model based on GPT-4 that combines text and image information, exhibiting excellent image understanding capabilities. MiniGPT-4 adopts a modular architecture design, which allows for rapid adaptation to various LLMs, enabling flexible understanding and reasoning",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "bd900c82f076c156",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.008695652173913044,
+      "cost": 60,
+      "text": "[10] M. Malik, K. Malik, K. Mehmood, and I. Makhdoom, “Automatic speech recognition: a survey,” Multimedia Tools and Applications, vol. 80, no. 6, pp. 9411–9457, 2021.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "9e5855d0553e6f32",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008849557522123894,
+      "cost": 73,
+      "text": "<b>Sequential Data:</b> For sequential data such as EEG and heartbeats, the encoder employs a combination of 1D-Convolutional Neural Networks (1D-CNN) and Long Short-Term Memory (LSTM) units. This setup is particularly effective in picking up temporal and spatial patterns in data, which is crucial for early diagnostics in medical applications.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f58922a6a6db6540",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005291005291005291,
+      "cost": 70,
+      "text": "In the following contents, the image tasks of MLLMs encompass two main areas: image understanding and image generation. These capabilities showcase the models’ ability to analyze and create visual content by integrating and leveraging multimodal data. The advancements in these tasks underscore the transformative impact of MLLMs in the realm of AI, promising continued innovation and expanded applications.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0891db8b8185cee1",
+      "page": 20,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.009523809523809525,
+      "cost": 79,
+      "text": "[82] J. Zhang, J. Dai, J. Ye, Y. Zhou, D. Zhang, Z. Liu, X. Zhang, H. Yuan, Z. Zhang, L. Li, et al., “AnyGPT: Unified multimodal LLM with discrete sequence modeling,” arXiv preprint arXiv:2402.12226, 2024.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "db47d544b74506f7",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.013333333333333334,
+      "cost": 84,
+      "text": "first is the modality transformation, which is used to transform the various modalities of the input into a query with consistent modalities; second is the LLM module, in which ChatGPT is implanted, used for task analysis by the dialog engine together with the cue manager; the third is responsible for the assignment of the task to the appropriate audio base model; and finally, the generation of the response after the execution of the task.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "df025fd336498968",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005649717514124294,
+      "cost": 169,
+      "text": "In particular, MLLMs are sophisticated and comprehensive systems engineered to handle and decode multimodal data concurrently. The core principle of MLLMs lies in the integration and interplay of varied modalities, which significantly amplifies the effectiveness of the models. This multimodal approach not only enhances the understanding of individual data types but also fosters a more nuanced interaction between them, thereby expanding the scope and accuracy of AI applications. For instance, in tasks such as image captioning, MLLMs leverage both text and visual data to produce accurate and contextually relevant descriptions of images. This synergy enables the models to surpass the limitations of single-modality systems, offering richer and more detailed outputs. Additionally, the combination of audio and visual data can greatly improve the performance of tasks like video understanding and annotation, making MLLMs invaluable for processing and interpreting detailed multimedia signals.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "750d54ec0980e159",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.011235955056179775,
+      "cost": 87,
+      "text": "The model consists of three main components: discrete unit extractor, LLM, and unit vocoder. discrete unit extractor uses Hidden-unit BERT (HuBERT) to convert continuous speech signals into a sequence of discrete units, LLM uses the Meta AI LLaMA model to sense multimodal inputs and generate multimodal outputs, and unit vocoder is multi-speaker unit Hi-Fi-GAN to decode discrete representations into speech signals.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "bb6d3e47db084cec",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015151515151515152,
+      "cost": 182,
+      "text": "As shown in Fig 1, we summarize MLLMs from recent years. This paper reviews the current state of the art of MLLM applications, introduces the basic concepts and main architectures of MLLMs in Section 2, describes their performance in different domains to identify their strengths and weaknesses in Section 3, highlights the transformative impact of MLLMs through a comparative analysis in Section 4, and provides a roadmap for future research in Section 5. Our discussion aims to incentivize continuous innovation and ensure that MLLMs remain at the forefront of AI technology development. Through a comprehensive review of current implementations and progress, this paper aims to summarize research results, provide valuable references, and offer guidance for future research in the field of MLLMs. Our goal is to inspire new ideas and directions for the continued development of MLLMs, ensuring that they remain at the forefront of AI technology development.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "04088e6b6a00e2d1",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006493506493506494,
+      "cost": 221,
+      "text": "Furthermore, in audio tasks, MLLMs bring a new technological change to audio processing tasks. Traditional audio processing usually relies on unidimensional signal processing methods, such as speech recognition [23] or audio classification [24], which have limitations in processing complex multimodal data.MLLMs are able to understand better and generate audio-related content by combining audio signals with textual and visual information through the combination of Large Language Models (LLMs). For example, in speech generation tasks, MLLMs can utilize textual and visual information to generate more natural and contextually relevant speech output [25], [26]. In audio understanding tasks, these models can perform sentiment recognition, audio classification, or audio event detection more accurately by combining visual cues and textual descriptions. In addition, MLLMs show strong potential in tasks such as cross-modal audio-text translation, audio-guided image generation, and multimodal sentiment analysis [27], [18]. These technological advances not only improve the effectiveness of audio processing, but also expand its scenarios in real-world applications such as smart homes, virtual assistants, movie and television production, etc.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "eca57f1482fcaa2e",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005050505050505051,
+      "cost": 122,
+      "text": "<b>Universal Encoder:</b> A more recent innovation is the universal encoder, which aims to standardize the encoding process across highly diverse data types, including audio, video, and functional Magnetic Resonance Imaging (fMRI). This encoder leverages a generalized approach to handle and integrate multiple forms of data, promoting consistency and efficiency in data processing. Each of these encoders converts raw inputs into feature vectors, which are then transformed into a fixed-length feature sequence. This standardization is critical as it prepares the data for further processing, ensuring that the subsequent layers of the model can perform feature fusion and decoding effectively.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "638a73543b3bd141",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008264462809917356,
+      "cost": 132,
+      "text": "Next, the constructed multimodal feature sequence is fed into the pre-trained LLM for processing. The Transformer model processes the input feature sequence through multiple layers of self-attention mechanisms and feedforward neural networks. Each layer, comprising self-attention and feedforward network modules, updates and integrates the feature representations, progressively extracting higher-level features. After passing through multiple Transformer layers, the model generates a feature representation sequence that encapsulates comprehensive information. Depending on the task requirements, a specific output layer can generate the final result. For instance, if the task is to generate a textual description, the integrated feature representation can be fed into a text generator to produce descriptive text.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "aef21bdb228b764b",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.0125,
+      "cost": 132,
+      "text": "MiniGPT-4 is designed to align visual information from a pre-trained vision encoder with an advanced LLM. Specifically, it utilizes Vicuna as the language decoder, which is built upon LLaMA and can perform a wide range of complex linguistic tasks. For visual perception, the model employs the same visual encoder used in BLIP-2, consisting of a ViT backbone coupled with a pre-trained Q-Former. Both the language and vision models are open-sourced. A linear projection layer bridges the gap between the visual encoder and the LLM. The architecture allows MiniGPT-4 to handle diverse vision-language tasks without relying on external vision-side modules.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "48a9938b61748612",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.01,
+      "cost": 145,
+      "text": "SALMONN consists of two components designed to achieve audio-text alignment with high temporal resolution. First, the auditory signal processing uses a dual-encoder architecture: a Whisper-Large-v2 based speech encoder is responsible for audio speech recognition, and a fine-tuned BEATs-based audio encoder is responsible for encoding the non-speech signal. The outputs of the two auditory encoders are connected via a window-level Query Transformer in order to transform the encoder outputs into an augmented audio signal for input to the Vicuna LLM. Next, the enhanced LLM input and output are instruction tuning by a Low-Rank Adaptive Approach (LoRA) to achieve audio-text cross-modal alignment, thus providing the model with zero-shot capability.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "343db583c5f4bc61",
+      "page": 16,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005319148936170213,
+      "cost": 166,
+      "text": "Looking ahead, there are still many research directions worth exploring for MLLMs in the field of video understanding. Firstly, combining MLLMs with representation learning methods, such as contrastive learning and reinforcement learning, have the potential to further improve model performance. Secondly, more advanced multimodal fusion mechanisms, like Temporal Attention that considers temporal information, can better model the dynamic features of videos. Furthermore, more lightweight model designs that significantly reduce computational overhead while maintaining performance are more suitable for real-time application scenarios. Additionally, MLLMs based on high-level cognitive abilities, such as causal reasoning and logical reasoning, are closer to human-like video understanding. Finally, incorporating external knowledge (e.g., common sense, domain knowledge) to enhance MLLMs, enabling them to possess stronger analysis and reasoning capabilities, is also a promising research direction.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8e134d3aefdd1d12",
+      "page": 18,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.010752688172043012,
+      "cost": 171,
+      "text": "Although MLLMs can significantly enhance task performance by integrating information from different modalities, the complexity and the opacity of their internal mechanisms often result in reduced interpretability. Understanding how different modalities are combined and the contribution of each modality to the final decision is crucial for a thorough analysis of multimodal data interactions. Currently, the integration of multimodal information is frequently treated as a “black box”, making it challenging for users to comprehend why and how the model reaches specific decisions. Future research should focus on addressing several key questions: How can we analyze the decision-making process in MLLMs based on different modal information? How can we enhance the trustworthiness of multimodal models in critical areas like healthcare and finance by improving their explanatory capabilities? Developing a deeper understanding of the interaction mechanisms between different modalities and their relevance to specific tasks will be essential for advancing model interpretability.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f127cb58f4672b85",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012345679012345678,
+      "cost": 187,
+      "text": "Video-LLaMA is designed with two branches: the visual-language branch and the audio-language branch, which respectively convert video frames and audio signals into query representations compatible with LLM text input. In the visual-language branch, video frames are first processed by the BLIP2 [74] image encoder to obtain image features for each frame. These features are then added to their corresponding position embeddings and fed into the video Q-Former. The video Q-Former extracts features from all frames and outputs a fixed-length comprehensive representation. Finally, a linear layer maps the video features to the same dimension as the text features in the subsequent LLM. In the audio-language branch, the audio signal is divided into segments of 2 seconds each. Each segment is then converted into a 128-dimensional Mel-spectrogram feature. The encoder from the multimodal model ImageBind [75] is used to extract features from these audio segments. Similar to the",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f56bf7871dcd05c0",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005405405405405406,
+      "cost": 189,
+      "text": "During training, NeXT-GPT keeps the encoders and decoders for each modality and the intermediate LLM frozen. Only the Transformer-based projection layers in the encoding and decoding stages are trainable, achieving lightweight multimodal alignment learning. Additionally, to enhance the capabilities and controllability of the LLM, NeXT-GPT uses the self-constructed MoST dataset for modality-switching instruction tuning. During instruction tuning, besides updating the projection layers, this model also applies LoRA [92] to further update the LLM’s parameters. For evaluating video understanding tasks, the method tests the model’s video captioning and video question answering capabilities on MSRVT [93], MSVD-QA [80], MSRVTT-QA [80], and NExTQA [94] datasets. Additionally, this work tests the model’s video generation ability on the MSRVTT dataset. NeXT-GPT demonstrates excellent performance in these evaluations.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "155c3af351b3bf48",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.010869565217391304,
+      "cost": 254,
+      "text": "MLLMS are sophisticated artificial intelligence (AI) systems designed to process and integrate various types of data, including text, images, videos, audio, and physiological sequences [1], [2], [3]. As we have entered the era of multimodal data fusion, marked by rapid advancements in information technology and an explosive increase in data volume, the capabilities of single-modality systems no longer suffice for complex real-world tasks [4], [5], [6]. Thus, the development of MLLMs is not only an inevitable trend in technological evolution but also a critical enhancement for improving the effectiveness of AI applications. By synergizing information from multiple data sources, MLLMs cultivate a more comprehensive and accurate representation of information, this capability not only unlocks significant potential but also demonstrates substantial practical application value across a diverse range of fields. The integration of diverse datasets tailors MLLMs to perform more effectively, establishing them as indispensable next-generation technologies in the ongoing quest to harness the full potential of AI technologies [7], [8], [9]. Notably, MLLMs have shown remarkable performance across diverse multimodal tasks, including language, image, video, and audio processing. These models excel in integrating multimodal information to enhance the effectiveness of multimodal tasks.",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- MLLM architectures differ mainly in fusion strategy (early vs late), connector complexity (linear vs attention/Q-Former/Transformers), and choice of LLM backbone (frozen vs partially tuned, big vs small), with strong implications for compute, flexibility, and domain performance. [12f84962dcc895b7][e966089ab3149cf5][3b6be3edd259c18e][9aa98ea88197007d]\n\n## Key Findings\n- **Connector design tradeoff (linear vs attention/Q-Former/Transformers)**  \n  - Simple linear projection layers are lightweight and easy to train but capture limited cross-modal interactions. Used in models like Vitron and MiniGPT‑4’s vision→LLM bridge. [3b6be3edd259c18e][aef21bdb228b764b]  \n  - Attention-based connectors (Q-Formers, Transformer projections, window-level Query Transformers) better model complex inter-modal relationships at higher compute cost; they are preferred when temporal structure or fine-grained alignment (video, audio) matters. [3b6be3edd259c18e][a215da00386486ad][f127cb58f4672b85][48a9938b61748612][f56bf7871dcd05c0]\n- **Fusion strategy (early vs late) should match task needs**  \n  - Early fusion (combining raw/low-level features) leverages tight cross-modal correlations but increases model complexity and compute. [12f84962dcc895b7]  \n  - Late fusion (combining final modality-specific outputs) is simpler and suits tasks needing consolidated judgments rather than fine-grained cross-modal reasoning. [e966089ab3149cf5]\n- **Backbone LLM: frozen vs tuned and size choice**  \n  - Many systems freeze the main LLM and modality encoders, training only projection/connector layers for efficient multimodal alignment (Video‑LLaMA, NeXT‑GPT, MiniGPT‑4 stage 1). [a215da00386486ad][f509249fe42f7c0b][f56bf7871dcd05c0]  \n  - Lightweight adaptation (LoRA) on top of a mostly frozen LLM improves cross-modal alignment and controllability with modest compute (SALMONN, NeXT‑GPT). [48a9938b61748612][f56bf7871dcd05c0]  \n  - There is an explicit tension between “big & comprehensive” vs “small & specialized”; smaller targeted models can outperform large general ones in specific domains and are better for resource-constrained or real-time scenarios (e.g., Mini‑Gemini, LWM’s 1M‑parameter design). [9aa98ea88197007d][280dd300f503a0c9][17785d23908c28ab]\n- **Modular, controller-style architectures aid tool use and extensibility**  \n  - Architectures like HuggingGPT and the described audio system use an LLM as a central controller that: (1) normalizes modalities, (2) analyzes tasks, (3) routes to specialized base models, and (4) aggregates responses. This pattern scales well as new modalities/tools are added. [280dd300f503a0c9][db47d544b74506f7]\n- **Universal encoders and discrete-unit pipelines improve standardization**  \n  - Universal encoders map diverse inputs (audio, video, fMRI, physiological sequences) into a standardized feature sequence, simplifying downstream fusion and LLM integration. [eca57f1482fcaa2e][9e5855d0553e6f32][638a73543b3bd141]  \n  - Discrete-unit pipelines (e.g., HuBERT + LLaMA + Hi‑Fi‑GAN) enable unified sequence modeling across modalities like speech, easing integration with text-centric LLMs. [750d54ec0980e159][0891db8b8185cee1]\n- **Concrete performance/efficiency data for planning**  \n  - MiniGPT‑4’s two-stage training shows that strong vision–language alignment can be achieved with modest resources:  \n    - Stage 1: 20,000 steps, batch size 256, ~10 hours on 4×A100, training only the linear projection.  \n    - Stage 2: high-quality fine-tuning, ~7 minutes on 1×A100, greatly improving linguistic coherence. [f509249fe42f7c0b]  \n  - NeXT‑GPT achieves strong video understanding and generation with 7B/13B backbones by freezing encoders/decoders and training only Transformer-based projections plus LoRA, demonstrating a practical “small(er) but capable” pattern. [280dd300f503a0c9][f56bf7871dcd05c0]\n- **Task-specific architecture patterns**  \n  - **Vision–language**: MiniGPT‑4 uses a BLIP‑2 ViT+Q‑Former encoder feeding a Vicuna (LLaMA-based) decoder via a linear projection; modular design allows swapping LLMs. [02e36a964efea70a][aef21bdb228b764b]  \n  - **Audio–text**: SALMONN uses dual encoders (Whisper for speech, BEATs for non-speech) plus a window-level Query Transformer into Vicuna, then LoRA tuning for alignment. [48a9938b61748612]  \n  - **Video (audio+visual)–language**: Video‑LLaMA uses separate video and audio branches with Q‑Formers and linear projections into a frozen LLM; NeXT‑GPT uses Transformer projections and modality-switching instruction tuning for controllable video captioning/QA/generation. [f127cb58f4672b85][a215da00386486ad][e23ff1c504dc328b][f56bf7871dcd05c0]\n- **Application-driven model choice**  \n  - Models like Idefics2, Mini‑Gemini, Wiki‑LLaVA illustrate specialization: image generation, lightweight fast inference, and image–text semantic integration respectively. This supports choosing backbones/connectors based on target tasks and resource budgets. [17785d23908c28ab]  \n  - MLLMs particularly benefit audio tasks (speech generation, sentiment, event detection, multimodal translation) by combining audio with text/vision, suggesting strong ROI for audio-aware connectors in assistants, smart homes, and media. [04088e6b6a00e2d1][9c53f6c635c4a605]\n\n## Evidence\n- MLLMs integrate text, images, video, audio, and physiological sequences to outperform single-modality systems across many tasks. [155c3af351b3bf48][df025fd336498968][78956211adc2960c][f58922a6a6db6540][04088e6b6a00e2d1]\n- Fusion methods: linear layers vs attention mechanisms; attention captures richer inter-modal interactions but is more computationally expensive. [3b6be3edd259c18e]  \n- Early vs late fusion definitions and use cases. [12f84962dcc895b7][e966089ab3149cf5]\n- Representative architectures and design choices:  \n  - HuggingGPT (LLM controller), EMO (specialized facial/audio modules), LWM (1M parameters, scalable), NeXT‑GPT (CLIP/ImageBind, VQGAN, 7B/13B). [280dd300f503a0c9]  \n  - MiniGPT‑4: modular, GPT‑4-like multimodal model using Vicuna + BLIP‑2 encoder + linear projection; two-stage training with explicit compute/time stats. [02e36a964efea70a][aef21bdb228b764b][f509249fe42f7c0b]  \n  - SALMONN: dual audio encoders + Query Transformer + Vicuna + LoRA. [48a9938b61748612]  \n  - Video‑LLaMA: video and audio branches with Q‑Formers and linear mapping into frozen LLM; only Q‑Formers, position embeddings, and linear layers trained; no quantitative metrics reported. [f127cb58f4672b85][a215da00386486ad]  \n  - NeXT‑GPT: frozen encoders/decoders/LLM, trainable Transformer projections, LoRA for instruction tuning; strong video captioning/QA/generation on MSRVT, MSVD‑QA, MSRVTT‑QA, NExTQA. [e23ff1c504dc328b][f56bf7871dcd05c0]\n- Universal encoder and sequential-data encoders (1D‑CNN+LSTM) for standardized feature sequences across diverse modalities. [eca57f1482fcaa2e][9e5855d0553e6f32][638a73543b3bd141]\n- Controller-style audio architecture: modality transformation → LLM module (ChatGPT) → task assignment to audio base model → response generation. [db47df544b74506f7]\n- Specialized models and size debate: Idefics2, Mini‑Gemini, Wiki‑LLaVA; explicit discussion of “big vs small” MLLMs. [17785d23908c28ab][9aa98ea88197007d]\n- Future video MLLM directions: temporal attention, lightweight designs for real-time, integration of external knowledge, higher-level reasoning. [343db583c5f4bc61]\n- Survey context and comparative tables (e.g., audio MLLMs) for broader benchmarking. [6d10b691e667495c][bb6d3e47db084cec][743404687b49fe9a][b0702d20f0e3a033]\n\n## Risks\n- **Compute and latency overhead**  \n  - Attention-heavy connectors (Q‑Formers, Transformers, temporal attention) and early fusion increase computational cost, potentially blocking real-time or edge deployment. [3b6be3edd259c18e][343db583c5f4bc61]  \n  - Large, fully tuned backbones may be unnecessary for narrow domains and can waste resources compared to smaller specialized models. [9aa98ea88197007d]\n- **Limited interpretability and trust**  \n  - Multimodal fusion is often a “black box”; it is hard to attribute decisions to specific modalities, which is problematic in high-stakes domains like healthcare and finance. [8e134d3aefdd1d12][70a2d1dc0f1c2738]\n- **Overfitting to benchmarks / weak evaluation**  \n  - Some architectures (e.g., Video‑LLaMA) report qualitative results without quantitative metrics, making it risky to adopt them as backbones without additional evaluation. [a215da00386486ad]  \n  - Heavy reliance on specific datasets (e.g., MSRVT, MSRVTT, NExTQA) may not generalize to your domain without targeted fine-tuning. [f56bf7871dcd05c0][b0702d20f0e3a033]\n- **Complexity of multi-branch designs**  \n  - Separate audio/visual branches with multiple encoders and Q‑Formers (Video‑LLaMA, SALMONN) increase engineering complexity and maintenance burden; misalignment between branches can degrade performance. [f127cb58f4672b85][48a9938b61748612]\n- **Ethical and security concerns**  \n  - Powerful MLLMs for audio/video generation and cross-modal translation can be misused (deepfakes, privacy violations); opacity exacerbates difficulty in detecting misuse and ensuring responsible deployment. [70a2d1dc0f1c2738][04088e6b6a00e2d1]\n\n## Next Steps\n- **Clarify target constraints and priorities**  \n  - Decide acceptable latency and hardware budget (e.g., “≤1×A100” vs multi‑GPU) to choose between heavier attention-based connectors and simpler linear ones. Use MiniGPT‑4’s training profile as a reference for what is feasible on 1–4×A100. [f509249fe42f7c0b][3b6be3edd259c18e]\n- **Select a backbone strategy**  \n  - For general-purpose multimodal reasoning with moderate resources, favor a frozen mid-size LLaMA/Vicuna-like LLM with LoRA tuning, following NeXT‑GPT/SALMONN patterns. [48a9938b61748612][f56bf7871dcd05c0]  \n  - For constrained or latency-critical environments, prioritize smaller specialized backbones (Mini‑Gemini/LWM-style) and late fusion, accepting narrower task coverage. [9aa98ea88197007d][17785d23908c28ab][280dd300f503a0c9]\n- **Choose connector and fusion design per modality**  \n  - Vision–language: start with a BLIP‑2-style encoder + linear projection into a frozen LLM (MiniGPT‑4 pattern); upgrade to attention/Q‑Former connectors only if you need finer cross-modal reasoning. [aef21bdb228b764b][3b6be3edd259c18e]  \n  - Audio–text: adopt a dual-encoder + Query Transformer design if you need both speech and non-speech understanding (SALMONN pattern); otherwise, a single audio encoder + linear projection may suffice. [48a9938b61748612]  \n  - Video: for strong temporal reasoning, use separate audio/visual branches with Q‑Formers or Transformer projections and consider temporal attention; if compute is tight, use late fusion of per-frame/per-segment features. [f127cb58f4672b85][343db583c5f4bc61][f56bf7871dcd05c0][e966089ab3149cf5]\n- **Adopt a modular controller architecture**  \n  - Implement an LLM-centric controller that: (1) normalizes modalities via encoders/universal encoder, (2) performs task analysis, (3) routes to specialized models/tools, and (4) aggregates outputs, following HuggingGPT and the audio system design. This eases future extension to new modalities. [280dd300f503a0c9][db47d544b74506f7][eca57f1482fcaa2e]\n- **Plan evaluation and interpretability**  \n  - Benchmark candidate architectures on domain-relevant datasets (or adapted versions of MSRVT/MSRVTT/NExTQA for video, and audio MLLM benchmarks) before committing. [6d10b691e667495c][f56bf7871dcd05c0][b0702d20f0e3a033]  \n  - Incorporate basic interpretability tools (e.g., attention visualization per modality, ablation of modalities) to mitigate black-box risks, especially if targeting regulated domains. [8e134d3aefdd1d12]\n- **Iterate with lightweight fine-tuning**  \n  - Start with frozen encoders/LLM and train only projection/connector layers; then add LoRA-based instruction tuning for your tasks (modality switching, domain-specific instructions) as in NeXT‑GPT and SALMONN. [48a9938b61748612][f56bf7871dcd05c0]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- MLLM architectures differ mainly in fusion strategy (early vs late), connector complexity (linear vs attention/Q-Former/Transformers), and choice of LLM backbone (frozen vs partially tuned, big vs small), with strong implications for compute, flexibility, and domain performance. [12f84962dcc895b7][e966089ab3149cf5][3b6be3edd259c18e][9aa98ea88197007d]\n\n## Key Findings\n- **Connector design tradeoff (linear vs attention/Q-Former/Transformers)**  \n  - Simple linear projection layers are lightweight and easy to train but capture limited cross-modal interactions. Used in models like Vitron and MiniGPT‑4’s vision→LLM bridge. [3b6be3edd259c18e][aef21bdb228b764b]  \n  - Attention-based connectors (Q-Formers, Transformer projections, window-level Query Transformers) better model complex inter-modal relationships at higher compute cost; they are preferred when temporal structure or fine-grained alignment (video, audio) matters. [3b6be3edd259c18e][a215da00386486ad][f127cb58f4672b85][48a9938b61748612][f56bf7871dcd05c0]\n- **Fusion strategy (early vs late) should match task needs**  \n  - Early fusion (combining raw/low-level features) leverages tight cross-modal correlations but increases model complexity and compute. [12f84962dcc895b7]  \n  - Late fusion (combining final modality-specific outputs) is simpler and suits tasks needing consolidated judgments rather than fine-grained cross-modal reasoning. [e966089ab3149cf5]\n- **Backbone LLM: frozen vs tuned and size choice**  \n  - Many systems freeze the main LLM and modality encoders, training only projection/connector layers for efficient multimodal alignment (Video‑LLaMA, NeXT‑GPT, MiniGPT‑4 stage 1). [a215da00386486ad][f509249fe42f7c0b][f56bf7871dcd05c0]  \n  - Lightweight adaptation (LoRA) on top of a mostly frozen LLM improves cross-modal alignment and controllability with modest compute (SALMONN, NeXT‑GPT). [48a9938b61748612][f56bf7871dcd05c0]  \n  - There is an explicit tension between “big & comprehensive” vs “small & specialized”; smaller targeted models can outperform large general ones in specific domains and are better for resource-constrained or real-time scenarios (e.g., Mini‑Gemini, LWM’s 1M‑parameter design). [9aa98ea88197007d][280dd300f503a0c9][17785d23908c28ab]\n- **Modular, controller-style architectures aid tool use and extensibility**  \n  - Architectures like HuggingGPT and the described audio system use an LLM as a central controller that: (1) normalizes modalities, (2) analyzes tasks, (3) routes to specialized base models, and (4) aggregates responses. This pattern scales well as new modalities/tools are added. [280dd300f503a0c9][db47d544b74506f7]\n- **Universal encoders and discrete-unit pipelines improve standardization**  \n  - Universal encoders map diverse inputs (audio, video, fMRI, physiological sequences) into a standardized feature sequence, simplifying downstream fusion and LLM integration. [eca57f1482fcaa2e][9e5855d0553e6f32][638a73543b3bd141]  \n  - Discrete-unit pipelines (e.g., HuBERT + LLaMA + Hi‑Fi‑GAN) enable unified sequence modeling across modalities like speech, easing integration with text-centric LLMs. [750d54ec0980e159][0891db8b8185cee1]\n- **Concrete performance/efficiency data for planning**  \n  - MiniGPT‑4’s two-stage training shows that strong vision–language alignment can be achieved with modest resources:  \n    - Stage 1: 20,000 steps, batch size 256, ~10 hours on 4×A100, training only the linear projection.  \n    - Stage 2: high-quality fine-tuning, ~7 minutes on 1×A100, greatly improving linguistic coherence. [f509249fe42f7c0b]  \n  - NeXT‑GPT achieves strong video understanding and generation with 7B/13B backbones by freezing encoders/decoders and training only Transformer-based projections plus LoRA, demonstrating a practical “small(er) but capable” pattern. [280dd300f503a0c9][f56bf7871dcd05c0]\n- **Task-specific architecture patterns**  \n  - **Vision–language**: MiniGPT‑4 uses a BLIP‑2 ViT+Q‑Former encoder feeding a Vicuna (LLaMA-based) decoder via a linear projection; modular design allows swapping LLMs. [02e36a964efea70a][aef21bdb228b764b]  \n  - **Audio–text**: SALMONN uses dual encoders (Whisper for speech, BEATs for non-speech) plus a window-level Query Transformer into Vicuna, then LoRA tuning for alignment. [48a9938b61748612]  \n  - **Video (audio+visual)–language**: Video‑LLaMA uses separate video and audio branches with Q‑Formers and linear projections into a frozen LLM; NeXT‑GPT uses Transformer projections and modality-switching instruction tuning for controllable video captioning/QA/generation. [f127cb58f4672b85][a215da00386486ad][e23ff1c504dc328b][f56bf7871dcd05c0]\n- **Application-driven model choice**  \n  - Models like Idefics2, Mini‑Gemini, Wiki‑LLaVA illustrate specialization: image generation, lightweight fast inference, and image–text semantic integration respectively. This supports choosing backbones/connectors based on target tasks and resource budgets. [17785d23908c28ab]  \n  - MLLMs particularly benefit audio tasks (speech generation, sentiment, event detection, multimodal translation) by combining audio with text/vision, suggesting strong ROI for audio-aware connectors in assistants, smart homes, and media. [04088e6b6a00e2d1][9c53f6c635c4a605]\n\n## Evidence\n- MLLMs integrate text, images, video, audio, and physiological sequences to outperform single-modality systems across many tasks. [155c3af351b3bf48][df025fd336498968][78956211adc2960c][f58922a6a6db6540][04088e6b6a00e2d1]\n- Fusion methods: linear layers vs attention mechanisms; attention captures richer inter-modal interactions but is more computationally expensive. [3b6be3edd259c18e]  \n- Early vs late fusion definitions and use cases. [12f84962dcc895b7][e966089ab3149cf5]\n- Representative architectures and design choices:  \n  - HuggingGPT (LLM controller), EMO (specialized facial/audio modules), LWM (1M parameters, scalable), NeXT‑GPT (CLIP/ImageBind, VQGAN, 7B/13B). [280dd300f503a0c9]  \n  - MiniGPT‑4: modular, GPT‑4-like multimodal model using Vicuna + BLIP‑2 encoder + linear projection; two-stage training with explicit compute/time stats. [02e36a964efea70a][aef21bdb228b764b][f509249fe42f7c0b]  \n  - SALMONN: dual audio encoders + Query Transformer + Vicuna + LoRA. [48a9938b61748612]  \n  - Video‑LLaMA: video and audio branches with Q‑Formers and linear mapping into frozen LLM; only Q‑Formers, position embeddings, and linear layers trained; no quantitative metrics reported. [f127cb58f4672b85][a215da00386486ad]  \n  - NeXT‑GPT: frozen encoders/decoders/LLM, trainable Transformer projections, LoRA for instruction tuning; strong video captioning/QA/generation on MSRVT, MSVD‑QA, MSRVTT‑QA, NExTQA. [e23ff1c504dc328b][f56bf7871dcd05c0]\n- Universal encoder and sequential-data encoders (1D‑CNN+LSTM) for standardized feature sequences across diverse modalities. [eca57f1482fcaa2e][9e5855d0553e6f32][638a73543b3bd141]\n- Controller-style audio architecture: modality transformation → LLM module (ChatGPT) → task assignment to audio base model → response generation. [db47df544b74506f7]\n- Specialized models and size debate: Idefics2, Mini‑Gemini, Wiki‑LLaVA; explicit discussion of “big vs small” MLLMs. [17785d23908c28ab][9aa98ea88197007d]\n- Future video MLLM directions: temporal attention, lightweight designs for real-time, integration of external knowledge, higher-level reasoning. [343db583c5f4bc61]\n- Survey context and comparative tables (e.g., audio MLLMs) for broader benchmarking. [6d10b691e667495c][bb6d3e47db084cec][743404687b49fe9a][b0702d20f0e3a033]\n\n## Risks\n- **Compute and latency overhead**  \n  - Attention-heavy connectors (Q‑Formers, Transformers, temporal attention) and early fusion increase computational cost, potentially blocking real-time or edge deployment. [3b6be3edd259c18e][343db583c5f4bc61]  \n  - Large, fully tuned backbones may be unnecessary for narrow domains and can waste resources compared to smaller specialized models. [9aa98ea88197007d]\n- **Limited interpretability and trust**  \n  - Multimodal fusion is often a “black box”; it is hard to attribute decisions to specific modalities, which is problematic in high-stakes domains like healthcare and finance. [8e134d3aefdd1d12][70a2d1dc0f1c2738]\n- **Overfitting to benchmarks / weak evaluation**  \n  - Some architectures (e.g., Video‑LLaMA) report qualitative results without quantitative metrics, making it risky to adopt them as backbones without additional evaluation. [a215da00386486ad]  \n  - Heavy reliance on specific datasets (e.g., MSRVT, MSRVTT, NExTQA) may not generalize to your domain without targeted fine-tuning. [f56bf7871dcd05c0][b0702d20f0e3a033]\n- **Complexity of multi-branch designs**  \n  - Separate audio/visual branches with multiple encoders and Q‑Formers (Video‑LLaMA, SALMONN) increase engineering complexity and maintenance burden; misalignment between branches can degrade performance. [f127cb58f4672b85][48a9938b61748612]\n- **Ethical and security concerns**  \n  - Powerful MLLMs for audio/video generation and cross-modal translation can be misused (deepfakes, privacy violations); opacity exacerbates difficulty in detecting misuse and ensuring responsible deployment. [70a2d1dc0f1c2738][04088e6b6a00e2d1]\n\n## Next Steps\n- **Clarify target constraints and priorities**  \n  - Decide acceptable latency and hardware budget (e.g., “≤1×A100” vs multi‑GPU) to choose between heavier attention-based connectors and simpler linear ones. Use MiniGPT‑4’s training profile as a reference for what is feasible on 1–4×A100. [f509249fe42f7c0b][3b6be3edd259c18e]\n- **Select a backbone strategy**  \n  - For general-purpose multimodal reasoning with moderate resources, favor a frozen mid-size LLaMA/Vicuna-like LLM with LoRA tuning, following NeXT‑GPT/SALMONN patterns. [48a9938b61748612][f56bf7871dcd05c0]  \n  - For constrained or latency-critical environments, prioritize smaller specialized backbones (Mini‑Gemini/LWM-style) and late fusion, accepting narrower task coverage. [9aa98ea88197007d][17785d23908c28ab][280dd300f503a0c9]\n- **Choose connector and fusion design per modality**  \n  - Vision–language: start with a BLIP‑2-style encoder + linear projection into a frozen LLM (MiniGPT‑4 pattern); upgrade to attention/Q‑Former connectors only if you need finer cross-modal reasoning. [aef21bdb228b764b][3b6be3edd259c18e]  \n  - Audio–text: adopt a dual-encoder + Query Transformer design if you need both speech and non-speech understanding (SALMONN pattern); otherwise, a single audio encoder + linear projection may suffice. [48a9938b61748612]  \n  - Video: for strong temporal reasoning, use separate audio/visual branches with Q‑Formers or Transformer projections and consider temporal attention; if compute is tight, use late fusion of per-frame/per-segment features. [f127cb58f4672b85][343db583c5f4bc61][f56bf7871dcd05c0][e966089ab3149cf5]\n- **Adopt a modular controller architecture**  \n  - Implement an LLM-centric controller that: (1) normalizes modalities via encoders/universal encoder, (2) performs task analysis, (3) routes to specialized models/tools, and (4) aggregates outputs, following HuggingGPT and the audio system design. This eases future extension to new modalities. [280dd300f503a0c9][db47d544b74506f7][eca57f1482fcaa2e]\n- **Plan evaluation and interpretability**  \n  - Benchmark candidate architectures on domain-relevant datasets (or adapted versions of MSRVT/MSRVTT/NExTQA for video, and audio MLLM benchmarks) before committing. [6d10b691e667495c][f56bf7871dcd05c0][b0702d20f0e3a033]  \n  - Incorporate basic interpretability tools (e.g., attention visualization per modality, ablation of modalities) to mitigate black-box risks, especially if targeting regulated domains. [8e134d3aefdd1d12]\n- **Iterate with lightweight fine-tuning**  \n  - Start with frozen encoders/LLM and train only projection/connector layers; then add LoRA-based instruction tuning for your tasks (modality switching, domain-specific instructions) as in NeXT‑GPT and SALMONN. [48a9938b61748612][f56bf7871dcd05c0]"
+  }
+}

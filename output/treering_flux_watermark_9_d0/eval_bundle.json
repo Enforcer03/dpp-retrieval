@@ -1,0 +1,602 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "982bf1e6b0e07a95",
+  "created_at": "2025-12-31T07:42:43Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 18041,
+        "output_hash": "d4e8b306d4c07e70846be6083392ffde8da97cb5",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "covered",
+                      "evidence": [
+                        "b4610aa875f73007",
+                        "98e0a1670aa761b8",
+                        "a6b5d1ed98ed3e14",
+                        "8767d43ace527e6c",
+                        "8ba006aa21056da6"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "b4610aa875f73007",
+                          "quote": "this advantage diminishes significantly under attacked scenarios, where the separability between watermarked and non-watermarked distributions becomes drastically reduced."
+                        },
+                        {
+                          "chunk_id": "98e0a1670aa761b8",
+                          "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion"
+                        },
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+                        },
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "This straightened path inherently discards information that would be useful during inversion."
+                        },
+                        {
+                          "chunk_id": "a6b5d1ed98ed3e14",
+                          "quote": "text and image information are deeply entangled throughout the network, unlike older diffusion models’ UNet architecture"
+                        }
+                      ],
+                      "rationale": "Evidence explains FLUX’s worse robustness under attack via architectural and training differences that harm invertibility and watermark separability, contrasting with SD 2.1’s robust separation. Noise-sensitivity of latent space is not directly quantified but mechanism is described."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "partial",
+                      "evidence": [
+                        "ca8fc4757eaefbd7",
+                        "b4610aa875f73007",
+                        "65a5c5af5466ce1d"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "ca8fc4757eaefbd7",
+                          "quote": "VLM Generated Prompt for Inversion Guidance"
+                        },
+                        {
+                          "chunk_id": "b4610aa875f73007",
+                          "quote": "exact prompt guidance during inversion yields the lowest reconstruction error in both Fourier and spatial domains"
+                        },
+                        {
+                          "chunk_id": "b4610aa875f73007",
+                          "quote": "in case of attacked images the exact prompt guidance does not aid in reconstruction."
+                        }
+                      ],
+                      "rationale": "There is a section on VLM-generated prompts and discussion that accurate prompts reduce reconstruction error, but no explicit NMSE values or clear statement on whether VLM prompts achieve sufficiently low NMSE. Thus usefulness is not fully answered."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [
+                        "65a5c5af5466ce1d",
+                        "b4610aa875f73007"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "b4610aa875f73007",
+                          "quote": "separability between watermarked and non-watermarked distributions becomes drastically reduced."
+                        }
+                      ],
+                      "rationale": "While separability degradation is mentioned, there are no numerical false positive rates or statistical tests comparing watermarked FLUX images to random noise; high-confidence separability is not quantified."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "missing",
+                      "evidence": [
+                        "65a5c5af5466ce1d",
+                        "bf950cc5ac1a0413",
+                        "73aee49c9fb726ef"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "bf950cc5ac1a0413",
+                          "quote": "We conducted our experiments using carefully calibrated configurations for both FLUX.1-dev and Stable Diffusion 2.1 models."
+                        }
+                      ],
+                      "rationale": "Configurations and metrics are described, but there is no discussion of watermark radius or channel parameter tuning for FLUX versus SD, nor whether identical watermark parameters are appropriate."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "missing",
+                      "evidence": [
+                        "b4610aa875f73007",
+                        "98e0a1670aa761b8"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "98e0a1670aa761b8",
+                          "quote": "reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance."
+                        }
+                      ],
+                      "rationale": "Prompt sensitivity is discussed, but there is no explicit evaluation of a 'No Prompt' detection setting or whether the system becomes effectively blind without prompts."
+                    },
+                    {
+                      "id": "R6",
+                      "status": "partial",
+                      "evidence": [
+                        "65a5c5af5466ce1d",
+                        "b4610aa875f73007",
+                        "4776a267e51de637",
+                        "4374753e2f4379c4"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "65a5c5af5466ce1d",
+                          "quote": "We quantify watermark robustness through the following metrics:"
+                        },
+                        {
+                          "chunk_id": "b4610aa875f73007",
+                          "quote": "FLUX.1-dev demonstrates superior latent noise reconstruction for clean images compared to the baseline model SD 2.1"
+                        },
+                        {
+                          "chunk_id": "b4610aa875f73007",
+                          "quote": "this advantage diminishes significantly under attacked scenarios"
+                        },
+                        {
+                          "chunk_id": "4776a267e51de637",
+                          "quote": "images generated from the original and reconstructed noise latents show perceptible differences"
+                        }
+                      ],
+                      "rationale": "Latent noise reconstruction is clearly used and characterized: strong on clean images, unstable under attack with reduced separability. However, there is no explicit recommendation on using it as a primary automated copyright check, only implied limitations."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R3",
+                    "R4",
+                    "R5"
+                  ],
+                  "risks": [
+                    "Lack of explicit false positive rate and statistical separability metrics may hide practical detection reliability issues.",
+                    "No analysis of watermark parameter tuning for FLUX could lead to suboptimal or unfair benchmarking versus SD.",
+                    "Absence of 'No Prompt' evaluation leaves uncertainty about operational robustness when prompts are unavailable or incorrect.",
+                    "Unclear effectiveness of VLM-generated prompts and stability of latent noise reconstruction may mislead deployment decisions for copyright compliance."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Core architectural reasons for FLUX’s weaker robustness and general behavior of latent reconstruction are covered, but quantitative detection aspects (FPR, statistical tests), watermark parameter tuning, and no-prompt behavior are missing or only hinted at.",
+              "missing_requirements": [
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate architectural differences and clean-vs-attacked reconstruction behavior; however, some are necessary to connect robustness, inversion, and watermarking. Limited unique detail on prompts and metrics.",
+              "redundant_pairs": [
+                [
+                  "b4610aa875f73007",
+                  "98e0a1670aa761b8"
+                ],
+                [
+                  "8767d43ace527e6c",
+                  "8ba006aa21056da6"
+                ],
+                [
+                  "a6b5d1ed98ed3e14",
+                  "8767d43ace527e6c"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Several high-cost chunks provide strong architectural and robustness insights, but some expensive chunks add little directly to the specific requirements (e.g., general background, references). More targeted retrieval on metrics and detection statistics would improve efficiency.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "a6b5d1ed98ed3e14",
+                  "cost": 184,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "d72cce2b3ea9a5d6",
+                  "cost": 136,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "486ef5f2b7da66eb",
+                  "cost": 126,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "e9570c7d2a34af1f",
+                  "cost": 116,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "b4610aa875f73007",
+                  "cost": 109,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key quantitative detection metrics such as false positive rate and statistical separability are absent, limiting confidence in robustness claims.",
+              "No explicit evaluation of watermark parameter tuning for FLUX may bias comparisons with SD 2.1.",
+              "Operational scenarios without accurate prompts, including 'No Prompt', are not analyzed, posing deployment risk.",
+              "Reliance on qualitative descriptions without NMSE or ROC/AUC values weakens the benchmarking rigor."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 7585,
+        "output_hash": "b66fe3434272dbdc9483409d42b41462fd3b2f7e",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "bf950cc5ac1a0413",
+                "quote": "We conducted our experiments using carefully calibrated configurations for both FLUX.1-dev and Stable Diffusion 2.1 models."
+              },
+              {
+                "chunk_id": "b4610aa875f73007",
+                "quote": "FLUX.1-dev demonstrates superior latent noise reconstruction for clean images compared to the baseline model SD 2.1"
+              },
+              {
+                "chunk_id": "b4610aa875f73007",
+                "quote": "this advantage diminishes significantly under attacked scenarios, where the separability between watermarked and non-watermarked distributions becomes drastically reduced."
+              },
+              {
+                "chunk_id": "98e0a1670aa761b8",
+                "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion"
+              },
+              {
+                "chunk_id": "98e0a1670aa761b8",
+                "quote": "This behavior contrasts significantly with FLUX.1-dev, where reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance."
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+              },
+              {
+                "chunk_id": "a6b5d1ed98ed3e14",
+                "quote": "Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled"
+              },
+              {
+                "chunk_id": "4776a267e51de637",
+                "quote": "images generated from the original and reconstructed noise latents show perceptible differences"
+              },
+              {
+                "chunk_id": "73aee49c9fb726ef",
+                "quote": "Number of sampling steps: 28 steps for both generation and inversion processes"
+              },
+              {
+                "chunk_id": "65a5c5af5466ce1d",
+                "quote": "We quantify watermark robustness through the following metrics:"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+                "answer": "The summary aligns with this decision. It explicitly frames the work as benchmarking watermark robustness and inversion behavior of FLUX.1-dev versus SD 2.1 under matched configurations, and it reports that FLUX has better latent reconstruction on clean images but loses separability under attacks, while SD 2.1 maintains robust, prompt-agnostic separation. It also attributes FLUX’s weaker robustness under attack to architectural and training differences (MM-DiT, rectified flow objective, stronger prompt dependence), which directly supports the comparative benchmarking goal.",
+                "confidence": 0.93,
+                "evidence": [
+                  "bf950cc5ac1a0413",
+                  "98e0a1670aa761b8",
+                  "b4610aa875f73007",
+                  "a6b5d1ed98ed3e14",
+                  "73aee49c9fb726ef",
+                  "65a5c5af5466ce1d"
+                ],
+                "notes": "The summary repeatedly emphasizes comparative robustness and inversion behavior between FLUX.1-dev and SD 2.1, matching the stated benchmarking decision."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "covered",
+                "evidence": [
+                  "b4610aa875f73007",
+                  "98e0a1670aa761b8",
+                  "a6b5d1ed98ed3e14",
+                  "8767d43ace527e6c",
+                  "8ba006aa21056da6"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "b4610aa875f73007",
+                    "quote": "this advantage diminishes significantly under attacked scenarios, where the separability between watermarked and non-watermarked distributions becomes drastically reduced."
+                  },
+                  {
+                    "chunk_id": "98e0a1670aa761b8",
+                    "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion"
+                  },
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+                  },
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "This straightened path inherently discards information that would be useful during inversion."
+                  },
+                  {
+                    "chunk_id": "a6b5d1ed98ed3e14",
+                    "quote": "text and image information are deeply entangled throughout the network, unlike older diffusion models’ UNet architecture"
+                  }
+                ],
+                "rationale": "Evidence explains FLUX’s worse robustness under attack via architectural and training differences that harm invertibility and watermark separability, contrasting with SD 2.1’s robust separation. Noise-sensitivity of latent space is not directly quantified but mechanism is described."
+              },
+              {
+                "id": "R2",
+                "status": "partial",
+                "evidence": [
+                  "ca8fc4757eaefbd7",
+                  "b4610aa875f73007",
+                  "65a5c5af5466ce1d"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "ca8fc4757eaefbd7",
+                    "quote": "VLM Generated Prompt for Inversion Guidance"
+                  },
+                  {
+                    "chunk_id": "b4610aa875f73007",
+                    "quote": "exact prompt guidance during inversion yields the lowest reconstruction error in both Fourier and spatial domains"
+                  },
+                  {
+                    "chunk_id": "b4610aa875f73007",
+                    "quote": "in case of attacked images the exact prompt guidance does not aid in reconstruction."
+                  }
+                ],
+                "rationale": "There is a section on VLM-generated prompts and discussion that accurate prompts reduce reconstruction error, but no explicit NMSE values or clear statement on whether VLM prompts achieve sufficiently low NMSE. Thus usefulness is not fully answered."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [
+                  "65a5c5af5466ce1d",
+                  "b4610aa875f73007"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "b4610aa875f73007",
+                    "quote": "separability between watermarked and non-watermarked distributions becomes drastically reduced."
+                  }
+                ],
+                "rationale": "While separability degradation is mentioned, there are no numerical false positive rates or statistical tests comparing watermarked FLUX images to random noise; high-confidence separability is not quantified."
+              },
+              {
+                "id": "R4",
+                "status": "missing",
+                "evidence": [
+                  "65a5c5af5466ce1d",
+                  "bf950cc5ac1a0413",
+                  "73aee49c9fb726ef"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "bf950cc5ac1a0413",
+                    "quote": "We conducted our experiments using carefully calibrated configurations for both FLUX.1-dev and Stable Diffusion 2.1 models."
+                  }
+                ],
+                "rationale": "Configurations and metrics are described, but there is no discussion of watermark radius or channel parameter tuning for FLUX versus SD, nor whether identical watermark parameters are appropriate."
+              },
+              {
+                "id": "R5",
+                "status": "missing",
+                "evidence": [
+                  "b4610aa875f73007",
+                  "98e0a1670aa761b8"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "98e0a1670aa761b8",
+                    "quote": "reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance."
+                  }
+                ],
+                "rationale": "Prompt sensitivity is discussed, but there is no explicit evaluation of a 'No Prompt' detection setting or whether the system becomes effectively blind without prompts."
+              },
+              {
+                "id": "R6",
+                "status": "partial",
+                "evidence": [
+                  "65a5c5af5466ce1d",
+                  "b4610aa875f73007",
+                  "4776a267e51de637",
+                  "4374753e2f4379c4"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "65a5c5af5466ce1d",
+                    "quote": "We quantify watermark robustness through the following metrics:"
+                  },
+                  {
+                    "chunk_id": "b4610aa875f73007",
+                    "quote": "FLUX.1-dev demonstrates superior latent noise reconstruction for clean images compared to the baseline model SD 2.1"
+                  },
+                  {
+                    "chunk_id": "b4610aa875f73007",
+                    "quote": "this advantage diminishes significantly under attacked scenarios"
+                  },
+                  {
+                    "chunk_id": "4776a267e51de637",
+                    "quote": "images generated from the original and reconstructed noise latents show perceptible differences"
+                  }
+                ],
+                "rationale": "Latent noise reconstruction is clearly used and characterized: strong on clean images, unstable under attack with reduced separability. However, there is no explicit recommendation on using it as a primary automated copyright check, only implied limitations."
+              }
+            ],
+            "missing_requirements": [
+              "R3",
+              "R4",
+              "R5"
+            ],
+            "risks": [
+              "Lack of explicit false positive rate and statistical separability metrics may hide practical detection reliability issues.",
+              "No analysis of watermark parameter tuning for FLUX could lead to suboptimal or unfair benchmarking versus SD.",
+              "Absence of 'No Prompt' evaluation leaves uncertainty about operational robustness when prompts are unavailable or incorrect.",
+              "Unclear effectiveness of VLM-generated prompts and stability of latent noise reconstruction may mislead deployment decisions for copyright compliance."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Core architectural reasons for FLUX’s weaker robustness and general behavior of latent reconstruction are covered, but quantitative detection aspects (FPR, statistical tests), watermark parameter tuning, and no-prompt behavior are missing or only hinted at.",
+        "missing_requirements": [
+          "R3",
+          "R4",
+          "R5"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate architectural differences and clean-vs-attacked reconstruction behavior; however, some are necessary to connect robustness, inversion, and watermarking. Limited unique detail on prompts and metrics.",
+        "redundant_pairs": [
+          [
+            "b4610aa875f73007",
+            "98e0a1670aa761b8"
+          ],
+          [
+            "8767d43ace527e6c",
+            "8ba006aa21056da6"
+          ],
+          [
+            "a6b5d1ed98ed3e14",
+            "8767d43ace527e6c"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Several high-cost chunks provide strong architectural and robustness insights, but some expensive chunks add little directly to the specific requirements (e.g., general background, references). More targeted retrieval on metrics and detection statistics would improve efficiency.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "a6b5d1ed98ed3e14",
+            "cost": 184,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "d72cce2b3ea9a5d6",
+            "cost": 136,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "486ef5f2b7da66eb",
+            "cost": 126,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "e9570c7d2a34af1f",
+            "cost": 116,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "b4610aa875f73007",
+            "cost": 109,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key quantitative detection metrics such as false positive rate and statistical separability are absent, limiting confidence in robustness claims.",
+        "No explicit evaluation of watermark parameter tuning for FLUX may bias comparisons with SD 2.1.",
+        "Operational scenarios without accurate prompts, including 'No Prompt', are not analyzed, posing deployment risk.",
+        "Reliance on qualitative descriptions without NMSE or ROC/AUC values weakens the benchmarking rigor."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "bf950cc5ac1a0413",
+          "quote": "We conducted our experiments using carefully calibrated configurations for both FLUX.1-dev and Stable Diffusion 2.1 models."
+        },
+        {
+          "chunk_id": "b4610aa875f73007",
+          "quote": "FLUX.1-dev demonstrates superior latent noise reconstruction for clean images compared to the baseline model SD 2.1"
+        },
+        {
+          "chunk_id": "b4610aa875f73007",
+          "quote": "this advantage diminishes significantly under attacked scenarios, where the separability between watermarked and non-watermarked distributions becomes drastically reduced."
+        },
+        {
+          "chunk_id": "98e0a1670aa761b8",
+          "quote": "DDIM (SD 2.1 base) exhibits robust separation between watermarked and non-watermarked images through naive inversion"
+        },
+        {
+          "chunk_id": "98e0a1670aa761b8",
+          "quote": "This behavior contrasts significantly with FLUX.1-dev, where reconstruction quality demonstrates marked sensitivity to the presence and accuracy of prompt guidance."
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "rectified flow training objective optimizes for straight paths between source and target distributions, prioritizing efficient forward sampling at the expense of invertibility."
+        },
+        {
+          "chunk_id": "a6b5d1ed98ed3e14",
+          "quote": "Flux employs a Multimodal Diffusion Transformer (MM DiT) architecture where text and image information are deeply entangled"
+        },
+        {
+          "chunk_id": "4776a267e51de637",
+          "quote": "images generated from the original and reconstructed noise latents show perceptible differences"
+        },
+        {
+          "chunk_id": "73aee49c9fb726ef",
+          "quote": "Number of sampling steps: 28 steps for both generation and inversion processes"
+        },
+        {
+          "chunk_id": "65a5c5af5466ce1d",
+          "quote": "We quantify watermark robustness through the following metrics:"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1.",
+          "answer": "The summary aligns with this decision. It explicitly frames the work as benchmarking watermark robustness and inversion behavior of FLUX.1-dev versus SD 2.1 under matched configurations, and it reports that FLUX has better latent reconstruction on clean images but loses separability under attacks, while SD 2.1 maintains robust, prompt-agnostic separation. It also attributes FLUX’s weaker robustness under attack to architectural and training differences (MM-DiT, rectified flow objective, stronger prompt dependence), which directly supports the comparative benchmarking goal.",
+          "confidence": 0.93,
+          "evidence": [
+            "bf950cc5ac1a0413",
+            "98e0a1670aa761b8",
+            "b4610aa875f73007",
+            "a6b5d1ed98ed3e14",
+            "73aee49c9fb726ef",
+            "65a5c5af5466ce1d"
+          ],
+          "notes": "The summary repeatedly emphasizes comparative robustness and inversion behavior between FLUX.1-dev and SD 2.1, matching the stated benchmarking decision."
+        }
+      ]
+    }
+  }
+}

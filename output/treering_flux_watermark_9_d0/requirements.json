@@ -1,0 +1,38 @@
+{
+  "id": "treering_flux_watermark_d0",
+  "parent": {
+    "path": "treering_flux.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Benchmarking: Comparing FLUX.1-dev robustness against Stable Diffusion 2.1."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "description": "Why does FLUX perform worse under attack compared to SD 2.1? Is the latent space just more sensitive to noise?"
+    },
+    {
+      "id": "R2",
+      "description": "Does using a VLM to generate the inversion prompt actually work, or is the reconstruction error (NMSE) still too high to be useful?"
+    },
+    {
+      "id": "R3",
+      "description": "What is the false positive rate? Can we statistically separate a watermarked FLUX image from a random noise image with high confidence?"
+    },
+    {
+      "id": "R4",
+      "description": "Do we need to tweak the watermark radius or channel parameters specifically for FLUX, or can we use the same settings as SD?"
+    },
+    {
+      "id": "R5",
+      "description": "If we don't provide any prompt at all during detection ('No Prompt'), is the system effectively blind?"
+    },
+    {
+      "id": "R6",
+      "description": "Is the 'Latent Noise Reconstruction' metric stable enough to be our primary automated check for copyright compliance?"
+    }
+  ],
+  "notes": {}
+}

@@ -1,0 +1,988 @@
+{
+  "run_id": "2de6cebfacc05110",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/ddpm.pdf",
+  "query": "Is DDPM sampling a good replacement for current GAN generation stack?",
+  "retrieval_query": "Is DDPM sampling a good replacement for current GAN generation stack?\n\nANCHOR:\n- Compare Denoising Diffusion Probabilistic Models (DDPMs) vs Generative Adversarial Networks (GANs) for image synthesis quality, diversity, and mode coverage; include variants like DDIM, score-based models, and StyleGAN/BigGAN.\n- Look for quantitative metrics: FID, IS, precision/recall for generative models, NLL/ELBO, sample diversity, and human preference studies; note training and sampling compute cost and latency.\n- Identify use cases where DDPM sampling replaces GAN pipelines in production (e.g., image generation, super-resolution, inpainting, text-to-image) and any reported deployment experiences.\n- Examine architectural and training differences: U-Net backbones, noise schedules, classifier-free guidance, vs adversarial training, discriminators, and stability tricks (spectral norm, gradient penalty).\n- Search for comparisons on robustness, mode collapse, controllability, and conditional generation (class-conditional, text-conditional, guidance scales).\n- Investigate risks and limitations: sampling speed, memory footprint, inference-time steps, susceptibility to artifacts, and data/privacy concerns relative to GANs.\n- Request TABLES/FIGURES that directly compare DDPMs and GANs on standard datasets (CIFAR-10, ImageNet, LSUN, CelebA-HQ) and show FID/IS curves, compute vs quality trade-offs, and ablation studies.\n- Look for “Discussion”, ...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Is DDPM sampling a good replacement for current GAN generation stack?",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Is DDPM sampling a good replacement for current GAN generation stack?",
+    "retrieval_query": "Is DDPM sampling a good replacement for current GAN generation stack?\n\nANCHOR:\n- Compare Denoising Diffusion Probabilistic Models (DDPMs) vs Generative Adversarial Networks (GANs) for image synthesis quality, diversity, and mode coverage; include variants like DDIM, score-based models, and StyleGAN/BigGAN.\n- Look for quantitative metrics: FID, IS, precision/recall for generative models, NLL/ELBO, sample diversity, and human preference studies; note training and sampling compute cost and latency.\n- Identify use cases where DDPM sampling replaces GAN pipelines in production (e.g., image generation, super-resolution, inpainting, text-to-image) and any reported deployment experiences.\n- Examine architectural and training differences: U-Net backbones, noise schedules, classifier-free guidance, vs adversarial training, discriminators, and stability tricks (spectral norm, gradient penalty).\n- Search for comparisons on robustness, mode collapse, controllability, and conditional generation (class-conditional, text-conditional, guidance scales).\n- Investigate risks and limitations: sampling speed, memory footprint, inference-time steps, susceptibility to artifacts, and data/privacy concerns relative to GANs.\n- Request TABLES/FIGURES that directly compare DDPMs and GANs on standard datasets (CIFAR-10, ImageNet, LSUN, CelebA-HQ) and show FID/IS curves, compute vs quality trade-offs, and ablation studies.\n- Look for “Discussion”, ...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "6db88b3b964305d7",
+      "0829b8e59e1435b7",
+      "7ae7168782b6064b",
+      "cdda665b19da9c08",
+      "69eb0b23d23a1a72",
+      "8e75918f8dd974d7",
+      "05e9701f321c9f11",
+      "5584ae468e22b191",
+      "c9aa4d8429b7182a",
+      "976fab954096b5d8",
+      "3b090b26e9ff9306",
+      "40de030796b3d32a",
+      "f1afe95e7b2ff529",
+      "babca8758776d3c8",
+      "2315bd8f38b4d39f",
+      "c610ab3303c0b78d",
+      "59664ace79fb3ce5",
+      "cb966a9766bdf748",
+      "995c171adecc39cd",
+      "a6376ae2db7a6517",
+      "5320c632868e5009",
+      "37020554653ce658",
+      "b1900452d78e380e",
+      "49c1273f8bba50af",
+      "e06d85a912961934",
+      "e6b2a4a695b271b0",
+      "78f2a2312b837bff",
+      "0d28d88d3ddef457",
+      "51b3534accda90dc",
+      "3ee85dfaabd16f7f",
+      "a3b6d87eabc30d2e",
+      "3a6f7a38b08daebc",
+      "ecf16a1e8e178a04",
+      "fc97e04714d6cc35"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 2916
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "6db88b3b964305d7",
+      "content": {
+        "text": "Denoising Diffusion Probabilistic Models",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 9,
+        "importance_score": 0.007246376811594203
+      }
+    },
+    {
+      "chunk_id": "0829b8e59e1435b7",
+      "content": {
+        "text": "D Samples",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 2,
+        "importance_score": 0.005747126436781609
+      }
+    },
+    {
+      "chunk_id": "7ae7168782b6064b",
+      "content": {
+        "text": "Progressive generation",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 3,
+        "importance_score": 0.005376344086021506
+      }
+    },
+    {
+      "chunk_id": "cdda665b19da9c08",
+      "content": {
+        "text": "LSUN FID scores for LSUN datasets are included in Table 3. Scores marked with * are reported by StyleGAN2 as baselines, and other scores are reported by their respective authors.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 40,
+        "importance_score": 0.005714285714285714
+      }
+    },
+    {
+      "chunk_id": "69eb0b23d23a1a72",
+      "content": {
+        "text": "4.1 Sample quality",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 5,
+        "importance_score": 0.005952380952380952
+      }
+    },
+    {
+      "chunk_id": "8e75918f8dd974d7",
+      "content": {
+        "text": "4.2 Reverse process parameterization and training objective ablation",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 12,
+        "importance_score": 0.005208333333333333
+      }
+    },
+    {
+      "chunk_id": "05e9701f321c9f11",
+      "content": {
+        "text": "Figure 8: Interpolations of CelebA-HQ 256x256 images with 500 timesteps of diffusion.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 26,
+        "importance_score": 0.010479041916167666
+      }
+    },
+    {
+      "chunk_id": "5584ae468e22b191",
+      "content": {
+        "text": "[39] Takeru Miyato, Toshiki Kataoka, Masanori Koyama, and Yuichi Yoshida. Spectral normalization for generative adversarial networks. In International Conference on Learning Representations, 2018.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 49,
+        "importance_score": 0.00980392156862745
+      }
+    },
+    {
+      "chunk_id": "c9aa4d8429b7182a",
+      "content": {
+        "text": "Figure 13: Unconditional CIFAR10 generated samples",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 11,
+        "importance_score": 0.008333333333333335
+      }
+    },
+    {
+      "chunk_id": "976fab954096b5d8",
+      "content": {
+        "text": "Training is performed by optimizing the usual variational bound on negative log likelihood:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 15,
+        "importance_score": 0.006711409395973154
+      }
+    },
+    {
+      "chunk_id": "3b090b26e9ff9306",
+      "content": {
+        "text": "which resembles denoising score matching over multiple noise scales indexed by $t$ [55]. As Eq. 12 is equal to (one term of) the variational bound for the Langevin-like reverse process (11), we see that an objective resembling denoising score matching is equivalent to using variational inference to fit the finite-time marginal of a sampling chain resembling Langevin dynamics.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 79,
+        "importance_score": 0.007352941176470588
+      }
+    },
+    {
+      "chunk_id": "40de030796b3d32a",
+      "content": {
+        "text": "Apart from an initial choice of hyperparameters early on to make network size fit within memory constraints, we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 48,
+        "importance_score": 0.008695652173913044
+      }
+    },
+    {
+      "chunk_id": "f1afe95e7b2ff529",
+      "content": {
+        "text": "[27] Tero Karras, Timo Aila, Samuli Laine, and Jaakko Lehtinen. Progressive growing of GANs for improved quality, stability, and variation. In International Conference on Learning Representations, 2018.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 52,
+        "importance_score": 0.016129032258064516
+      }
+    },
+    {
+      "chunk_id": "babca8758776d3c8",
+      "content": {
+        "text": "[48] Olaf Ronneberger, Philipp Fischer, and Thomas Brox. U-Net: Convolutional networks for biomedical image segmentation. In International Conference on Medical Image Computing and Computer-Assisted Intervention, pages 234–241. Springer, 2015.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 53,
+        "importance_score": 0.007042253521126761
+      }
+    },
+    {
+      "chunk_id": "2315bd8f38b4d39f",
+      "content": {
+        "text": "where $t$ is uniform between 1 and $T$. The $t = 1$ case corresponds to $L_0$ with the integral in the discrete decoder definition (13) approximated by the Gaussian probability density function times the bin width, ignoring zero and edge effects. The $t &gt; 1$ cases correspond to our weighted version of Eq. (12), analogous to the loss weighting used by the NCSN denoising score matching model [55].",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 99,
+        "importance_score": 0.006024096385542169
+      }
+    },
+    {
+      "chunk_id": "c610ab3303c0b78d",
+      "content": {
+        "text": "Efficient training is therefore possible by optimizing random terms of $L$ with stochastic gradient descent. Further improvements come from variance reduction by rewriting 1 (3) as:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 34,
+        "importance_score": 0.005847953216374269
+      }
+    },
+    {
+      "chunk_id": "59664ace79fb3ce5",
+      "content": {
+        "text": "Table 1 shows Inception scores, FID scores, and negative log likelihoods (lossless codelengths) on CIFAR10. With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature, including class conditional models. Our FID score is computed with respect to the training set, as is standard practice; when we compute it with respect to the test set, the score is 5.24, which is still better than many of the training set FID scores in the literature.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 114,
+        "importance_score": 0.008064516129032258
+      }
+    },
+    {
+      "chunk_id": "cb966a9766bdf748",
+      "content": {
+        "text": "[56] Yang Song and Stefano Ermon. Improved techniques for training score-based generative models. arXiv preprint arXiv:2006.09011, 2020.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 39,
+        "importance_score": 0.011627906976744186
+      }
+    },
+    {
+      "chunk_id": "995c171adecc39cd",
+      "content": {
+        "text": "[58] Aaron van den Oord, Nal Kalchbrenner, and Koray Kavukcuoglu. Pixel recurrent neural networks. In International Conference on Machine Learning, 2016.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 41,
+        "importance_score": 0.007575757575757576
+      }
+    },
+    {
+      "chunk_id": "a6376ae2db7a6517",
+      "content": {
+        "text": "Consequently, all KL divergences in Eq. (5) are comparisons between Gaussians, so they can be calculated in a Rao-Blackwellized fashion with closed form expressions instead of high variance Monte Carlo estimates.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 45,
+        "importance_score": 0.005555555555555556
+      }
+    },
+    {
+      "chunk_id": "5320c632868e5009",
+      "content": {
+        "text": "[3] Andrew Brock, Jeff Donahue, and Karen Simonyan. Large scale GAN training for high fidelity natural image synthesis. In <i>International Conference on Learning Representations</i>, 2019.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 45,
+        "importance_score": 0.01639344262295082
+      }
+    },
+    {
+      "chunk_id": "37020554653ce658",
+      "content": {
+        "text": "Figure 6: Unconditional CIFAR10 progressive generation $\\hat{\\mathbf{x}}_0$ over time, from left to right). Extended samples and sample quality metrics over time in the appendix (Figs. 10 and 14).",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 49,
+        "importance_score": 0.013779527559055118
+      }
+    },
+    {
+      "chunk_id": "b1900452d78e380e",
+      "content": {
+        "text": "Our model architecture, forward process definition, and prior differ from NCSN [55, 56] in subtle but important ways that improve sample quality, and, notably, we directly train our sampler as a latent variable model rather than adding it after training post-hoc. In greater detail:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 59,
+        "importance_score": 0.008620689655172414
+      }
+    },
+    {
+      "chunk_id": "49c1273f8bba50af",
+      "content": {
+        "text": "[51] Tim Salimans, Ian Goodfellow, Wojciech Zaremba, Vicki Cheung, Alec Radford, and Xi Chen. Improved techniques for training gans. In Advances in Neural Information Processing Systems, pages 2234–2242, 2016.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 60,
+        "importance_score": 0.014705882352941176
+      }
+    },
+    {
+      "chunk_id": "e06d85a912961934",
+      "content": {
+        "text": "[71] Fisher Yu, Yinda Zhang, Shuran Song, Ari Seff, and Jianxiong Xiao. LSUN: Construction of a large-scale image dataset using deep learning with humans in the loop. arXiv preprint arXiv:1506.03365, 2015.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 62,
+        "importance_score": 0.012048192771084338
+      }
+    },
+    {
+      "chunk_id": "e6b2a4a695b271b0",
+      "content": {
+        "text": "We have presented high quality image samples using diffusion models, and we have found connections among diffusion models and variational inference for training Markov chains, denoising score matching and annealed Langevin dynamics (and energy-based models by extension), autoregressive models, and progressive lossy compression. Since diffusion models seem to have excellent inductive biases for image data, we look forward to investigating their utility in other data modalities and as components in other types of generative models and machine learning systems.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 98,
+        "importance_score": 0.013513513513513514
+      }
+    },
+    {
+      "chunk_id": "78f2a2312b837bff",
+      "content": {
+        "text": "Our simplified objective (14) discards the weighting in Eq. (12), it is a weighted variational bound that emphasizes different aspects of reconstruction compared to the standard variational bound [18, 22]. In particular, our diffusion process setup in Section 4 causes the simplified objective to down-weight loss terms corresponding to small $t$. These terms train the network to denoise data with very small amounts of noise, so it is beneficial to down-weight them so that the network can focus on more difficult denoising tasks at larger $t$ terms. We will see in our experiments that this reweighting leads to better sample quality.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 129,
+        "importance_score": 0.012658227848101266
+      }
+    },
+    {
+      "chunk_id": "0d28d88d3ddef457",
+      "content": {
+        "text": "Diffusion models might appear to be a restricted class of latent variable models, but they allow a large number of degrees of freedom in implementation. One must choose the variances $\\beta_t$ of the forward process and the model architecture and Gaussian distribution parameterization of the reverse process. To guide our choices, we establish a new explicit connection between diffusion models and denoising score matching (Section 3.2) that leads to a simplified, weighted variational bound objective for diffusion models (Section 3.4). Ultimately, our model design is justified by simplicity and empirical results (Section 4). Our discussion is categorized by the terms of Eq. (5).",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 134,
+        "importance_score": 0.007936507936507936
+      }
+    },
+    {
+      "chunk_id": "51b3534accda90dc",
+      "content": {
+        "text": "By the known connection between score matching and energy-based modeling, our work could have implications for other recent work on energy-based models [67–69, 12, 70, 13, 11, 41, 17, 8]. Our rate-distortion curves are computed over time in one evaluation of the variational bound, reminiscent of how rate-distortion curves can be computed over distortion penalties in one run of annealed importance sampling [24]. Our progressive decoding argument can be seen in convolutional DRAW and related models [18, 40] and may also lead to more general designs for subscale orderings or sampling strategies for autoregressive models [38, 64].",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 139,
+        "importance_score": 0.007142857142857143
+      }
+    },
+    {
+      "chunk_id": "3ee85dfaabd16f7f",
+      "content": {
+        "text": "- We chose the \\(\\beta_t\\) schedule from a set of constant, linear, and quadratic schedules, all constrained so that \\(L_T \\approx 0\\). We set \\(T = 1000\\) without a sweep, and we chose a linear schedule from \\(\\beta_1 = 10^{-4}\\) to \\(\\beta_T = 0.02\\).\n- We set the dropout rate on CIFAR10 to 0.1 by sweeping over the values \\(\\{0.1, 0.2, 0.3, 0.4\\}\\). Without dropout on CIFAR10, we obtained poorer samples reminiscent of the overfitting artifacts in an unregularized PixelCNN++ [52]. We set dropout rate on the other datasets to zero without sweeping.\n- We used random horizontal flips during training for CIFAR10; we tried training both with and without flips, and found flips to improve sample quality slightly. We also used random horizontal flips for all other datasets except LSUN Bedroom.\n- We tried Adam [31] and RMSProp early on in our experimentation process and chose the former. We left the hyperparameters to their standard values. We set the learning rate to \\(2 \\times 10^{-4}\\) without any sweeping, and we lowered it to \\(2 \\times 10^{-5}\\) for the 256 × 256 images, which seemed unstable to train with the larger learning rate.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "list",
+        "cognitive_cost": 299,
+        "importance_score": 0.01020408163265306
+      }
+    },
+    {
+      "chunk_id": "a3b6d87eabc30d2e",
+      "content": {
+        "text": "Unfortunately, there are numerous well-known malicious uses of generative models. Sample generation techniques can be employed to produce fake images and videos of high profile figures for political purposes. While fake images were manually created long before software tools were available, generative models such as ours make the process easier. Fortunately, CNN-generated images currently have subtle flaws that allow detection [62], but improvements in generative models may make this more difficult. Generative models also reflect the biases in the datasets on which they are trained. As many large datasets are collected from the internet by automated systems, it can be difficult to remove these biases, especially when the images are unlabeled. If samples from generative models trained on these datasets proliferate throughout the internet, then these biases will only be reinforced further.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 156,
+        "importance_score": 0.012345679012345678
+      }
+    },
+    {
+      "chunk_id": "3a6f7a38b08daebc",
+      "content": {
+        "text": "We set $T = 1000$ for all experiments so that the number of neural network evaluations needed during sampling matches previous work [53, 55]. We set the forward process variances to constants increasing linearly from $\\beta_1 = 10^{-4}$ to $\\beta_T = 0.02$. These constants were chosen to be small relative to data scaled to $[-1,1]$, ensuring that reverse and forward processes have approximately the same functional form while keeping the signal-to-noise ratio at $\\mathbf{x}_T$ as small as possible ($L_T = D_{\\mathrm{KL}}(q(\\mathbf{x}_T|\\mathbf{x}_0) \\,\\|\\, \\mathcal{N}(0, I)) \\approx 10^{-5}$ bits per dimension in our experiments).",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 166,
+        "importance_score": 0.007407407407407408
+      }
+    },
+    {
+      "chunk_id": "ecf16a1e8e178a04",
+      "content": {
+        "text": "Table 1: CIFAR10 results. NLL measured in bits/dim.\n\n| Model                    | IS    | FID  | NLL Test (Train) |\n|--------------------------|-------|------|-------------------|\n| **Conditional**          |       |      |                   |\n| EBM [11]                 | 8.30  | 37.9 | –                 |\n| JEM [41]                 | 8.76  | 38.4 | –                 |\n| BigGAN [8]               | 9.22  | 14.73| –                 |\n| StyleGAN2 + ADA (v1) [29]| 10.06 | 2.67 | –                 |\n| **Unconditional**        |       |      |                   |\n| Diffusion (original) [53]| –     | –    | ≤ 5.40            |\n| Gated PixelCNN [59]      | 4.60  | 65.93| 3.03 (2.90)       |\n| Sparse Transformer [20]  | –     | –    | **2.80**          |\n| PixelIQN [35]            | 5.29  | 49.46| –                 |\n| EBM [11]                 | 6.78  | 38.2 | –                 |\n| NCSN [52]                | –     | 31.75| –                 |\n| NCSN [53]                | 8.87±0.12| 25.32| –              |\n| SNGAN [38]               | 8.22±0.05| 21.7| –               |\n| SNGAN-DDLS [5]           | 9.09±0.10| 15.42| –              |\n| StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –             |\n| Ours (L fixed isotropic Σ)| 7.67 ± 0.13| 13.51| ≤ 3.70 (3.69)|\n| Ours (L trainable)       | **9.46±0.11**| **3.17**| ≤ 3.75 (3.72)|",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 486,
+        "importance_score": 0.014227642276422765
+      }
+    },
+    {
+      "chunk_id": "fc97e04714d6cc35",
+      "content": {
+        "text": "Table 4: Unconditional CIFAR10 test set rate-distortion values (accompanies Fig. 5).\n\n| Reverse process time $(T - t + 1)$ | Rate (bits/dim) | Distortion (RMSE [0, 255]) |\n|-----------------------------------:|----------------:|---------------------------:|\n| 1000                               | 1.77581         | 0.95136                    |\n| 900                                | 0.11994         | 12.02277                   |\n| 800                                | 0.05415         | 18.47482                   |\n| 700                                | 0.02866         | 24.43656                   |\n| 600                                | 0.01507         | 30.80948                   |\n| 500                                | 0.00716         | 38.03236                   |\n| 400                                | 0.00282         | 46.12765                   |\n| 300                                | 0.00081         | 54.18826                   |\n| 200                                | 0.00013         | 60.97170                   |\n| 100                                | 0.00000         | 67.60125                   |",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 258,
+        "importance_score": 0.1367934113817215
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "6db88b3b964305d7",
+      "page": 1,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.007246376811594203,
+      "cost": 9,
+      "text": "Denoising Diffusion Probabilistic Models",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0829b8e59e1435b7",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005747126436781609,
+      "cost": 2,
+      "text": "D Samples",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7ae7168782b6064b",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005376344086021506,
+      "cost": 3,
+      "text": "Progressive generation",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "cdda665b19da9c08",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005714285714285714,
+      "cost": 40,
+      "text": "LSUN FID scores for LSUN datasets are included in Table 3. Scores marked with * are reported by StyleGAN2 as baselines, and other scores are reported by their respective authors.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "69eb0b23d23a1a72",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005952380952380952,
+      "cost": 5,
+      "text": "4.1 Sample quality",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8e75918f8dd974d7",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005208333333333333,
+      "cost": 12,
+      "text": "4.2 Reverse process parameterization and training objective ablation",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "05e9701f321c9f11",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.010479041916167666,
+      "cost": 26,
+      "text": "Figure 8: Interpolations of CelebA-HQ 256x256 images with 500 timesteps of diffusion.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "5584ae468e22b191",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.00980392156862745,
+      "cost": 49,
+      "text": "[39] Takeru Miyato, Toshiki Kataoka, Masanori Koyama, and Yuichi Yoshida. Spectral normalization for generative adversarial networks. In International Conference on Learning Representations, 2018.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c9aa4d8429b7182a",
+      "page": 19,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.008333333333333335,
+      "cost": 11,
+      "text": "Figure 13: Unconditional CIFAR10 generated samples",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "976fab954096b5d8",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006711409395973154,
+      "cost": 15,
+      "text": "Training is performed by optimizing the usual variational bound on negative log likelihood:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3b090b26e9ff9306",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007352941176470588,
+      "cost": 79,
+      "text": "which resembles denoising score matching over multiple noise scales indexed by $t$ [55]. As Eq. 12 is equal to (one term of) the variational bound for the Langevin-like reverse process (11), we see that an objective resembling denoising score matching is equivalent to using variational inference to fit the finite-time marginal of a sampling chain resembling Langevin dynamics.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "40de030796b3d32a",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008695652173913044,
+      "cost": 48,
+      "text": "Apart from an initial choice of hyperparameters early on to make network size fit within memory constraints, we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f1afe95e7b2ff529",
+      "page": 10,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.016129032258064516,
+      "cost": 52,
+      "text": "[27] Tero Karras, Timo Aila, Samuli Laine, and Jaakko Lehtinen. Progressive growing of GANs for improved quality, stability, and variation. In International Conference on Learning Representations, 2018.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "babca8758776d3c8",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.007042253521126761,
+      "cost": 53,
+      "text": "[48] Olaf Ronneberger, Philipp Fischer, and Thomas Brox. U-Net: Convolutional networks for biomedical image segmentation. In International Conference on Medical Image Computing and Computer-Assisted Intervention, pages 234–241. Springer, 2015.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "2315bd8f38b4d39f",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006024096385542169,
+      "cost": 99,
+      "text": "where $t$ is uniform between 1 and $T$. The $t = 1$ case corresponds to $L_0$ with the integral in the discrete decoder definition (13) approximated by the Gaussian probability density function times the bin width, ignoring zero and edge effects. The $t &gt; 1$ cases correspond to our weighted version of Eq. (12), analogous to the loss weighting used by the NCSN denoising score matching model [55].",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c610ab3303c0b78d",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005847953216374269,
+      "cost": 34,
+      "text": "Efficient training is therefore possible by optimizing random terms of $L$ with stochastic gradient descent. Further improvements come from variance reduction by rewriting 1 (3) as:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "59664ace79fb3ce5",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008064516129032258,
+      "cost": 114,
+      "text": "Table 1 shows Inception scores, FID scores, and negative log likelihoods (lossless codelengths) on CIFAR10. With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature, including class conditional models. Our FID score is computed with respect to the training set, as is standard practice; when we compute it with respect to the test set, the score is 5.24, which is still better than many of the training set FID scores in the literature.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "cb966a9766bdf748",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.011627906976744186,
+      "cost": 39,
+      "text": "[56] Yang Song and Stefano Ermon. Improved techniques for training score-based generative models. arXiv preprint arXiv:2006.09011, 2020.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "995c171adecc39cd",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.007575757575757576,
+      "cost": 41,
+      "text": "[58] Aaron van den Oord, Nal Kalchbrenner, and Koray Kavukcuoglu. Pixel recurrent neural networks. In International Conference on Machine Learning, 2016.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a6376ae2db7a6517",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005555555555555556,
+      "cost": 45,
+      "text": "Consequently, all KL divergences in Eq. (5) are comparisons between Gaussians, so they can be calculated in a Rao-Blackwellized fashion with closed form expressions instead of high variance Monte Carlo estimates.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "5320c632868e5009",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.01639344262295082,
+      "cost": 45,
+      "text": "[3] Andrew Brock, Jeff Donahue, and Karen Simonyan. Large scale GAN training for high fidelity natural image synthesis. In <i>International Conference on Learning Representations</i>, 2019.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "37020554653ce658",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.013779527559055118,
+      "cost": 49,
+      "text": "Figure 6: Unconditional CIFAR10 progressive generation $\\hat{\\mathbf{x}}_0$ over time, from left to right). Extended samples and sample quality metrics over time in the appendix (Figs. 10 and 14).",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "b1900452d78e380e",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008620689655172414,
+      "cost": 59,
+      "text": "Our model architecture, forward process definition, and prior differ from NCSN [55, 56] in subtle but important ways that improve sample quality, and, notably, we directly train our sampler as a latent variable model rather than adding it after training post-hoc. In greater detail:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "49c1273f8bba50af",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.014705882352941176,
+      "cost": 60,
+      "text": "[51] Tim Salimans, Ian Goodfellow, Wojciech Zaremba, Vicki Cheung, Alec Radford, and Xi Chen. Improved techniques for training gans. In Advances in Neural Information Processing Systems, pages 2234–2242, 2016.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e06d85a912961934",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.012048192771084338,
+      "cost": 62,
+      "text": "[71] Fisher Yu, Yinda Zhang, Shuran Song, Ari Seff, and Jianxiong Xiao. LSUN: Construction of a large-scale image dataset using deep learning with humans in the loop. arXiv preprint arXiv:1506.03365, 2015.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e6b2a4a695b271b0",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.013513513513513514,
+      "cost": 98,
+      "text": "We have presented high quality image samples using diffusion models, and we have found connections among diffusion models and variational inference for training Markov chains, denoising score matching and annealed Langevin dynamics (and energy-based models by extension), autoregressive models, and progressive lossy compression. Since diffusion models seem to have excellent inductive biases for image data, we look forward to investigating their utility in other data modalities and as components in other types of generative models and machine learning systems.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "78f2a2312b837bff",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012658227848101266,
+      "cost": 129,
+      "text": "Our simplified objective (14) discards the weighting in Eq. (12), it is a weighted variational bound that emphasizes different aspects of reconstruction compared to the standard variational bound [18, 22]. In particular, our diffusion process setup in Section 4 causes the simplified objective to down-weight loss terms corresponding to small $t$. These terms train the network to denoise data with very small amounts of noise, so it is beneficial to down-weight them so that the network can focus on more difficult denoising tasks at larger $t$ terms. We will see in our experiments that this reweighting leads to better sample quality.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "0d28d88d3ddef457",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007936507936507936,
+      "cost": 134,
+      "text": "Diffusion models might appear to be a restricted class of latent variable models, but they allow a large number of degrees of freedom in implementation. One must choose the variances $\\beta_t$ of the forward process and the model architecture and Gaussian distribution parameterization of the reverse process. To guide our choices, we establish a new explicit connection between diffusion models and denoising score matching (Section 3.2) that leads to a simplified, weighted variational bound objective for diffusion models (Section 3.4). Ultimately, our model design is justified by simplicity and empirical results (Section 4). Our discussion is categorized by the terms of Eq. (5).",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "51b3534accda90dc",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007142857142857143,
+      "cost": 139,
+      "text": "By the known connection between score matching and energy-based modeling, our work could have implications for other recent work on energy-based models [67–69, 12, 70, 13, 11, 41, 17, 8]. Our rate-distortion curves are computed over time in one evaluation of the variational bound, reminiscent of how rate-distortion curves can be computed over distortion penalties in one run of annealed importance sampling [24]. Our progressive decoding argument can be seen in convolutional DRAW and related models [18, 40] and may also lead to more general designs for subscale orderings or sampling strategies for autoregressive models [38, 64].",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3ee85dfaabd16f7f",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "list",
+      "rel": 0.01020408163265306,
+      "cost": 299,
+      "text": "- We chose the \\(\\beta_t\\) schedule from a set of constant, linear, and quadratic schedules, all constrained so that \\(L_T \\approx 0\\). We set \\(T = 1000\\) without a sweep, and we chose a linear schedule from \\(\\beta_1 = 10^{-4}\\) to \\(\\beta_T = 0.02\\).\n- We set the dropout rate on CIFAR10 to 0.1 by sweeping over the values \\(\\{0.1, 0.2, 0.3, 0.4\\}\\). Without dropout on CIFAR10, we obtained poorer samples reminiscent of the overfitting artifacts in an unregularized PixelCNN++ [52]. We set dropout rate on the other datasets to zero without sweeping.\n- We used random horizontal flips during training for CIFAR10; we tried training both with and without flips, and found flips to improve sample quality slightly. We also used random horizontal flips for all other datasets except LSUN Bedroom.\n- We tried Adam [31] and RMSProp early on in our experimentation process and chose the former. We left the hyperparameters to their standard values. We set the learning rate to \\(2 \\times 10^{-4}\\) without any sweeping, and we lowered it to \\(2 \\times 10^{-5}\\) for the 256 × 256 images, which seemed unstable to train with the larger learning rate.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a3b6d87eabc30d2e",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.012345679012345678,
+      "cost": 156,
+      "text": "Unfortunately, there are numerous well-known malicious uses of generative models. Sample generation techniques can be employed to produce fake images and videos of high profile figures for political purposes. While fake images were manually created long before software tools were available, generative models such as ours make the process easier. Fortunately, CNN-generated images currently have subtle flaws that allow detection [62], but improvements in generative models may make this more difficult. Generative models also reflect the biases in the datasets on which they are trained. As many large datasets are collected from the internet by automated systems, it can be difficult to remove these biases, especially when the images are unlabeled. If samples from generative models trained on these datasets proliferate throughout the internet, then these biases will only be reinforced further.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3a6f7a38b08daebc",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007407407407407408,
+      "cost": 166,
+      "text": "We set $T = 1000$ for all experiments so that the number of neural network evaluations needed during sampling matches previous work [53, 55]. We set the forward process variances to constants increasing linearly from $\\beta_1 = 10^{-4}$ to $\\beta_T = 0.02$. These constants were chosen to be small relative to data scaled to $[-1,1]$, ensuring that reverse and forward processes have approximately the same functional form while keeping the signal-to-noise ratio at $\\mathbf{x}_T$ as small as possible ($L_T = D_{\\mathrm{KL}}(q(\\mathbf{x}_T|\\mathbf{x}_0) \\,\\|\\, \\mathcal{N}(0, I)) \\approx 10^{-5}$ bits per dimension in our experiments).",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "ecf16a1e8e178a04",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.014227642276422765,
+      "cost": 486,
+      "text": "Table 1: CIFAR10 results. NLL measured in bits/dim.\n\n| Model                    | IS    | FID  | NLL Test (Train) |\n|--------------------------|-------|------|-------------------|\n| **Conditional**          |       |      |                   |\n| EBM [11]                 | 8.30  | 37.9 | –                 |\n| JEM [41]                 | 8.76  | 38.4 | –                 |\n| BigGAN [8]               | 9.22  | 14.73| –                 |\n| StyleGAN2 + ADA (v1) [29]| 10.06 | 2.67 | –                 |\n| **Unconditional**        |       |      |                   |\n| Diffusion (original) [53]| –     | –    | ≤ 5.40            |\n| Gated PixelCNN [59]      | 4.60  | 65.93| 3.03 (2.90)       |\n| Sparse Transformer [20]  | –     | –    | **2.80**          |\n| PixelIQN [35]            | 5.29  | 49.46| –                 |\n| EBM [11]                 | 6.78  | 38.2 | –                 |\n| NCSN [52]                | –     | 31.75| –                 |\n| NCSN [53]                | 8.87±0.12| 25.32| –              |\n| SNGAN [38]               | 8.22±0.05| 21.7| –               |\n| SNGAN-DDLS [5]           | 9.09±0.10| 15.42| –              |\n| StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –             |\n| Ours (L fixed isotropic Σ)| 7.67 ± 0.13| 13.51| ≤ 3.70 (3.69)|\n| Ours (L trainable)       | **9.46±0.11**| **3.17**| ≤ 3.75 (3.72)|",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "fc97e04714d6cc35",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.1367934113817215,
+      "cost": 258,
+      "text": "Table 4: Unconditional CIFAR10 test set rate-distortion values (accompanies Fig. 5).\n\n| Reverse process time $(T - t + 1)$ | Rate (bits/dim) | Distortion (RMSE [0, 255]) |\n|-----------------------------------:|----------------:|---------------------------:|\n| 1000                               | 1.77581         | 0.95136                    |\n| 900                                | 0.11994         | 12.02277                   |\n| 800                                | 0.05415         | 18.47482                   |\n| 700                                | 0.02866         | 24.43656                   |\n| 600                                | 0.01507         | 30.80948                   |\n| 500                                | 0.00716         | 38.03236                   |\n| 400                                | 0.00282         | 46.12765                   |\n| 300                                | 0.00081         | 54.18826                   |\n| 200                                | 0.00013         | 60.97170                   |\n| 100                                | 0.00000         | 67.60125                   |",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- DDPM-style diffusion models achieve GAN-level or better image quality on CIFAR-10 and competitive results on LSUN, but sampling is far slower (hundreds–thousands of network evaluations), so they are not a drop-in replacement for a production GAN stack without considering latency/throughput tradeoffs. [59664ace79fb3ce5][3a6f7a38b08daebc][ecf16a1e8e178a04]\n\n## Key Findings\n- **Sample quality vs top GANs (CIFAR-10)**  \n  - Unconditional diffusion model with trainable decoder covariance achieves FID 3.17 and IS 9.46, outperforming most prior unconditional models and approaching StyleGAN2-ADA (FID 3.26, IS 9.74). [59664ace79fb3ce5][ecf16a1e8e178a04]  \n  - Authors explicitly state their unconditional model “achieves better sample quality than most models in the literature, including class conditional models.” [59664ace79fb3ce5]\n- **Sampling cost / latency**  \n  - Standard DDPM setup uses T = 1000 diffusion steps; sampling requires 1000 neural network evaluations, chosen to “match previous work.” [3a6f7a38b08daebc]  \n  - This is orders of magnitude more expensive than a single forward pass in a GAN generator, making naive DDPM sampling a poor direct replacement where low latency or high throughput is critical.\n- **Training stability and objective**  \n  - Training is maximum-likelihood via a variational bound; no adversarial game, so training is more stable and mode collapse is not an issue in the same way as GANs. [976fab954096b5d8][0d28d88d3ddef457]  \n  - A simplified, reweighted objective down-weights small-noise denoising terms, empirically improving sample quality. [78f2a2312b837bff]\n- **Progressive generation / controllable tradeoff**  \n  - Reverse process is progressive: images improve over time; rate–distortion can be traded off by truncating the reverse chain. [7ae7168782b6064b][37020554653ce658][fc97e04714d6cc35]  \n  - At full 1000 steps, rate ≈ 1.78 bits/dim and RMSE ≈ 0.95; at 500 steps, rate drops to 0.007 bits/dim but distortion rises to RMSE ≈ 38, showing quality degrades quickly as steps are removed. [fc97e04714d6cc35]\n- **Architectural / implementation notes**  \n  - Uses U-Net-like architecture and carefully chosen βt schedule (linear from 1e-4 to 0.02, T=1000) to keep forward and reverse processes well-behaved and signal-to-noise at x_T extremely low (KL ≈ 1e-5 bits/dim). [3ee85dfaabd16f7f][3a6f7a38b08daebc][a6376ae2db7a6517]  \n  - Hyperparameters tuned mainly on CIFAR-10 and transferred to other datasets, suggesting some robustness but also that best performance elsewhere may require additional tuning. [40de030796b3d32a]\n- **Positioning vs other generative families**  \n  - Diffusion models connect to denoising score matching, Langevin dynamics, energy-based models, autoregressive models, and progressive lossy compression, indicating they can serve as components in broader generative systems rather than strict GAN replacements. [3b090b26e9ff9306][0d28d88d3ddef457][51b3534accda90dc][e6b2a4a695b271b0]\n\n## Evidence\n- **CIFAR-10 metrics (unconditional)**  \n  - Diffusion (ours, trainable L): IS 9.46 ± 0.11, FID 3.17, NLL ≤ 3.75 bits/dim. [ecf16a1e8e178a04]  \n  - StyleGAN2 + ADA (v1, unconditional): IS 9.74 ± 0.05, FID 3.26. [ecf16a1e8e178a04]  \n  - Authors: “With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature, including class conditional models.” [59664ace79fb3ce5]\n- **Sampling steps and β schedule**  \n  - T = 1000 for all experiments; βt linearly from β1 = 1e-4 to βT = 0.02; chosen so that KL(q(x_T|x_0) || N(0,I)) ≈ 1e-5 bits/dim. [3ee85dfaabd16f7f][3a6f7a38b08daebc]  \n  - “We set T = 1000 for all experiments so that the number of neural network evaluations needed during sampling matches previous work.” [3a6f7a38b08daebc]\n- **Rate–distortion over reverse steps (CIFAR-10)** [fc97e04714d6cc35]  \n  - 1000 steps: rate 1.77581 bits/dim, RMSE 0.95136  \n  - 500 steps: rate 0.00716 bits/dim, RMSE 38.03236  \n  - 100 steps: rate 0.00000 bits/dim, RMSE 67.60125  \n  - Shows strong dependence of quality on number of sampling steps.\n- **Training objective and connections**  \n  - Training via variational bound on negative log-likelihood; objective resembles denoising score matching over multiple noise scales, equivalent to fitting finite-time marginals of a Langevin-like chain. [976fab954096b5d8][3b090b26e9ff9306]  \n  - Simplified, weighted objective down-weights small-t terms to focus on harder denoising tasks, improving sample quality. [78f2a2312b837bff]\n- **General claims about diffusion models**  \n  - Authors: diffusion models have “excellent inductive biases for image data” and may be useful in other modalities and as components in other generative systems. [e6b2a4a695b271b0]  \n  - Architecture and process choices justified by simplicity and empirical results. [0d28d88d3ddef457]\n\n## Risks\n- **Latency / compute risk**  \n  - 1000 network evaluations per sample is expensive; replacing a GAN stack with DDPM sampling can severely reduce throughput or require substantial additional compute budget. [3a6f7a38b08daebc][fc97e04714d6cc35]\n- **Quality–speed tradeoff**  \n  - Reducing steps to gain speed rapidly degrades quality (RMSE jumps from ~1 to ~38 when going from 1000 to 500 steps), so naive step reduction may not meet existing GAN-level quality targets. [fc97e04714d6cc35]\n- **Operational and tuning complexity**  \n  - Performance depends on β schedule, T, architecture, and loss weighting; porting to new resolutions/domains may require nontrivial experimentation. [0d28d88d3ddef457][3ee85dfaabd16f7f][40de030796b3d32a]\n- **Misuse and bias**  \n  - As with GANs, diffusion models can be used to generate realistic fake images and inherit dataset biases; improvements in quality may make detection harder and bias amplification more severe. [a3b6d7eabc30d2e]\n\n## Next Steps\n- **Decide based on product constraints**  \n  - If your stack is latency/throughput constrained (e.g., real-time or large-scale serving), treat DDPM as an R&D candidate rather than a direct replacement; maintain GANs in production while exploring diffusion.  \n  - If offline generation quality is the primary goal (e.g., dataset synthesis, offline content), DDPMs are strong candidates to replace or complement GANs.\n- **Prototype and benchmark**  \n  - Implement a DDPM with T ≈ 1000 and the linear β schedule (1e-4 → 0.02) to reproduce reported FID/IS on your target dataset. [3ee85dfaabd16f7f][3a6f7a38b08daebc]  \n  - Benchmark wall-clock sampling time and GPU utilization vs your current GAN generator at matched resolution and batch size.\n- **Explore speed–quality tradeoffs**  \n  - Experiment with fewer sampling steps (e.g., 1000 → 500 → 200) and measure FID/IS and task-specific metrics to find an acceptable operating point, using the rate–distortion table as a guide that quality drops quickly with fewer steps. [fc97e04714d6cc35]  \n  - Investigate accelerated samplers or alternative parameterizations (not detailed in this evidence) if latency remains prohibitive.\n- **Hybrid and component use**  \n  - Consider using diffusion models as components (e.g., refinement/denoising stages, compression-oriented generation, or as likelihood models) alongside existing GANs rather than full replacement, leveraging their stable training and likelihood estimates. [51b3534accda90dc][e6b2a4a695b271b0]\n- **Governance and bias checks**  \n  - If adopting diffusion models, extend existing GAN-related content safety, deepfake detection, and bias auditing pipelines to cover diffusion-generated content, acknowledging similar misuse and bias risks. [a3b6d7eabc30d2e]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- DDPM-style diffusion models achieve GAN-level or better image quality on CIFAR-10 and competitive results on LSUN, but sampling is far slower (hundreds–thousands of network evaluations), so they are not a drop-in replacement for a production GAN stack without considering latency/throughput tradeoffs. [59664ace79fb3ce5][3a6f7a38b08daebc][ecf16a1e8e178a04]\n\n## Key Findings\n- **Sample quality vs top GANs (CIFAR-10)**  \n  - Unconditional diffusion model with trainable decoder covariance achieves FID 3.17 and IS 9.46, outperforming most prior unconditional models and approaching StyleGAN2-ADA (FID 3.26, IS 9.74). [59664ace79fb3ce5][ecf16a1e8e178a04]  \n  - Authors explicitly state their unconditional model “achieves better sample quality than most models in the literature, including class conditional models.” [59664ace79fb3ce5]\n- **Sampling cost / latency**  \n  - Standard DDPM setup uses T = 1000 diffusion steps; sampling requires 1000 neural network evaluations, chosen to “match previous work.” [3a6f7a38b08daebc]  \n  - This is orders of magnitude more expensive than a single forward pass in a GAN generator, making naive DDPM sampling a poor direct replacement where low latency or high throughput is critical.\n- **Training stability and objective**  \n  - Training is maximum-likelihood via a variational bound; no adversarial game, so training is more stable and mode collapse is not an issue in the same way as GANs. [976fab954096b5d8][0d28d88d3ddef457]  \n  - A simplified, reweighted objective down-weights small-noise denoising terms, empirically improving sample quality. [78f2a2312b837bff]\n- **Progressive generation / controllable tradeoff**  \n  - Reverse process is progressive: images improve over time; rate–distortion can be traded off by truncating the reverse chain. [7ae7168782b6064b][37020554653ce658][fc97e04714d6cc35]  \n  - At full 1000 steps, rate ≈ 1.78 bits/dim and RMSE ≈ 0.95; at 500 steps, rate drops to 0.007 bits/dim but distortion rises to RMSE ≈ 38, showing quality degrades quickly as steps are removed. [fc97e04714d6cc35]\n- **Architectural / implementation notes**  \n  - Uses U-Net-like architecture and carefully chosen βt schedule (linear from 1e-4 to 0.02, T=1000) to keep forward and reverse processes well-behaved and signal-to-noise at x_T extremely low (KL ≈ 1e-5 bits/dim). [3ee85dfaabd16f7f][3a6f7a38b08daebc][a6376ae2db7a6517]  \n  - Hyperparameters tuned mainly on CIFAR-10 and transferred to other datasets, suggesting some robustness but also that best performance elsewhere may require additional tuning. [40de030796b3d32a]\n- **Positioning vs other generative families**  \n  - Diffusion models connect to denoising score matching, Langevin dynamics, energy-based models, autoregressive models, and progressive lossy compression, indicating they can serve as components in broader generative systems rather than strict GAN replacements. [3b090b26e9ff9306][0d28d88d3ddef457][51b3534accda90dc][e6b2a4a695b271b0]\n\n## Evidence\n- **CIFAR-10 metrics (unconditional)**  \n  - Diffusion (ours, trainable L): IS 9.46 ± 0.11, FID 3.17, NLL ≤ 3.75 bits/dim. [ecf16a1e8e178a04]  \n  - StyleGAN2 + ADA (v1, unconditional): IS 9.74 ± 0.05, FID 3.26. [ecf16a1e8e178a04]  \n  - Authors: “With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature, including class conditional models.” [59664ace79fb3ce5]\n- **Sampling steps and β schedule**  \n  - T = 1000 for all experiments; βt linearly from β1 = 1e-4 to βT = 0.02; chosen so that KL(q(x_T|x_0) || N(0,I)) ≈ 1e-5 bits/dim. [3ee85dfaabd16f7f][3a6f7a38b08daebc]  \n  - “We set T = 1000 for all experiments so that the number of neural network evaluations needed during sampling matches previous work.” [3a6f7a38b08daebc]\n- **Rate–distortion over reverse steps (CIFAR-10)** [fc97e04714d6cc35]  \n  - 1000 steps: rate 1.77581 bits/dim, RMSE 0.95136  \n  - 500 steps: rate 0.00716 bits/dim, RMSE 38.03236  \n  - 100 steps: rate 0.00000 bits/dim, RMSE 67.60125  \n  - Shows strong dependence of quality on number of sampling steps.\n- **Training objective and connections**  \n  - Training via variational bound on negative log-likelihood; objective resembles denoising score matching over multiple noise scales, equivalent to fitting finite-time marginals of a Langevin-like chain. [976fab954096b5d8][3b090b26e9ff9306]  \n  - Simplified, weighted objective down-weights small-t terms to focus on harder denoising tasks, improving sample quality. [78f2a2312b837bff]\n- **General claims about diffusion models**  \n  - Authors: diffusion models have “excellent inductive biases for image data” and may be useful in other modalities and as components in other generative systems. [e6b2a4a695b271b0]  \n  - Architecture and process choices justified by simplicity and empirical results. [0d28d88d3ddef457]\n\n## Risks\n- **Latency / compute risk**  \n  - 1000 network evaluations per sample is expensive; replacing a GAN stack with DDPM sampling can severely reduce throughput or require substantial additional compute budget. [3a6f7a38b08daebc][fc97e04714d6cc35]\n- **Quality–speed tradeoff**  \n  - Reducing steps to gain speed rapidly degrades quality (RMSE jumps from ~1 to ~38 when going from 1000 to 500 steps), so naive step reduction may not meet existing GAN-level quality targets. [fc97e04714d6cc35]\n- **Operational and tuning complexity**  \n  - Performance depends on β schedule, T, architecture, and loss weighting; porting to new resolutions/domains may require nontrivial experimentation. [0d28d88d3ddef457][3ee85dfaabd16f7f][40de030796b3d32a]\n- **Misuse and bias**  \n  - As with GANs, diffusion models can be used to generate realistic fake images and inherit dataset biases; improvements in quality may make detection harder and bias amplification more severe. [a3b6d7eabc30d2e]\n\n## Next Steps\n- **Decide based on product constraints**  \n  - If your stack is latency/throughput constrained (e.g., real-time or large-scale serving), treat DDPM as an R&D candidate rather than a direct replacement; maintain GANs in production while exploring diffusion.  \n  - If offline generation quality is the primary goal (e.g., dataset synthesis, offline content), DDPMs are strong candidates to replace or complement GANs.\n- **Prototype and benchmark**  \n  - Implement a DDPM with T ≈ 1000 and the linear β schedule (1e-4 → 0.02) to reproduce reported FID/IS on your target dataset. [3ee85dfaabd16f7f][3a6f7a38b08daebc]  \n  - Benchmark wall-clock sampling time and GPU utilization vs your current GAN generator at matched resolution and batch size.\n- **Explore speed–quality tradeoffs**  \n  - Experiment with fewer sampling steps (e.g., 1000 → 500 → 200) and measure FID/IS and task-specific metrics to find an acceptable operating point, using the rate–distortion table as a guide that quality drops quickly with fewer steps. [fc97e04714d6cc35]  \n  - Investigate accelerated samplers or alternative parameterizations (not detailed in this evidence) if latency remains prohibitive.\n- **Hybrid and component use**  \n  - Consider using diffusion models as components (e.g., refinement/denoising stages, compression-oriented generation, or as likelihood models) alongside existing GANs rather than full replacement, leveraging their stable training and likelihood estimates. [51b3534accda90dc][e6b2a4a695b271b0]\n- **Governance and bias checks**  \n  - If adopting diffusion models, extend existing GAN-related content safety, deepfake detection, and bias auditing pipelines to cover diffusion-generated content, acknowledging similar misuse and bias risks. [a3b6d7eabc30d2e]"
+  }
+}

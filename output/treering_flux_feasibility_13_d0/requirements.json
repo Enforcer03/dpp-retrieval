@@ -1,0 +1,39 @@
+{
+  "id": "treering_flux_feasibility_d0",
+  "parent": {
+    "path": "treering_flux.pdf"
+  },
+  "task": {
+    "decisions": [
+      "How feasible is it to use Tree-Ring Watermarking for Rectified Flow Models (FLUX)."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Benchmarks",
+      "description": "What are some benchmarks (e.g. Waves) for evaluating the watermark detection and how relevant is it for our use case?"
+    },
+    {
+      "id": "R2",
+      "category": "Lost Prompt",
+      "description": "Are we screwed if we lose the original text prompt? Can we use a VLM to guess it and still detect the watermark reliably?"
+    },
+    {
+      "id": "R3",
+      "category": "Robustness",
+      "description": "How fragile is the detection? Does slight cropping or resizing of the image break it completely (check AUC drops)?"
+    },
+    {
+      "id": "R4",
+      "category": "Inversion Cost",
+      "description": "Is the 'noise inversion' step significantly harder or slower on Flow models compared to the standard DDIM inversion we use for SD 2.1?"
+    },
+    {
+      "id": "R5",
+      "category": "Quality Impact",
+      "description": "Does embedding this watermark in the Fourier space visible degrade the image quality?"
+    }
+  ],
+  "notes": {}
+}

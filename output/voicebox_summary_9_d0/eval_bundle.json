@@ -1,0 +1,496 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "e3a908727085b349",
+  "created_at": "2025-12-31T08:52:12Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 15192,
+        "output_hash": "6aea9057d8abc8bba4f7f15ccc8df0fe6883c375",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "What is Voicebox and how does it work? Summarize the architecture and performance.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "806cea72b0cda9b8",
+                        "95f87546ff2baac9",
+                        "5770886388031685"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text"
+                        },
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "can perform many different tasks through in-context learning, but is more flexible as it can also condition on future context"
+                        },
+                        {
+                          "chunk_id": "5770886388031685",
+                          "quote": "Figure 1: Voicebox task generalization through in-context learning."
+                        }
+                      ],
+                      "rationale": "Evidence clearly describes infilling and conditioning on past and future context, but only a caption for Figure 1 is retrieved and there is no explicit description of an 'In-filling' or 'Flow Matching' diagram explaining mid-sequence generation mechanics."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "covered",
+                      "evidence": [
+                        "806cea72b0cda9b8",
+                        "a2ae4512e4877e2d"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility (5.9% vs 1.9% word error rates)"
+                        },
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "and audio similarity (0.580 vs 0.681) while being up to 20 times faster."
+                        }
+                      ],
+                      "rationale": "WER comparison 1.9% vs 5.9% against VALL-E is explicitly given and clearly originates from a comparison table-style summary."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "covered",
+                      "evidence": [
+                        "806cea72b0cda9b8",
+                        "a8ca5b1a0dde5a79",
+                        "95f87546ff2baac9"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech"
+                        },
+                        {
+                          "chunk_id": "a8ca5b1a0dde5a79",
+                          "quote": "In contrast to auto-regressive models, Voicebox can consume context not only in the past but also in the future."
+                        },
+                        {
+                          "chunk_id": "95f87546ff2baac9",
+                          "quote": "Voicebox can generate speech much faster than VALL-E because flow-matching can produce high quality samples with less than ten NAR steps"
+                        }
+                      ],
+                      "rationale": "Voicebox is explicitly described as non-autoregressive and trained with flow-matching, and it is directly contrasted with autoregressive models in terms of context usage and speed."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "covered",
+                      "evidence": [
+                        "806cea72b0cda9b8",
+                        "252ea7cd72f5c7a4"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "806cea72b0cda9b8",
+                          "quote": "trained on over 50K hours of speech that are neither filtered nor enhanced."
+                        },
+                        {
+                          "chunk_id": "252ea7cd72f5c7a4",
+                          "quote": "Previous works consider highly curated datasets such as VCTK"
+                        }
+                      ],
+                      "rationale": "Training scale (>50K hours) and the fact that data are 'neither filtered nor enhanced' are explicitly stated, satisfying the requirement about large, unfiltered/noisy data."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R1"
+                  ],
+                  "risks": [
+                    "Lack of detailed text around specific 'In-filling' or 'Flow Matching' figures may prevent a response from explicitly tying the explanation to the requested diagrams.",
+                    "Without the actual diagram descriptions, an answer might rely on generic infilling explanations rather than figure-grounded reasoning about mid-sequence generation."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "good",
+              "notes": "Core aspects of Voicebox’s nature (non-autoregressive flow-matching), architecture, training data scale, and performance vs VALL-E are well supported. The only notable gap is the absence of detailed textual descriptions for the specific 'In-filling' or 'Flow Matching' diagrams, though infilling behavior is still described in prose.",
+              "missing_requirements": [
+                "R1"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate Voicebox’s non-autoregressive flow-matching nature, speed vs VALL-E, and task generalization. This repetition is useful for robustness but introduces some redundancy.",
+              "redundant_pairs": [
+                [
+                  "806cea72b0cda9b8",
+                  "a8ca5b1a0dde5a79"
+                ],
+                [
+                  "806cea72b0cda9b8",
+                  "a2ae4512e4877e2d"
+                ],
+                [
+                  "95f87546ff2baac9",
+                  "a8ca5b1a0dde5a79"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Key high-yield chunks on model description, training data, and performance were retrieved, but several high-cost chunks are references, tables, or peripheral details that contribute little to the specific requirements.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "564398f691eddede",
+                  "cost": 780,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "a40af10e0cb7e7a9",
+                  "cost": 368,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "806cea72b0cda9b8",
+                  "cost": 273,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "dd66b071e2e3aea4",
+                  "cost": 219,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "116526bf44974ab0",
+                  "cost": 218,
+                  "yield": "low"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Requirement R1 explicitly asks to reference 'In-filling' or 'Flow Matching' diagrams, but only a generic figure caption (Figure 1) and no detailed diagram description are present.",
+              "Some high-cost chunks are largely bibliographic or peripheral (e.g., reference lists, partial tables), which may indicate suboptimal retrieval focus for the stated question."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 13120,
+        "output_hash": "ec8450390f47e1adfac1d0c2795757d51399c7cb",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "Does not explicitly reference or describe any specific 'In-filling' or 'Flow Matching' figures/diagrams; only mentions Figure 1 (task generalization) and Figure 2 (NFE trade‑off), which do not directly explain mid‑sequence audio generation.",
+              "Although it correctly states that Voicebox is trained on over 50K hours of unfiltered speech and is non‑autoregressive with flow‑matching, it does not tie these points to any visual infilling/flow diagrams as required.",
+              "The summary’s performance comparison against VALL‑E (WER 1.9% vs 5.9%) is grounded but not explicitly attributed to a comparison table (e.g., Table 1 or 2); the cited chunk presents the numbers in text, not as a table.",
+              "Overall content is mostly faithful to the paper but misses the specific requirement to ground the infilling explanation in the designated diagrams/figures."
+            ],
+            "unsupported_claims": [
+              "Any implied use of a specific 'In-filling' or 'Flow Matching' diagram to explain how Voicebox generates audio in the middle of a sequence is unsupported; no such figure is cited or described.",
+              "Any implication that the 1.9% vs 5.9% WER comparison is drawn from a named comparison table (Table 1 or 2) is unsupported; the evidence only states these values in prose."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "806cea72b0cda9b8",
+                "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text, trained on over 50K hours of speech"
+              },
+              {
+                "chunk_id": "806cea72b0cda9b8",
+                "quote": "over 50K hours of speech that are neither filtered nor enhanced"
+              },
+              {
+                "chunk_id": "806cea72b0cda9b8",
+                "quote": "outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility (5.9% vs 1.9% word error rates)"
+              },
+              {
+                "chunk_id": "a8ca5e9c5c7e89c",
+                "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+              },
+              {
+                "chunk_id": "a8ca5e9c5c7e89c",
+                "quote": "We train Voicebox with flow-matching, a recently proposed method that enables efficient and scalable training of CNFs"
+              },
+              {
+                "chunk_id": "95f87546ff2baac9",
+                "quote": "Voicebox can use context both in the past and future, which is useful for editing where only a segment in the middle needs to be generated."
+              },
+              {
+                "chunk_id": "7607c9f8b2af6566",
+                "quote": "Figure 2: Trade-off between NFE and different metrics of interest."
+              },
+              {
+                "chunk_id": "5770886388031685",
+                "quote": "Figure 1: Voicebox task generalization through in-context learning."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "What is Voicebox and how does it work? Summarize the architecture and performance.",
+                "answer": "Voicebox is a large-scale, text-guided multilingual speech generation system built as a non-autoregressive continuous normalizing flow (CNF) model trained with flow-matching to infill missing speech conditioned on surrounding audio and text. Architecturally, it uses a 24-layer Transformer audio model with convolutional positional embeddings and ALiBi bias, 16 attention heads, 1024-dimensional embeddings, 4096-dimensional feed-forward layers, about 330M parameters, and UNet-style skip connections between symmetric layers, plus a separate 8–10-layer duration model (512-dimensional embeddings, 2048-dimensional FFN, 28M–34M parameters) that decouples timing from acoustics for finer alignment control.[8630634a96d2c217][95f87546ff2baac9] As a non-autoregressive flow-matching model, it differs from standard autoregressive TTS systems by transforming noise into speech through a small number of flow steps rather than predicting frames sequentially; this allows it to condition on both past and future context, which is particularly useful for editing or generating segments in the middle of an utterance.[a8ca5e9c5c7e89c][95f87546ff2baac9] The number of flow steps (or function evaluations) at inference can be adjusted to trade off quality against latency, and high-quality speech can be produced with fewer than ten non-autoregressive steps, whereas VALL-E requires one autoregressive and seven non-autoregressive stages.[95f87546ff2baac9][7607c9f8b2af6566] Voicebox operates on Mel-spectrogram features with a HiFi-GAN vocoder, a choice motivated by comparisons against alternatives such as Parallel WaveGAN and Encodec-based features.[4e9476e69e8394de] It is trained on more than 50K hours of speech that are explicitly described as neither filtered nor enhanced, giving it exposure to diverse noise, emotion, and acoustic conditions.[806cea72b0cda9b8] In terms of performance, Voicebox supports mono- and cross-lingual zero-shot TTS, speech inpainting, content editing, style conversion, denoising, and diverse sampling via in-context learning, and can generate speech up to 20 times faster than the best autoregressive models.[806cea72b0cda9b8][a2ae4512e4877e2d] On English zero-shot TTS, it outperforms VALL-E on intelligibility and similarity, achieving a word error rate of 1.9% versus VALL-E’s 5.9% and a similarity score of 0.681 versus 0.580, while maintaining these speed advantages.[806cea72b0cda9b8][a2ae4512e4877e2d] It also shows strong style transfer and infilling performance, surpassing baselines such as A3T and Demucs on text-guided denoising and speech infilling in terms of WER, similarity, and mean opinion score.[524382862327c52c][95f87546ff2baac9]",
+                "confidence": 0.8,
+                "evidence": [
+                  "806cea72b0cda9b8",
+                  "a8ca5e9c5c7e89c",
+                  "8630634a96d2c217",
+                  "95f87546ff2baac9",
+                  "a2ae4512e4877e2d",
+                  "4e9476e69e8394de",
+                  "524382862327c52c",
+                  "7607c9f8b2af6566"
+                ],
+                "notes": "Addresses architecture (Transformer CNF, duration model, vocoder), training data scale and noisiness, non-autoregressive flow-matching vs autoregressive models, and performance including WER 1.9% vs 5.9% and speedups. However, it does not explicitly reference an 'In-filling' or 'Flow Matching' diagram; the only figures cited are Figure 1 (task generalization) and Figure 2 (NFE trade-off), so the specific requirement to ground mid-sequence generation in those diagrams is not fully met."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "What is Voicebox and how does it work? Summarize the architecture and performance.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "806cea72b0cda9b8",
+                  "95f87546ff2baac9",
+                  "5770886388031685"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text"
+                  },
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "can perform many different tasks through in-context learning, but is more flexible as it can also condition on future context"
+                  },
+                  {
+                    "chunk_id": "5770886388031685",
+                    "quote": "Figure 1: Voicebox task generalization through in-context learning."
+                  }
+                ],
+                "rationale": "Evidence clearly describes infilling and conditioning on past and future context, but only a caption for Figure 1 is retrieved and there is no explicit description of an 'In-filling' or 'Flow Matching' diagram explaining mid-sequence generation mechanics."
+              },
+              {
+                "id": "R2",
+                "status": "covered",
+                "evidence": [
+                  "806cea72b0cda9b8",
+                  "a2ae4512e4877e2d"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility (5.9% vs 1.9% word error rates)"
+                  },
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "and audio similarity (0.580 vs 0.681) while being up to 20 times faster."
+                  }
+                ],
+                "rationale": "WER comparison 1.9% vs 5.9% against VALL-E is explicitly given and clearly originates from a comparison table-style summary."
+              },
+              {
+                "id": "R3",
+                "status": "covered",
+                "evidence": [
+                  "806cea72b0cda9b8",
+                  "a8ca5b1a0dde5a79",
+                  "95f87546ff2baac9"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech"
+                  },
+                  {
+                    "chunk_id": "a8ca5b1a0dde5a79",
+                    "quote": "In contrast to auto-regressive models, Voicebox can consume context not only in the past but also in the future."
+                  },
+                  {
+                    "chunk_id": "95f87546ff2baac9",
+                    "quote": "Voicebox can generate speech much faster than VALL-E because flow-matching can produce high quality samples with less than ten NAR steps"
+                  }
+                ],
+                "rationale": "Voicebox is explicitly described as non-autoregressive and trained with flow-matching, and it is directly contrasted with autoregressive models in terms of context usage and speed."
+              },
+              {
+                "id": "R4",
+                "status": "covered",
+                "evidence": [
+                  "806cea72b0cda9b8",
+                  "252ea7cd72f5c7a4"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "806cea72b0cda9b8",
+                    "quote": "trained on over 50K hours of speech that are neither filtered nor enhanced."
+                  },
+                  {
+                    "chunk_id": "252ea7cd72f5c7a4",
+                    "quote": "Previous works consider highly curated datasets such as VCTK"
+                  }
+                ],
+                "rationale": "Training scale (>50K hours) and the fact that data are 'neither filtered nor enhanced' are explicitly stated, satisfying the requirement about large, unfiltered/noisy data."
+              }
+            ],
+            "missing_requirements": [
+              "R1"
+            ],
+            "risks": [
+              "Lack of detailed text around specific 'In-filling' or 'Flow Matching' figures may prevent a response from explicitly tying the explanation to the requested diagrams.",
+              "Without the actual diagram descriptions, an answer might rely on generic infilling explanations rather than figure-grounded reasoning about mid-sequence generation."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "good",
+        "notes": "Core aspects of Voicebox’s nature (non-autoregressive flow-matching), architecture, training data scale, and performance vs VALL-E are well supported. The only notable gap is the absence of detailed textual descriptions for the specific 'In-filling' or 'Flow Matching' diagrams, though infilling behavior is still described in prose.",
+        "missing_requirements": [
+          "R1"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate Voicebox’s non-autoregressive flow-matching nature, speed vs VALL-E, and task generalization. This repetition is useful for robustness but introduces some redundancy.",
+        "redundant_pairs": [
+          [
+            "806cea72b0cda9b8",
+            "a8ca5b1a0dde5a79"
+          ],
+          [
+            "806cea72b0cda9b8",
+            "a2ae4512e4877e2d"
+          ],
+          [
+            "95f87546ff2baac9",
+            "a8ca5b1a0dde5a79"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Key high-yield chunks on model description, training data, and performance were retrieved, but several high-cost chunks are references, tables, or peripheral details that contribute little to the specific requirements.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "564398f691eddede",
+            "cost": 780,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "a40af10e0cb7e7a9",
+            "cost": 368,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "806cea72b0cda9b8",
+            "cost": 273,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "dd66b071e2e3aea4",
+            "cost": 219,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "116526bf44974ab0",
+            "cost": 218,
+            "yield": "low"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Requirement R1 explicitly asks to reference 'In-filling' or 'Flow Matching' diagrams, but only a generic figure caption (Figure 1) and no detailed diagram description are present.",
+        "Some high-cost chunks are largely bibliographic or peripheral (e.g., reference lists, partial tables), which may indicate suboptimal retrieval focus for the stated question."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "Does not explicitly reference or describe any specific 'In-filling' or 'Flow Matching' figures/diagrams; only mentions Figure 1 (task generalization) and Figure 2 (NFE trade‑off), which do not directly explain mid‑sequence audio generation.",
+        "Although it correctly states that Voicebox is trained on over 50K hours of unfiltered speech and is non‑autoregressive with flow‑matching, it does not tie these points to any visual infilling/flow diagrams as required.",
+        "The summary’s performance comparison against VALL‑E (WER 1.9% vs 5.9%) is grounded but not explicitly attributed to a comparison table (e.g., Table 1 or 2); the cited chunk presents the numbers in text, not as a table.",
+        "Overall content is mostly faithful to the paper but misses the specific requirement to ground the infilling explanation in the designated diagrams/figures."
+      ],
+      "unsupported_claims": [
+        "Any implied use of a specific 'In-filling' or 'Flow Matching' diagram to explain how Voicebox generates audio in the middle of a sequence is unsupported; no such figure is cited or described.",
+        "Any implication that the 1.9% vs 5.9% WER comparison is drawn from a named comparison table (Table 1 or 2) is unsupported; the evidence only states these values in prose."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "806cea72b0cda9b8",
+          "quote": "Voicebox is a non-autoregressive flow-matching model trained to infill speech, given audio context and text, trained on over 50K hours of speech"
+        },
+        {
+          "chunk_id": "806cea72b0cda9b8",
+          "quote": "over 50K hours of speech that are neither filtered nor enhanced"
+        },
+        {
+          "chunk_id": "806cea72b0cda9b8",
+          "quote": "outperforms the state-of-the-art zero-shot TTS model VALL-E on both intelligibility (5.9% vs 1.9% word error rates)"
+        },
+        {
+          "chunk_id": "a8ca5e9c5c7e89c",
+          "quote": "Voicebox is a non-autoregressive (NAR) continuous normalizing flow (CNF) model"
+        },
+        {
+          "chunk_id": "a8ca5e9c5c7e89c",
+          "quote": "We train Voicebox with flow-matching, a recently proposed method that enables efficient and scalable training of CNFs"
+        },
+        {
+          "chunk_id": "95f87546ff2baac9",
+          "quote": "Voicebox can use context both in the past and future, which is useful for editing where only a segment in the middle needs to be generated."
+        },
+        {
+          "chunk_id": "7607c9f8b2af6566",
+          "quote": "Figure 2: Trade-off between NFE and different metrics of interest."
+        },
+        {
+          "chunk_id": "5770886388031685",
+          "quote": "Figure 1: Voicebox task generalization through in-context learning."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "What is Voicebox and how does it work? Summarize the architecture and performance.",
+          "answer": "Voicebox is a large-scale, text-guided multilingual speech generation system built as a non-autoregressive continuous normalizing flow (CNF) model trained with flow-matching to infill missing speech conditioned on surrounding audio and text. Architecturally, it uses a 24-layer Transformer audio model with convolutional positional embeddings and ALiBi bias, 16 attention heads, 1024-dimensional embeddings, 4096-dimensional feed-forward layers, about 330M parameters, and UNet-style skip connections between symmetric layers, plus a separate 8–10-layer duration model (512-dimensional embeddings, 2048-dimensional FFN, 28M–34M parameters) that decouples timing from acoustics for finer alignment control.[8630634a96d2c217][95f87546ff2baac9] As a non-autoregressive flow-matching model, it differs from standard autoregressive TTS systems by transforming noise into speech through a small number of flow steps rather than predicting frames sequentially; this allows it to condition on both past and future context, which is particularly useful for editing or generating segments in the middle of an utterance.[a8ca5e9c5c7e89c][95f87546ff2baac9] The number of flow steps (or function evaluations) at inference can be adjusted to trade off quality against latency, and high-quality speech can be produced with fewer than ten non-autoregressive steps, whereas VALL-E requires one autoregressive and seven non-autoregressive stages.[95f87546ff2baac9][7607c9f8b2af6566] Voicebox operates on Mel-spectrogram features with a HiFi-GAN vocoder, a choice motivated by comparisons against alternatives such as Parallel WaveGAN and Encodec-based features.[4e9476e69e8394de] It is trained on more than 50K hours of speech that are explicitly described as neither filtered nor enhanced, giving it exposure to diverse noise, emotion, and acoustic conditions.[806cea72b0cda9b8] In terms of performance, Voicebox supports mono- and cross-lingual zero-shot TTS, speech inpainting, content editing, style conversion, denoising, and diverse sampling via in-context learning, and can generate speech up to 20 times faster than the best autoregressive models.[806cea72b0cda9b8][a2ae4512e4877e2d] On English zero-shot TTS, it outperforms VALL-E on intelligibility and similarity, achieving a word error rate of 1.9% versus VALL-E’s 5.9% and a similarity score of 0.681 versus 0.580, while maintaining these speed advantages.[806cea72b0cda9b8][a2ae4512e4877e2d] It also shows strong style transfer and infilling performance, surpassing baselines such as A3T and Demucs on text-guided denoising and speech infilling in terms of WER, similarity, and mean opinion score.[524382862327c52c][95f87546ff2baac9]",
+          "confidence": 0.8,
+          "evidence": [
+            "806cea72b0cda9b8",
+            "a8ca5e9c5c7e89c",
+            "8630634a96d2c217",
+            "95f87546ff2baac9",
+            "a2ae4512e4877e2d",
+            "4e9476e69e8394de",
+            "524382862327c52c",
+            "7607c9f8b2af6566"
+          ],
+          "notes": "Addresses architecture (Transformer CNF, duration model, vocoder), training data scale and noisiness, non-autoregressive flow-matching vs autoregressive models, and performance including WER 1.9% vs 5.9% and speedups. However, it does not explicitly reference an 'In-filling' or 'Flow Matching' diagram; the only figures cited are Figure 1 (task generalization) and Figure 2 (NFE trade-off), so the specific requirement to ground mid-sequence generation in those diagrams is not fully met."
+        }
+      ]
+    }
+  }
+}

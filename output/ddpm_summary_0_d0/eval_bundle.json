@@ -1,0 +1,578 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "2de6cebfacc05110",
+  "created_at": "2025-12-31T08:38:48Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 16264,
+        "output_hash": "be9f5f0a94e9dc1074bcdc15b75096e82f6baaff",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Give me a technical summary of the DDPM paper. What is the core innovation and how does it perform?",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "5ca4a4b69d545fd0",
+                        "0d28d88d3ddef457",
+                        "69972a39e4d762ce",
+                        "fc97e04714d6cc35"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "5ca4a4b69d545fd0",
+                          "quote": "the forward process or diffusion process, is fixed to a Markov chain that gradually adds Gaussian noise"
+                        },
+                        {
+                          "chunk_id": "0d28d88d3ddef457",
+                          "quote": "connection between diffusion models and denoising score matching (Section 3.2)"
+                        },
+                        {
+                          "chunk_id": "69972a39e4d762ce",
+                          "quote": "sampling procedure of diffusion models is a type of progressive decoding"
+                        }
+                      ],
+                      "rationale": "Forward process is clearly a fixed Markov chain adding Gaussian noise [5ca4a4b69d545fd0]. There is mention of connections to denoising score matching and progressive decoding [0d28d88d3ddef457][69972a39e4d762ce], but no explicit description of the reverse process as a Markov chain using Langevin dynamics. Langevin dynamics are only implied via connections to score matching, not stated or contrasted directly with the forward process, so requirement is only partially supported."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "partial",
+                      "evidence": [
+                        "37020554653ce658",
+                        "e7a26788ee1231f8",
+                        "05e9701f321c9f11"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "37020554653ce658",
+                          "quote": "Figure 6: Unconditional CIFAR10 progressive generation x̂0 over time, from left to right"
+                        },
+                        {
+                          "chunk_id": "e7a26788ee1231f8",
+                          "quote": "Coarse-to-fine interpolation Figure 9 shows interpolations between a pair of source CelebA 256 × 256 images"
+                        },
+                        {
+                          "chunk_id": "e7a26788ee1231f8",
+                          "quote": "Increasing the number of diffusion steps destroys more structure in the source images"
+                        }
+                      ],
+                      "rationale": "There is explicit reference to progressive generation over time in Figure 6 [37020554653ce658] and to 'Coarse-to-fine interpolation' [e7a26788ee1231f8], indicating a temporal progression of structure. However, the chunks do not explicitly describe that during sampling coarse features appear before fine details; this must be inferred. Visual progression is referenced but not verbally detailed, so coverage is partial."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "covered",
+                      "evidence": [
+                        "ecf16a1e8e178a04"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "Ours (L trainable)       | 9.46±0.11| 3.17| ≤ 3.75 (3.72)"
+                        },
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –"
+                        },
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "SNGAN-DDLS [5]           | 9.09±0.10| 15.42| –"
+                        }
+                      ],
+                      "rationale": "Table 1 provides DDPM FID 3.17 for 'Ours (L trainable)' and GAN baselines including StyleGAN2+ADA FID 3.26 and SNGAN-DDLS FID 15.42 [ecf16a1e8e178a04]. This directly supports performance comparison of DDPM FID scores against GANs, satisfying the requirement."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "ecf16a1e8e178a04",
+                        "69972a39e4d762ce",
+                        "78f2a2312b837bff"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "Sparse Transformer [20]  | –     | –    | 2.80"
+                        },
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "Ours (L fixed isotropic Σ)| 7.67 ± 0.13| 13.51| ≤ 3.70 (3.69)"
+                        },
+                        {
+                          "chunk_id": "69972a39e4d762ce",
+                          "quote": "our models do not have competitive log likelihoods compared to other likelihood-based models"
+                        }
+                      ],
+                      "rationale": "Table 1 shows DDPM NLL upper bounds (≤3.70–3.75 bits/dim) versus Sparse Transformer 2.80 bits/dim [ecf16a1e8e178a04], and text notes DDPMs 'do not have competitive log likelihoods' [69972a39e4d762ce]. This indicates a trade-off between sample quality and likelihood. However, VAEs are not explicitly mentioned in the retrieved chunks, so the comparison to VAEs in the Experiments section is missing; thus only partial coverage."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R1",
+                    "R2",
+                    "R4"
+                  ],
+                  "risks": [
+                    "Answer may overstate the role of Langevin dynamics in the reverse process because explicit Langevin terminology is not present in retrieved text.",
+                    "Description of progressive sampling might infer coarse-to-fine emergence of features without direct textual support from the figure captions.",
+                    "Trade-off discussion could incorrectly attribute comparisons to VAEs, which are not explicitly cited in the available evidence."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Core model definition, simplified objective, and quantitative performance vs GANs are well supported. However, explicit description of the reverse process as a Langevin Markov chain, detailed narrative of progressive sampling (coarse then fine), and explicit Experiments discussion comparing to VAEs are only partially or not supported by retrieved chunks.",
+              "missing_requirements": [
+                "R1",
+                "R2",
+                "R4"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks cover overlapping high-level themes (connections to score matching, progressive decoding, and generative model context) without adding much requirement-specific detail. However, some redundancy is useful for corroborating performance and objective design.",
+              "redundant_pairs": [
+                [
+                  "0d28d88d3ddef457",
+                  "78f2a2312b837bff"
+                ],
+                [
+                  "69972a39e4d762ce",
+                  "51b3534accda90dc"
+                ],
+                [
+                  "e6b2a4a695b271b0",
+                  "9d65e3354261365e"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Some high-cost chunks provide strong value (e.g., Table 1 for performance, rate–distortion table), but others with high cognitive cost mainly contain references or broad discussion not directly tied to the specified requirements. Retrieval could be improved by targeting explicit reverse-process descriptions and Experiments text mentioning VAEs and progressive sampling captions.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "ecf16a1e8e178a04",
+                  "cost": 486,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "3ee85dfaabd16f7f",
+                  "cost": 299,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "51b3534accda90dc",
+                  "cost": 139,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "12ad7126ff917dd9",
+                  "cost": 139,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "0d28d88d3ddef457",
+                  "cost": 134,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Potential hallucination risk around Langevin dynamics in the reverse process due to only indirect references to score matching.",
+              "Risk of inferring coarse-to-fine visual progression details from figure references without explicit textual description.",
+              "Risk of incorrectly stating explicit comparisons to VAEs in Experiments since VAEs are not clearly mentioned in retrieved chunks."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 12439,
+        "output_hash": "4f2bb2bf7b8d93ac76c95484311065760929f800",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "5ca4a4b69d545fd0",
+                "quote": "the forward process or diffusion process, is fixed to a Markov chain that gradually adds Gaussian noise"
+              },
+              {
+                "chunk_id": "976fab954096b5d8",
+                "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+              },
+              {
+                "chunk_id": "0d28d88d3ddef457",
+                "quote": "we establish a new explicit connection between diffusion models and denoising score matching"
+              },
+              {
+                "chunk_id": "78f2a2312b837bff",
+                "quote": "simplified objective (14) discards the weighting in Eq. (12), it is a weighted variational bound"
+              },
+              {
+                "chunk_id": "ecf16a1e8e178a04",
+                "quote": "Ours (L trainable)       | **9.46±0.11**| **3.17**| ≤ 3.75 (3.72)"
+              },
+              {
+                "chunk_id": "ecf16a1e8e178a04",
+                "quote": "StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –"
+              },
+              {
+                "chunk_id": "ecf16a1e8e178a04",
+                "quote": "Sparse Transformer [20]  | –     | –    | **2.80**"
+              },
+              {
+                "chunk_id": "69972a39e4d762ce",
+                "quote": "our models do not have competitive log likelihoods compared to other likelihood-based models"
+              },
+              {
+                "chunk_id": "fc97e04714d6cc35",
+                "quote": "Rate (bits/dim) 1.77581 ... 0.00000 ... Distortion (RMSE [0, 255]) 0.95136 ... 67.60125"
+              },
+              {
+                "chunk_id": "69972a39e4d762ce",
+                "quote": "sampling procedure of diffusion models is a type of progressive decoding"
+              },
+              {
+                "chunk_id": "ff74173df881af0e",
+                "quote": "Connection to autoregressive decoding"
+              },
+              {
+                "chunk_id": "b02110d69f85c49d",
+                "quote": "Progressive lossy compression"
+              },
+              {
+                "chunk_id": "3ee85dfaabd16f7f",
+                "quote": "We set T = 1000 ... chose a linear schedule from β1 = 10−4 to βT = 0.02."
+              },
+              {
+                "chunk_id": "37020554653ce658",
+                "quote": "Figure 6: Unconditional CIFAR10 progressive generation x̂0 over time, from left to right"
+              },
+              {
+                "chunk_id": "e7a26788ee1231f8",
+                "quote": "Coarse-to-fine interpolation Figure 9 shows interpolations between a pair of source CelebA"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Give me a technical summary of the DDPM paper. What is the core innovation and how does it perform?",
+                "answer": "The summary is technically accurate and well grounded in the paper. It explains DDPMs as likelihood-based generative models with a fixed forward noising Markov chain and a learned reverse denoising chain, trained via a variational bound on negative log-likelihood, matching the description of the forward process and training objective [5ca4a4b69d545fd0][976fab954096b5d8]. It correctly identifies the core innovation as a simplified, score-matching–motivated objective and reverse-process parameterization derived from the explicit connection to denoising score matching and the resulting simplified weighted variational bound [0d28d88d3ddef457][ce281cada8d760d4][78f2a2312b837bff]. Performance is accurately summarized from Table 1: on unconditional CIFAR-10, the best DDPM variant with trainable L attains IS 9.46±0.11, FID 3.17, and NLL ≤3.75 bits/dim, and this is correctly compared to StyleGAN2+ADA’s IS 9.74±0.05 and FID 3.26, as well as Sparse Transformer’s superior NLL 2.80 bits/dim [ecf16a1e8e178a04]. The trade-off between strong sample quality and worse log-likelihoods than top autoregressive models is explicitly supported by the authors’ statement that their models do not have competitive log likelihoods and that much of the codelength goes to imperceptible details [69972a39e4d762ce]. The summary also accurately reflects the rate–distortion and progressive decoding interpretation, using the CIFAR-10 rate/distortion values over reverse steps from Table 4 [fc97e04714d6cc35] and the authors’ description of the sampling procedure as a type of progressive decoding related to autoregressive decoding and lossy compression [69972a39e4d762ce][ff74173df881af0e][b02110d69f85c49d]. However, two requirement-specific aspects are missing or only implicit: (1) the reverse process is not explicitly described as a Markov chain using Langevin dynamics; while the paper connects diffusion models to denoising score matching and annealed Langevin dynamics conceptually [0d28d88d3ddef457][e6b2a4a695b271b0], the summary does not explicitly characterize the reverse chain in Langevin-dynamics terms, so R1 is only partially satisfied. (2) The visual coarse-to-fine progression of samples in the progressive sampling figures (e.g., Figure 6) is only alluded to via mention of high-quality samples and interpolations; the summary does not explicitly describe how coarse structure appears before fine details over reverse steps, even though progressive generation over time is indicated in Figure 6 and coarse-to-fine interpolation is mentioned for Figure 9 [37020554653ce658][e7a26788ee1231f8]. For R3 and R4, the summary clearly uses Table 1 to compare DDPM FID and NLL against GANs and autoregressive models [ecf16a1e8e178a04] and reflects the experiments’ conclusion about the quality–likelihood trade-off and coding of imperceptible details [69972a39e4d762ce]. Overall, the answer aligns well with the decision, but it does not fully meet the explicit requirements about Langevin dynamics wording and detailed visual progression description.",
+                "confidence": 0.86,
+                "evidence": [
+                  "5ca4a4b69d545fd0",
+                  "976fab954096b5d8",
+                  "6db88b3b964305d7",
+                  "0d28d88d3ddef457",
+                  "ce281cada8d760d4",
+                  "78f2a2312b837bff",
+                  "ecf16a1e8e178a04",
+                  "69972a39e4d762ce",
+                  "fc97e04714d6cc35",
+                  "ff74173df881af0e",
+                  "b02110d69f85c49d",
+                  "37020554653ce658",
+                  "e7a26788ee1231f8",
+                  "e6b2a4a695b271b0"
+                ],
+                "notes": "R1: Forward Markov chain is explicit, and connection to denoising score matching and annealed Langevin dynamics is in the paper, but the summary does not explicitly describe the reverse process as a Langevin Markov chain. R2: Progressive sampling figures are cited, and coarse-to-fine interpolation is mentioned in the paper, but the summary does not explicitly narrate the visual emergence of coarse then fine details. R3: Fully satisfied via Table 1 comparisons of FID/IS and NLL. R4: Satisfied via explicit discussion of non-competitive log-likelihoods and quality–likelihood trade-off in experiments."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Give me a technical summary of the DDPM paper. What is the core innovation and how does it perform?",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "5ca4a4b69d545fd0",
+                  "0d28d88d3ddef457",
+                  "69972a39e4d762ce",
+                  "fc97e04714d6cc35"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "5ca4a4b69d545fd0",
+                    "quote": "the forward process or diffusion process, is fixed to a Markov chain that gradually adds Gaussian noise"
+                  },
+                  {
+                    "chunk_id": "0d28d88d3ddef457",
+                    "quote": "connection between diffusion models and denoising score matching (Section 3.2)"
+                  },
+                  {
+                    "chunk_id": "69972a39e4d762ce",
+                    "quote": "sampling procedure of diffusion models is a type of progressive decoding"
+                  }
+                ],
+                "rationale": "Forward process is clearly a fixed Markov chain adding Gaussian noise [5ca4a4b69d545fd0]. There is mention of connections to denoising score matching and progressive decoding [0d28d88d3ddef457][69972a39e4d762ce], but no explicit description of the reverse process as a Markov chain using Langevin dynamics. Langevin dynamics are only implied via connections to score matching, not stated or contrasted directly with the forward process, so requirement is only partially supported."
+              },
+              {
+                "id": "R2",
+                "status": "partial",
+                "evidence": [
+                  "37020554653ce658",
+                  "e7a26788ee1231f8",
+                  "05e9701f321c9f11"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "37020554653ce658",
+                    "quote": "Figure 6: Unconditional CIFAR10 progressive generation x̂0 over time, from left to right"
+                  },
+                  {
+                    "chunk_id": "e7a26788ee1231f8",
+                    "quote": "Coarse-to-fine interpolation Figure 9 shows interpolations between a pair of source CelebA 256 × 256 images"
+                  },
+                  {
+                    "chunk_id": "e7a26788ee1231f8",
+                    "quote": "Increasing the number of diffusion steps destroys more structure in the source images"
+                  }
+                ],
+                "rationale": "There is explicit reference to progressive generation over time in Figure 6 [37020554653ce658] and to 'Coarse-to-fine interpolation' [e7a26788ee1231f8], indicating a temporal progression of structure. However, the chunks do not explicitly describe that during sampling coarse features appear before fine details; this must be inferred. Visual progression is referenced but not verbally detailed, so coverage is partial."
+              },
+              {
+                "id": "R3",
+                "status": "covered",
+                "evidence": [
+                  "ecf16a1e8e178a04"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "Ours (L trainable)       | 9.46±0.11| 3.17| ≤ 3.75 (3.72)"
+                  },
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –"
+                  },
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "SNGAN-DDLS [5]           | 9.09±0.10| 15.42| –"
+                  }
+                ],
+                "rationale": "Table 1 provides DDPM FID 3.17 for 'Ours (L trainable)' and GAN baselines including StyleGAN2+ADA FID 3.26 and SNGAN-DDLS FID 15.42 [ecf16a1e8e178a04]. This directly supports performance comparison of DDPM FID scores against GANs, satisfying the requirement."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "ecf16a1e8e178a04",
+                  "69972a39e4d762ce",
+                  "78f2a2312b837bff"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "Sparse Transformer [20]  | –     | –    | 2.80"
+                  },
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "Ours (L fixed isotropic Σ)| 7.67 ± 0.13| 13.51| ≤ 3.70 (3.69)"
+                  },
+                  {
+                    "chunk_id": "69972a39e4d762ce",
+                    "quote": "our models do not have competitive log likelihoods compared to other likelihood-based models"
+                  }
+                ],
+                "rationale": "Table 1 shows DDPM NLL upper bounds (≤3.70–3.75 bits/dim) versus Sparse Transformer 2.80 bits/dim [ecf16a1e8e178a04], and text notes DDPMs 'do not have competitive log likelihoods' [69972a39e4d762ce]. This indicates a trade-off between sample quality and likelihood. However, VAEs are not explicitly mentioned in the retrieved chunks, so the comparison to VAEs in the Experiments section is missing; thus only partial coverage."
+              }
+            ],
+            "missing_requirements": [
+              "R1",
+              "R2",
+              "R4"
+            ],
+            "risks": [
+              "Answer may overstate the role of Langevin dynamics in the reverse process because explicit Langevin terminology is not present in retrieved text.",
+              "Description of progressive sampling might infer coarse-to-fine emergence of features without direct textual support from the figure captions.",
+              "Trade-off discussion could incorrectly attribute comparisons to VAEs, which are not explicitly cited in the available evidence."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Core model definition, simplified objective, and quantitative performance vs GANs are well supported. However, explicit description of the reverse process as a Langevin Markov chain, detailed narrative of progressive sampling (coarse then fine), and explicit Experiments discussion comparing to VAEs are only partially or not supported by retrieved chunks.",
+        "missing_requirements": [
+          "R1",
+          "R2",
+          "R4"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks cover overlapping high-level themes (connections to score matching, progressive decoding, and generative model context) without adding much requirement-specific detail. However, some redundancy is useful for corroborating performance and objective design.",
+        "redundant_pairs": [
+          [
+            "0d28d88d3ddef457",
+            "78f2a2312b837bff"
+          ],
+          [
+            "69972a39e4d762ce",
+            "51b3534accda90dc"
+          ],
+          [
+            "e6b2a4a695b271b0",
+            "9d65e3354261365e"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Some high-cost chunks provide strong value (e.g., Table 1 for performance, rate–distortion table), but others with high cognitive cost mainly contain references or broad discussion not directly tied to the specified requirements. Retrieval could be improved by targeting explicit reverse-process descriptions and Experiments text mentioning VAEs and progressive sampling captions.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "ecf16a1e8e178a04",
+            "cost": 486,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "3ee85dfaabd16f7f",
+            "cost": 299,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "51b3534accda90dc",
+            "cost": 139,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "12ad7126ff917dd9",
+            "cost": 139,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "0d28d88d3ddef457",
+            "cost": 134,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Potential hallucination risk around Langevin dynamics in the reverse process due to only indirect references to score matching.",
+        "Risk of inferring coarse-to-fine visual progression details from figure references without explicit textual description.",
+        "Risk of incorrectly stating explicit comparisons to VAEs in Experiments since VAEs are not clearly mentioned in retrieved chunks."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "5ca4a4b69d545fd0",
+          "quote": "the forward process or diffusion process, is fixed to a Markov chain that gradually adds Gaussian noise"
+        },
+        {
+          "chunk_id": "976fab954096b5d8",
+          "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+        },
+        {
+          "chunk_id": "0d28d88d3ddef457",
+          "quote": "we establish a new explicit connection between diffusion models and denoising score matching"
+        },
+        {
+          "chunk_id": "78f2a2312b837bff",
+          "quote": "simplified objective (14) discards the weighting in Eq. (12), it is a weighted variational bound"
+        },
+        {
+          "chunk_id": "ecf16a1e8e178a04",
+          "quote": "Ours (L trainable)       | **9.46±0.11**| **3.17**| ≤ 3.75 (3.72)"
+        },
+        {
+          "chunk_id": "ecf16a1e8e178a04",
+          "quote": "StyleGAN2 + ADA (v1) [29]| 9.74 ± 0.05| 3.26| –"
+        },
+        {
+          "chunk_id": "ecf16a1e8e178a04",
+          "quote": "Sparse Transformer [20]  | –     | –    | **2.80**"
+        },
+        {
+          "chunk_id": "69972a39e4d762ce",
+          "quote": "our models do not have competitive log likelihoods compared to other likelihood-based models"
+        },
+        {
+          "chunk_id": "fc97e04714d6cc35",
+          "quote": "Rate (bits/dim) 1.77581 ... 0.00000 ... Distortion (RMSE [0, 255]) 0.95136 ... 67.60125"
+        },
+        {
+          "chunk_id": "69972a39e4d762ce",
+          "quote": "sampling procedure of diffusion models is a type of progressive decoding"
+        },
+        {
+          "chunk_id": "ff74173df881af0e",
+          "quote": "Connection to autoregressive decoding"
+        },
+        {
+          "chunk_id": "b02110d69f85c49d",
+          "quote": "Progressive lossy compression"
+        },
+        {
+          "chunk_id": "3ee85dfaabd16f7f",
+          "quote": "We set T = 1000 ... chose a linear schedule from β1 = 10−4 to βT = 0.02."
+        },
+        {
+          "chunk_id": "37020554653ce658",
+          "quote": "Figure 6: Unconditional CIFAR10 progressive generation x̂0 over time, from left to right"
+        },
+        {
+          "chunk_id": "e7a26788ee1231f8",
+          "quote": "Coarse-to-fine interpolation Figure 9 shows interpolations between a pair of source CelebA"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Give me a technical summary of the DDPM paper. What is the core innovation and how does it perform?",
+          "answer": "The summary is technically accurate and well grounded in the paper. It explains DDPMs as likelihood-based generative models with a fixed forward noising Markov chain and a learned reverse denoising chain, trained via a variational bound on negative log-likelihood, matching the description of the forward process and training objective [5ca4a4b69d545fd0][976fab954096b5d8]. It correctly identifies the core innovation as a simplified, score-matching–motivated objective and reverse-process parameterization derived from the explicit connection to denoising score matching and the resulting simplified weighted variational bound [0d28d88d3ddef457][ce281cada8d760d4][78f2a2312b837bff]. Performance is accurately summarized from Table 1: on unconditional CIFAR-10, the best DDPM variant with trainable L attains IS 9.46±0.11, FID 3.17, and NLL ≤3.75 bits/dim, and this is correctly compared to StyleGAN2+ADA’s IS 9.74±0.05 and FID 3.26, as well as Sparse Transformer’s superior NLL 2.80 bits/dim [ecf16a1e8e178a04]. The trade-off between strong sample quality and worse log-likelihoods than top autoregressive models is explicitly supported by the authors’ statement that their models do not have competitive log likelihoods and that much of the codelength goes to imperceptible details [69972a39e4d762ce]. The summary also accurately reflects the rate–distortion and progressive decoding interpretation, using the CIFAR-10 rate/distortion values over reverse steps from Table 4 [fc97e04714d6cc35] and the authors’ description of the sampling procedure as a type of progressive decoding related to autoregressive decoding and lossy compression [69972a39e4d762ce][ff74173df881af0e][b02110d69f85c49d]. However, two requirement-specific aspects are missing or only implicit: (1) the reverse process is not explicitly described as a Markov chain using Langevin dynamics; while the paper connects diffusion models to denoising score matching and annealed Langevin dynamics conceptually [0d28d88d3ddef457][e6b2a4a695b271b0], the summary does not explicitly characterize the reverse chain in Langevin-dynamics terms, so R1 is only partially satisfied. (2) The visual coarse-to-fine progression of samples in the progressive sampling figures (e.g., Figure 6) is only alluded to via mention of high-quality samples and interpolations; the summary does not explicitly describe how coarse structure appears before fine details over reverse steps, even though progressive generation over time is indicated in Figure 6 and coarse-to-fine interpolation is mentioned for Figure 9 [37020554653ce658][e7a26788ee1231f8]. For R3 and R4, the summary clearly uses Table 1 to compare DDPM FID and NLL against GANs and autoregressive models [ecf16a1e8e178a04] and reflects the experiments’ conclusion about the quality–likelihood trade-off and coding of imperceptible details [69972a39e4d762ce]. Overall, the answer aligns well with the decision, but it does not fully meet the explicit requirements about Langevin dynamics wording and detailed visual progression description.",
+          "confidence": 0.86,
+          "evidence": [
+            "5ca4a4b69d545fd0",
+            "976fab954096b5d8",
+            "6db88b3b964305d7",
+            "0d28d88d3ddef457",
+            "ce281cada8d760d4",
+            "78f2a2312b837bff",
+            "ecf16a1e8e178a04",
+            "69972a39e4d762ce",
+            "fc97e04714d6cc35",
+            "ff74173df881af0e",
+            "b02110d69f85c49d",
+            "37020554653ce658",
+            "e7a26788ee1231f8",
+            "e6b2a4a695b271b0"
+          ],
+          "notes": "R1: Forward Markov chain is explicit, and connection to denoising score matching and annealed Langevin dynamics is in the paper, but the summary does not explicitly describe the reverse process as a Langevin Markov chain. R2: Progressive sampling figures are cited, and coarse-to-fine interpolation is mentioned in the paper, but the summary does not explicitly narrate the visual emergence of coarse then fine details. R3: Fully satisfied via Table 1 comparisons of FID/IS and NLL. R4: Satisfied via explicit discussion of non-competitive log-likelihoods and quality–likelihood trade-off in experiments."
+        }
+      ]
+    }
+  }
+}

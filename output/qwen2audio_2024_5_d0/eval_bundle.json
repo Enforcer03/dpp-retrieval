@@ -1,0 +1,464 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "d2344554ccf8a277",
+  "created_at": "2025-12-31T07:31:51Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 14685,
+        "output_hash": "d678191287c0d916c83e11dc165daee1fb4afe8c",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+                  "overall_verdict": "fail",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "1694ba335df35a5e",
+                        "f00f06d5c87798bd"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1694ba335df35a5e",
+                          "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms"
+                        },
+                        {
+                          "chunk_id": "f00f06d5c87798bd",
+                          "quote": "encompasses various tasks, namely Automatic Speech Recognition (ASR)... Vocal Sound Classification (VSC)"
+                        }
+                      ],
+                      "rationale": "Evidence shows Qwen2-Audio can analyze non-speech sounds and is evaluated on Vocal Sound Classification, implying some sound event capabilities, but it does not explicitly mention specific events like 'glass breaking' or a general sound event detection API. Thus support is implied but not clearly specified for the requested use case."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No evidence discusses diarization, multiple speakers, or distinguishing between different speakers."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "The chunks mention pre-training, SFT, and DPO, but nothing about user-side fine-tuning, LoRA, or adapting to specific vocabularies."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "missing",
+                      "evidence": [
+                        "1694ba335df35a5e",
+                        "294a839d7019260e"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1694ba335df35a5e",
+                          "quote": "users can interact with Qwen2-Audio as if it were a conversational agent, engaging in unrestricted dialogue"
+                        },
+                        {
+                          "chunk_id": "294a839d7019260e",
+                          "quote": "Voice Chat: In the voice chat mode, users are encouraged to engage in voice conversations with Qwen2-Audio"
+                        }
+                      ],
+                      "rationale": "Voice chat mode is described, but there is no mention of barge-in, interruption handling, or whether users must wait for responses to finish."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No pricing, cost-per-minute, or comparison to Whisper or other ASR APIs is provided."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R2",
+                    "R3",
+                    "R4",
+                    "R5"
+                  ],
+                  "risks": [
+                    "Sound event detection capabilities may not cover fine-grained events like glass breaking despite general sound and VSC support.",
+                    "Lack of information on multi-speaker handling could be critical for meeting product requirements involving diarization.",
+                    "Absence of fine-tuning support details risks inability to adapt to medical or technical domains.",
+                    "Unclear interruption behavior in voice chat may impact UX for real-time conversational products.",
+                    "No cost information prevents evaluation of economic viability versus Whisper or other ASR services."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "poor",
+              "notes": "Evidence focuses on high-level capabilities (audio analysis, voice chat, benchmarks) but does not address multi-speaker handling, fine-tuning, interruption behavior, or cost. Sound event detection is only indirectly supported via general sound analysis and Vocal Sound Classification.",
+              "missing_requirements": [
+                "R2",
+                "R3",
+                "R4",
+                "R5"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate the two modes (Audio Analysis and Voice Chat) and training/interaction design without adding detail relevant to the specific requirements.",
+              "redundant_pairs": [
+                [
+                  "1694ba335df35a5e",
+                  "294a839d7019260e"
+                ],
+                [
+                  "22413225fdfb6984",
+                  "ea930ac5b9eec0ec"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Several high-cost chunks are bibliographic references or general methodology, offering little for the concrete integration questions. Some key capability information is captured efficiently, but many requirements remain unanswered.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "1694ba335df35a5e",
+                  "cost": 208,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "f00f06d5c87798bd",
+                  "cost": 182,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "701cd4d8bf995033",
+                  "cost": 116,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "294a839d7019260e",
+                  "cost": 120,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "2579ca39de94334e",
+                  "cost": 53,
+                  "yield": "low"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key integration questions (multi-speaker handling, fine-tuning, interruption behavior, cost) are unanswered, preventing reliable product fit assessment.",
+              "Sound event detection support is only indirectly evidenced via general sound analysis and VSC, which may not match required granularity.",
+              "Retrieval pulled several citation-only chunks that do not contribute to the user’s requirements, indicating some budget waste."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 8283,
+        "output_hash": "3a8b61c7692be3d85a27fbc5e767780d46522a16",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "1694ba335df35a5e",
+                "quote": "users can leverage Qwen2-Audio to analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms"
+              },
+              {
+                "chunk_id": "294a839d7019260e",
+                "quote": "Audio Analysis: In the audio analysis mode, users are afforded the flexibility to have Qwen2-Audio analyze a diverse array of audio."
+              },
+              {
+                "chunk_id": "294a839d7019260e",
+                "quote": "Voice Chat: In the voice chat mode, users are encouraged to engage in voice conversations with Qwen2-Audio"
+              },
+              {
+                "chunk_id": "ea930ac5b9eec0ec",
+                "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+              },
+              {
+                "chunk_id": "1694ba335df35a5e",
+                "quote": "Qwen2-Audio will autonomously discern the command segments within the audio."
+              },
+              {
+                "chunk_id": "d7149e0022ccc38a",
+                "quote": "we replace the hierarchical tags ... with the natural language prompts."
+              },
+              {
+                "chunk_id": "22413225fdfb6984",
+                "quote": "we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data"
+              },
+              {
+                "chunk_id": "22413225fdfb6984",
+                "quote": "Additionally, we improved Qwen2-Audio’s response quality through the DPO stage."
+              },
+              {
+                "chunk_id": "f00f06d5c87798bd",
+                "quote": "we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+              },
+              {
+                "chunk_id": "9823c0c1460f91aa",
+                "quote": "Qwen2-Audio, without any task-specific fine-tuning, outperforms previous LALMs across a diverse range of tasks."
+              },
+              {
+                "chunk_id": "f00f06d5c87798bd",
+                "quote": "The models we compare include open-source models and callable APIs, such as Gemini."
+              },
+              {
+                "chunk_id": "a0c9924d6e9e718e",
+                "quote": "Code & Demo & Models: https://github.com/QwenLM/Qwen2-Audio"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+                "answer": "Partially answerable from provided evidence; several requirements remain unknown.",
+                "confidence": 0.6,
+                "evidence": [
+                  "1694ba335df35a5e",
+                  "294a839d7019260e",
+                  "f00f06d5c87798bd",
+                  "22413225fdfb6984",
+                  "a0c9924d6e9e718e"
+                ],
+                "notes": "R1: It can analyze non-speech sounds and mixed audio, and evaluation includes Vocal Sound Classification, which implies some sound event understanding but not explicitly specific events like 'glass breaking'.\n- Evidence: Qwen2-Audio can analyze 'speech, sound, music, or various mixed audio forms' in audio analysis mode. [1694ba335df35a5e]\n- Evidence: Evaluation covers 'Vocal Sound Classification (VSC)'. [f00f06d5c87798bd]\nWhether it supports explicit sound event detection for particular events (e.g., glass breaking) is not stated: unknown.\n\nR2: Multi-speaker handling or explicit speaker diarization ('Speaker A' vs 'Speaker B') is not mentioned anywhere in the provided chunks: unknown.\n\nR3: Fine-tuning support (e.g., LoRA) or mechanisms to teach specific medical/technical vocabulary are not described in the excerpts. They describe SFT and DPO used by the authors, but not user-accessible fine-tuning: unknown. [22413225fdfb6984]\n\nR4: Voice chat mode is described, but interruption/barge-in behavior is not discussed. The text only notes that users can 'engage in voice conversations' and switch to text, with no mention of interrupting ongoing TTS: unknown. [294a839d7019260e]\n\nR5: No pricing or cost-per-minute information, nor any comparison to Whisper or other ASR APIs, appears in the provided chunks: unknown.\n\nOverall, the evidence confirms rich audio analysis and voice chat capabilities and broad evaluation, but does not cover the specific integration questions about sound event detection granularity, speaker diarization, user fine-tuning, barge-in, or cost."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+            "overall_verdict": "fail",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "1694ba335df35a5e",
+                  "f00f06d5c87798bd"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1694ba335df35a5e",
+                    "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms"
+                  },
+                  {
+                    "chunk_id": "f00f06d5c87798bd",
+                    "quote": "encompasses various tasks, namely Automatic Speech Recognition (ASR)... Vocal Sound Classification (VSC)"
+                  }
+                ],
+                "rationale": "Evidence shows Qwen2-Audio can analyze non-speech sounds and is evaluated on Vocal Sound Classification, implying some sound event capabilities, but it does not explicitly mention specific events like 'glass breaking' or a general sound event detection API. Thus support is implied but not clearly specified for the requested use case."
+              },
+              {
+                "id": "R2",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No evidence discusses diarization, multiple speakers, or distinguishing between different speakers."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "The chunks mention pre-training, SFT, and DPO, but nothing about user-side fine-tuning, LoRA, or adapting to specific vocabularies."
+              },
+              {
+                "id": "R4",
+                "status": "missing",
+                "evidence": [
+                  "1694ba335df35a5e",
+                  "294a839d7019260e"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1694ba335df35a5e",
+                    "quote": "users can interact with Qwen2-Audio as if it were a conversational agent, engaging in unrestricted dialogue"
+                  },
+                  {
+                    "chunk_id": "294a839d7019260e",
+                    "quote": "Voice Chat: In the voice chat mode, users are encouraged to engage in voice conversations with Qwen2-Audio"
+                  }
+                ],
+                "rationale": "Voice chat mode is described, but there is no mention of barge-in, interruption handling, or whether users must wait for responses to finish."
+              },
+              {
+                "id": "R5",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No pricing, cost-per-minute, or comparison to Whisper or other ASR APIs is provided."
+              }
+            ],
+            "missing_requirements": [
+              "R2",
+              "R3",
+              "R4",
+              "R5"
+            ],
+            "risks": [
+              "Sound event detection capabilities may not cover fine-grained events like glass breaking despite general sound and VSC support.",
+              "Lack of information on multi-speaker handling could be critical for meeting product requirements involving diarization.",
+              "Absence of fine-tuning support details risks inability to adapt to medical or technical domains.",
+              "Unclear interruption behavior in voice chat may impact UX for real-time conversational products.",
+              "No cost information prevents evaluation of economic viability versus Whisper or other ASR services."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "poor",
+        "notes": "Evidence focuses on high-level capabilities (audio analysis, voice chat, benchmarks) but does not address multi-speaker handling, fine-tuning, interruption behavior, or cost. Sound event detection is only indirectly supported via general sound analysis and Vocal Sound Classification.",
+        "missing_requirements": [
+          "R2",
+          "R3",
+          "R4",
+          "R5"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate the two modes (Audio Analysis and Voice Chat) and training/interaction design without adding detail relevant to the specific requirements.",
+        "redundant_pairs": [
+          [
+            "1694ba335df35a5e",
+            "294a839d7019260e"
+          ],
+          [
+            "22413225fdfb6984",
+            "ea930ac5b9eec0ec"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Several high-cost chunks are bibliographic references or general methodology, offering little for the concrete integration questions. Some key capability information is captured efficiently, but many requirements remain unanswered.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "1694ba335df35a5e",
+            "cost": 208,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "f00f06d5c87798bd",
+            "cost": 182,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "701cd4d8bf995033",
+            "cost": 116,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "294a839d7019260e",
+            "cost": 120,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "2579ca39de94334e",
+            "cost": 53,
+            "yield": "low"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key integration questions (multi-speaker handling, fine-tuning, interruption behavior, cost) are unanswered, preventing reliable product fit assessment.",
+        "Sound event detection support is only indirectly evidenced via general sound analysis and VSC, which may not match required granularity.",
+        "Retrieval pulled several citation-only chunks that do not contribute to the user’s requirements, indicating some budget waste."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "1694ba335df35a5e",
+          "quote": "users can leverage Qwen2-Audio to analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms"
+        },
+        {
+          "chunk_id": "294a839d7019260e",
+          "quote": "Audio Analysis: In the audio analysis mode, users are afforded the flexibility to have Qwen2-Audio analyze a diverse array of audio."
+        },
+        {
+          "chunk_id": "294a839d7019260e",
+          "quote": "Voice Chat: In the voice chat mode, users are encouraged to engage in voice conversations with Qwen2-Audio"
+        },
+        {
+          "chunk_id": "ea930ac5b9eec0ec",
+          "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+        },
+        {
+          "chunk_id": "1694ba335df35a5e",
+          "quote": "Qwen2-Audio will autonomously discern the command segments within the audio."
+        },
+        {
+          "chunk_id": "d7149e0022ccc38a",
+          "quote": "we replace the hierarchical tags ... with the natural language prompts."
+        },
+        {
+          "chunk_id": "22413225fdfb6984",
+          "quote": "we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data"
+        },
+        {
+          "chunk_id": "22413225fdfb6984",
+          "quote": "Additionally, we improved Qwen2-Audio’s response quality through the DPO stage."
+        },
+        {
+          "chunk_id": "f00f06d5c87798bd",
+          "quote": "we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+        },
+        {
+          "chunk_id": "9823c0c1460f91aa",
+          "quote": "Qwen2-Audio, without any task-specific fine-tuning, outperforms previous LALMs across a diverse range of tasks."
+        },
+        {
+          "chunk_id": "f00f06d5c87798bd",
+          "quote": "The models we compare include open-source models and callable APIs, such as Gemini."
+        },
+        {
+          "chunk_id": "a0c9924d6e9e718e",
+          "quote": "Code & Demo & Models: https://github.com/QwenLM/Qwen2-Audio"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+          "answer": "Partially answerable from provided evidence; several requirements remain unknown.",
+          "confidence": 0.6,
+          "evidence": [
+            "1694ba335df35a5e",
+            "294a839d7019260e",
+            "f00f06d5c87798bd",
+            "22413225fdfb6984",
+            "a0c9924d6e9e718e"
+          ],
+          "notes": "R1: It can analyze non-speech sounds and mixed audio, and evaluation includes Vocal Sound Classification, which implies some sound event understanding but not explicitly specific events like 'glass breaking'.\n- Evidence: Qwen2-Audio can analyze 'speech, sound, music, or various mixed audio forms' in audio analysis mode. [1694ba335df35a5e]\n- Evidence: Evaluation covers 'Vocal Sound Classification (VSC)'. [f00f06d5c87798bd]\nWhether it supports explicit sound event detection for particular events (e.g., glass breaking) is not stated: unknown.\n\nR2: Multi-speaker handling or explicit speaker diarization ('Speaker A' vs 'Speaker B') is not mentioned anywhere in the provided chunks: unknown.\n\nR3: Fine-tuning support (e.g., LoRA) or mechanisms to teach specific medical/technical vocabulary are not described in the excerpts. They describe SFT and DPO used by the authors, but not user-accessible fine-tuning: unknown. [22413225fdfb6984]\n\nR4: Voice chat mode is described, but interruption/barge-in behavior is not discussed. The text only notes that users can 'engage in voice conversations' and switch to text, with no mention of interrupting ongoing TTS: unknown. [294a839d7019260e]\n\nR5: No pricing or cost-per-minute information, nor any comparison to Whisper or other ASR APIs, appears in the provided chunks: unknown.\n\nOverall, the evidence confirms rich audio analysis and voice chat capabilities and broad evaluation, but does not cover the specific integration questions about sound event detection granularity, speaker diarization, user fine-tuning, barge-in, or cost."
+        }
+      ]
+    }
+  }
+}

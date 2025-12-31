@@ -1,0 +1,578 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "53c3f87536a0ffaa",
+  "created_at": "2025-12-31T08:43:20Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 13660,
+        "output_hash": "34a9a29de57d6436d82df4949a34b0de0704309a",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.",
+                  "overall_verdict": "fail",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No retrieved chunk mentions or shows a 'Taxonomy' or 'Timeline' figure; only tables and textual overviews are present."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "partial",
+                      "evidence": [
+                        "4e270d95aa6cca02",
+                        "3b6be3edd259c18e",
+                        "124d2d04a7c7e545",
+                        "d377d457e535ab50",
+                        "2bffbd74142e8ad7"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "4e270d95aa6cca02",
+                          "quote": "Summary of MLLMs on Image Tasks ... Alignment Module | Inference"
+                        },
+                        {
+                          "chunk_id": "4e270d95aa6cca02",
+                          "quote": "LLaVA ... Alignment Module | Linear layer"
+                        },
+                        {
+                          "chunk_id": "3b6be3edd259c18e",
+                          "quote": "Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms"
+                        },
+                        {
+                          "chunk_id": "124d2d04a7c7e545",
+                          "quote": "Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen."
+                        },
+                        {
+                          "chunk_id": "d377d457e535ab50",
+                          "quote": "X-InstructionBLIP freezes the parameters of the Q-Former used for extracting modality features"
+                        },
+                        {
+                          "chunk_id": "2bffbd74142e8ad7",
+                          "quote": "NeXT-GPT [19] includes projection modules between the encoder and LLM and between the decoder and LLM."
+                        }
+                      ],
+                      "rationale": "Evidence clearly discusses projection layers and Q-Formers as alignment/connector modules, but it does not show that the review uses connector type as the primary taxonomy for classifying models."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "covered",
+                      "evidence": [
+                        "4d334ceccef6adf5",
+                        "154bd532c76a2233",
+                        "eca57f1482fcaa2e",
+                        "be2712ee1077a158",
+                        "a215da00386486ad",
+                        "7fd88eb3f133cbc7",
+                        "7d142118c248be78",
+                        "7c57bb5b54d4bff7",
+                        "e290af259e47ffad"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "4d334ceccef6adf5",
+                          "quote": "we analyze the application of MLLMs in different tasks, including contributions and performance in natural language, visual and auditory tasks."
+                        },
+                        {
+                          "chunk_id": "154bd532c76a2233",
+                          "quote": "tackle complex tasks by harnessing and synthesizing data across text, images, and audio."
+                        },
+                        {
+                          "chunk_id": "eca57f1482fcaa2e",
+                          "quote": "standardize the encoding process across highly diverse data types, including audio, video, and functional Magnetic Resonance Imaging"
+                        },
+                        {
+                          "chunk_id": "be2712ee1077a158",
+                          "quote": "Gemini trains several modalities, including text, image, audio, and video, from scratch"
+                        },
+                        {
+                          "chunk_id": "a215da00386486ad",
+                          "quote": "Video-LLaMA include the Video Q-Former, Audio Q-Former ... image encoder, audio encoder"
+                        },
+                        {
+                          "chunk_id": "7fd88eb3f133cbc7",
+                          "quote": "generate more compliant videos. Given the representative architecture and training methods of the NeXT-GPT model"
+                        },
+                        {
+                          "chunk_id": "7d142118c248be78",
+                          "quote": "Table III reviews and compares several representative video generation MLLMs"
+                        },
+                        {
+                          "chunk_id": "7c57bb5b54d4bff7",
+                          "quote": "research directions for video generation MLLMs should focus on developing more efficient model architectures"
+                        },
+                        {
+                          "chunk_id": "e290af259e47ffad",
+                          "quote": "Video summarization tasks could produce annotations or summaries combining both visual and auditory data."
+                        }
+                      ],
+                      "rationale": "Multiple chunks explicitly state that MLLMs handle audio and video in addition to images and text, and describe audio/video-specific models and tasks."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No retrieved chunk mentions evaluation challenges, benchmarks like POPE or MME, or comparisons between benchmark-based and human evaluation."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R1",
+                    "R4"
+                  ],
+                  "risks": [
+                    "Answering the decision as requested would require referencing a Taxonomy or Timeline figure that is not present in the retrieved evidence.",
+                    "Evaluation challenges and specific benchmarks (POPE, MME) are absent, so any discussion of them would be speculative.",
+                    "Using connector modules as the primary categorization axis is not clearly supported and could overstate the review’s taxonomy structure."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "The retrieval captures broad trends (modalities, architectures, fusion, training patterns) and some connector-module details, but misses explicit Taxonomy/Timeline figures and any discussion of evaluation benchmarks or challenges, which are required.",
+              "missing_requirements": [
+                "R1",
+                "R4"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks repeatedly describe similar high-level trends (image tasks maturity, multimodal fusion, audio/video expansion), but they also add complementary details; no extreme duplication is evident.",
+              "redundant_pairs": [
+                [
+                  "optional_anchor_summary_text",
+                  "optional_summary_text"
+                ],
+                [
+                  "7d142118c248be78",
+                  "7c57bb5b54d4bff7"
+                ],
+                [
+                  "298a03d35ceaa8fd",
+                  "12afee02edb3bf64"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Many high-cost chunks provide substantial architectural and modality information, but key required topics (Taxonomy/Timeline, evaluation benchmarks) were not retrieved, indicating some inefficiency relative to the decision’s needs.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "a4b34339102511e5",
+                  "cost": 343,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "2bffbd74142e8ad7",
+                  "cost": 272,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "be2712ee1077a158",
+                  "cost": 224,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "c4511a9ae3ccabc3",
+                  "cost": 204,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "12afee02edb3bf64",
+                  "cost": 170,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "298a03d35ceaa8fd",
+                  "cost": 166,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "f509249fe42f7c0b",
+                  "cost": 142,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "4e270d95aa6cca02",
+                  "cost": 1324,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Critical required elements (Taxonomy/Timeline figure reference and evaluation benchmarks) are absent, so any compliant answer would need unsupported extrapolation.",
+              "Connector-based classification is only partially evidenced; overemphasizing it as the primary taxonomy risks misrepresenting the review.",
+              "No explicit evaluation discussion means the system might understate or omit key limitations in assessing MLLM performance."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10229,
+        "output_hash": "4fd8b035e9b44be6dc2c667b1e0cdb0ba2602eb1",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "Does not mention any evaluation benchmarks or human evaluation challenges (e.g., POPE, MME), which are required by R4 and not supported by provided chunks.",
+              "Does not reference a 'Taxonomy' or 'Timeline' figure; only tables are cited (e.g., Table I, II), so the required figure-based illustration of rapid evolution is missing (R1).",
+              "Does not explicitly classify models primarily by connector modules (Projection vs Q-Former) as a taxonomy, although it informally discusses projection layers and Q-Formers (R2).",
+              "While audio and video modalities are discussed and grounded, the summary does not clearly frame them as a required list of supported modalities beyond image-text per the requirement (R3).",
+              "Some architectural generalizations (e.g., a universal standardized pipeline across all MLLMs) are broader than what is explicitly stated in the evidence, though partially supported."
+            ],
+            "unsupported_claims": [
+              "Any implication that the review uses or discusses specific evaluation benchmarks such as POPE or MME; these are not mentioned in the provided chunks.",
+              "Explicit reliance on a 'Taxonomy' or 'Timeline' figure to illustrate evolution; only tables on image and video tasks are visible (Table I and Table II)."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "4d334ceccef6adf5",
+                "quote": "We provide a systematic introduction to the current state-of-the-art in MLLMs."
+              },
+              {
+                "chunk_id": "eca57f1482fcaa2e",
+                "quote": "A more recent innovation is the universal encoder, which aims to standardize the encoding process across highly diverse data types."
+              },
+              {
+                "chunk_id": "4e270d95aa6cca02",
+                "quote": "Summary of MLLMs on Image Tasks"
+              },
+              {
+                "chunk_id": "3b6be3edd259c18e",
+                "quote": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities."
+              },
+              {
+                "chunk_id": "be2712ee1077a158",
+                "quote": "Gemini trains several modalities, including text, image, audio, and video, from scratch."
+              },
+              {
+                "chunk_id": "a215da00386486ad",
+                "quote": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.",
+                "answer": "The review portrays MLLMs as rapidly evolving from image–text systems to unified architectures handling text, images, audio, and video, with standardized pipelines of modality-specific encoders, multimodal fusion, and LLM backbones. Image tasks are the most mature, dominated by LLaVA-style models that use frozen vision encoders plus linear alignment modules and are summarized in Table I of image-task MLLMs. Architecturally, models increasingly rely on connector modules such as simple linear projection layers and more expressive Q-Formers to align modality features with the LLM, as seen in MiniGPT-4’s trainable linear projection and InstructBLIP/X-InstructionBLIP’s Q-Former-based connectors. Beyond images, audio-focused models like Qwen-Audio and Gemini extend capabilities to speech recognition, translation, and broad audio comprehension, while video models such as Video-LLaMA, LLaVA-NeXT-Video, and NeXT-GPT integrate Video and Audio Q-Formers or projection modules for temporal and audiovisual alignment, indicating a clear trend toward richer multimodal integration. The review also highlights a shift from tool-orchestration approaches to end-to-end multimodal input–output via learned projection modules connecting encoders, LLMs, and decoders. However, the provided evidence does not describe specific evaluation benchmarks like POPE or MME or compare them to human evaluation, so challenges in evaluation are not detailed in the available text.",
+                "confidence": 0.7,
+                "evidence": [
+                  "4d334ceccef6adf5",
+                  "eca57f1482fcaa2e",
+                  "154bd532c76a2233",
+                  "3b6be3edd259c18e",
+                  "4e270d95aa6cca02",
+                  "f509249fe42f7c0b",
+                  "02e36a964efea70a",
+                  "124d2d04a7c7e545",
+                  "d377d457e535ab50",
+                  "be2712ee1077a158",
+                  "0a23e386024a84f1",
+                  "a215da00386486ad",
+                  "7fd88eb3f133cbc7",
+                  "0aa52b555a560aa0",
+                  "2bffbd74142e8ad7",
+                  "c4511a9ae3ccabc3",
+                  "405a3c69de7820dc"
+                ],
+                "notes": "Answer aligns with many trends in the summary (architectural standardization, connectors, audio/video expansion, integrated I/O) and is grounded in the chunks. It cannot satisfy the requirement to discuss POPE/MME or explicit evaluation challenges because such benchmarks are absent from the provided evidence. Similarly, while Table I summarizes many image MLLMs, no explicit 'Taxonomy' or 'Timeline' figure is visible, so evolution is inferred from tables and descriptions rather than the required figure."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.",
+            "overall_verdict": "fail",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No retrieved chunk mentions or shows a 'Taxonomy' or 'Timeline' figure; only tables and textual overviews are present."
+              },
+              {
+                "id": "R2",
+                "status": "partial",
+                "evidence": [
+                  "4e270d95aa6cca02",
+                  "3b6be3edd259c18e",
+                  "124d2d04a7c7e545",
+                  "d377d457e535ab50",
+                  "2bffbd74142e8ad7"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "4e270d95aa6cca02",
+                    "quote": "Summary of MLLMs on Image Tasks ... Alignment Module | Inference"
+                  },
+                  {
+                    "chunk_id": "4e270d95aa6cca02",
+                    "quote": "LLaVA ... Alignment Module | Linear layer"
+                  },
+                  {
+                    "chunk_id": "3b6be3edd259c18e",
+                    "quote": "Common fusion methods include simple linear layers (as seen in Vitron [88]) and attention mechanisms"
+                  },
+                  {
+                    "chunk_id": "124d2d04a7c7e545",
+                    "quote": "Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen."
+                  },
+                  {
+                    "chunk_id": "d377d457e535ab50",
+                    "quote": "X-InstructionBLIP freezes the parameters of the Q-Former used for extracting modality features"
+                  },
+                  {
+                    "chunk_id": "2bffbd74142e8ad7",
+                    "quote": "NeXT-GPT [19] includes projection modules between the encoder and LLM and between the decoder and LLM."
+                  }
+                ],
+                "rationale": "Evidence clearly discusses projection layers and Q-Formers as alignment/connector modules, but it does not show that the review uses connector type as the primary taxonomy for classifying models."
+              },
+              {
+                "id": "R3",
+                "status": "covered",
+                "evidence": [
+                  "4d334ceccef6adf5",
+                  "154bd532c76a2233",
+                  "eca57f1482fcaa2e",
+                  "be2712ee1077a158",
+                  "a215da00386486ad",
+                  "7fd88eb3f133cbc7",
+                  "7d142118c248be78",
+                  "7c57bb5b54d4bff7",
+                  "e290af259e47ffad"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "4d334ceccef6adf5",
+                    "quote": "we analyze the application of MLLMs in different tasks, including contributions and performance in natural language, visual and auditory tasks."
+                  },
+                  {
+                    "chunk_id": "154bd532c76a2233",
+                    "quote": "tackle complex tasks by harnessing and synthesizing data across text, images, and audio."
+                  },
+                  {
+                    "chunk_id": "eca57f1482fcaa2e",
+                    "quote": "standardize the encoding process across highly diverse data types, including audio, video, and functional Magnetic Resonance Imaging"
+                  },
+                  {
+                    "chunk_id": "be2712ee1077a158",
+                    "quote": "Gemini trains several modalities, including text, image, audio, and video, from scratch"
+                  },
+                  {
+                    "chunk_id": "a215da00386486ad",
+                    "quote": "Video-LLaMA include the Video Q-Former, Audio Q-Former ... image encoder, audio encoder"
+                  },
+                  {
+                    "chunk_id": "7fd88eb3f133cbc7",
+                    "quote": "generate more compliant videos. Given the representative architecture and training methods of the NeXT-GPT model"
+                  },
+                  {
+                    "chunk_id": "7d142118c248be78",
+                    "quote": "Table III reviews and compares several representative video generation MLLMs"
+                  },
+                  {
+                    "chunk_id": "7c57bb5b54d4bff7",
+                    "quote": "research directions for video generation MLLMs should focus on developing more efficient model architectures"
+                  },
+                  {
+                    "chunk_id": "e290af259e47ffad",
+                    "quote": "Video summarization tasks could produce annotations or summaries combining both visual and auditory data."
+                  }
+                ],
+                "rationale": "Multiple chunks explicitly state that MLLMs handle audio and video in addition to images and text, and describe audio/video-specific models and tasks."
+              },
+              {
+                "id": "R4",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No retrieved chunk mentions evaluation challenges, benchmarks like POPE or MME, or comparisons between benchmark-based and human evaluation."
+              }
+            ],
+            "missing_requirements": [
+              "R1",
+              "R4"
+            ],
+            "risks": [
+              "Answering the decision as requested would require referencing a Taxonomy or Timeline figure that is not present in the retrieved evidence.",
+              "Evaluation challenges and specific benchmarks (POPE, MME) are absent, so any discussion of them would be speculative.",
+              "Using connector modules as the primary categorization axis is not clearly supported and could overstate the review’s taxonomy structure."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "The retrieval captures broad trends (modalities, architectures, fusion, training patterns) and some connector-module details, but misses explicit Taxonomy/Timeline figures and any discussion of evaluation benchmarks or challenges, which are required.",
+        "missing_requirements": [
+          "R1",
+          "R4"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks repeatedly describe similar high-level trends (image tasks maturity, multimodal fusion, audio/video expansion), but they also add complementary details; no extreme duplication is evident.",
+        "redundant_pairs": [
+          [
+            "optional_anchor_summary_text",
+            "optional_summary_text"
+          ],
+          [
+            "7d142118c248be78",
+            "7c57bb5b54d4bff7"
+          ],
+          [
+            "298a03d35ceaa8fd",
+            "12afee02edb3bf64"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Many high-cost chunks provide substantial architectural and modality information, but key required topics (Taxonomy/Timeline, evaluation benchmarks) were not retrieved, indicating some inefficiency relative to the decision’s needs.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "a4b34339102511e5",
+            "cost": 343,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "2bffbd74142e8ad7",
+            "cost": 272,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "be2712ee1077a158",
+            "cost": 224,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "c4511a9ae3ccabc3",
+            "cost": 204,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "12afee02edb3bf64",
+            "cost": 170,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "298a03d35ceaa8fd",
+            "cost": 166,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "f509249fe42f7c0b",
+            "cost": 142,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "4e270d95aa6cca02",
+            "cost": 1324,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Critical required elements (Taxonomy/Timeline figure reference and evaluation benchmarks) are absent, so any compliant answer would need unsupported extrapolation.",
+        "Connector-based classification is only partially evidenced; overemphasizing it as the primary taxonomy risks misrepresenting the review.",
+        "No explicit evaluation discussion means the system might understate or omit key limitations in assessing MLLM performance."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "Does not mention any evaluation benchmarks or human evaluation challenges (e.g., POPE, MME), which are required by R4 and not supported by provided chunks.",
+        "Does not reference a 'Taxonomy' or 'Timeline' figure; only tables are cited (e.g., Table I, II), so the required figure-based illustration of rapid evolution is missing (R1).",
+        "Does not explicitly classify models primarily by connector modules (Projection vs Q-Former) as a taxonomy, although it informally discusses projection layers and Q-Formers (R2).",
+        "While audio and video modalities are discussed and grounded, the summary does not clearly frame them as a required list of supported modalities beyond image-text per the requirement (R3).",
+        "Some architectural generalizations (e.g., a universal standardized pipeline across all MLLMs) are broader than what is explicitly stated in the evidence, though partially supported."
+      ],
+      "unsupported_claims": [
+        "Any implication that the review uses or discusses specific evaluation benchmarks such as POPE or MME; these are not mentioned in the provided chunks.",
+        "Explicit reliance on a 'Taxonomy' or 'Timeline' figure to illustrate evolution; only tables on image and video tasks are visible (Table I and Table II)."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "4d334ceccef6adf5",
+          "quote": "We provide a systematic introduction to the current state-of-the-art in MLLMs."
+        },
+        {
+          "chunk_id": "eca57f1482fcaa2e",
+          "quote": "A more recent innovation is the universal encoder, which aims to standardize the encoding process across highly diverse data types."
+        },
+        {
+          "chunk_id": "4e270d95aa6cca02",
+          "quote": "Summary of MLLMs on Image Tasks"
+        },
+        {
+          "chunk_id": "3b6be3edd259c18e",
+          "quote": "Multimodal fusion technology is a crucial component of MLLMs, responsible for mapping information from different modalities."
+        },
+        {
+          "chunk_id": "be2712ee1077a158",
+          "quote": "Gemini trains several modalities, including text, image, audio, and video, from scratch."
+        },
+        {
+          "chunk_id": "a215da00386486ad",
+          "quote": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "What is the current state of Multimodal LLMs according to this review? Summarize the key trends.",
+          "answer": "The review portrays MLLMs as rapidly evolving from image–text systems to unified architectures handling text, images, audio, and video, with standardized pipelines of modality-specific encoders, multimodal fusion, and LLM backbones. Image tasks are the most mature, dominated by LLaVA-style models that use frozen vision encoders plus linear alignment modules and are summarized in Table I of image-task MLLMs. Architecturally, models increasingly rely on connector modules such as simple linear projection layers and more expressive Q-Formers to align modality features with the LLM, as seen in MiniGPT-4’s trainable linear projection and InstructBLIP/X-InstructionBLIP’s Q-Former-based connectors. Beyond images, audio-focused models like Qwen-Audio and Gemini extend capabilities to speech recognition, translation, and broad audio comprehension, while video models such as Video-LLaMA, LLaVA-NeXT-Video, and NeXT-GPT integrate Video and Audio Q-Formers or projection modules for temporal and audiovisual alignment, indicating a clear trend toward richer multimodal integration. The review also highlights a shift from tool-orchestration approaches to end-to-end multimodal input–output via learned projection modules connecting encoders, LLMs, and decoders. However, the provided evidence does not describe specific evaluation benchmarks like POPE or MME or compare them to human evaluation, so challenges in evaluation are not detailed in the available text.",
+          "confidence": 0.7,
+          "evidence": [
+            "4d334ceccef6adf5",
+            "eca57f1482fcaa2e",
+            "154bd532c76a2233",
+            "3b6be3edd259c18e",
+            "4e270d95aa6cca02",
+            "f509249fe42f7c0b",
+            "02e36a964efea70a",
+            "124d2d04a7c7e545",
+            "d377d457e535ab50",
+            "be2712ee1077a158",
+            "0a23e386024a84f1",
+            "a215da00386486ad",
+            "7fd88eb3f133cbc7",
+            "0aa52b555a560aa0",
+            "2bffbd74142e8ad7",
+            "c4511a9ae3ccabc3",
+            "405a3c69de7820dc"
+          ],
+          "notes": "Answer aligns with many trends in the summary (architectural standardization, connectors, audio/video expansion, integrated I/O) and is grounded in the chunks. It cannot satisfy the requirement to discuss POPE/MME or explicit evaluation challenges because such benchmarks are absent from the provided evidence. Similarly, while Table I summarizes many image MLLMs, no explicit 'Taxonomy' or 'Timeline' figure is visible, so evolution is inferred from tables and descriptions rather than the required figure."
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,544 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "2de6cebfacc05110",
+  "created_at": "2025-12-31T07:19:40Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 19459,
+        "output_hash": "49bc98593a5c3de513ff81280e35399825b27d80",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "3a6f7a38b08daebc",
+                        "fc97e04714d6cc35"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "3a6f7a38b08daebc",
+                          "quote": "We set T = 1000 for all experiments so that the number of neural network evaluations needed during sampling matches previous work"
+                        },
+                        {
+                          "chunk_id": "fc97e04714d6cc35",
+                          "quote": "Reverse process time (T - t + 1) 1000 ... 500 ... 100"
+                        }
+                      ],
+                      "rationale": "Evidence shows sampling needs 1000 network evaluations and that quality degrades when steps are reduced, implying high computational cost, but there is no wall‑clock timing or direct comparison to GAN latency in milliseconds or seconds."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "partial",
+                      "evidence": [
+                        "976fab954096b5d8",
+                        "3b090b26e9ff9306",
+                        "0d28d88d3ddef457",
+                        "78f2a2312b837bff"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "976fab954096b5d8",
+                          "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+                        },
+                        {
+                          "chunk_id": "3b090b26e9ff9306",
+                          "quote": "an objective resembling denoising score matching is equivalent to using variational inference"
+                        },
+                        {
+                          "chunk_id": "78f2a2312b837bff",
+                          "quote": "this reweighting leads to better sample quality"
+                        }
+                      ],
+                      "rationale": "Training is likelihood‑based via a variational bound and related to denoising score matching, which avoids adversarial games, suggesting more stable training than GANs, but there is no explicit discussion of mode collapse or quantitative stability comparisons to GANs."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "covered",
+                      "evidence": [
+                        "0d28d88d3ddef457",
+                        "3ee85dfaabd16f7f",
+                        "3a6f7a38b08daebc",
+                        "40de030796b3d32a"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "0d28d88d3ddef457",
+                          "quote": "One must choose the variances β_t of the forward process and the model architecture and Gaussian distribution parameterization of the reverse process"
+                        },
+                        {
+                          "chunk_id": "3ee85dfaabd16f7f",
+                          "quote": "We chose the β_t schedule from a set of constant, linear, and quadratic schedules"
+                        },
+                        {
+                          "chunk_id": "3ee85dfaabd16f7f",
+                          "quote": "We set T = 1000 without a sweep, and we chose a linear schedule from β_1 = 10^{-4} to β_T = 0.02"
+                        },
+                        {
+                          "chunk_id": "3ee85dfaabd16f7f",
+                          "quote": "We set the dropout rate on CIFAR10 to 0.1 by sweeping over the values {0.1, 0.2, 0.3, 0.4}"
+                        },
+                        {
+                          "chunk_id": "40de030796b3d32a",
+                          "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets"
+                        }
+                      ],
+                      "rationale": "Evidence lists key hyperparameters (β_t schedule, T, dropout, data augmentation, optimizer, learning rate) and notes that most were tuned on CIFAR‑10 then transferred to other datasets, directly addressing which hyperparameters matter and their cross‑dataset adaptability."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "59664ace79fb3ce5",
+                        "ecf16a1e8e178a04",
+                        "69eb0b23d23a1a72",
+                        "e6b2a4a695b271b0",
+                        "fc97e04714d6cc35",
+                        "37020554653ce658"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "59664ace79fb3ce5",
+                          "quote": "With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature"
+                        },
+                        {
+                          "chunk_id": "ecf16a1e8e178a04",
+                          "quote": "Ours (L trainable) 9.46±0.11 IS, 3.17 FID"
+                        },
+                        {
+                          "chunk_id": "69eb0b23d23a1a72",
+                          "quote": "4.1 Sample quality"
+                        },
+                        {
+                          "chunk_id": "e6b2a4a695b271b0",
+                          "quote": "We have presented high quality image samples using diffusion models"
+                        },
+                        {
+                          "chunk_id": "fc97e04714d6cc35",
+                          "quote": "At 1000 steps, RMSE [0, 255] is 0.95136"
+                        }
+                      ],
+                      "rationale": "FID/IS metrics and author claims indicate high sample quality comparable to strong GANs, and low RMSE at full steps suggests sharp reconstructions, but there is no direct textual assessment of visual sharpness or explicit discussion of a sharpness‑versus‑stability trade‑off."
+                    }
+                  ],
+                  "missing_requirements": [],
+                  "risks": [
+                    "Sampling cost is characterized only in terms of number of diffusion steps, not actual latency; impact on production throughput versus GANs remains uncertain.",
+                    "Training stability is inferred from objective type rather than empirically compared to GAN issues like mode collapse.",
+                    "Image sharpness is supported indirectly via FID/IS and RMSE, without qualitative descriptions or visual analysis in the text chunks.",
+                    "Decision about replacing a GAN stack requires operational metrics (wall‑clock speed, hardware assumptions) that are not provided."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Hyperparameter requirements are well supported, and sample quality is quantitatively documented. However, sampling speed is only indirectly addressed via step counts, and training stability and image sharpness are not discussed in the specific comparative terms the requirements ask for (e.g., milliseconds vs seconds, explicit GAN instability comparison, or qualitative sharpness commentary).",
+              "missing_requirements": []
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks and the optional summaries reiterate similar points about sample quality, β schedules, and connections to score matching, while relatively few address speed or stability directly.",
+              "redundant_pairs": [
+                [
+                  "59664ace79fb3ce5",
+                  "ecf16a1e8e178a04"
+                ],
+                [
+                  "3a6f7a38b08daebc",
+                  "3ee85dfaabd16f7f"
+                ],
+                [
+                  "0d28d88d3ddef457",
+                  "3b090b26e9ff9306"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "A substantial budget was spent, and several high‑cost chunks focus on theoretical connections or references rather than directly answering the practical requirements about speed, stability, and sharpness. Nonetheless, some expensive chunks (e.g., tables with FID/IS, hyperparameter details) are high yield.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "ecf16a1e8e178a04",
+                  "cost": 486,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "3ee85dfaabd16f7f",
+                  "cost": 299,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "3a6f7a38b08daebc",
+                  "cost": 166,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "0d28d88d3ddef457",
+                  "cost": 134,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "fc97e04714d6cc35",
+                  "cost": 258,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key operational metrics such as wall‑clock sampling time and hardware assumptions are absent, limiting the ability to judge DDPM as a practical replacement for a GAN stack.",
+              "Comparative statements about training stability versus GANs are not explicitly supported by empirical evidence in the retrieved chunks.",
+              "Visual sharpness and qualitative trade‑offs are inferred from quantitative metrics rather than directly described, which may not satisfy stakeholders seeking perceptual assessments."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10473,
+        "output_hash": "35950a140e4c10ee81d9571194caf8e5a93ae380",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "ecf16a1e8e178a04",
+                "quote": "Ours (L trainable)       | **9.46±0.11**| **3.17**| ≤ 3.75 (3.72)|"
+              },
+              {
+                "chunk_id": "59664ace79fb3ce5",
+                "quote": "With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature"
+              },
+              {
+                "chunk_id": "3a6f7a38b08daebc",
+                "quote": "We set T = 1000 for all experiments so that the number of neural network evaluations needed during sampling matches previous work."
+              },
+              {
+                "chunk_id": "976fab954096b5d8",
+                "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+              },
+              {
+                "chunk_id": "78f2a2312b837bff",
+                "quote": "this reweighting leads to better sample quality."
+              },
+              {
+                "chunk_id": "fc97e04714d6cc35",
+                "quote": "1000                               | 1.77581         | 0.95136"
+              },
+              {
+                "chunk_id": "fc97e04714d6cc35",
+                "quote": "500                                | 0.00716         | 38.03236"
+              },
+              {
+                "chunk_id": "3ee85dfaabd16f7f",
+                "quote": "We set T = 1000 without a sweep, and we chose a linear schedule from β1 = 10−4 to βT = 0.02."
+              },
+              {
+                "chunk_id": "40de030796b3d32a",
+                "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings"
+              },
+              {
+                "chunk_id": "e6b2a4a695b271b0",
+                "quote": "diffusion models seem to have excellent inductive biases for image data"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+                "answer": "Conditionally. Quality is GAN-level, but sampling needs ~1000 network evaluations per image, so for latency/throughput–critical stacks it is not a good drop‑in replacement; for offline or non‑real‑time use it can be a strong alternative.",
+                "confidence": 0.8,
+                "evidence": [
+                  "ecf16a1e8e178a04",
+                  "59664ace79fb3ce5",
+                  "3a6f7a38b08daebc",
+                  "fc97e04714d6cc35",
+                  "976fab954096b5d8",
+                  "78f2a2312b837bff",
+                  "40de030796b3d32a"
+                ],
+                "notes": "Quality: Diffusion model with trainable L reaches IS 9.46 and FID 3.17 on CIFAR‑10, close to StyleGAN2‑ADA (IS 9.74, FID 3.26). Authors state their FID 3.17 gives better sample quality than most models, including many class‑conditional ones, indicating GAN‑competitive quality. Sampling: Experiments fix T=1000, and sampling requires 1000 neural net evaluations, far more than a single GAN forward pass. Rate–distortion table shows quality degrades sharply when steps are reduced (RMSE ~0.95 at 1000 steps vs ~38 at 500), so naive step reduction to speed up sampling significantly hurts quality. Training: Objective is a variational bound on NLL, not adversarial, so it avoids GAN‑style instability; a reweighted objective improves sample quality. Hyperparameters: β schedule and T are fixed globally; most hyperparameter search was done on CIFAR‑10 then transferred to other datasets, suggesting some robustness but also that tuning may be needed per domain. Overall, diffusion is not a straightforward replacement where low latency or high throughput is critical, but is attractive where offline, high‑quality generation is acceptable."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "3a6f7a38b08daebc",
+                  "fc97e04714d6cc35"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "3a6f7a38b08daebc",
+                    "quote": "We set T = 1000 for all experiments so that the number of neural network evaluations needed during sampling matches previous work"
+                  },
+                  {
+                    "chunk_id": "fc97e04714d6cc35",
+                    "quote": "Reverse process time (T - t + 1) 1000 ... 500 ... 100"
+                  }
+                ],
+                "rationale": "Evidence shows sampling needs 1000 network evaluations and that quality degrades when steps are reduced, implying high computational cost, but there is no wall‑clock timing or direct comparison to GAN latency in milliseconds or seconds."
+              },
+              {
+                "id": "R2",
+                "status": "partial",
+                "evidence": [
+                  "976fab954096b5d8",
+                  "3b090b26e9ff9306",
+                  "0d28d88d3ddef457",
+                  "78f2a2312b837bff"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "976fab954096b5d8",
+                    "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+                  },
+                  {
+                    "chunk_id": "3b090b26e9ff9306",
+                    "quote": "an objective resembling denoising score matching is equivalent to using variational inference"
+                  },
+                  {
+                    "chunk_id": "78f2a2312b837bff",
+                    "quote": "this reweighting leads to better sample quality"
+                  }
+                ],
+                "rationale": "Training is likelihood‑based via a variational bound and related to denoising score matching, which avoids adversarial games, suggesting more stable training than GANs, but there is no explicit discussion of mode collapse or quantitative stability comparisons to GANs."
+              },
+              {
+                "id": "R3",
+                "status": "covered",
+                "evidence": [
+                  "0d28d88d3ddef457",
+                  "3ee85dfaabd16f7f",
+                  "3a6f7a38b08daebc",
+                  "40de030796b3d32a"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "0d28d88d3ddef457",
+                    "quote": "One must choose the variances β_t of the forward process and the model architecture and Gaussian distribution parameterization of the reverse process"
+                  },
+                  {
+                    "chunk_id": "3ee85dfaabd16f7f",
+                    "quote": "We chose the β_t schedule from a set of constant, linear, and quadratic schedules"
+                  },
+                  {
+                    "chunk_id": "3ee85dfaabd16f7f",
+                    "quote": "We set T = 1000 without a sweep, and we chose a linear schedule from β_1 = 10^{-4} to β_T = 0.02"
+                  },
+                  {
+                    "chunk_id": "3ee85dfaabd16f7f",
+                    "quote": "We set the dropout rate on CIFAR10 to 0.1 by sweeping over the values {0.1, 0.2, 0.3, 0.4}"
+                  },
+                  {
+                    "chunk_id": "40de030796b3d32a",
+                    "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets"
+                  }
+                ],
+                "rationale": "Evidence lists key hyperparameters (β_t schedule, T, dropout, data augmentation, optimizer, learning rate) and notes that most were tuned on CIFAR‑10 then transferred to other datasets, directly addressing which hyperparameters matter and their cross‑dataset adaptability."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "59664ace79fb3ce5",
+                  "ecf16a1e8e178a04",
+                  "69eb0b23d23a1a72",
+                  "e6b2a4a695b271b0",
+                  "fc97e04714d6cc35",
+                  "37020554653ce658"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "59664ace79fb3ce5",
+                    "quote": "With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature"
+                  },
+                  {
+                    "chunk_id": "ecf16a1e8e178a04",
+                    "quote": "Ours (L trainable) 9.46±0.11 IS, 3.17 FID"
+                  },
+                  {
+                    "chunk_id": "69eb0b23d23a1a72",
+                    "quote": "4.1 Sample quality"
+                  },
+                  {
+                    "chunk_id": "e6b2a4a695b271b0",
+                    "quote": "We have presented high quality image samples using diffusion models"
+                  },
+                  {
+                    "chunk_id": "fc97e04714d6cc35",
+                    "quote": "At 1000 steps, RMSE [0, 255] is 0.95136"
+                  }
+                ],
+                "rationale": "FID/IS metrics and author claims indicate high sample quality comparable to strong GANs, and low RMSE at full steps suggests sharp reconstructions, but there is no direct textual assessment of visual sharpness or explicit discussion of a sharpness‑versus‑stability trade‑off."
+              }
+            ],
+            "missing_requirements": [],
+            "risks": [
+              "Sampling cost is characterized only in terms of number of diffusion steps, not actual latency; impact on production throughput versus GANs remains uncertain.",
+              "Training stability is inferred from objective type rather than empirically compared to GAN issues like mode collapse.",
+              "Image sharpness is supported indirectly via FID/IS and RMSE, without qualitative descriptions or visual analysis in the text chunks.",
+              "Decision about replacing a GAN stack requires operational metrics (wall‑clock speed, hardware assumptions) that are not provided."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Hyperparameter requirements are well supported, and sample quality is quantitatively documented. However, sampling speed is only indirectly addressed via step counts, and training stability and image sharpness are not discussed in the specific comparative terms the requirements ask for (e.g., milliseconds vs seconds, explicit GAN instability comparison, or qualitative sharpness commentary).",
+        "missing_requirements": []
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks and the optional summaries reiterate similar points about sample quality, β schedules, and connections to score matching, while relatively few address speed or stability directly.",
+        "redundant_pairs": [
+          [
+            "59664ace79fb3ce5",
+            "ecf16a1e8e178a04"
+          ],
+          [
+            "3a6f7a38b08daebc",
+            "3ee85dfaabd16f7f"
+          ],
+          [
+            "0d28d88d3ddef457",
+            "3b090b26e9ff9306"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "A substantial budget was spent, and several high‑cost chunks focus on theoretical connections or references rather than directly answering the practical requirements about speed, stability, and sharpness. Nonetheless, some expensive chunks (e.g., tables with FID/IS, hyperparameter details) are high yield.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "ecf16a1e8e178a04",
+            "cost": 486,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "3ee85dfaabd16f7f",
+            "cost": 299,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "3a6f7a38b08daebc",
+            "cost": 166,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "0d28d88d3ddef457",
+            "cost": 134,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "fc97e04714d6cc35",
+            "cost": 258,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key operational metrics such as wall‑clock sampling time and hardware assumptions are absent, limiting the ability to judge DDPM as a practical replacement for a GAN stack.",
+        "Comparative statements about training stability versus GANs are not explicitly supported by empirical evidence in the retrieved chunks.",
+        "Visual sharpness and qualitative trade‑offs are inferred from quantitative metrics rather than directly described, which may not satisfy stakeholders seeking perceptual assessments."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "ecf16a1e8e178a04",
+          "quote": "Ours (L trainable)       | **9.46±0.11**| **3.17**| ≤ 3.75 (3.72)|"
+        },
+        {
+          "chunk_id": "59664ace79fb3ce5",
+          "quote": "With our FID score of 3.17, our unconditional model achieves better sample quality than most models in the literature"
+        },
+        {
+          "chunk_id": "3a6f7a38b08daebc",
+          "quote": "We set T = 1000 for all experiments so that the number of neural network evaluations needed during sampling matches previous work."
+        },
+        {
+          "chunk_id": "976fab954096b5d8",
+          "quote": "Training is performed by optimizing the usual variational bound on negative log likelihood"
+        },
+        {
+          "chunk_id": "78f2a2312b837bff",
+          "quote": "this reweighting leads to better sample quality."
+        },
+        {
+          "chunk_id": "fc97e04714d6cc35",
+          "quote": "1000                               | 1.77581         | 0.95136"
+        },
+        {
+          "chunk_id": "fc97e04714d6cc35",
+          "quote": "500                                | 0.00716         | 38.03236"
+        },
+        {
+          "chunk_id": "3ee85dfaabd16f7f",
+          "quote": "We set T = 1000 without a sweep, and we chose a linear schedule from β1 = 10−4 to βT = 0.02."
+        },
+        {
+          "chunk_id": "40de030796b3d32a",
+          "quote": "we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings"
+        },
+        {
+          "chunk_id": "e6b2a4a695b271b0",
+          "quote": "diffusion models seem to have excellent inductive biases for image data"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Is DDPM sampling a good replacement for current GAN generation stack?",
+          "answer": "Conditionally. Quality is GAN-level, but sampling needs ~1000 network evaluations per image, so for latency/throughput–critical stacks it is not a good drop‑in replacement; for offline or non‑real‑time use it can be a strong alternative.",
+          "confidence": 0.8,
+          "evidence": [
+            "ecf16a1e8e178a04",
+            "59664ace79fb3ce5",
+            "3a6f7a38b08daebc",
+            "fc97e04714d6cc35",
+            "976fab954096b5d8",
+            "78f2a2312b837bff",
+            "40de030796b3d32a"
+          ],
+          "notes": "Quality: Diffusion model with trainable L reaches IS 9.46 and FID 3.17 on CIFAR‑10, close to StyleGAN2‑ADA (IS 9.74, FID 3.26). Authors state their FID 3.17 gives better sample quality than most models, including many class‑conditional ones, indicating GAN‑competitive quality. Sampling: Experiments fix T=1000, and sampling requires 1000 neural net evaluations, far more than a single GAN forward pass. Rate–distortion table shows quality degrades sharply when steps are reduced (RMSE ~0.95 at 1000 steps vs ~38 at 500), so naive step reduction to speed up sampling significantly hurts quality. Training: Objective is a variational bound on NLL, not adversarial, so it avoids GAN‑style instability; a reweighted objective improves sample quality. Hyperparameters: β schedule and T are fixed globally; most hyperparameter search was done on CIFAR‑10 then transferred to other datasets, suggesting some robustness but also that tuning may be needed per domain. Overall, diffusion is not a straightforward replacement where low latency or high throughput is critical, but is attractive where offline, high‑quality generation is acceptable."
+        }
+      ]
+    }
+  }
+}

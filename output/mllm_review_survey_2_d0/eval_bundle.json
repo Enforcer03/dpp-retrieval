@@ -1,0 +1,652 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "53c3f87536a0ffaa",
+  "created_at": "2025-12-31T07:26:49Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 19511,
+        "output_hash": "1c4a985e599ed5d0081a3b0f04a8dd3866c58507",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "3b6be3edd259c18e",
+                        "aef21bdb228b764b",
+                        "f127cb58f4672b85",
+                        "a215da00386486ad",
+                        "48a9938b61748612",
+                        "f56bf7871dcd05c0"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "3b6be3edd259c18e",
+                          "quote": "Common fusion methods include simple linear layers ... and attention mechanisms"
+                        },
+                        {
+                          "chunk_id": "3b6be3edd259c18e",
+                          "quote": "Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands."
+                        },
+                        {
+                          "chunk_id": "aef21bdb228b764b",
+                          "quote": "A linear projection layer bridges the gap between the visual encoder and the LLM."
+                        },
+                        {
+                          "chunk_id": "f127cb58f4672b85",
+                          "quote": "fed into the video Q-Former. The video Q-Former extracts features from all frames"
+                        },
+                        {
+                          "chunk_id": "48a9938b61748612",
+                          "quote": "connected via a window-level Query Transformer in order to transform the encoder outputs"
+                        }
+                      ],
+                      "rationale": "Evidence contrasts linear projections vs attention/Q-Former connectors and notes attention’s higher compute cost, but it does not explicitly declare a single lightweight speed ‘winner’. Hence only partial coverage of which connector is best for speed."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No chunk identifies specific models as ‘hallucination prone’ or discusses systematic hallucination behavior for particular backbones or connectors."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "partial",
+                      "evidence": [
+                        "f509249fe42f7c0b",
+                        "280dd300f503a0c9",
+                        "f56bf7871dcd05c0",
+                        "3b6be3edd259c18e",
+                        "343db583c5f4bc61"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "taking approximately 10 hours on 4 A100 GPUs."
+                        },
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU."
+                        },
+                        {
+                          "chunk_id": "3b6be3edd259c18e",
+                          "quote": "attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands."
+                        },
+                        {
+                          "chunk_id": "343db583c5f4bc61",
+                          "quote": "more lightweight model designs that significantly reduce computational overhead while maintaining performance"
+                        }
+                      ],
+                      "rationale": "There are GPU/time compute hints and notes that attention-based connectors increase computational demands, but no explicit VRAM numbers or a clear breakdown of which components dominate VRAM in audio, video, or image pipelines."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "OCR-free reading or similar capabilities are not mentioned; there is no evaluation of whether such features work well versus being marketing claims."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "partial",
+                      "evidence": [
+                        "280dd300f503a0c9",
+                        "aef21bdb228b764b",
+                        "02e36a964efea70a",
+                        "17785d23908c28ab",
+                        "9aa98ea88197007d",
+                        "f56bf7871dcd05c0",
+                        "750d54ec0980e159"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "aef21bdb228b764b",
+                          "quote": "it utilizes Vicuna as the language decoder, which is built upon LLaMA"
+                        },
+                        {
+                          "chunk_id": "280dd300f503a0c9",
+                          "quote": "NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B)."
+                        },
+                        {
+                          "chunk_id": "17785d23908c28ab",
+                          "quote": "Mini-Gemini excels as a lightweight model advantageous in resource-constrained or fast inference scenarios"
+                        },
+                        {
+                          "chunk_id": "9aa98ea88197007d",
+                          "quote": "smaller, more targeted models can deliver superior performance in specific domains."
+                        },
+                        {
+                          "chunk_id": "750d54ec0980e159",
+                          "quote": "LLM uses the Meta AI LLaMA model to sense multimodal inputs and generate multimodal outputs"
+                        }
+                      ],
+                      "rationale": "Several backbones (LLaMA/Vicuna, NeXT-GPT 7B/13B, Mini-Gemini) are discussed with pros like smaller size or lightweight inference, but the review does not clearly crown a single dominating backbone across modalities such as Qwen vs Llama vs Vicuna."
+                    },
+                    {
+                      "id": "R6",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "Licensing or commercial vs research-only usage of any model is not discussed in the retrieved chunks."
+                    },
+                    {
+                      "id": "R7",
+                      "status": "partial",
+                      "evidence": [
+                        "aef21bdb228b764b",
+                        "02e36a964efea70a",
+                        "48a9938b61748612",
+                        "f56bf7871dcd05c0"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "aef21bdb228b764b",
+                          "quote": "Both the language and vision models are open-sourced."
+                        },
+                        {
+                          "chunk_id": "48a9938b61748612",
+                          "quote": "instruction tuning by a Low-Rank Adaptive Approach (LoRA)"
+                        },
+                        {
+                          "chunk_id": "f56bf7871dcd05c0",
+                          "quote": "this model also applies LoRA ... to further update the LLM’s parameters."
+                        }
+                      ],
+                      "rationale": "MiniGPT-4 explicitly uses open-sourced language and vision models, and SALMONN and NeXT-GPT apply LoRA for adaptation. However, the survey does not systematically list which other models have open weights or clarify closed-weight status, so coverage is only partial."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R2",
+                    "R4",
+                    "R6"
+                  ],
+                  "risks": [
+                    "Lack of hallucination analysis (R2) may lead to choosing backbones that fabricate content without awareness.",
+                    "Absence of VRAM specifics (R3) risks underestimating hardware needs for deployment.",
+                    "No discussion of OCR-free reading reliability (R4) could cause overreliance on unproven features.",
+                    "Missing licensing details (R6) may result in selecting models unsuitable for commercial use.",
+                    "Incomplete view of open vs closed weights (R7) may hinder future fine-tuning and customization plans."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Connector tradeoffs, some backbone choices, and LoRA-based adaptation are reasonably covered, but hallucination behavior, licensing, OCR-free reading, and precise VRAM requirements are absent. The review supports qualitative architecture selection but not several critical operational and legal requirements.",
+              "missing_requirements": [
+                "R2",
+                "R4",
+                "R6"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks reiterate high-level benefits of MLLMs and general architecture patterns without adding requirement-specific details, while connector and backbone information is spread across several overlapping chunks.",
+              "redundant_pairs": [
+                [
+                  "bb6d3e47db084cec",
+                  "155c3af351b3bf48"
+                ],
+                [
+                  "df025fd336498968",
+                  "78956211adc2960c"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Some high-cost chunks provide strong architectural insight (e.g., Video-LLaMA, NeXT-GPT), but others with high cognitive cost mainly offer broad survey context rather than directly addressing the specific requirements.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "155c3af351b3bf48",
+                  "cost": 254,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "f56bf7871dcd05c0",
+                  "cost": 189,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "f127cb58f4672b85",
+                  "cost": 187,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "bb6d3e47db084cec",
+                  "cost": 182,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "8e134d3aefdd1d12",
+                  "cost": 171,
+                  "yield": "low"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key deployment constraints like VRAM usage and component-wise memory drivers are not quantified, risking misestimation of hardware needs.",
+              "No hallucination-proneness analysis may lead to unsafe backbone choices for critical applications.",
+              "Licensing information is absent, posing legal and commercial-use risks.",
+              "Marketing claims such as OCR-free reading cannot be validated from the retrieved evidence.",
+              "Redundant high-level survey chunks consumed budget without improving coverage of the specific requirements."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10699,
+        "output_hash": "c7858cc5c7cc786a1253516ac05950cc92b4867e",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "3b6be3edd259c18e",
+                "quote": "Common fusion methods include simple linear layers and attention mechanisms."
+              },
+              {
+                "chunk_id": "aef21bdb228b764b",
+                "quote": "A linear projection layer bridges the gap between the visual encoder and the LLM."
+              },
+              {
+                "chunk_id": "a215da00386486ad",
+                "quote": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former."
+              },
+              {
+                "chunk_id": "48a9938b61748612",
+                "quote": "The outputs of the two auditory encoders are connected via a window-level Query Transformer."
+              },
+              {
+                "chunk_id": "f56bf7871dcd05c0",
+                "quote": "Only the Transformer-based projection layers in the encoding and decoding stages are trainable."
+              },
+              {
+                "chunk_id": "12f84962dcc895b7",
+                "quote": "Early Fusion: Combines input data at the initial stage."
+              },
+              {
+                "chunk_id": "e966089ab3149cf5",
+                "quote": "Late Fusion: Integrates the final outputs from individual modal pathways at the decision stage."
+              },
+              {
+                "chunk_id": "f509249fe42f7c0b",
+                "quote": "This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs."
+              },
+              {
+                "chunk_id": "280dd300f503a0c9",
+                "quote": "NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B)."
+              },
+              {
+                "chunk_id": "9aa98ea88197007d",
+                "quote": "There is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.",
+                "answer": {
+                  "R1": "The text contrasts linear projections vs attention/Q-Former/Transformer connectors and notes linear layers are lighter weight, but it does not name a specific 'lightweight winner' for speed among visual connectors like Q-Former vs projection. So the winner is unknown.",
+                  "R2": "No models are explicitly described as 'hallucination prone' or making things up; this information is unknown.",
+                  "R3": "VRAM requirements are not given. Only training time/GPU count for MiniGPT-4 is reported, without memory figures or a breakdown of which components dominate VRAM in audio/video/image. Unknown.",
+                  "R4": "OCR-free reading is not mentioned; there is no evaluation of such a feature. Unknown.",
+                  "R5": "The survey discusses a tension between big vs small models and mentions several backbones (LLaMA/Vicuna, Mini-Gemini, LWM, NeXT-GPT) but does not identify a single dominating backbone across modalities like Qwen vs Llama vs Vicuna. No clear overall winner is named.",
+                  "R6": "Licensing or commercial vs research-only use is not discussed. Unknown.",
+                  "R7": "Several models use open weights and LoRA-style adaptation: MiniGPT-4 uses open-sourced vision and language models with a trainable linear projection; SALMONN and NeXT-GPT apply LoRA on top of mostly frozen LLMs. The text does not systematically list which are closed vs open, but it confirms that MiniGPT-4’s components are open-sourced and that LoRA-based adaptation is used in SALMONN and NeXT-GPT."
+                },
+                "confidence": 0.8,
+                "evidence": [
+                  "3b6be3edd259c18e",
+                  "aef21bdb228b764b",
+                  "a215da00386486ad",
+                  "f127cb58f4672b85",
+                  "48a9938b61748612",
+                  "f56bf7871dcd05c0",
+                  "f509249fe42f7c0b",
+                  "280dd300f503a0c9",
+                  "9aa98ea88197007d",
+                  "02e36a964efea70a",
+                  "750d54ec0980e159"
+                ],
+                "notes": "R1: Linear vs attention/Q-Former tradeoffs are described, but no explicit speed ranking among visual connectors. R2: No mention of hallucination behavior. R3: Only GPU counts and times for MiniGPT-4; no VRAM or component-wise memory analysis. R4: OCR-free reading absent. R5: Discussion of big vs small and several backbones, but no declared dominant model across modalities. R6: Licensing not covered. R7: MiniGPT-4 explicitly states both language and vision models are open-sourced and uses a linear projection; SALMONN and NeXT-GPT use LoRA for adaptation, implying open-weight-style fine-tuning, but the text does not comprehensively classify all models’ openness."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "3b6be3edd259c18e",
+                  "aef21bdb228b764b",
+                  "f127cb58f4672b85",
+                  "a215da00386486ad",
+                  "48a9938b61748612",
+                  "f56bf7871dcd05c0"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "3b6be3edd259c18e",
+                    "quote": "Common fusion methods include simple linear layers ... and attention mechanisms"
+                  },
+                  {
+                    "chunk_id": "3b6be3edd259c18e",
+                    "quote": "Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands."
+                  },
+                  {
+                    "chunk_id": "aef21bdb228b764b",
+                    "quote": "A linear projection layer bridges the gap between the visual encoder and the LLM."
+                  },
+                  {
+                    "chunk_id": "f127cb58f4672b85",
+                    "quote": "fed into the video Q-Former. The video Q-Former extracts features from all frames"
+                  },
+                  {
+                    "chunk_id": "48a9938b61748612",
+                    "quote": "connected via a window-level Query Transformer in order to transform the encoder outputs"
+                  }
+                ],
+                "rationale": "Evidence contrasts linear projections vs attention/Q-Former connectors and notes attention’s higher compute cost, but it does not explicitly declare a single lightweight speed ‘winner’. Hence only partial coverage of which connector is best for speed."
+              },
+              {
+                "id": "R2",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No chunk identifies specific models as ‘hallucination prone’ or discusses systematic hallucination behavior for particular backbones or connectors."
+              },
+              {
+                "id": "R3",
+                "status": "partial",
+                "evidence": [
+                  "f509249fe42f7c0b",
+                  "280dd300f503a0c9",
+                  "f56bf7871dcd05c0",
+                  "3b6be3edd259c18e",
+                  "343db583c5f4bc61"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "taking approximately 10 hours on 4 A100 GPUs."
+                  },
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "This fine-tuning is computationally efficient, taking only around 7 minutes with a single A100 GPU."
+                  },
+                  {
+                    "chunk_id": "3b6be3edd259c18e",
+                    "quote": "attention mechanisms can capture more complex inter-modal interactions, albeit at the cost of higher computational demands."
+                  },
+                  {
+                    "chunk_id": "343db583c5f4bc61",
+                    "quote": "more lightweight model designs that significantly reduce computational overhead while maintaining performance"
+                  }
+                ],
+                "rationale": "There are GPU/time compute hints and notes that attention-based connectors increase computational demands, but no explicit VRAM numbers or a clear breakdown of which components dominate VRAM in audio, video, or image pipelines."
+              },
+              {
+                "id": "R4",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "OCR-free reading or similar capabilities are not mentioned; there is no evaluation of whether such features work well versus being marketing claims."
+              },
+              {
+                "id": "R5",
+                "status": "partial",
+                "evidence": [
+                  "280dd300f503a0c9",
+                  "aef21bdb228b764b",
+                  "02e36a964efea70a",
+                  "17785d23908c28ab",
+                  "9aa98ea88197007d",
+                  "f56bf7871dcd05c0",
+                  "750d54ec0980e159"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "aef21bdb228b764b",
+                    "quote": "it utilizes Vicuna as the language decoder, which is built upon LLaMA"
+                  },
+                  {
+                    "chunk_id": "280dd300f503a0c9",
+                    "quote": "NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B)."
+                  },
+                  {
+                    "chunk_id": "17785d23908c28ab",
+                    "quote": "Mini-Gemini excels as a lightweight model advantageous in resource-constrained or fast inference scenarios"
+                  },
+                  {
+                    "chunk_id": "9aa98ea88197007d",
+                    "quote": "smaller, more targeted models can deliver superior performance in specific domains."
+                  },
+                  {
+                    "chunk_id": "750d54ec0980e159",
+                    "quote": "LLM uses the Meta AI LLaMA model to sense multimodal inputs and generate multimodal outputs"
+                  }
+                ],
+                "rationale": "Several backbones (LLaMA/Vicuna, NeXT-GPT 7B/13B, Mini-Gemini) are discussed with pros like smaller size or lightweight inference, but the review does not clearly crown a single dominating backbone across modalities such as Qwen vs Llama vs Vicuna."
+              },
+              {
+                "id": "R6",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "Licensing or commercial vs research-only usage of any model is not discussed in the retrieved chunks."
+              },
+              {
+                "id": "R7",
+                "status": "partial",
+                "evidence": [
+                  "aef21bdb228b764b",
+                  "02e36a964efea70a",
+                  "48a9938b61748612",
+                  "f56bf7871dcd05c0"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "aef21bdb228b764b",
+                    "quote": "Both the language and vision models are open-sourced."
+                  },
+                  {
+                    "chunk_id": "48a9938b61748612",
+                    "quote": "instruction tuning by a Low-Rank Adaptive Approach (LoRA)"
+                  },
+                  {
+                    "chunk_id": "f56bf7871dcd05c0",
+                    "quote": "this model also applies LoRA ... to further update the LLM’s parameters."
+                  }
+                ],
+                "rationale": "MiniGPT-4 explicitly uses open-sourced language and vision models, and SALMONN and NeXT-GPT apply LoRA for adaptation. However, the survey does not systematically list which other models have open weights or clarify closed-weight status, so coverage is only partial."
+              }
+            ],
+            "missing_requirements": [
+              "R2",
+              "R4",
+              "R6"
+            ],
+            "risks": [
+              "Lack of hallucination analysis (R2) may lead to choosing backbones that fabricate content without awareness.",
+              "Absence of VRAM specifics (R3) risks underestimating hardware needs for deployment.",
+              "No discussion of OCR-free reading reliability (R4) could cause overreliance on unproven features.",
+              "Missing licensing details (R6) may result in selecting models unsuitable for commercial use.",
+              "Incomplete view of open vs closed weights (R7) may hinder future fine-tuning and customization plans."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Connector tradeoffs, some backbone choices, and LoRA-based adaptation are reasonably covered, but hallucination behavior, licensing, OCR-free reading, and precise VRAM requirements are absent. The review supports qualitative architecture selection but not several critical operational and legal requirements.",
+        "missing_requirements": [
+          "R2",
+          "R4",
+          "R6"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks reiterate high-level benefits of MLLMs and general architecture patterns without adding requirement-specific details, while connector and backbone information is spread across several overlapping chunks.",
+        "redundant_pairs": [
+          [
+            "bb6d3e47db084cec",
+            "155c3af351b3bf48"
+          ],
+          [
+            "df025fd336498968",
+            "78956211adc2960c"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Some high-cost chunks provide strong architectural insight (e.g., Video-LLaMA, NeXT-GPT), but others with high cognitive cost mainly offer broad survey context rather than directly addressing the specific requirements.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "155c3af351b3bf48",
+            "cost": 254,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "f56bf7871dcd05c0",
+            "cost": 189,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "f127cb58f4672b85",
+            "cost": 187,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "bb6d3e47db084cec",
+            "cost": 182,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "8e134d3aefdd1d12",
+            "cost": 171,
+            "yield": "low"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key deployment constraints like VRAM usage and component-wise memory drivers are not quantified, risking misestimation of hardware needs.",
+        "No hallucination-proneness analysis may lead to unsafe backbone choices for critical applications.",
+        "Licensing information is absent, posing legal and commercial-use risks.",
+        "Marketing claims such as OCR-free reading cannot be validated from the retrieved evidence.",
+        "Redundant high-level survey chunks consumed budget without improving coverage of the specific requirements."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "3b6be3edd259c18e",
+          "quote": "Common fusion methods include simple linear layers and attention mechanisms."
+        },
+        {
+          "chunk_id": "aef21bdb228b764b",
+          "quote": "A linear projection layer bridges the gap between the visual encoder and the LLM."
+        },
+        {
+          "chunk_id": "a215da00386486ad",
+          "quote": "The modules involved in the training of Video-LLaMA include the Video Q-Former, Audio Q-Former."
+        },
+        {
+          "chunk_id": "48a9938b61748612",
+          "quote": "The outputs of the two auditory encoders are connected via a window-level Query Transformer."
+        },
+        {
+          "chunk_id": "f56bf7871dcd05c0",
+          "quote": "Only the Transformer-based projection layers in the encoding and decoding stages are trainable."
+        },
+        {
+          "chunk_id": "12f84962dcc895b7",
+          "quote": "Early Fusion: Combines input data at the initial stage."
+        },
+        {
+          "chunk_id": "e966089ab3149cf5",
+          "quote": "Late Fusion: Integrates the final outputs from individual modal pathways at the decision stage."
+        },
+        {
+          "chunk_id": "f509249fe42f7c0b",
+          "quote": "This stage spans 20,000 training steps with a batch size of 256, taking approximately 10 hours on 4 A100 GPUs."
+        },
+        {
+          "chunk_id": "280dd300f503a0c9",
+          "quote": "NeXT-GPT achieves superior video quality with smaller parameter sizes (7B/13B)."
+        },
+        {
+          "chunk_id": "9aa98ea88197007d",
+          "quote": "There is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone.",
+          "answer": {
+            "R1": "The text contrasts linear projections vs attention/Q-Former/Transformer connectors and notes linear layers are lighter weight, but it does not name a specific 'lightweight winner' for speed among visual connectors like Q-Former vs projection. So the winner is unknown.",
+            "R2": "No models are explicitly described as 'hallucination prone' or making things up; this information is unknown.",
+            "R3": "VRAM requirements are not given. Only training time/GPU count for MiniGPT-4 is reported, without memory figures or a breakdown of which components dominate VRAM in audio/video/image. Unknown.",
+            "R4": "OCR-free reading is not mentioned; there is no evaluation of such a feature. Unknown.",
+            "R5": "The survey discusses a tension between big vs small models and mentions several backbones (LLaMA/Vicuna, Mini-Gemini, LWM, NeXT-GPT) but does not identify a single dominating backbone across modalities like Qwen vs Llama vs Vicuna. No clear overall winner is named.",
+            "R6": "Licensing or commercial vs research-only use is not discussed. Unknown.",
+            "R7": "Several models use open weights and LoRA-style adaptation: MiniGPT-4 uses open-sourced vision and language models with a trainable linear projection; SALMONN and NeXT-GPT apply LoRA on top of mostly frozen LLMs. The text does not systematically list which are closed vs open, but it confirms that MiniGPT-4’s components are open-sourced and that LoRA-based adaptation is used in SALMONN and NeXT-GPT."
+          },
+          "confidence": 0.8,
+          "evidence": [
+            "3b6be3edd259c18e",
+            "aef21bdb228b764b",
+            "a215da00386486ad",
+            "f127cb58f4672b85",
+            "48a9938b61748612",
+            "f56bf7871dcd05c0",
+            "f509249fe42f7c0b",
+            "280dd300f503a0c9",
+            "9aa98ea88197007d",
+            "02e36a964efea70a",
+            "750d54ec0980e159"
+          ],
+          "notes": "R1: Linear vs attention/Q-Former tradeoffs are described, but no explicit speed ranking among visual connectors. R2: No mention of hallucination behavior. R3: Only GPU counts and times for MiniGPT-4; no VRAM or component-wise memory analysis. R4: OCR-free reading absent. R5: Discussion of big vs small and several backbones, but no declared dominant model across modalities. R6: Licensing not covered. R7: MiniGPT-4 explicitly states both language and vision models are open-sourced and uses a linear projection; SALMONN and NeXT-GPT use LoRA for adaptation, implying open-weight-style fine-tuning, but the text does not comprehensively classify all models’ openness."
+        }
+      ]
+    }
+  }
+}

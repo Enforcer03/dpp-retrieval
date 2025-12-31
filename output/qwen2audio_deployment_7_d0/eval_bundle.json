@@ -1,0 +1,508 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "d2344554ccf8a277",
+  "created_at": "2025-12-31T08:49:13Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10897,
+        "output_hash": "c47cb32758dcbbd0adb1f68df14e64314e00db3b",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "covered",
+                      "evidence": [
+                        "13365992b056843c"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "13365992b056843c",
+                          "quote": "Qwen2-Audio still incorporates the large language model Qwen-7B ... The total parameters of Qwen2-Audio is 8.2B parameters."
+                        }
+                      ],
+                      "rationale": "Evidence clearly states the model has 8.2B parameters, which is the right order of magnitude to reason about 24GB VRAM feasibility, but it does not explicitly mention GPU memory requirements or fit on 24GB cards."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No chunks discuss inference speed, streaming behavior, or end-to-end latency, so we cannot assess conversational lag."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "There is no mention of maximum audio duration, context window in seconds, or any hard cap like 30 seconds; long-file suitability is not addressed."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "72731f2bb643e959",
+                        "8e112c12da609d29",
+                        "22413225fdfb6984"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "72731f2bb643e959",
+                          "quote": "Gemini-1.5 ... cannot correctly return some test samples due to its SAFETY reasons during testing"
+                        },
+                        {
+                          "chunk_id": "8e112c12da609d29",
+                          "quote": "DPO has optimized the model’s performance in terms of factuality and adherence to desired behavior."
+                        },
+                        {
+                          "chunk_id": "22413225fdfb6984",
+                          "quote": "we improved Qwen2-Audio’s response quality through the DPO stage."
+                        }
+                      ],
+                      "rationale": "The report contrasts Gemini’s safety refusals with Qwen2-Audio’s benchmark coverage, implying fewer blocked samples, and mentions behavior alignment via DPO, but it never specifies what safety filters or refusal policies Qwen2-Audio itself applies or whether it refuses particular audio types; thus only indirect, incomplete evidence."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R2",
+                    "R3"
+                  ],
+                  "risks": [
+                    "GPU memory fit on 24GB cards is inferred only from parameter count, not empirically documented.",
+                    "Lack of latency data means real-time conversational suitability is unknown.",
+                    "No information on maximum audio length could hide hard limits that break long-file use cases.",
+                    "Safety and refusal behavior is not described; potential for unexpected refusals or insufficient filtering remains unclear."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Model size and general capability to unify audio tasks are documented, but latency, audio-length limits, and concrete safety/refusal behavior are not covered.",
+              "missing_requirements": [
+                "R2",
+                "R3"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks repeat high-level positioning and training-process descriptions without adding deployment-specific details; multiple references to modes and AIR-Bench results overlap.",
+              "redundant_pairs": [
+                [
+                  "8e112c12da609d29",
+                  "22413225fdfb6984"
+                ],
+                [
+                  "1694ba335df35a5e",
+                  "294a839d7019260e"
+                ],
+                [
+                  "79ac0204d0e04b95",
+                  "f00f06d5c87798bd"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "A modest budget was used, but some high-cost chunks are mostly bibliographic or high-level and do not address deployment feasibility (latency, limits, safety). Key deployment questions remain unanswered.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "8e112c12da609d29",
+                  "cost": 320,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "1694ba335df35a5e",
+                  "cost": 208,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "13365992b056843c",
+                  "cost": 179,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "294a839d7019260e",
+                  "cost": 120,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "72731f2bb643e959",
+                  "cost": 134,
+                  "yield": "medium"
+                }
+              ]
+            },
+            "risk_flags": [
+              "No explicit latency or streaming information; real-time deployment risk.",
+              "No documented maximum audio duration; long-audio use cases may fail.",
+              "Safety/refusal policies are unspecified; potential for unexpected content handling behavior.",
+              "Deployment feasibility on 24GB GPUs is inferred, not empirically validated."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10620,
+        "output_hash": "7b30f89c472c48d93af946e96ca986df2889c09e",
+        "output": {
+          "summary_eval": {
+            "verdict": "weak",
+            "grounding": "partially_grounded",
+            "issues": [
+              "The claim that 8.2B parameters implies GPU-class deployment requirements similar to other 7–8B LLMs is an inference not stated in the paper.",
+              "Latency characteristics are discussed in the risks/next-steps sections without any latency measurements or qualitative latency descriptions in the evidence.",
+              "Safety behavior and moderation controls are speculated about (e.g., need for extra moderation layers) without direct evidence from the text.",
+              "Statements about on-device or mobile deployment difficulty are extrapolations from parameter count, not grounded in explicit claims."
+            ],
+            "unsupported_claims": [
+              "The implication that 8.2B parameters directly translates to GPU-class deployment requirements similar to other ~7–8B LLMs is not explicitly supported.",
+              "Comments that on-device or low-latency mobile deployment may be challenging are not grounded in any latency or deployment discussion in the chunks.",
+              "Suggestions that additional moderation or post-processing layers are needed due to lack of enterprise controls are speculative; the text only mentions DPO improving adherence to desired behavior.",
+              "Any suggestion of specific latency behavior (e.g., conversational responsiveness) is not supported by the provided evidence."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "13365992b056843c",
+                "quote": "Qwen2-Audio still incorporates the large language model Qwen-7B... The total parameters of Qwen2-Audio is 8.2B parameters."
+              },
+              {
+                "chunk_id": "8e112c12da609d29",
+                "quote": "Qwen2-Audio, which is capable of accepting various audio signal inputs and performing audio analysis or direct textual responses"
+              },
+              {
+                "chunk_id": "1694ba335df35a5e",
+                "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+              },
+              {
+                "chunk_id": "ea930ac5b9eec0ec",
+                "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+              },
+              {
+                "chunk_id": "385ff7e8b850270a",
+                "quote": "it achieves a 1.6% and 3.6% WER on the librispeech test-clean and test-other datasets"
+              },
+              {
+                "chunk_id": "f00f06d5c87798bd",
+                "quote": "we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+              },
+              {
+                "chunk_id": "22413225fdfb6984",
+                "quote": "we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data"
+              },
+              {
+                "chunk_id": "8e112c12da609d29",
+                "quote": "Additionally, DPO has optimized the model’s performance in terms of factuality and adherence to desired behavior."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+                "answer": "partially_answered",
+                "confidence": 0.6,
+                "evidence": [
+                  "13365992b056843c",
+                  "8e112c12da609d29",
+                  "1694ba335df35a5e",
+                  "294a839d7019260e",
+                  "385ff7e8b850270a",
+                  "f00f06d5c87798bd",
+                  "22413225fdfb6984"
+                ],
+                "notes": "The summary correctly notes that Qwen2-Audio is a unified model for audio analysis and voice chat, and that it covers ASR, S2TT, SER, VSC, and dialogue, which is relevant to consolidating an audio stack. However, it does not directly address deployment feasibility aspects like latency, VRAM fit, or safety behavior; those are mostly speculative. Thus, it only partially answers whether the stack can be consolidated in practice."
+              },
+              {
+                "decision": "R1: Will this model fit on our standard inference GPUs (e.g., 24GB VRAM), or is it too big (approx 8B params)?",
+                "answer": "unknown",
+                "confidence": 0.4,
+                "evidence": [
+                  "13365992b056843c"
+                ],
+                "notes": "Evidence states the model has 8.2B parameters and uses Qwen-7B plus a Whisper-large-v3–initialized encoder, but there is no discussion of VRAM requirements or specific GPU deployment footprints. Fit on 24GB GPUs cannot be concluded from the text alone."
+              },
+              {
+                "decision": "R2: Is the latency low enough for a conversation, or is there a noticeable lag before it starts responding?",
+                "answer": "unknown",
+                "confidence": 0.2,
+                "evidence": [],
+                "notes": "No chunks mention inference speed, streaming behavior, or latency metrics. Conversational responsiveness cannot be assessed from the provided evidence."
+              },
+              {
+                "decision": "R3: Is there a hard limit on audio length (like 30 seconds) that would break our use case for long files?",
+                "answer": "unknown",
+                "confidence": 0.2,
+                "evidence": [],
+                "notes": "The text describes preprocessing (16kHz, mel-spectrogram, pooling) and capabilities on various tasks but does not specify any maximum audio duration or context window limits for audio inputs."
+              },
+              {
+                "decision": "R4: Does it refuse to process certain audio types (safety refusals) that might be false positives for us?",
+                "answer": "unknown",
+                "confidence": 0.2,
+                "evidence": [
+                  "8e112c12da609d29",
+                  "22413225fdfb6984"
+                ],
+                "notes": "The report mentions DPO improving adherence to desired behavior and compares to Gemini’s safety-related test sample issues, but provides no description of Qwen2-Audio’s own safety filters or refusal patterns for specific audio types."
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "covered",
+                "evidence": [
+                  "13365992b056843c"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "13365992b056843c",
+                    "quote": "Qwen2-Audio still incorporates the large language model Qwen-7B ... The total parameters of Qwen2-Audio is 8.2B parameters."
+                  }
+                ],
+                "rationale": "Evidence clearly states the model has 8.2B parameters, which is the right order of magnitude to reason about 24GB VRAM feasibility, but it does not explicitly mention GPU memory requirements or fit on 24GB cards."
+              },
+              {
+                "id": "R2",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No chunks discuss inference speed, streaming behavior, or end-to-end latency, so we cannot assess conversational lag."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "There is no mention of maximum audio duration, context window in seconds, or any hard cap like 30 seconds; long-file suitability is not addressed."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "72731f2bb643e959",
+                  "8e112c12da609d29",
+                  "22413225fdfb6984"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "72731f2bb643e959",
+                    "quote": "Gemini-1.5 ... cannot correctly return some test samples due to its SAFETY reasons during testing"
+                  },
+                  {
+                    "chunk_id": "8e112c12da609d29",
+                    "quote": "DPO has optimized the model’s performance in terms of factuality and adherence to desired behavior."
+                  },
+                  {
+                    "chunk_id": "22413225fdfb6984",
+                    "quote": "we improved Qwen2-Audio’s response quality through the DPO stage."
+                  }
+                ],
+                "rationale": "The report contrasts Gemini’s safety refusals with Qwen2-Audio’s benchmark coverage, implying fewer blocked samples, and mentions behavior alignment via DPO, but it never specifies what safety filters or refusal policies Qwen2-Audio itself applies or whether it refuses particular audio types; thus only indirect, incomplete evidence."
+              }
+            ],
+            "missing_requirements": [
+              "R2",
+              "R3"
+            ],
+            "risks": [
+              "GPU memory fit on 24GB cards is inferred only from parameter count, not empirically documented.",
+              "Lack of latency data means real-time conversational suitability is unknown.",
+              "No information on maximum audio length could hide hard limits that break long-file use cases.",
+              "Safety and refusal behavior is not described; potential for unexpected refusals or insufficient filtering remains unclear."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Model size and general capability to unify audio tasks are documented, but latency, audio-length limits, and concrete safety/refusal behavior are not covered.",
+        "missing_requirements": [
+          "R2",
+          "R3"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks repeat high-level positioning and training-process descriptions without adding deployment-specific details; multiple references to modes and AIR-Bench results overlap.",
+        "redundant_pairs": [
+          [
+            "8e112c12da609d29",
+            "22413225fdfb6984"
+          ],
+          [
+            "1694ba335df35a5e",
+            "294a839d7019260e"
+          ],
+          [
+            "79ac0204d0e04b95",
+            "f00f06d5c87798bd"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "A modest budget was used, but some high-cost chunks are mostly bibliographic or high-level and do not address deployment feasibility (latency, limits, safety). Key deployment questions remain unanswered.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "8e112c12da609d29",
+            "cost": 320,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "1694ba335df35a5e",
+            "cost": 208,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "13365992b056843c",
+            "cost": 179,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "294a839d7019260e",
+            "cost": 120,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "72731f2bb643e959",
+            "cost": 134,
+            "yield": "medium"
+          }
+        ]
+      },
+      "risk_flags": [
+        "No explicit latency or streaming information; real-time deployment risk.",
+        "No documented maximum audio duration; long-audio use cases may fail.",
+        "Safety/refusal policies are unspecified; potential for unexpected content handling behavior.",
+        "Deployment feasibility on 24GB GPUs is inferred, not empirically validated."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "weak",
+      "grounding": "partially_grounded",
+      "issues": [
+        "The claim that 8.2B parameters implies GPU-class deployment requirements similar to other 7–8B LLMs is an inference not stated in the paper.",
+        "Latency characteristics are discussed in the risks/next-steps sections without any latency measurements or qualitative latency descriptions in the evidence.",
+        "Safety behavior and moderation controls are speculated about (e.g., need for extra moderation layers) without direct evidence from the text.",
+        "Statements about on-device or mobile deployment difficulty are extrapolations from parameter count, not grounded in explicit claims."
+      ],
+      "unsupported_claims": [
+        "The implication that 8.2B parameters directly translates to GPU-class deployment requirements similar to other ~7–8B LLMs is not explicitly supported.",
+        "Comments that on-device or low-latency mobile deployment may be challenging are not grounded in any latency or deployment discussion in the chunks.",
+        "Suggestions that additional moderation or post-processing layers are needed due to lack of enterprise controls are speculative; the text only mentions DPO improving adherence to desired behavior.",
+        "Any suggestion of specific latency behavior (e.g., conversational responsiveness) is not supported by the provided evidence."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "13365992b056843c",
+          "quote": "Qwen2-Audio still incorporates the large language model Qwen-7B... The total parameters of Qwen2-Audio is 8.2B parameters."
+        },
+        {
+          "chunk_id": "8e112c12da609d29",
+          "quote": "Qwen2-Audio, which is capable of accepting various audio signal inputs and performing audio analysis or direct textual responses"
+        },
+        {
+          "chunk_id": "1694ba335df35a5e",
+          "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+        },
+        {
+          "chunk_id": "ea930ac5b9eec0ec",
+          "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+        },
+        {
+          "chunk_id": "385ff7e8b850270a",
+          "quote": "it achieves a 1.6% and 3.6% WER on the librispeech test-clean and test-other datasets"
+        },
+        {
+          "chunk_id": "f00f06d5c87798bd",
+          "quote": "we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+        },
+        {
+          "chunk_id": "22413225fdfb6984",
+          "quote": "we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data"
+        },
+        {
+          "chunk_id": "8e112c12da609d29",
+          "quote": "Additionally, DPO has optimized the model’s performance in terms of factuality and adherence to desired behavior."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Deployment Feasibility: Can we consolidate our audio stack into Qwen2-Audio?",
+          "answer": "partially_answered",
+          "confidence": 0.6,
+          "evidence": [
+            "13365992b056843c",
+            "8e112c12da609d29",
+            "1694ba335df35a5e",
+            "294a839d7019260e",
+            "385ff7e8b850270a",
+            "f00f06d5c87798bd",
+            "22413225fdfb6984"
+          ],
+          "notes": "The summary correctly notes that Qwen2-Audio is a unified model for audio analysis and voice chat, and that it covers ASR, S2TT, SER, VSC, and dialogue, which is relevant to consolidating an audio stack. However, it does not directly address deployment feasibility aspects like latency, VRAM fit, or safety behavior; those are mostly speculative. Thus, it only partially answers whether the stack can be consolidated in practice."
+        },
+        {
+          "decision": "R1: Will this model fit on our standard inference GPUs (e.g., 24GB VRAM), or is it too big (approx 8B params)?",
+          "answer": "unknown",
+          "confidence": 0.4,
+          "evidence": [
+            "13365992b056843c"
+          ],
+          "notes": "Evidence states the model has 8.2B parameters and uses Qwen-7B plus a Whisper-large-v3–initialized encoder, but there is no discussion of VRAM requirements or specific GPU deployment footprints. Fit on 24GB GPUs cannot be concluded from the text alone."
+        },
+        {
+          "decision": "R2: Is the latency low enough for a conversation, or is there a noticeable lag before it starts responding?",
+          "answer": "unknown",
+          "confidence": 0.2,
+          "evidence": [],
+          "notes": "No chunks mention inference speed, streaming behavior, or latency metrics. Conversational responsiveness cannot be assessed from the provided evidence."
+        },
+        {
+          "decision": "R3: Is there a hard limit on audio length (like 30 seconds) that would break our use case for long files?",
+          "answer": "unknown",
+          "confidence": 0.2,
+          "evidence": [],
+          "notes": "The text describes preprocessing (16kHz, mel-spectrogram, pooling) and capabilities on various tasks but does not specify any maximum audio duration or context window limits for audio inputs."
+        },
+        {
+          "decision": "R4: Does it refuse to process certain audio types (safety refusals) that might be false positives for us?",
+          "answer": "unknown",
+          "confidence": 0.2,
+          "evidence": [
+            "8e112c12da609d29",
+            "22413225fdfb6984"
+          ],
+          "notes": "The report mentions DPO improving adherence to desired behavior and compares to Gemini’s safety-related test sample issues, but provides no description of Qwen2-Audio’s own safety filters or refusal patterns for specific audio types."
+        }
+      ]
+    }
+  }
+}

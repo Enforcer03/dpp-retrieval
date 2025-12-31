@@ -1,0 +1,680 @@
+{
+  "run_id": "2de6cebfacc05110",
+  "pdf_path": "/Users/vedumrajkar/Desktop/dpp-retrieval/data/ddpm.pdf",
+  "query": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+  "retrieval_query": "Implementation Strategy: Defining the hardware budget and architectural specifics.\n\nANCHOR:\n- Hardware budget constraints, cost models, bill of materials (BoM), CAPEX/OPEX, TCO (total cost of ownership), and cost-performance trade-offs for the target system.\n- Architectural specifics: CPU vs GPU vs FPGA vs ASIC choices, heterogeneous architectures, memory hierarchy (DRAM, HBM, cache sizes), interconnects (PCIe, NVLink, InfiniBand), and storage architecture.\n- Performance metrics and sizing: throughput, latency, QPS, FLOPS, utilization, power envelope (TDP), energy efficiency (perf/W), and scalability limits under given budget.\n- Comparison to baseline architectures: reference platforms, prior-generation hardware, cloud instance types (e.g., AWS, GCP, Azure SKUs), and on-prem vs cloud trade-offs.\n- Workload characterization: target use cases, model sizes, batch sizes, concurrency levels, and how these drive hardware dimensioning and architectural choices.\n- Risk analysis: supply chain constraints, vendor lock-in, obsolescence, thermal and power delivery limits, reliability/MTBF, and integration risks with existing infrastructure.\n- Implementation roadmap and next steps: phased deployment, pilot/POC environment, migration strategy, monitoring/telemetry requirements, and validation/benchmark plans.\n- TABLES/FIGURES: seek tables or figures summarizing hardware configurations, cost breakdowns, performance vs cost curves, and architectu...[TRUNCATED]",
+  "task": {
+    "user_instruction": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+    "required_sections": [
+      "Overview",
+      "Key Findings",
+      "Evidence",
+      "Risks",
+      "Next Steps"
+    ]
+  },
+  "retrieval": {
+    "query": "Implementation Strategy: Defining the hardware budget and architectural specifics.",
+    "retrieval_query": "Implementation Strategy: Defining the hardware budget and architectural specifics.\n\nANCHOR:\n- Hardware budget constraints, cost models, bill of materials (BoM), CAPEX/OPEX, TCO (total cost of ownership), and cost-performance trade-offs for the target system.\n- Architectural specifics: CPU vs GPU vs FPGA vs ASIC choices, heterogeneous architectures, memory hierarchy (DRAM, HBM, cache sizes), interconnects (PCIe, NVLink, InfiniBand), and storage architecture.\n- Performance metrics and sizing: throughput, latency, QPS, FLOPS, utilization, power envelope (TDP), energy efficiency (perf/W), and scalability limits under given budget.\n- Comparison to baseline architectures: reference platforms, prior-generation hardware, cloud instance types (e.g., AWS, GCP, Azure SKUs), and on-prem vs cloud trade-offs.\n- Workload characterization: target use cases, model sizes, batch sizes, concurrency levels, and how these drive hardware dimensioning and architectural choices.\n- Risk analysis: supply chain constraints, vendor lock-in, obsolescence, thermal and power delivery limits, reliability/MTBF, and integration risks with existing infrastructure.\n- Implementation roadmap and next steps: phased deployment, pilot/POC environment, migration strategy, monitoring/telemetry requirements, and validation/benchmark plans.\n- TABLES/FIGURES: seek tables or figures summarizing hardware configurations, cost breakdowns, performance vs cost curves, and architectu...[TRUNCATED]",
+    "selected_chunk_ids": [
+      "b4938c4216f3e7b2",
+      "fbcbeb6c5933b340",
+      "69099f8fe8e25835",
+      "48be78902415c3f9",
+      "7f92f9b04e41475e",
+      "40de030796b3d32a",
+      "19d09dc632f92a8d",
+      "107be8a91170b1e2",
+      "05e9701f321c9f11",
+      "a6376ae2db7a6517",
+      "d8e3e3c4a427d0b4",
+      "c96907aaad04d1ab",
+      "37020554653ce658",
+      "8afc8576fc34a801",
+      "3802b34bb05ff5c2",
+      "7e77adee2523ee5a",
+      "44327bea475ea98c",
+      "24ad41d40ca1e26e",
+      "a1beb749db720659",
+      "e22df3321d2941a1",
+      "f930eaf67c8f4e97",
+      "5db6a16cf1c632d5",
+      "a90568670cdcc514"
+    ],
+    "budgets": {
+      "total": 25000,
+      "used": 1930
+    }
+  },
+  "chunks": [
+    {
+      "chunk_id": "b4938c4216f3e7b2",
+      "content": {
+        "text": "References",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 1,
+        "importance_score": 0.008771929824561403
+      }
+    },
+    {
+      "chunk_id": "fbcbeb6c5933b340",
+      "content": {
+        "text": "Extra information",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 2,
+        "importance_score": 0.005405405405405406
+      }
+    },
+    {
+      "chunk_id": "69099f8fe8e25835",
+      "content": {
+        "text": "Acknowledgments and Disclosure of Funding",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "heading",
+        "cognitive_cost": 6,
+        "importance_score": 0.007874015748031496
+      }
+    },
+    {
+      "chunk_id": "48be78902415c3f9",
+      "content": {
+        "text": "Figure 2: The directed graphical model considered in this work.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 13,
+        "importance_score": 0.012411347517730497
+      }
+    },
+    {
+      "chunk_id": "7f92f9b04e41475e",
+      "content": {
+        "text": "[35] John Lawson, George Tucker, Bo Dai, and Rajesh Ranganath. Energy-inspired models: Learning with sampler-induced distributions. In Advances in Neural Information Processing Systems, pages 8501–8513, 2019.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 49,
+        "importance_score": 0.005847953216374269
+      }
+    },
+    {
+      "chunk_id": "40de030796b3d32a",
+      "content": {
+        "text": "Apart from an initial choice of hyperparameters early on to make network size fit within memory constraints, we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets:",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 48,
+        "importance_score": 0.015384615384615385
+      }
+    },
+    {
+      "chunk_id": "19d09dc632f92a8d",
+      "content": {
+        "text": "• We set the batch size to 128 for CIFAR10 and 64 for larger images. We did not sweep over these values.\n• We used EMA on model parameters with a decay factor of 0.9999. We did not sweep over this value.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "list",
+        "cognitive_cost": 54,
+        "importance_score": 0.013157894736842105
+      }
+    },
+    {
+      "chunk_id": "107be8a91170b1e2",
+      "content": {
+        "text": "This work was supported by ONR PECASE and the NSF Graduate Research Fellowship under grant number DGE-1752814. Google’s TensorFlow Research Cloud (TFRC) provided Cloud TPUs.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 40,
+        "importance_score": 0.016129032258064516
+      }
+    },
+    {
+      "chunk_id": "05e9701f321c9f11",
+      "content": {
+        "text": "Figure 8: Interpolations of CelebA-HQ 256x256 images with 500 timesteps of diffusion.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 26,
+        "importance_score": 0.013059701492537313
+      }
+    },
+    {
+      "chunk_id": "a6376ae2db7a6517",
+      "content": {
+        "text": "Consequently, all KL divergences in Eq. (5) are comparisons between Gaussians, so they can be calculated in a Rao-Blackwellized fashion with closed form expressions instead of high variance Monte Carlo estimates.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 45,
+        "importance_score": 0.007142857142857143
+      }
+    },
+    {
+      "chunk_id": "d8e3e3c4a427d0b4",
+      "content": {
+        "text": "Additional samples Figure 11, 13, 16, 17, 18 and 19 show uncurated samples from the diffusion models trained on CelebA-HQ, CIFAR10 and LSUN datasets.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 45,
+        "importance_score": 0.004975124378109453
+      }
+    },
+    {
+      "chunk_id": "c96907aaad04d1ab",
+      "content": {
+        "text": "[70] Jianwen Xie, Song-Chun Zhu, and Ying Nian Wu. Learning energy-based spatial-temporal generative networks for dynamic patterns. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2019.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 45,
+        "importance_score": 0.007518796992481203
+      }
+    },
+    {
+      "chunk_id": "37020554653ce658",
+      "content": {
+        "text": "Figure 6: Unconditional CIFAR10 progressive generation $\\hat{\\mathbf{x}}_0$ over time, from left to right). Extended samples and sample quality metrics over time in the appendix (Figs. 10 and 14).",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "figure",
+        "cognitive_cost": 49,
+        "importance_score": 0.01682692307692308
+      }
+    },
+    {
+      "chunk_id": "8afc8576fc34a801",
+      "content": {
+        "text": "[50] Tim Salimans, Diederik Kingma, and Max Welling. Markov Chain Monte Carlo and variational inference: Bridging the gap. In International Conference on Machine Learning, pages 1218–1226, 2015.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 53,
+        "importance_score": 0.005319148936170213
+      }
+    },
+    {
+      "chunk_id": "3802b34bb05ff5c2",
+      "content": {
+        "text": "[68] Jianwen Xie, Song-Chun Zhu, and Ying Nian Wu. Synthesizing dynamic patterns by spatial-temporal generative convnet. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 7093–7101, 2017.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "reference",
+        "cognitive_cost": 58,
+        "importance_score": 0.004761904761904762
+      }
+    },
+    {
+      "chunk_id": "7e77adee2523ee5a",
+      "content": {
+        "text": "Our neural network architecture follows the backbone of PixelCNN++ [52], which is a U-Net [48] based on a Wide ResNet [72]. We replaced weight normalization [49] with group normalization [66] to make the implementation simpler. Our 32 × 32 models use four feature map resolutions (32 × 32 to 4 × 4), and our 256 × 256 models use six. All models have two convolutional residual blocks per resolution level and self-attention blocks at the 16 × 16 resolution between the convolutional blocks [6]. Diffusion time \\(t\\) is specified by adding the Transformer sinusoidal position embedding [60] into each residual block. Our CIFAR10 model has 35.7 million parameters, and our LSUN and CelebA-HQ models have 114 million parameters. We also trained a larger variant of the LSUN Bedroom model with approximately 256 million parameters by increasing filter count.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 195,
+        "importance_score": 0.014925373134328358
+      }
+    },
+    {
+      "chunk_id": "44327bea475ea98c",
+      "content": {
+        "text": "Equation 10 reveals that μ_θ must predict $\\frac{1}{\\sqrt{\\alpha_t}}\\left(\\mathbf{x}_t - \\frac{\\beta_t}{\\sqrt{1-\\bar{\\alpha}_t}}\\epsilon\\right)$ given $\\mathbf{x}_t$. Since $\\mathbf{x}_t$ is available as input to the model, we may choose the parameterization",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 77,
+        "importance_score": 0.010752688172043012
+      }
+    },
+    {
+      "chunk_id": "24ad41d40ca1e26e",
+      "content": {
+        "text": "Table 1 also shows the codelengths of our CIFAR10 models. The gap between train and test is at most 0.03 bits per dimension, which is comparable to the gaps reported with other likelihood-based models and indicates that our diffusion model is not overfitting (see Appendix D for nearest neighbor visualizations). Still, while our lossless codelengths are better than the large estimates reported for energy based models and score matching using annealed importance sampling [11], they are not competitive with other types of likelihood-based generative models [7].",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 115,
+        "importance_score": 0.008849557522123894
+      }
+    },
+    {
+      "chunk_id": "a1beb749db720659",
+      "content": {
+        "text": "We also run a progressive unconditional generation process given by progressive decompression from random bits. In other words, we predict the result of the reverse process, $\\hat{\\mathbf{x}}_0$, while sampling from the reverse process using Algorithm 2. Figures 6 and 10 show the resulting sample quality of $\\hat{\\mathbf{x}}_0$ over the course of the reverse process. Large scale image features appear first and details appear last. Figure 7 shows stochastic predictions $\\mathbf{x}_0 \\sim p_\\theta(\\mathbf{x}_0|\\mathbf{x}_t)$ with $\\mathbf{x}_t$ frozen for various $t$. When $t$ is small, all but fine details are preserved, and when $t$ is large, only large scale features are preserved. Perhaps these are hints of conceptual compression [18].",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 169,
+        "importance_score": 0.006134969325153374
+      }
+    },
+    {
+      "chunk_id": "e22df3321d2941a1",
+      "content": {
+        "text": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments. Our CIFAR model trains at 21 steps per second at batch size 128 (106 hours to train to completion at 800k steps), and sampling a batch of 256 images takes 17 seconds. Our CelebA-HQ/LSUN (256\\(^2\\)) models train at 2.2 steps per second at batch size 64, and sampling a batch of 128 images takes 300 seconds. We trained on CelebA-HQ for 0.5M steps, LSUN Bedroom for 2.4M steps, LSUN Cat for 1.8M steps, and LSUN Church for 1.2M steps. The larger LSUN Bedroom model was trained for 1.15M steps.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 173,
+        "importance_score": 0.01639344262295082
+      }
+    },
+    {
+      "chunk_id": "f930eaf67c8f4e97",
+      "content": {
+        "text": "We can therefore interpret the Gaussian diffusion model (2) as a kind of autoregressive model with a generalized bit ordering that cannot be expressed by reordering data coordinates. Prior work has shown that such reorderings introduce inductive biases that have an impact on sample quality [38], so we speculate that the Gaussian diffusion serves a similar purpose, perhaps to operate effect since Gaussian noise might be more natural to add to images compared to masking noise. Moreover, the Gaussian diffusion length is not restricted to equal the data dimension; for instance, we use \\(T = 1000\\), which is less than the dimension of the \\(32 \\times 32 \\times 3\\) or \\(256 \\times 256 \\times 3\\) images in our experiments. Gaussian diffusions can be made shorter for fast sampling or longer for model expressiveness.",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 170,
+        "importance_score": 0.007751937984496124
+      }
+    },
+    {
+      "chunk_id": "5db6a16cf1c632d5",
+      "content": {
+        "text": "Now we discuss our choices in $p_\\theta(\\mathbf{x}_{t-1}|\\mathbf{x}_t) = \\mathcal{N}(\\mathbf{x}_{t-1};\\boldsymbol{\\mu}_\\theta(\\mathbf{x}_t,t),\\Sigma_\\theta(\\mathbf{x}_t,t))$ for $1 \\le t \\le T$. First, we set $\\Sigma_\\theta(\\mathbf{x}_t,t) = \\sigma_t^2\\mathbf{I}$ to untrained time dependent constants. Experimentally, both $\\sigma_t^2 = \\beta_t$ and $\\sigma_t^2 = \\tilde{\\beta}_t = \\frac{1-\\bar{\\alpha}_{t-1}}{1-\\bar{\\alpha}_t}\\beta_t$ had similar results. The first choice is optimal for $\\mathbf{x}_0 \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})$, and the second is optimal for $\\mathbf{x}_0$ deterministically set to one point. These are the two extreme choices corresponding to upper and lower bounds on reverse process entropy for data with coordinatewise unit variance [53].",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "text",
+        "cognitive_cost": 242,
+        "importance_score": 0.005952380952380952
+      }
+    },
+    {
+      "chunk_id": "a90568670cdcc514",
+      "content": {
+        "text": "Table 2: Unconditional CIFAR10 reverse process parameterization and training objective ablation. Blank entries were unstable to train and generated poor samples with out-of-range scores.\n\n| Objective                         | IS        | FID   |\n|-----------------------------------|-----------|-------|\n| **$\\hat{\\mu}$ prediction (baseline)** |           |       |\n| $L_\\nu$ learned diagonal $\\Sigma$ | –         | –     |\n| $L_\\nu$ fixed isotropic $\\Sigma$  | 7.28±0.10 | 23.69 |\n| $\\|\\hat{\\mu} - \\hat{\\mu}_\\theta\\|^2$ | 8.06±0.09 | 13.22 |\n| **$\\epsilon$ prediction (ours)**  |           |       |\n| $L_\\nu$ learned diagonal $\\Sigma$ | –         | –     |\n| $L_\\nu$ fixed isotropic $\\Sigma$  | 7.67±0.10 | 13.51 |\n| $\\|\\hat{\\epsilon} - \\hat{\\epsilon}_\\theta\\|^2$ (L\\_simple) | **9.46±0.11** | **3.17** |",
+        "image_paths": []
+      },
+      "metadata": {
+        "unit_type": "table_text",
+        "cognitive_cost": 255,
+        "importance_score": 0.015086206896551723
+      }
+    }
+  ],
+  "selected": [
+    {
+      "chunk_id": "b4938c4216f3e7b2",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.008771929824561403,
+      "cost": 1,
+      "text": "References",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "fbcbeb6c5933b340",
+      "page": 13,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.005405405405405406,
+      "cost": 2,
+      "text": "Extra information",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "69099f8fe8e25835",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "heading",
+      "rel": 0.007874015748031496,
+      "cost": 6,
+      "text": "Acknowledgments and Disclosure of Funding",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "48be78902415c3f9",
+      "page": 2,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.012411347517730497,
+      "cost": 13,
+      "text": "Figure 2: The directed graphical model considered in this work.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7f92f9b04e41475e",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.005847953216374269,
+      "cost": 49,
+      "text": "[35] John Lawson, George Tucker, Bo Dai, and Rajesh Ranganath. Energy-inspired models: Learning with sampler-induced distributions. In Advances in Neural Information Processing Systems, pages 8501–8513, 2019.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "40de030796b3d32a",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.015384615384615385,
+      "cost": 48,
+      "text": "Apart from an initial choice of hyperparameters early on to make network size fit within memory constraints, we performed the majority of our hyperparameter search to optimize for CIFAR10 sample quality, then transferred the resulting settings over to the other datasets:",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "19d09dc632f92a8d",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "list",
+      "rel": 0.013157894736842105,
+      "cost": 54,
+      "text": "• We set the batch size to 128 for CIFAR10 and 64 for larger images. We did not sweep over these values.\n• We used EMA on model parameters with a decay factor of 0.9999. We did not sweep over this value.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "107be8a91170b1e2",
+      "page": 9,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.016129032258064516,
+      "cost": 40,
+      "text": "This work was supported by ONR PECASE and the NSF Graduate Research Fellowship under grant number DGE-1752814. Google’s TensorFlow Research Cloud (TFRC) provided Cloud TPUs.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "05e9701f321c9f11",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.013059701492537313,
+      "cost": 26,
+      "text": "Figure 8: Interpolations of CelebA-HQ 256x256 images with 500 timesteps of diffusion.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a6376ae2db7a6517",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007142857142857143,
+      "cost": 45,
+      "text": "Consequently, all KL divergences in Eq. (5) are comparisons between Gaussians, so they can be calculated in a Rao-Blackwellized fashion with closed form expressions instead of high variance Monte Carlo estimates.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "d8e3e3c4a427d0b4",
+      "page": 15,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.004975124378109453,
+      "cost": 45,
+      "text": "Additional samples Figure 11, 13, 16, 17, 18 and 19 show uncurated samples from the diffusion models trained on CelebA-HQ, CIFAR10 and LSUN datasets.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "c96907aaad04d1ab",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.007518796992481203,
+      "cost": 45,
+      "text": "[70] Jianwen Xie, Song-Chun Zhu, and Ying Nian Wu. Learning energy-based spatial-temporal generative networks for dynamic patterns. IEEE Transactions on Pattern Analysis and Machine Intelligence, 2019.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "37020554653ce658",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "figure",
+      "rel": 0.01682692307692308,
+      "cost": 49,
+      "text": "Figure 6: Unconditional CIFAR10 progressive generation $\\hat{\\mathbf{x}}_0$ over time, from left to right). Extended samples and sample quality metrics over time in the appendix (Figs. 10 and 14).",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "8afc8576fc34a801",
+      "page": 11,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.005319148936170213,
+      "cost": 53,
+      "text": "[50] Tim Salimans, Diederik Kingma, and Max Welling. Markov Chain Monte Carlo and variational inference: Bridging the gap. In International Conference on Machine Learning, pages 1218–1226, 2015.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "3802b34bb05ff5c2",
+      "page": 12,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "reference",
+      "rel": 0.004761904761904762,
+      "cost": 58,
+      "text": "[68] Jianwen Xie, Song-Chun Zhu, and Ying Nian Wu. Synthesizing dynamic patterns by spatial-temporal generative convnet. In Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition, pages 7093–7101, 2017.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "7e77adee2523ee5a",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.014925373134328358,
+      "cost": 195,
+      "text": "Our neural network architecture follows the backbone of PixelCNN++ [52], which is a U-Net [48] based on a Wide ResNet [72]. We replaced weight normalization [49] with group normalization [66] to make the implementation simpler. Our 32 × 32 models use four feature map resolutions (32 × 32 to 4 × 4), and our 256 × 256 models use six. All models have two convolutional residual blocks per resolution level and self-attention blocks at the 16 × 16 resolution between the convolutional blocks [6]. Diffusion time \\(t\\) is specified by adding the Transformer sinusoidal position embedding [60] into each residual block. Our CIFAR10 model has 35.7 million parameters, and our LSUN and CelebA-HQ models have 114 million parameters. We also trained a larger variant of the LSUN Bedroom model with approximately 256 million parameters by increasing filter count.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "44327bea475ea98c",
+      "page": 4,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.010752688172043012,
+      "cost": 77,
+      "text": "Equation 10 reveals that μ_θ must predict $\\frac{1}{\\sqrt{\\alpha_t}}\\left(\\mathbf{x}_t - \\frac{\\beta_t}{\\sqrt{1-\\bar{\\alpha}_t}}\\epsilon\\right)$ given $\\mathbf{x}_t$. Since $\\mathbf{x}_t$ is available as input to the model, we may choose the parameterization",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "24ad41d40ca1e26e",
+      "page": 6,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.008849557522123894,
+      "cost": 115,
+      "text": "Table 1 also shows the codelengths of our CIFAR10 models. The gap between train and test is at most 0.03 bits per dimension, which is comparable to the gaps reported with other likelihood-based models and indicates that our diffusion model is not overfitting (see Appendix D for nearest neighbor visualizations). Still, while our lossless codelengths are better than the large estimates reported for energy based models and score matching using annealed importance sampling [11], they are not competitive with other types of likelihood-based generative models [7].",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a1beb749db720659",
+      "page": 7,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.006134969325153374,
+      "cost": 169,
+      "text": "We also run a progressive unconditional generation process given by progressive decompression from random bits. In other words, we predict the result of the reverse process, $\\hat{\\mathbf{x}}_0$, while sampling from the reverse process using Algorithm 2. Figures 6 and 10 show the resulting sample quality of $\\hat{\\mathbf{x}}_0$ over the course of the reverse process. Large scale image features appear first and details appear last. Figure 7 shows stochastic predictions $\\mathbf{x}_0 \\sim p_\\theta(\\mathbf{x}_0|\\mathbf{x}_t)$ with $\\mathbf{x}_t$ frozen for various $t$. When $t$ is small, all but fine details are preserved, and when $t$ is large, only large scale features are preserved. Perhaps these are hints of conceptual compression [18].",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "e22df3321d2941a1",
+      "page": 14,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.01639344262295082,
+      "cost": 173,
+      "text": "We used TPU v3-8 (similar to 8 V100 GPUs) for all experiments. Our CIFAR model trains at 21 steps per second at batch size 128 (106 hours to train to completion at 800k steps), and sampling a batch of 256 images takes 17 seconds. Our CelebA-HQ/LSUN (256\\(^2\\)) models train at 2.2 steps per second at batch size 64, and sampling a batch of 128 images takes 300 seconds. We trained on CelebA-HQ for 0.5M steps, LSUN Bedroom for 2.4M steps, LSUN Cat for 1.8M steps, and LSUN Church for 1.2M steps. The larger LSUN Bedroom model was trained for 1.15M steps.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "f930eaf67c8f4e97",
+      "page": 8,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.007751937984496124,
+      "cost": 170,
+      "text": "We can therefore interpret the Gaussian diffusion model (2) as a kind of autoregressive model with a generalized bit ordering that cannot be expressed by reordering data coordinates. Prior work has shown that such reorderings introduce inductive biases that have an impact on sample quality [38], so we speculate that the Gaussian diffusion serves a similar purpose, perhaps to operate effect since Gaussian noise might be more natural to add to images compared to masking noise. Moreover, the Gaussian diffusion length is not restricted to equal the data dimension; for instance, we use \\(T = 1000\\), which is less than the dimension of the \\(32 \\times 32 \\times 3\\) or \\(256 \\times 256 \\times 3\\) images in our experiments. Gaussian diffusions can be made shorter for fast sampling or longer for model expressiveness.",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "5db6a16cf1c632d5",
+      "page": 3,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "text",
+      "rel": 0.005952380952380952,
+      "cost": 242,
+      "text": "Now we discuss our choices in $p_\\theta(\\mathbf{x}_{t-1}|\\mathbf{x}_t) = \\mathcal{N}(\\mathbf{x}_{t-1};\\boldsymbol{\\mu}_\\theta(\\mathbf{x}_t,t),\\Sigma_\\theta(\\mathbf{x}_t,t))$ for $1 \\le t \\le T$. First, we set $\\Sigma_\\theta(\\mathbf{x}_t,t) = \\sigma_t^2\\mathbf{I}$ to untrained time dependent constants. Experimentally, both $\\sigma_t^2 = \\beta_t$ and $\\sigma_t^2 = \\tilde{\\beta}_t = \\frac{1-\\bar{\\alpha}_{t-1}}{1-\\bar{\\alpha}_t}\\beta_t$ had similar results. The first choice is optimal for $\\mathbf{x}_0 \\sim \\mathcal{N}(\\mathbf{0},\\mathbf{I})$, and the second is optimal for $\\mathbf{x}_0$ deterministically set to one point. These are the two extreme choices corresponding to upper and lower bounds on reverse process entropy for data with coordinatewise unit variance [53].",
+      "image_paths": []
+    },
+    {
+      "chunk_id": "a90568670cdcc514",
+      "page": 5,
+      "bbox": [
+        0.0,
+        0.0,
+        2550.0,
+        3300.0
+      ],
+      "type": "table_text",
+      "rel": 0.015086206896551723,
+      "cost": 255,
+      "text": "Table 2: Unconditional CIFAR10 reverse process parameterization and training objective ablation. Blank entries were unstable to train and generated poor samples with out-of-range scores.\n\n| Objective                         | IS        | FID   |\n|-----------------------------------|-----------|-------|\n| **$\\hat{\\mu}$ prediction (baseline)** |           |       |\n| $L_\\nu$ learned diagonal $\\Sigma$ | –         | –     |\n| $L_\\nu$ fixed isotropic $\\Sigma$  | 7.28±0.10 | 23.69 |\n| $\\|\\hat{\\mu} - \\hat{\\mu}_\\theta\\|^2$ | 8.06±0.09 | 13.22 |\n| **$\\epsilon$ prediction (ours)**  |           |       |\n| $L_\\nu$ learned diagonal $\\Sigma$ | –         | –     |\n| $L_\\nu$ fixed isotropic $\\Sigma$  | 7.67±0.10 | 13.51 |\n| $\\|\\hat{\\epsilon} - \\hat{\\epsilon}_\\theta\\|^2$ (L\\_simple) | **9.46±0.11** | **3.17** |",
+      "image_paths": []
+    }
+  ],
+  "anchors": {
+    "anchor_summary_text": "## Overview\n- Hardware and architecture choices are driven by fitting large U-Net–style diffusion models into memory, achieving reasonable training/sampling throughput, and balancing model size vs. image resolution and dataset scale. [40de030796b3d32a][7e77adee2523ee5a][e22df3321d2941a1]\n\n## Key Findings\n- Compute platform:\n  - All experiments used TPU v3-8, roughly comparable to 8 NVIDIA V100 GPUs. [e22df3321d2941a1]\n- Model sizes and scaling:\n  - CIFAR10 model: 35.7M parameters. [7e77adee2523ee5a]\n  - LSUN and CelebA-HQ 256×256 models: 114M parameters. [7e77adee2523ee5a]\n  - Larger LSUN Bedroom variant: ~256M parameters (increased filter count). [7e77adee2523ee5a]\n- Architecture specifics:\n  - Backbone: PixelCNN++-style U-Net built on a Wide ResNet. [7e77adee2523ee5a]\n  - Normalization: group normalization instead of weight normalization (simpler implementation). [7e77adee2523ee5a]\n  - Resolutions: 4 resolution levels for 32×32 (down to 4×4); 6 levels for 256×256. [7e77adee2523ee5a]\n  - Two convolutional residual blocks per resolution; self-attention at 16×16 between conv blocks. [7e77adee2523ee5a]\n  - Time conditioning: Transformer sinusoidal position embeddings added into each residual block. [7e77adee2523ee5a]\n- Memory-driven hyperparameter choices:\n  - Initial hyperparameters (e.g., network size) were chosen to fit within memory; most subsequent tuning focused on CIFAR10 sample quality and was then transferred to other datasets. [40de030796b3d32a]\n- Batch sizes and EMA:\n  - Batch size: 128 for CIFAR10; 64 for larger 256×256 images (no sweep). [19d09dc632f92a8d]\n  - EMA decay on model parameters: 0.9999 (no sweep). [19d09dc632f92a8d]\n- Training throughput and wall-clock:\n  - CIFAR10 (32×32, 35.7M params, batch 128): 21 steps/s; 800k steps total; ~106 hours to completion. [e22df3321d2941a1]\n  - CelebA-HQ/LSUN 256×256 (114M params, batch 64): 2.2 steps/s. [e22df3321d2941a1]\n  - Training steps per dataset: CelebA-HQ 0.5M; LSUN Bedroom 2.4M; LSUN Cat 1.8M; LSUN Church 1.2M; larger LSUN Bedroom 1.15M. [e22df3321d2941a1]\n- Sampling cost:\n  - CIFAR10: batch of 256 images in 17 seconds. [e22df3321d2941a1]\n  - CelebA-HQ/LSUN 256×256: batch of 128 images in 300 seconds. [e22df3321d2941a1]\n- Diffusion length vs. cost:\n  - Diffusion steps T=1000, shorter than image dimensionality; can be shortened for faster sampling or lengthened for expressiveness. [f930eaf67c8f4e97]\n- Objective and parameterization tradeoffs:\n  - Best CIFAR10 performance with ε-prediction and L_simple (‖ε̂−ε̂_θ‖²): IS 9.46±0.11, FID 3.17. [a90568670cdcc514]\n  - Alternative μ̂-prediction or different objectives yield worse FID/IS or instability. [a90568670cdcc514]\n- Reverse-process variance choice:\n  - Use fixed isotropic Σ_θ = σ_t² I with σ_t² set to either β_t or \\tilde{β}_t; both perform similarly and correspond to entropy bounds. [5db6a16cf1c632d5]\n\n## Evidence\n- Compute and runtime:\n  - TPU v3-8 usage; step rates; training durations; sampling times; per-dataset step counts. [e22df3321d2941a1]\n- Architecture:\n  - PixelCNN++/U-Net/Wide ResNet backbone; group norm; resolution hierarchy; residual and attention blocks; time embeddings; parameter counts and scaling to 256M. [7e77adee2523ee5a]\n- Hyperparameters:\n  - Memory-constrained initial design; batch sizes; EMA decay; transfer of CIFAR10-tuned hyperparameters to other datasets. [40de030796b3d32a][19d09dc632f92a8d]\n- Diffusion process:\n  - T=1000; rationale that T can be adjusted for speed vs. expressiveness. [f930eaf67c8f4e97]\n  - Fixed isotropic Σ_θ choices and their theoretical interpretation. [5db6a16cf1c632d5]\n- Objective ablation:\n  - Quantitative IS/FID for different parameterizations and losses, highlighting ε-prediction with L_simple as best. [a90568670cdcc514]\n\n## Risks\n- Hardware budget underestimation:\n  - Training 100M–250M parameter models with long diffusion chains (T≈1000) is compute- and time-intensive; a single TPU v3-8 equivalent may still require multi-day runs per model. [7e77adee2523ee5a][e22df3321d2941a1]\n- Memory constraints:\n  - Architecture and batch sizes were explicitly constrained by memory; attempting larger models, higher resolutions, or larger batches on smaller GPUs may cause OOM without careful scaling (e.g., reduced channels, gradient checkpointing). [40de030796b3d32a][19d09dc632f92a8d][7e77adee2523ee5a]\n- Sampling latency:\n  - High sampling times (e.g., 300s for 128×256² images) may be unacceptable for interactive or production use unless T is reduced or hardware scaled out. [e22df3321d2941a1][f930eaf67c8f4e97]\n- Objective/parameterization instability:\n  - Some reverse-process parameterizations and objectives were unstable and produced poor samples, indicating sensitivity to these design choices. [a90568670cdcc514]\n- Generalization of hyperparameters:\n  - Hyperparameters tuned on CIFAR10 were transferred to other datasets; this may not be optimal for new domains or resolutions and could waste compute if blindly reused. [40de030796b3d32a]\n\n## Next Steps\n- Hardware budgeting:\n  - For a CIFAR10-scale project, plan for at least one 8×V100-equivalent node for ~4–5 days per full training run (800k steps, batch 128). [e22df3321d2941a1]\n  - For 256×256 models (≈114M params), budget significantly more time (multi-week) or more nodes, given 2.2 steps/s at batch 64 and up to 2.4M steps for LSUN Bedroom. [7e77adee2523ee5a][e22df3321d2941a1]\n- Architecture selection:\n  - Adopt the described U-Net/Wide-ResNet backbone with:\n    - 4 resolution levels for 32×32, 6 for 256×256.\n    - Two residual blocks per level and 16×16 self-attention.\n    - Group normalization and sinusoidal time embeddings in each residual block. [7e77adee2523ee5a]\n  - Choose parameter count (e.g., 35M vs. 114M vs. 256M) based on available memory and target resolution. [7e77adee2523ee5a]\n- Hyperparameter baselines:\n  - Start with batch size 128 (32×32) or 64 (256×256) and EMA decay 0.9999; adjust only if memory or convergence issues arise. [19d09dc632f92a8d]\n- Objective and diffusion configuration:\n  - Use ε-prediction with L_simple and fixed isotropic Σ_θ for stable, high-quality samples. [a90568670cdcc514][5db6a16cf1c632d5]\n  - Begin with T≈1000, then experiment with smaller T to trade off sampling speed vs. quality once a baseline is established. [f930eaf67c8f4e97]\n- Efficiency improvements:\n  - If hardware is limited, consider:\n    - Reducing channel counts to shrink parameter size.\n    - Gradient checkpointing or mixed precision to fit larger models.\n    - Early stopping or reduced training steps for exploratory runs before full-scale training. [40de030796b3d32a][7e77adee2523ee5a]"
+  },
+  "summarization": {
+    "summary_text": "## Overview\n- Hardware and architecture choices are driven by fitting large U-Net–style diffusion models into memory, achieving reasonable training/sampling throughput, and balancing model size vs. image resolution and dataset scale. [40de030796b3d32a][7e77adee2523ee5a][e22df3321d2941a1]\n\n## Key Findings\n- Compute platform:\n  - All experiments used TPU v3-8, roughly comparable to 8 NVIDIA V100 GPUs. [e22df3321d2941a1]\n- Model sizes and scaling:\n  - CIFAR10 model: 35.7M parameters. [7e77adee2523ee5a]\n  - LSUN and CelebA-HQ 256×256 models: 114M parameters. [7e77adee2523ee5a]\n  - Larger LSUN Bedroom variant: ~256M parameters (increased filter count). [7e77adee2523ee5a]\n- Architecture specifics:\n  - Backbone: PixelCNN++-style U-Net built on a Wide ResNet. [7e77adee2523ee5a]\n  - Normalization: group normalization instead of weight normalization (simpler implementation). [7e77adee2523ee5a]\n  - Resolutions: 4 resolution levels for 32×32 (down to 4×4); 6 levels for 256×256. [7e77adee2523ee5a]\n  - Two convolutional residual blocks per resolution; self-attention at 16×16 between conv blocks. [7e77adee2523ee5a]\n  - Time conditioning: Transformer sinusoidal position embeddings added into each residual block. [7e77adee2523ee5a]\n- Memory-driven hyperparameter choices:\n  - Initial hyperparameters (e.g., network size) were chosen to fit within memory; most subsequent tuning focused on CIFAR10 sample quality and was then transferred to other datasets. [40de030796b3d32a]\n- Batch sizes and EMA:\n  - Batch size: 128 for CIFAR10; 64 for larger 256×256 images (no sweep). [19d09dc632f92a8d]\n  - EMA decay on model parameters: 0.9999 (no sweep). [19d09dc632f92a8d]\n- Training throughput and wall-clock:\n  - CIFAR10 (32×32, 35.7M params, batch 128): 21 steps/s; 800k steps total; ~106 hours to completion. [e22df3321d2941a1]\n  - CelebA-HQ/LSUN 256×256 (114M params, batch 64): 2.2 steps/s. [e22df3321d2941a1]\n  - Training steps per dataset: CelebA-HQ 0.5M; LSUN Bedroom 2.4M; LSUN Cat 1.8M; LSUN Church 1.2M; larger LSUN Bedroom 1.15M. [e22df3321d2941a1]\n- Sampling cost:\n  - CIFAR10: batch of 256 images in 17 seconds. [e22df3321d2941a1]\n  - CelebA-HQ/LSUN 256×256: batch of 128 images in 300 seconds. [e22df3321d2941a1]\n- Diffusion length vs. cost:\n  - Diffusion steps T=1000, shorter than image dimensionality; can be shortened for faster sampling or lengthened for expressiveness. [f930eaf67c8f4e97]\n- Objective and parameterization tradeoffs:\n  - Best CIFAR10 performance with ε-prediction and L_simple (‖ε̂−ε̂_θ‖²): IS 9.46±0.11, FID 3.17. [a90568670cdcc514]\n  - Alternative μ̂-prediction or different objectives yield worse FID/IS or instability. [a90568670cdcc514]\n- Reverse-process variance choice:\n  - Use fixed isotropic Σ_θ = σ_t² I with σ_t² set to either β_t or \\tilde{β}_t; both perform similarly and correspond to entropy bounds. [5db6a16cf1c632d5]\n\n## Evidence\n- Compute and runtime:\n  - TPU v3-8 usage; step rates; training durations; sampling times; per-dataset step counts. [e22df3321d2941a1]\n- Architecture:\n  - PixelCNN++/U-Net/Wide ResNet backbone; group norm; resolution hierarchy; residual and attention blocks; time embeddings; parameter counts and scaling to 256M. [7e77adee2523ee5a]\n- Hyperparameters:\n  - Memory-constrained initial design; batch sizes; EMA decay; transfer of CIFAR10-tuned hyperparameters to other datasets. [40de030796b3d32a][19d09dc632f92a8d]\n- Diffusion process:\n  - T=1000; rationale that T can be adjusted for speed vs. expressiveness. [f930eaf67c8f4e97]\n  - Fixed isotropic Σ_θ choices and their theoretical interpretation. [5db6a16cf1c632d5]\n- Objective ablation:\n  - Quantitative IS/FID for different parameterizations and losses, highlighting ε-prediction with L_simple as best. [a90568670cdcc514]\n\n## Risks\n- Hardware budget underestimation:\n  - Training 100M–250M parameter models with long diffusion chains (T≈1000) is compute- and time-intensive; a single TPU v3-8 equivalent may still require multi-day runs per model. [7e77adee2523ee5a][e22df3321d2941a1]\n- Memory constraints:\n  - Architecture and batch sizes were explicitly constrained by memory; attempting larger models, higher resolutions, or larger batches on smaller GPUs may cause OOM without careful scaling (e.g., reduced channels, gradient checkpointing). [40de030796b3d32a][19d09dc632f92a8d][7e77adee2523ee5a]\n- Sampling latency:\n  - High sampling times (e.g., 300s for 128×256² images) may be unacceptable for interactive or production use unless T is reduced or hardware scaled out. [e22df3321d2941a1][f930eaf67c8f4e97]\n- Objective/parameterization instability:\n  - Some reverse-process parameterizations and objectives were unstable and produced poor samples, indicating sensitivity to these design choices. [a90568670cdcc514]\n- Generalization of hyperparameters:\n  - Hyperparameters tuned on CIFAR10 were transferred to other datasets; this may not be optimal for new domains or resolutions and could waste compute if blindly reused. [40de030796b3d32a]\n\n## Next Steps\n- Hardware budgeting:\n  - For a CIFAR10-scale project, plan for at least one 8×V100-equivalent node for ~4–5 days per full training run (800k steps, batch 128). [e22df3321d2941a1]\n  - For 256×256 models (≈114M params), budget significantly more time (multi-week) or more nodes, given 2.2 steps/s at batch 64 and up to 2.4M steps for LSUN Bedroom. [7e77adee2523ee5a][e22df3321d2941a1]\n- Architecture selection:\n  - Adopt the described U-Net/Wide-ResNet backbone with:\n    - 4 resolution levels for 32×32, 6 for 256×256.\n    - Two residual blocks per level and 16×16 self-attention.\n    - Group normalization and sinusoidal time embeddings in each residual block. [7e77adee2523ee5a]\n  - Choose parameter count (e.g., 35M vs. 114M vs. 256M) based on available memory and target resolution. [7e77adee2523ee5a]\n- Hyperparameter baselines:\n  - Start with batch size 128 (32×32) or 64 (256×256) and EMA decay 0.9999; adjust only if memory or convergence issues arise. [19d09dc632f92a8d]\n- Objective and diffusion configuration:\n  - Use ε-prediction with L_simple and fixed isotropic Σ_θ for stable, high-quality samples. [a90568670cdcc514][5db6a16cf1c632d5]\n  - Begin with T≈1000, then experiment with smaller T to trade off sampling speed vs. quality once a baseline is established. [f930eaf67c8f4e97]\n- Efficiency improvements:\n  - If hardware is limited, consider:\n    - Reducing channel counts to shrink parameter size.\n    - Gradient checkpointing or mixed precision to fit larger models.\n    - Early stopping or reduced training steps for exploratory runs before full-scale training. [40de030796b3d32a][7e77adee2523ee5a]"
+  }
+}

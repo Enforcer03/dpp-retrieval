@@ -1,0 +1,442 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "d2344554ccf8a277",
+  "created_at": "2025-12-31T08:50:14Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10571,
+        "output_hash": "12fb486a463e4d8126e76ac23d9252a90555302e",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "1694ba335df35a5e",
+                        "f00f06d5c87798bd",
+                        "2bed54ce7f9d7da9"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "1694ba335df35a5e",
+                          "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms."
+                        },
+                        {
+                          "chunk_id": "f00f06d5c87798bd",
+                          "quote": "encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+                        },
+                        {
+                          "chunk_id": "2bed54ce7f9d7da9",
+                          "quote": "Example showing Qwen2-Audio’s capability in music analysis."
+                        }
+                      ],
+                      "rationale": "Evidence shows it handles general sounds, mixed audio, vocal sound classification, and music analysis, so it is not strictly ASR-only. However, there is no explicit mention of sound event detection for specific events like “glass breaking,” so support for fine-grained sound event detection remains unclear."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No retrieved chunk discusses diarization, multiple speakers, or distinguishing between different speakers."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "Voice chat mode is described at a high level, but there is no information about barge-in or interruption while the model is speaking."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "13365992b056843c",
+                        "22413225fdfb6984"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "13365992b056843c",
+                          "quote": "The total parameters of Qwen2-Audio is 8.2B parameters."
+                        },
+                        {
+                          "chunk_id": "13365992b056843c",
+                          "quote": "initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+                        }
+                      ],
+                      "rationale": "We know the model is 8.2B parameters and uses a Whisper-large-v3–based encoder, implying higher inference cost than a small ASR API. However, there is no explicit comparison of latency or cost versus Whisper or other ASR APIs, so only a qualitative implication is possible."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R2",
+                    "R3"
+                  ],
+                  "risks": [
+                    "Lack of evidence on multi-speaker handling may hide limitations for diarization-heavy use cases.",
+                    "No information on interruption support in voice chat could impact real-time UX design.",
+                    "Inference cost is only indirectly implied from model size and architecture, not quantified against Whisper or other ASR APIs.",
+                    "Sound event detection capabilities for specific events (e.g., glass breaking) are not clearly documented."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "Some capability questions are partially addressed (general audio analysis, model size, task coverage), but multi-speaker handling and interruption behavior are entirely absent, and sound event detection is not clearly specified.",
+              "missing_requirements": [
+                "R2",
+                "R3"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Several chunks are purely bibliographic or meta (references, figure captions) and add little to the specific requirements. Core capability information is concentrated in a few chunks.",
+              "redundant_pairs": [
+                [
+                  "22413225fdfb6984",
+                  "9823c0c1460f91aa"
+                ],
+                [
+                  "078bfc6544dde2f8",
+                  "54ae9e445cb186b6"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "High-yield chunks on capabilities and architecture were retrieved, but several high-cost chunks are references or peripheral, reducing efficiency.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "1694ba335df35a5e",
+                  "cost": 208,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "13365992b056843c",
+                  "cost": 179,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "22413225fdfb6984",
+                  "cost": 160,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "f00f06d5c87798bd",
+                  "cost": 182,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "fae235f33dd9c303",
+                  "cost": 105,
+                  "yield": "low"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key integration questions about multi-speaker support and interruption behavior are unanswered.",
+              "Inference cost versus baseline ASR remains largely speculative due to lack of explicit metrics.",
+              "Sound event detection for specific events is not clearly documented, which may be critical for some products."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 8690,
+        "output_hash": "77ad06da8a3a73b22b2cfe8a27ca7576297cbd01",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [
+              "Inference cost characterization as 'non-trivial but manageable' is interpretive rather than explicitly stated in the paper."
+            ],
+            "unsupported_claims": [
+              "Total model size is 8.2B parameters (Qwen-7B LLM + audio encoder), implying non-trivial but manageable inference cost for GPU-backed production."
+            ],
+            "quotes": [
+              {
+                "chunk_id": "1694ba335df35a5e",
+                "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+              },
+              {
+                "chunk_id": "ea930ac5b9eec0ec",
+                "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+              },
+              {
+                "chunk_id": "13365992b056843c",
+                "quote": "the initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+              },
+              {
+                "chunk_id": "13365992b056843c",
+                "quote": "The total parameters of Qwen2-Audio is 8.2B parameters."
+              },
+              {
+                "chunk_id": "d7149e0022ccc38a",
+                "quote": "we replace the hierarchical tags ... with the natural language prompts."
+              },
+              {
+                "chunk_id": "22413225fdfb6984",
+                "quote": "we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data"
+              },
+              {
+                "chunk_id": "6c54ed6b53961f09",
+                "quote": "Direct preference optimization: Your language model is secretly a reward model."
+              },
+              {
+                "chunk_id": "f00f06d5c87798bd",
+                "quote": "we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+              },
+              {
+                "chunk_id": "9823c0c1460f91aa",
+                "quote": "Qwen2-Audio, without any task-specific fine-tuning, outperforms previous LALMs across a diverse range of tasks."
+              },
+              {
+                "chunk_id": "2bed54ce7f9d7da9",
+                "quote": "Figure 9: Example showing Qwen2-Audio’s capability in music analysis."
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+                "answer": "R1: It analyzes 'speech, sound, music, or various mixed audio forms', so it is not limited to speech-to-text and should cover generic sound events, but explicit 'glass breaking' detection is not stated. R2: No evidence it performs speaker diarization or labels speakers distinctly. R3: Voice chat mode and seamless interaction are described, but interruption/barge-in behavior is not mentioned. R4: Model has 8.2B parameters with a Whisper-large-v3–based encoder, implying higher inference cost than a 'cheap ASR API like Whisper', but no quantitative or direct cost comparison is provided.",
+                "confidence": 0.63,
+                "evidence": [
+                  "1694ba335df35a5e",
+                  "22413225fdfb6984",
+                  "13365992b056843c",
+                  "f00f06d5c87798bd",
+                  "2bed54ce7f9d7da9"
+                ],
+                "notes": "R1: Audio analysis mode covers 'speech, sound, music, or various mixed audio forms' and an example mixes keyboard typing with speech, indicating non-speech sound understanding, but specific sound event classes like 'glass breaking' are not enumerated. [1694ba335df35a5e]\nR2: The provided text mentions multi-task evaluation (ASR, SER, VSC) but does not mention multi-speaker handling or speaker attribution. [f00f06d5c87798bd]\nR3: Voice chat is described as 'unrestricted dialogue' with seamless switching between audio and text, but nothing about interrupting ongoing responses. [1694ba335df35a5e] [ea930ac5b9eec0ec]\nR4: Architecture details show an 8.2B-parameter model with a Whisper-large-v3–initialized encoder, which reasonably suggests higher compute than a standalone ASR API, but the document does not provide latency, throughput, or cost comparisons. [13365992b056843c]"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "1694ba335df35a5e",
+                  "f00f06d5c87798bd",
+                  "2bed54ce7f9d7da9"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "1694ba335df35a5e",
+                    "quote": "analyze a diverse range of audio types, including speech, sound, music, or various mixed audio forms."
+                  },
+                  {
+                    "chunk_id": "f00f06d5c87798bd",
+                    "quote": "encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+                  },
+                  {
+                    "chunk_id": "2bed54ce7f9d7da9",
+                    "quote": "Example showing Qwen2-Audio’s capability in music analysis."
+                  }
+                ],
+                "rationale": "Evidence shows it handles general sounds, mixed audio, vocal sound classification, and music analysis, so it is not strictly ASR-only. However, there is no explicit mention of sound event detection for specific events like “glass breaking,” so support for fine-grained sound event detection remains unclear."
+              },
+              {
+                "id": "R2",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No retrieved chunk discusses diarization, multiple speakers, or distinguishing between different speakers."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "Voice chat mode is described at a high level, but there is no information about barge-in or interruption while the model is speaking."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "13365992b056843c",
+                  "22413225fdfb6984"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "13365992b056843c",
+                    "quote": "The total parameters of Qwen2-Audio is 8.2B parameters."
+                  },
+                  {
+                    "chunk_id": "13365992b056843c",
+                    "quote": "initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+                  }
+                ],
+                "rationale": "We know the model is 8.2B parameters and uses a Whisper-large-v3–based encoder, implying higher inference cost than a small ASR API. However, there is no explicit comparison of latency or cost versus Whisper or other ASR APIs, so only a qualitative implication is possible."
+              }
+            ],
+            "missing_requirements": [
+              "R2",
+              "R3"
+            ],
+            "risks": [
+              "Lack of evidence on multi-speaker handling may hide limitations for diarization-heavy use cases.",
+              "No information on interruption support in voice chat could impact real-time UX design.",
+              "Inference cost is only indirectly implied from model size and architecture, not quantified against Whisper or other ASR APIs.",
+              "Sound event detection capabilities for specific events (e.g., glass breaking) are not clearly documented."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "Some capability questions are partially addressed (general audio analysis, model size, task coverage), but multi-speaker handling and interruption behavior are entirely absent, and sound event detection is not clearly specified.",
+        "missing_requirements": [
+          "R2",
+          "R3"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Several chunks are purely bibliographic or meta (references, figure captions) and add little to the specific requirements. Core capability information is concentrated in a few chunks.",
+        "redundant_pairs": [
+          [
+            "22413225fdfb6984",
+            "9823c0c1460f91aa"
+          ],
+          [
+            "078bfc6544dde2f8",
+            "54ae9e445cb186b6"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "High-yield chunks on capabilities and architecture were retrieved, but several high-cost chunks are references or peripheral, reducing efficiency.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "1694ba335df35a5e",
+            "cost": 208,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "13365992b056843c",
+            "cost": 179,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "22413225fdfb6984",
+            "cost": 160,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "f00f06d5c87798bd",
+            "cost": 182,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "fae235f33dd9c303",
+            "cost": 105,
+            "yield": "low"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key integration questions about multi-speaker support and interruption behavior are unanswered.",
+        "Inference cost versus baseline ASR remains largely speculative due to lack of explicit metrics.",
+        "Sound event detection for specific events is not clearly documented, which may be critical for some products."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [
+        "Inference cost characterization as 'non-trivial but manageable' is interpretive rather than explicitly stated in the paper."
+      ],
+      "unsupported_claims": [
+        "Total model size is 8.2B parameters (Qwen-7B LLM + audio encoder), implying non-trivial but manageable inference cost for GPU-backed production."
+      ],
+      "quotes": [
+        {
+          "chunk_id": "1694ba335df35a5e",
+          "quote": "Qwen2-Audio operates in two distinct modes: Audio Analysis and Voice Chat."
+        },
+        {
+          "chunk_id": "ea930ac5b9eec0ec",
+          "quote": "both interaction modes were jointly trained, thus users will not experience mode differentiation during use"
+        },
+        {
+          "chunk_id": "13365992b056843c",
+          "quote": "the initialization of the audio encoder of Qwen2-Audio is based on the Whisper-large-v3 model"
+        },
+        {
+          "chunk_id": "13365992b056843c",
+          "quote": "The total parameters of Qwen2-Audio is 8.2B parameters."
+        },
+        {
+          "chunk_id": "d7149e0022ccc38a",
+          "quote": "we replace the hierarchical tags ... with the natural language prompts."
+        },
+        {
+          "chunk_id": "22413225fdfb6984",
+          "quote": "we enhanced Qwen2-Audio’s alignment with human interaction by increasing the quantity, quality, and complexity of SFT data"
+        },
+        {
+          "chunk_id": "6c54ed6b53961f09",
+          "quote": "Direct preference optimization: Your language model is secretly a reward model."
+        },
+        {
+          "chunk_id": "f00f06d5c87798bd",
+          "quote": "we still perform a comprehensive evaluation that encompasses various tasks, namely Automatic Speech Recognition (ASR), Speech-to-Text Translation (S2TT), Speech Emotion Recognition (SER), Vocal Sound Classification (VSC)."
+        },
+        {
+          "chunk_id": "9823c0c1460f91aa",
+          "quote": "Qwen2-Audio, without any task-specific fine-tuning, outperforms previous LALMs across a diverse range of tasks."
+        },
+        {
+          "chunk_id": "2bed54ce7f9d7da9",
+          "quote": "Figure 9: Example showing Qwen2-Audio’s capability in music analysis."
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Integration & Capabilities: Verifying it meets our specific product needs.",
+          "answer": "R1: It analyzes 'speech, sound, music, or various mixed audio forms', so it is not limited to speech-to-text and should cover generic sound events, but explicit 'glass breaking' detection is not stated. R2: No evidence it performs speaker diarization or labels speakers distinctly. R3: Voice chat mode and seamless interaction are described, but interruption/barge-in behavior is not mentioned. R4: Model has 8.2B parameters with a Whisper-large-v3–based encoder, implying higher inference cost than a 'cheap ASR API like Whisper', but no quantitative or direct cost comparison is provided.",
+          "confidence": 0.63,
+          "evidence": [
+            "1694ba335df35a5e",
+            "22413225fdfb6984",
+            "13365992b056843c",
+            "f00f06d5c87798bd",
+            "2bed54ce7f9d7da9"
+          ],
+          "notes": "R1: Audio analysis mode covers 'speech, sound, music, or various mixed audio forms' and an example mixes keyboard typing with speech, indicating non-speech sound understanding, but specific sound event classes like 'glass breaking' are not enumerated. [1694ba335df35a5e]\nR2: The provided text mentions multi-task evaluation (ASR, SER, VSC) but does not mention multi-speaker handling or speaker attribution. [f00f06d5c87798bd]\nR3: Voice chat is described as 'unrestricted dialogue' with seamless switching between audio and text, but nothing about interrupting ongoing responses. [1694ba335df35a5e] [ea930ac5b9eec0ec]\nR4: Architecture details show an 8.2B-parameter model with a Whisper-large-v3–initialized encoder, which reasonably suggests higher compute than a standalone ASR API, but the document does not provide latency, throughput, or cost comparisons. [13365992b056843c]"
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{
+  "id": "mllm_architecture_select_d0",
+  "parent": {
+    "path": "mllm_review.pdf"
+  },
+  "task": {
+    "decisions": [
+      "Architecture Selection: Choosing the Best 'Connector' and LLM Backbone."
+    ]
+  },
+  "requirements": [
+    {
+      "id": "R1",
+      "category": "Connector Speed",
+      "description": "Which visual connector (e.g., Q-Former vs. Projection) is the lightweight winner for speed?"
+    },
+    {
+      "id": "R2",
+      "category": "Hallucinations",
+      "description": "Which models are flagged as 'hallucination prone'? We need to know which ones make up things that aren't there."
+    },
+    {
+      "id": "R3",
+      "category": "Hardware",
+      "description": "What’s the VRAM requirement? What specific components drive that requirement the most in Audio, Video or Image modalities?"
+    },
+    {
+      "id": "R4",
+      "category": "OCR",
+      "description": "Are features like 'OCR-free reading' actually working well in these models, or is that just marketing hype?"
+    },
+    {
+      "id": "R5",
+      "category": "Dominance",
+      "description": "Does the review identify a clear dominating model/backbone for multiple modalities (e.g. Qwen vs. Llama vs. Vicuna)?"
+    }
+  ],
+  "notes": {}
+}

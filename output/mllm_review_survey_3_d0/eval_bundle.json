@@ -1,0 +1,616 @@
+{
+  "schema_version": "icb_eval_bundle_v0.1",
+  "kind": "eval_bundle",
+  "run_id": "53c3f87536a0ffaa",
+  "created_at": "2025-12-31T07:28:18Z",
+  "evaluation": {
+    "judge_runs": [
+      {
+        "name": "retrieval_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 15740,
+        "output_hash": "6fcf22c0d91623aab7f04095dbd494f6bd0824b1",
+        "output": {
+          "retrieval_eval": {
+            "requirements_eval": {
+              "decisions": [
+                {
+                  "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                  "overall_verdict": "weak",
+                  "requirements": [
+                    {
+                      "id": "R1",
+                      "status": "partial",
+                      "evidence": [
+                        "f509249fe42f7c0b",
+                        "124d2d04a7c7e545",
+                        "9aa98ea88197007d"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "The second fine-tuning stage ... fine-tunes the model using a smaller but high-quality dataset"
+                        },
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "significantly improving its generation reliability. This fine-tuning is computationally efficient"
+                        },
+                        {
+                          "chunk_id": "9aa98ea88197007d",
+                          "quote": "smaller, more targeted models can deliver superior performance in specific domains"
+                        }
+                      ],
+                      "rationale": "Evidence shows small, high-quality datasets are effective for the second stage and that smaller, specialized models can perform well, but it does not clearly state that massive data is non-negotiable or fully dispensable overall. The large aligned image–text pretraining stage is mentioned but not contrasted explicitly with a purely small-data regime."
+                    },
+                    {
+                      "id": "R2",
+                      "status": "partial",
+                      "evidence": [
+                        "f509249fe42f7c0b",
+                        "124d2d04a7c7e545",
+                        "4293ef0dc536f0e5"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "f509249fe42f7c0b",
+                          "quote": "keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer"
+                        },
+                        {
+                          "chunk_id": "124d2d04a7c7e545",
+                          "quote": "initializing the model from pre-trained BLIP-2 checkpoints. Only the parameters of the Q-Former are fine-tuned"
+                        },
+                        {
+                          "chunk_id": "4293ef0dc536f0e5",
+                          "quote": "InstructBLIP can quickly adapt to different LLMs and perform instruction tuning by freezing the image encoder and the LLM"
+                        }
+                      ],
+                      "rationale": "Multiple models rely on pre-trained backbones and only fine-tune small adapters, indicating fine-tuning pre-trained models is a viable and efficient path. However, the text does not explicitly compare this to full pre-training from scratch or articulate the tradeoff in terms of final quality vs. effort."
+                    },
+                    {
+                      "id": "R3",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "No retrieved chunks discuss automated evaluation metrics such as POPE or MME, nor the reliability of automated metrics versus human evaluation."
+                    },
+                    {
+                      "id": "R4",
+                      "status": "partial",
+                      "evidence": [
+                        "280dd300f503a0c9",
+                        "3b6be3edd259c18e",
+                        "48f55570f23fbf34",
+                        "0a23e386024a84f1",
+                        "c913629ddcafae44"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "280dd300f503a0c9",
+                          "quote": "HuggingGPT ... EMO incorporates specialized facial feature extraction and audio processing modules"
+                        },
+                        {
+                          "chunk_id": "280dd300f503a0c9",
+                          "quote": "LWM ... and NeXT-GPT ... integrate ... vision-language models (like CLIP and ImageBind)"
+                        },
+                        {
+                          "chunk_id": "3b6be3edd259c18e",
+                          "quote": "Multimodal fusion technology is a crucial component of MLLMs"
+                        },
+                        {
+                          "chunk_id": "48f55570f23fbf34",
+                          "quote": "advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning"
+                        },
+                        {
+                          "chunk_id": "0a23e386024a84f1",
+                          "quote": "Speech recognition datasets LibriSpeech and GigaSpeech M-sets, and audio captioning datasets WavCaps and AudioCaps are used"
+                        }
+                      ],
+                      "rationale": "Evidence shows architectures that include audio modules and multimodal fusion, and audio-focused training frameworks, implying modalities can be added via specialized components and data. However, there is no explicit discussion of how hard it is to add a new modality later given an existing architecture, so effort and retrofitting difficulty remain unclear."
+                    },
+                    {
+                      "id": "R5",
+                      "status": "missing",
+                      "evidence": [],
+                      "quotes": [],
+                      "rationale": "Instruction tuning is described for InstructBLIP and others, but there is no discussion of catastrophic forgetting or degradation of original text-only capabilities."
+                    },
+                    {
+                      "id": "R6",
+                      "status": "missing",
+                      "evidence": [
+                        "70a2d1dc0f1c2738",
+                        "8054a8ad91d54f01"
+                      ],
+                      "quotes": [
+                        {
+                          "chunk_id": "8054a8ad91d54f01",
+                          "quote": "they inevitably encounter security issues such as privacy leakage and data bias"
+                        }
+                      ],
+                      "rationale": "Security and ethical issues are mentioned at a high level, but there are no concrete recipes or methods for alignment specifically aimed at preventing toxic image descriptions."
+                    }
+                  ],
+                  "missing_requirements": [
+                    "R3",
+                    "R5",
+                    "R6"
+                  ],
+                  "risks": [
+                    "Lack of guidance on evaluation metrics (R3) could lead to over-reliance on unvalidated automated tests.",
+                    "No discussion of instruction-tuning-induced forgetting (R5) risks unexpected regressions in text-only performance.",
+                    "Absence of concrete alignment recipes (R6) leaves safety and toxicity mitigation unaddressed.",
+                    "Unclear difficulty of adding new modalities later (R4) may cause architectural lock-in and higher future integration costs.",
+                    "Partial treatment of data scale vs. quality (R1) may lead to under- or over-investment in data collection."
+                  ]
+                }
+              ]
+            },
+            "coverage": {
+              "overall": "mixed",
+              "notes": "The evidence covers data/compute-effort tradeoffs and fine-tuning vs. frozen backbones reasonably well, and touches on multimodal architectures. It does not address evaluation metrics, forgetting from instruction tuning, or concrete alignment methods, and only indirectly addresses adding new modalities.",
+              "missing_requirements": [
+                "R3",
+                "R5",
+                "R6"
+              ]
+            },
+            "redundancy": {
+              "level": "medium",
+              "notes": "Multiple chunks describe similar two-stage training and frozen-backbone fine-tuning patterns (MiniGPT-4, InstructBLIP) and general image-understanding capabilities, which is somewhat redundant for the specific requirements.",
+              "redundant_pairs": [
+                [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545"
+                ],
+                [
+                  "4293ef0dc536f0e5",
+                  "d6d9aeae8500ca14"
+                ]
+              ]
+            },
+            "budget_efficiency": {
+              "rating": "mixed",
+              "notes": "Some high-cost chunks provide strong, relevant detail on training effort and architectures (e.g., MiniGPT-4, InstructBLIP), but other expensive chunks focus on video understanding or general challenges that do not address the specific requirements, while key topics like metrics and alignment are absent.",
+              "top_cost_chunks": [
+                {
+                  "chunk_id": "bfe149b1f8e7d622",
+                  "cost": 195,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "e4f5aa8d25fc1593",
+                  "cost": 172,
+                  "yield": "low"
+                },
+                {
+                  "chunk_id": "343db583c5f4bc61",
+                  "cost": 166,
+                  "yield": "medium"
+                },
+                {
+                  "chunk_id": "f509249fe42f7c0b",
+                  "cost": 142,
+                  "yield": "high"
+                },
+                {
+                  "chunk_id": "124d2d04a7c7e545",
+                  "cost": 143,
+                  "yield": "high"
+                }
+              ]
+            },
+            "risk_flags": [
+              "Key evaluation-metric requirement (R3) is entirely unsupported by retrieved evidence.",
+              "No evidence on instruction-tuning-induced forgetting (R5) may hide important regression risks.",
+              "No concrete alignment or toxicity-mitigation recipes (R6) despite safety being central to deployment.",
+              "Architectural and modality-extension guidance (R4) is indirect, risking future integration difficulties.",
+              "Data-scale vs. quality guidance (R1) is incomplete, which may misinform effort planning."
+            ]
+          }
+        }
+      },
+      {
+        "name": "summary_decision_eval",
+        "model": "gpt-5.1",
+        "ok": true,
+        "retry_used": false,
+        "latency_ms": 10028,
+        "output_hash": "b48255c0836260f5e56f9f3e41be704498fce767",
+        "output": {
+          "summary_eval": {
+            "verdict": "pass",
+            "grounding": "grounded",
+            "issues": [],
+            "unsupported_claims": [],
+            "quotes": [
+              {
+                "chunk_id": "f509249fe42f7c0b",
+                "quote": "MiniGPT-4 employs a two-stage training approach."
+              },
+              {
+                "chunk_id": "f509249fe42f7c0b",
+                "quote": "The initial pre-training stage involves training the model on a large collection of aligned image-text pairs"
+              },
+              {
+                "chunk_id": "f509249fe42f7c0b",
+                "quote": "keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer."
+              },
+              {
+                "chunk_id": "f509249fe42f7c0b",
+                "quote": "The second fine-tuning stage ... fine-tunes the model using a smaller but high-quality dataset"
+              },
+              {
+                "chunk_id": "124d2d04a7c7e545",
+                "quote": "InstructBLIP employs a two-stage training process."
+              },
+              {
+                "chunk_id": "124d2d04a7c7e545",
+                "quote": "Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen."
+              },
+              {
+                "chunk_id": "124d2d04a7c7e545",
+                "quote": "Instruction tuning: involves training the model with a maximum of 60,000 steps"
+              },
+              {
+                "chunk_id": "3b6be3edd259c18e",
+                "quote": "Common fusion methods include simple linear layers ... and attention mechanisms"
+              },
+              {
+                "chunk_id": "3b6be3edd259c18e",
+                "quote": "Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions"
+              },
+              {
+                "chunk_id": "9aa98ea88197007d",
+                "quote": "there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one."
+              },
+              {
+                "chunk_id": "9aa98ea88197007d",
+                "quote": "smaller, more targeted models can deliver superior performance in specific domains."
+              },
+              {
+                "chunk_id": "615b9bb0b00f06c5",
+                "quote": "In the realm of image understanding, MLLMs excel at interpreting and extracting meaningful information from images."
+              },
+              {
+                "chunk_id": "4293ef0dc536f0e5",
+                "quote": "InstructBLIP ... can quickly adapt to different LLMs and perform instruction tuning by freezing the image encoder and the LLM."
+              },
+              {
+                "chunk_id": "d6d9aeae8500ca14",
+                "quote": "MiniGPT-4, InstructBLIP, and other related models have shown excellent performance and potential"
+              },
+              {
+                "chunk_id": "bfe149b1f8e7d622",
+                "quote": "current MLLMs have parameters in the order of billions, resulting in slow inference speeds"
+              },
+              {
+                "chunk_id": "8054a8ad91d54f01",
+                "quote": "As MLLMs process vast amounts of data, they inevitably encounter security issues such as privacy leakage and data bias."
+              },
+              {
+                "chunk_id": "343db583c5f4bc61",
+                "quote": "more lightweight model designs that significantly reduce computational overhead while maintaining performance"
+              }
+            ]
+          },
+          "decision_eval": {
+            "decisions": [
+              {
+                "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+                "answer": "The review supports that useful image-understanding features can be shipped with modest effort by reusing frozen backbones, training small adapters in two stages, and favoring small, high-quality instruction datasets over massive bespoke training, but it does not claim that massive data is non‑negotiable, nor does it require pretraining from scratch; it also does not discuss metric reliability, catastrophic forgetting, toxicity alignment recipes, or ease of adding new modalities.",
+                "confidence": 0.8,
+                "evidence": [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545",
+                  "4293ef0dc536f0e5",
+                  "3b6be3edd259c18e",
+                  "9aa98ea88197007d",
+                  "615b9bb0b00f06c5",
+                  "d6d9aeae8500ca14",
+                  "bfe149b1f8e7d622",
+                  "343db583c5f4bc61"
+                ],
+                "notes": "R1: The text highlights a small, high-quality dataset in MiniGPT-4’s second stage but does not say massive data is non‑negotiable; it instead notes a debate between big comprehensive vs small specialized models and that smaller targeted models can be superior in specific domains. [f509249fe42f7c0b] [9aa98ea88197007d]\nR2: Both MiniGPT-4 and InstructBLIP rely on existing pre-trained encoders and LLMs, freezing them and training only projection/Q-Former, indicating fine-tuning pre-trained models is a viable and efficient path; there is no requirement to pre-train from scratch. [f509249fe42f7c0b] [124d2d04a7c7e545] [4293ef0dc536f0e5]\nR3: No discussion of automated metrics like POPE or MME or their reliability; unknown.\nR4: While multiple modalities and architectures are mentioned, there is no explicit guidance on how hard it is to add new modalities later to an existing architecture; unknown. [280dd300f503a0c9] [3b6be3edd259c18e]\nR5: No mention of instruction tuning causing forgetting of text-only capabilities; unknown.\nR6: Safety, privacy, and bias are mentioned at a high level, but there are no concrete simple alignment recipes for preventing toxic image descriptions; unknown. [8054a8ad91d54f01]"
+              }
+            ]
+          }
+        }
+      }
+    ],
+    "retrieval_eval": {
+      "requirements_eval": {
+        "decisions": [
+          {
+            "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+            "overall_verdict": "weak",
+            "requirements": [
+              {
+                "id": "R1",
+                "status": "partial",
+                "evidence": [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545",
+                  "9aa98ea88197007d"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "The second fine-tuning stage ... fine-tunes the model using a smaller but high-quality dataset"
+                  },
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "significantly improving its generation reliability. This fine-tuning is computationally efficient"
+                  },
+                  {
+                    "chunk_id": "9aa98ea88197007d",
+                    "quote": "smaller, more targeted models can deliver superior performance in specific domains"
+                  }
+                ],
+                "rationale": "Evidence shows small, high-quality datasets are effective for the second stage and that smaller, specialized models can perform well, but it does not clearly state that massive data is non-negotiable or fully dispensable overall. The large aligned image–text pretraining stage is mentioned but not contrasted explicitly with a purely small-data regime."
+              },
+              {
+                "id": "R2",
+                "status": "partial",
+                "evidence": [
+                  "f509249fe42f7c0b",
+                  "124d2d04a7c7e545",
+                  "4293ef0dc536f0e5"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "f509249fe42f7c0b",
+                    "quote": "keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer"
+                  },
+                  {
+                    "chunk_id": "124d2d04a7c7e545",
+                    "quote": "initializing the model from pre-trained BLIP-2 checkpoints. Only the parameters of the Q-Former are fine-tuned"
+                  },
+                  {
+                    "chunk_id": "4293ef0dc536f0e5",
+                    "quote": "InstructBLIP can quickly adapt to different LLMs and perform instruction tuning by freezing the image encoder and the LLM"
+                  }
+                ],
+                "rationale": "Multiple models rely on pre-trained backbones and only fine-tune small adapters, indicating fine-tuning pre-trained models is a viable and efficient path. However, the text does not explicitly compare this to full pre-training from scratch or articulate the tradeoff in terms of final quality vs. effort."
+              },
+              {
+                "id": "R3",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "No retrieved chunks discuss automated evaluation metrics such as POPE or MME, nor the reliability of automated metrics versus human evaluation."
+              },
+              {
+                "id": "R4",
+                "status": "partial",
+                "evidence": [
+                  "280dd300f503a0c9",
+                  "3b6be3edd259c18e",
+                  "48f55570f23fbf34",
+                  "0a23e386024a84f1",
+                  "c913629ddcafae44"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "280dd300f503a0c9",
+                    "quote": "HuggingGPT ... EMO incorporates specialized facial feature extraction and audio processing modules"
+                  },
+                  {
+                    "chunk_id": "280dd300f503a0c9",
+                    "quote": "LWM ... and NeXT-GPT ... integrate ... vision-language models (like CLIP and ImageBind)"
+                  },
+                  {
+                    "chunk_id": "3b6be3edd259c18e",
+                    "quote": "Multimodal fusion technology is a crucial component of MLLMs"
+                  },
+                  {
+                    "chunk_id": "48f55570f23fbf34",
+                    "quote": "advances have been made in realizing audio understanding tasks by constructing large-scale datasets for instruction fine-tuning"
+                  },
+                  {
+                    "chunk_id": "0a23e386024a84f1",
+                    "quote": "Speech recognition datasets LibriSpeech and GigaSpeech M-sets, and audio captioning datasets WavCaps and AudioCaps are used"
+                  }
+                ],
+                "rationale": "Evidence shows architectures that include audio modules and multimodal fusion, and audio-focused training frameworks, implying modalities can be added via specialized components and data. However, there is no explicit discussion of how hard it is to add a new modality later given an existing architecture, so effort and retrofitting difficulty remain unclear."
+              },
+              {
+                "id": "R5",
+                "status": "missing",
+                "evidence": [],
+                "quotes": [],
+                "rationale": "Instruction tuning is described for InstructBLIP and others, but there is no discussion of catastrophic forgetting or degradation of original text-only capabilities."
+              },
+              {
+                "id": "R6",
+                "status": "missing",
+                "evidence": [
+                  "70a2d1dc0f1c2738",
+                  "8054a8ad91d54f01"
+                ],
+                "quotes": [
+                  {
+                    "chunk_id": "8054a8ad91d54f01",
+                    "quote": "they inevitably encounter security issues such as privacy leakage and data bias"
+                  }
+                ],
+                "rationale": "Security and ethical issues are mentioned at a high level, but there are no concrete recipes or methods for alignment specifically aimed at preventing toxic image descriptions."
+              }
+            ],
+            "missing_requirements": [
+              "R3",
+              "R5",
+              "R6"
+            ],
+            "risks": [
+              "Lack of guidance on evaluation metrics (R3) could lead to over-reliance on unvalidated automated tests.",
+              "No discussion of instruction-tuning-induced forgetting (R5) risks unexpected regressions in text-only performance.",
+              "Absence of concrete alignment recipes (R6) leaves safety and toxicity mitigation unaddressed.",
+              "Unclear difficulty of adding new modalities later (R4) may cause architectural lock-in and higher future integration costs.",
+              "Partial treatment of data scale vs. quality (R1) may lead to under- or over-investment in data collection."
+            ]
+          }
+        ]
+      },
+      "coverage": {
+        "overall": "mixed",
+        "notes": "The evidence covers data/compute-effort tradeoffs and fine-tuning vs. frozen backbones reasonably well, and touches on multimodal architectures. It does not address evaluation metrics, forgetting from instruction tuning, or concrete alignment methods, and only indirectly addresses adding new modalities.",
+        "missing_requirements": [
+          "R3",
+          "R5",
+          "R6"
+        ]
+      },
+      "redundancy": {
+        "level": "medium",
+        "notes": "Multiple chunks describe similar two-stage training and frozen-backbone fine-tuning patterns (MiniGPT-4, InstructBLIP) and general image-understanding capabilities, which is somewhat redundant for the specific requirements.",
+        "redundant_pairs": [
+          [
+            "f509249fe42f7c0b",
+            "124d2d04a7c7e545"
+          ],
+          [
+            "4293ef0dc536f0e5",
+            "d6d9aeae8500ca14"
+          ]
+        ]
+      },
+      "budget_efficiency": {
+        "rating": "mixed",
+        "notes": "Some high-cost chunks provide strong, relevant detail on training effort and architectures (e.g., MiniGPT-4, InstructBLIP), but other expensive chunks focus on video understanding or general challenges that do not address the specific requirements, while key topics like metrics and alignment are absent.",
+        "top_cost_chunks": [
+          {
+            "chunk_id": "bfe149b1f8e7d622",
+            "cost": 195,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "e4f5aa8d25fc1593",
+            "cost": 172,
+            "yield": "low"
+          },
+          {
+            "chunk_id": "343db583c5f4bc61",
+            "cost": 166,
+            "yield": "medium"
+          },
+          {
+            "chunk_id": "f509249fe42f7c0b",
+            "cost": 142,
+            "yield": "high"
+          },
+          {
+            "chunk_id": "124d2d04a7c7e545",
+            "cost": 143,
+            "yield": "high"
+          }
+        ]
+      },
+      "risk_flags": [
+        "Key evaluation-metric requirement (R3) is entirely unsupported by retrieved evidence.",
+        "No evidence on instruction-tuning-induced forgetting (R5) may hide important regression risks.",
+        "No concrete alignment or toxicity-mitigation recipes (R6) despite safety being central to deployment.",
+        "Architectural and modality-extension guidance (R4) is indirect, risking future integration difficulties.",
+        "Data-scale vs. quality guidance (R1) is incomplete, which may misinform effort planning."
+      ]
+    },
+    "summary_eval": {
+      "verdict": "pass",
+      "grounding": "grounded",
+      "issues": [],
+      "unsupported_claims": [],
+      "quotes": [
+        {
+          "chunk_id": "f509249fe42f7c0b",
+          "quote": "MiniGPT-4 employs a two-stage training approach."
+        },
+        {
+          "chunk_id": "f509249fe42f7c0b",
+          "quote": "The initial pre-training stage involves training the model on a large collection of aligned image-text pairs"
+        },
+        {
+          "chunk_id": "f509249fe42f7c0b",
+          "quote": "keeping the pre-trained vision encoder and the LLM frozen while only training the linear projection layer."
+        },
+        {
+          "chunk_id": "f509249fe42f7c0b",
+          "quote": "The second fine-tuning stage ... fine-tunes the model using a smaller but high-quality dataset"
+        },
+        {
+          "chunk_id": "124d2d04a7c7e545",
+          "quote": "InstructBLIP employs a two-stage training process."
+        },
+        {
+          "chunk_id": "124d2d04a7c7e545",
+          "quote": "Only the parameters of the Q-Former are fine-tuned while keeping the image encoder and the LLM frozen."
+        },
+        {
+          "chunk_id": "124d2d04a7c7e545",
+          "quote": "Instruction tuning: involves training the model with a maximum of 60,000 steps"
+        },
+        {
+          "chunk_id": "3b6be3edd259c18e",
+          "quote": "Common fusion methods include simple linear layers ... and attention mechanisms"
+        },
+        {
+          "chunk_id": "3b6be3edd259c18e",
+          "quote": "Compared to linear layers, attention mechanisms can capture more complex inter-modal interactions"
+        },
+        {
+          "chunk_id": "9aa98ea88197007d",
+          "quote": "there is an ongoing debate about whether MLLMs should pursue a “big and comprehensive” approach or a “small and specialized” one."
+        },
+        {
+          "chunk_id": "9aa98ea88197007d",
+          "quote": "smaller, more targeted models can deliver superior performance in specific domains."
+        },
+        {
+          "chunk_id": "615b9bb0b00f06c5",
+          "quote": "In the realm of image understanding, MLLMs excel at interpreting and extracting meaningful information from images."
+        },
+        {
+          "chunk_id": "4293ef0dc536f0e5",
+          "quote": "InstructBLIP ... can quickly adapt to different LLMs and perform instruction tuning by freezing the image encoder and the LLM."
+        },
+        {
+          "chunk_id": "d6d9aeae8500ca14",
+          "quote": "MiniGPT-4, InstructBLIP, and other related models have shown excellent performance and potential"
+        },
+        {
+          "chunk_id": "bfe149b1f8e7d622",
+          "quote": "current MLLMs have parameters in the order of billions, resulting in slow inference speeds"
+        },
+        {
+          "chunk_id": "8054a8ad91d54f01",
+          "quote": "As MLLMs process vast amounts of data, they inevitably encounter security issues such as privacy leakage and data bias."
+        },
+        {
+          "chunk_id": "343db583c5f4bc61",
+          "quote": "more lightweight model designs that significantly reduce computational overhead while maintaining performance"
+        }
+      ]
+    },
+    "decision_eval": {
+      "decisions": [
+        {
+          "decision": "Data & Training Pipeline: Determining how much effort allows us to ship.",
+          "answer": "The review supports that useful image-understanding features can be shipped with modest effort by reusing frozen backbones, training small adapters in two stages, and favoring small, high-quality instruction datasets over massive bespoke training, but it does not claim that massive data is non‑negotiable, nor does it require pretraining from scratch; it also does not discuss metric reliability, catastrophic forgetting, toxicity alignment recipes, or ease of adding new modalities.",
+          "confidence": 0.8,
+          "evidence": [
+            "f509249fe42f7c0b",
+            "124d2d04a7c7e545",
+            "4293ef0dc536f0e5",
+            "3b6be3edd259c18e",
+            "9aa98ea88197007d",
+            "615b9bb0b00f06c5",
+            "d6d9aeae8500ca14",
+            "bfe149b1f8e7d622",
+            "343db583c5f4bc61"
+          ],
+          "notes": "R1: The text highlights a small, high-quality dataset in MiniGPT-4’s second stage but does not say massive data is non‑negotiable; it instead notes a debate between big comprehensive vs small specialized models and that smaller targeted models can be superior in specific domains. [f509249fe42f7c0b] [9aa98ea88197007d]\nR2: Both MiniGPT-4 and InstructBLIP rely on existing pre-trained encoders and LLMs, freezing them and training only projection/Q-Former, indicating fine-tuning pre-trained models is a viable and efficient path; there is no requirement to pre-train from scratch. [f509249fe42f7c0b] [124d2d04a7c7e545] [4293ef0dc536f0e5]\nR3: No discussion of automated metrics like POPE or MME or their reliability; unknown.\nR4: While multiple modalities and architectures are mentioned, there is no explicit guidance on how hard it is to add new modalities later to an existing architecture; unknown. [280dd300f503a0c9] [3b6be3edd259c18e]\nR5: No mention of instruction tuning causing forgetting of text-only capabilities; unknown.\nR6: Safety, privacy, and bias are mentioned at a high level, but there are no concrete simple alignment recipes for preventing toxic image descriptions; unknown. [8054a8ad91d54f01]"
+        }
+      ]
+    }
+  }
+}
