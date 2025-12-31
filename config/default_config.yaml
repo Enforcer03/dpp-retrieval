@@ -31,16 +31,23 @@ extract:
     on_figures: true
 
 embed:
-  backend: hf_clip
-  model_name: openai/clip-vit-base-patch32
+  backend: sentence_transformer
+  model_name: "sentence-transformers/all-mpnet-base-v2" 
   device: cuda
   batch_size: 32
   dim: 0
 
+  # Alternative: CLIP via SentenceTransformer
+  # backend: sentence_transformer
+  # model_name: clip-ViT-B-32
+
+  # Alternative: Gemma (dual encoder - auto-detects encode_query/encode_document)
+  # backend: sentence_transformer
+  # model_name: google/embeddinggemma-300m
+
 retrieval:
   top_pages: 100
-  top_units_bm25: 90
-  top_units_dense: 110
+  top_units_dense: 150  # Increased from 110 to compensate for BM25 removal
   rrf_k: 60
   unit_image_weight: 1.15
   table_boost: 0.75
@@ -81,6 +88,7 @@ output:
   save_context_json: true
   save_highlighted_pdf: true
   save_run_output_json: false
+  save_document_markdown: true
   run_output_filename: run_output.json
 
 logging:

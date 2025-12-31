@@ -55,17 +55,33 @@ class ExtractConfig:
 
 @dataclass(frozen=True)
 class EmbedConfig:
+    """
+    Configuration for embedding models.
+
+    backend options:
+      - "hf_clip": Use transformers CLIPModel
+      - "hf_siglip": Use transformers AutoModel (for SigLIP)
+      - "hf_auto": Auto-detect transformers model type
+      - "sentence_transformer": Use sentence-transformers library (NEW)
+
+    model_name:
+      - For hf_* backends: HuggingFace model ID (e.g., "openai/clip-vit-base-patch32")
+      - For sentence_transformer: SentenceTransformer model ID
+        (e.g., "clip-ViT-B-32", "google/embeddinggemma-300m")
+
+    Note: sentence_transformer backend auto-detects dual encoders
+          (models with encode_query/encode_document methods)
+    """
     backend: str
     model_name: str
     device: str
     batch_size: int
-    dim: int
+    dim: int  # 0 = auto-infer
 
 
 @dataclass(frozen=True)
 class RetrievalConfig:
     top_pages: int
-    top_units_bm25: int
     top_units_dense: int
     rrf_k: int
     unit_image_weight: float
@@ -112,6 +128,7 @@ class OutputConfig:
     save_context_json: bool
     save_highlighted_pdf: bool
     save_run_output_json: bool
+    save_document_markdown: bool
     run_output_filename: str
 
 
@@ -201,7 +218,6 @@ def load_config(path: str | Path) -> AppConfig:
         ),
         retrieval=RetrievalConfig(
             top_pages=int(retrieval["top_pages"]),
-            top_units_bm25=int(retrieval["top_units_bm25"]),
             top_units_dense=int(retrieval["top_units_dense"]),
             rrf_k=int(retrieval["rrf_k"]),
             unit_image_weight=float(retrieval.get("unit_image_weight", 0.8)),
@@ -238,6 +254,7 @@ def load_config(path: str | Path) -> AppConfig:
             save_context_json=bool(output.get("save_context_json", True)),
             save_highlighted_pdf=bool(output.get("save_highlighted_pdf", True)),
             save_run_output_json=bool(output.get("save_run_output_json", False)),
+            save_document_markdown=bool(output.get("save_document_markdown", True)),
             run_output_filename=str(output.get("run_output_filename", "run_output.json")),
         ),
         logging=LoggingConfig(level=str(logging["level"]), file=_as_path(logging["file"])),

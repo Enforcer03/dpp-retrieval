@@ -34,19 +34,40 @@ class MultiModalEmbedder:
     def __init__(self, backend: str, model_name: str, device: str, batch_size: int, dim: int):
         self.backend = backend
         self.model_name = model_name
-        self.device = device
+        self.device = self._resolve_device(device)
         self.batch_size = batch_size
         self.dim = int(dim) if dim is not None else 0
         if self.dim < 0:
             self.dim = 0
 
-        self._hf: Optional[Tuple[Any, Any, Any]] = None
+        self._hf: Optional[Tuple[Any, Any, Any, Any]] = None  # (torch, processor, model, tokenizer)
+        self._st: Optional[Tuple[Any, Any]] = None  # (sentence_transformers module, model)
+        self._use_dual_encoder: bool = False
+
         if backend.startswith("hf"):
             self._hf = self._init_hf()
+        elif backend == "sentence_transformer":
+            self._st = self._init_sentence_transformer()
 
-        # If HF init failed, ensure we have a usable dim for hashing fallback
-        if self._hf is None and self.dim == 0:
+        # If both HF and ST init failed, ensure we have a usable dim for hashing fallback
+        if self._hf is None and self._st is None and self.dim == 0:
             self.dim = 256
+
+    def _resolve_device(self, device: str) -> str:
+        """Auto-detect available device if cuda is requested but not available."""
+        if device == "cuda":
+            try:
+                import torch
+                if torch.cuda.is_available():
+                    log.info("embedder.device using device=cuda (CUDA available)")
+                    return "cuda"
+                else:
+                    log.warning("embedder.device CUDA requested but not available, falling back to cpu")
+                    return "cpu"
+            except ImportError:
+                log.warning("embedder.device torch not available, falling back to cpu")
+                return "cpu"
+        return device
 
     def _init_hf(self):
         try:
@@ -60,32 +81,72 @@ class MultiModalEmbedder:
             force_siglip = self.backend in {"hf_siglip"}
 
             if force_clip or model_type == "clip" or "clip" in self.model_name.lower():
-                from transformers import CLIPModel, CLIPProcessor  # type: ignore
+                from transformers import CLIPModel, CLIPProcessor, CLIPTokenizer  # type: ignore
 
                 proc = self._from_pretrained_fast(CLIPProcessor, self.model_name)
+                tokenizer = CLIPTokenizer.from_pretrained(self.model_name)
                 model = CLIPModel.from_pretrained(self.model_name)
             else:
                 # SigLIP and most other multimodal transformers work with Auto*
-                from transformers import AutoProcessor, AutoModel  # type: ignore
+                from transformers import AutoProcessor, AutoModel, AutoTokenizer  # type: ignore
 
                 proc = self._from_pretrained_fast(AutoProcessor, self.model_name)
+                tokenizer = AutoTokenizer.from_pretrained(self.model_name)
                 model = AutoModel.from_pretrained(self.model_name)
 
             model.to(self.device)
             model.eval()
 
             # Infer embedding dimension if dim unset or mismatched
-            inferred_dim = self._infer_dim(torch, proc, model)
+            inferred_dim = self._infer_dim(torch, proc, model, tokenizer)
             if inferred_dim is not None:
                 if self.dim in (0, None) or self.dim != inferred_dim:
                     log.info("embedder.dim set dim=%s (was=%s) model=%s backend=%s",
                              inferred_dim, self.dim, self.model_name, self.backend)
                     self.dim = int(inferred_dim)
 
-            return torch, proc, model
+            return torch, proc, model, tokenizer
 
         except Exception as e:
             log.warning("embedder.hf_init_failed backend=%s model=%s err=%s", self.backend, self.model_name, e)
+            return None
+
+    def _init_sentence_transformer(self):
+        """Initialize SentenceTransformer model with dual encoder auto-detection."""
+        try:
+            import sentence_transformers as st_lib
+
+            model = st_lib.SentenceTransformer(self.model_name, device=self.device)
+
+            # Auto-detect dual encoder support
+            self._use_dual_encoder = (
+                hasattr(model, 'encode_query') and
+                hasattr(model, 'encode_document')
+            )
+
+            log.info(
+                "embedder.st_init backend=%s model=%s dual_encoder=%s",
+                self.backend, self.model_name, self._use_dual_encoder
+            )
+
+            # Infer embedding dimension
+            test_emb = model.encode(["test"], convert_to_numpy=True, show_progress_bar=False)
+            inferred_dim = test_emb.shape[1]
+
+            if self.dim in (0, None) or self.dim != inferred_dim:
+                log.info(
+                    "embedder.dim set dim=%s (was=%s) model=%s backend=%s",
+                    inferred_dim, self.dim, self.model_name, self.backend
+                )
+                self.dim = int(inferred_dim)
+
+            return st_lib, model
+
+        except Exception as e:
+            log.warning(
+                "embedder.st_init_failed backend=%s model=%s err=%s",
+                self.backend, self.model_name, e
+            )
             return None
 
     @staticmethod
@@ -96,13 +157,13 @@ class MultiModalEmbedder:
         except TypeError:
             return cls.from_pretrained(model_name)
 
-    def _infer_dim(self, torch, proc, model) -> Optional[int]:
+    def _infer_dim(self, torch, proc, model, tokenizer) -> Optional[int]:
         """
         Run a tiny forward pass to determine output dimension robustly.
         """
-        # Try text first
+        # Try text first using tokenizer directly
         try:
-            inputs = proc(text=["test"], return_tensors="pt", padding=True, truncation=True)
+            inputs = tokenizer(["test"], return_tensors="pt", padding=True, truncation=True)
             inputs = {k: v.to(self.device) for k, v in inputs.items()}
             with torch.no_grad():
                 if hasattr(model, "get_text_features"):
@@ -130,15 +191,43 @@ class MultiModalEmbedder:
             return None
 
     def embed_text(self, ids: list[str], texts: list[str]) -> EmbedResult:
+        if self._st is not None:
+            st_lib, model = self._st
+            all_vecs = []
+
+            for i in range(0, len(texts), self.batch_size):
+                batch = texts[i : i + self.batch_size]
+
+                # Use encode_document for corpus text (dual encoder models)
+                if hasattr(model, 'encode_document'):
+                    vecs = model.encode_document(
+                        batch,
+                        convert_to_numpy=True,
+                        show_progress_bar=False,
+                        normalize_embeddings=True
+                    )
+                else:
+                    vecs = model.encode(
+                        batch,
+                        convert_to_numpy=True,
+                        show_progress_bar=False,
+                        normalize_embeddings=True
+                    )
+                all_vecs.append(vecs.astype(np.float32))
+
+            vecs = np.vstack(all_vecs) if all_vecs else np.zeros((0, self.dim), dtype=np.float32)
+            return EmbedResult(ids=ids, vecs=vecs)
+
         if self._hf is None:
             vecs = self._hash_text(texts, self.dim)
             return EmbedResult(ids=ids, vecs=normalize_rows(vecs))
 
-        torch, proc, model = self._hf
+        torch, proc, model, tokenizer = self._hf
         all_vecs: list[np.ndarray] = []
         for i in range(0, len(texts), self.batch_size):
             batch = texts[i : i + self.batch_size]
-            inputs = proc(text=batch, return_tensors="pt", padding=True, truncation=True)
+            # Use tokenizer directly for text to avoid processor kwargs issues
+            inputs = tokenizer(batch, return_tensors="pt", padding=True, truncation=True)
             inputs = {k: v.to(self.device) for k, v in inputs.items()}
             with torch.no_grad():
                 if hasattr(model, "get_text_features"):
@@ -153,11 +242,34 @@ class MultiModalEmbedder:
         return EmbedResult(ids=ids, vecs=vecs)
 
     def embed_images(self, ids: list[str], image_paths: list[Path]) -> EmbedResult:
+        if self._st is not None:
+            st_lib, model = self._st
+            all_vecs = []
+
+            for i in range(0, len(image_paths), self.batch_size):
+                batch_paths = image_paths[i : i + self.batch_size]
+                imgs = [Image.open(p).convert("RGB") for p in batch_paths]
+
+                vecs = model.encode(
+                    imgs,
+                    convert_to_numpy=True,
+                    show_progress_bar=False,
+                    normalize_embeddings=True
+                )
+
+                for im in imgs:
+                    im.close()
+
+                all_vecs.append(vecs.astype(np.float32))
+
+            vecs = np.vstack(all_vecs) if all_vecs else np.zeros((0, self.dim), dtype=np.float32)
+            return EmbedResult(ids=ids, vecs=vecs)
+
         if self._hf is None:
             vecs = self._hash_images(image_paths, self.dim)
             return EmbedResult(ids=ids, vecs=normalize_rows(vecs))
 
-        torch, proc, model = self._hf
+        torch, proc, model, tokenizer = self._hf
         all_vecs: list[np.ndarray] = []
         for i in range(0, len(image_paths), self.batch_size):
             batch_paths = image_paths[i : i + self.batch_size]
@@ -205,3 +317,29 @@ class MultiModalEmbedder:
             except Exception:
                 out[i] = 0.0
         return out
+
+    def embed_query(self, query_text: str) -> np.ndarray:
+        """Embed a query using dual encoder if available."""
+        if self._st is not None:
+            st_lib, model = self._st
+
+            # Use encode_query for dual encoder models
+            if self._use_dual_encoder and hasattr(model, 'encode_query'):
+                vec = model.encode_query(
+                    [query_text],
+                    convert_to_numpy=True,
+                    show_progress_bar=False,
+                    normalize_embeddings=True
+                )
+            else:
+                vec = model.encode(
+                    [query_text],
+                    convert_to_numpy=True,
+                    show_progress_bar=False,
+                    normalize_embeddings=True
+                )
+            return vec[0].astype(np.float32)
+
+        # Fall back to embed_text for HF models
+        result = self.embed_text(["q"], [query_text])
+        return result.vecs[0]

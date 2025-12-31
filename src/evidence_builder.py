@@ -1,72 +1,15 @@
+"""
+Simplified evidence builder with transparent unit creation.
+"""
 from __future__ import annotations
 
 import logging
-import re
-from collections import defaultdict
 from pathlib import Path
 
-from .schema import DocumentArtifact, EvidenceUnit, Element
-from .utils import bbox_iou, bbox_union, stable_id
+from .schema import DocumentArtifact, EvidenceUnit
+from .utils import stable_id
 
 log = logging.getLogger(__name__)
-
-_num_re = re.compile(r"\d")
-
-
-def _looks_like_table(text: str) -> bool:
-    t = text.strip()
-    if t.count("\n") >= 3 and t.count("  ") >= 6:
-        return True
-    digs = len(_num_re.findall(t))
-    return digs >= 10 and ("\n" in t) and (digs / max(1, len(t))) > 0.08
-
-
-def _norm_type(t: str | None) -> str:
-    return (t or "").strip().lower()
-
-
-def _is_caption(el: Element) -> bool:
-    return "caption" in _norm_type(el.type)
-
-
-def _visual_kind(el: Element) -> str | None:
-    if not getattr(el, "image_path", None):
-        return None
-    t = _norm_type(el.type)
-    if t in ("page", "page_image"):
-        return None
-    if "table" in t:
-        return "table"
-    if "figure" in t:
-        return "figure"
-    if t in {"image", "img", "picture", "photo", "chart", "diagram", "plot", "graphic", "illustration"}:
-        if getattr(el, "text", None) and _looks_like_table(str(el.text)):
-            return "table"
-        return "figure"
-    if getattr(el, "text", None) and _looks_like_table(str(el.text)):
-        return "table"
-    return "figure"
-
-
-def _h_overlap(a, b) -> float:
-    x0 = max(a[0], b[0])
-    x1 = min(a[2], b[2])
-    return max(0.0, x1 - x0)
-
-
-def _near_caption(fig: Element, caps: list[Element], px: float) -> Element | None:
-    fx0, fy0, fx1, fy1 = fig.bbox
-    best = None
-    best_d = 1e18
-    for c in caps:
-        cx0, cy0, cx1, cy1 = c.bbox
-        if _h_overlap((fx0, 0, fx1, 0), (cx0, 0, cx1, 0)) <= 0:
-            continue
-        d = min(abs(cy0 - fy1), abs(fy0 - cy1))
-        if d <= px and d < best_d:
-            best = c
-            best_d = d
-    return best
 
 
 class EvidenceBuilder:
@@ -76,188 +19,91 @@ class EvidenceBuilder:
         self.stopwords = stopwords
 
     def build(self, doc: DocumentArtifact, token_counter) -> list[EvidenceUnit]:
-        by_page: dict[int, list[Element]] = defaultdict(list)
-        page_image_by_page: dict[int, Path] = {}
-
-        for p in getattr(doc, "pages", []) or []:
-            try:
-                by_page[int(p.page)]
-                if getattr(p, "page_image_path", None):
-                    page_image_by_page[int(p.page)] = Path(p.page_image_path)
-            except Exception:
-                continue
-
-        for e in getattr(doc, "elements", []) or []:
-            by_page[int(e.page)].append(e)
-
-        units: list[EvidenceUnit] = []
-        for pno, els in sorted(by_page.items()):
-            els = sorted(els, key=lambda x: (x.bbox[1], x.bbox[0]))
-            caps = [e for e in els if _is_caption(e) and getattr(e, "text", None)]
-            fig_els = [e for e in els if _visual_kind(e) == "figure"]
-            tab_els = [e for e in els if _visual_kind(e) == "table"]
-
-            # ============================================================
-            # FIX 1: Make text filtering PERMISSIVE
-            # Include ALL elements with text, except page images
-            # ============================================================
-            exclude_types = {"page_image", "page"}
-            texts = [
-                e
-                for e in els
-                if getattr(e, "text", None) and _norm_type(e.type) not in exclude_types
-            ]
-
-            used_ids: set[str] = set()
-
-            def _add_visual_unit(el: Element, kind: str) -> None:
-                nonlocal used_ids
-                cap = _near_caption(el, caps, self.caption_search_px)
-                cap_text = ""
-                cap_ids: list[str] = []
-                bbox = el.bbox
-                if cap is not None:
-                    cap_text = cap.text or ""
-                    # ============================================================
-                    # FIX 2: Don't exclude caption text from text chunks
-                    # Let captions appear in BOTH visual units AND text chunks
-                    # ============================================================
-                    # used_ids.add(cap.id)  # COMMENTED OUT
-                    cap_ids.append(cap.id)
-                    bbox = bbox_union(bbox, cap.bbox)
-
-                body_text = (getattr(el, "text", "") or "").strip()
-                rt = "\n".join([t for t in [cap_text.strip(), body_text] if t]).strip()
-
-                unit_type = "table_text" if kind == "table" else "figure"
-                uid = stable_id(doc.doc_id, pno, unit_type, el.id, rt[:32])
-
-                img_path = Path(str(getattr(el, "image_path"))).expanduser()
-                if not img_path.exists():
-                    log.warning("missing.image_path page=%s el_id=%s type=%s path=%s", pno, el.id, el.type, img_path)
-
-                units.append(
-                    EvidenceUnit(
-                        id=uid,
-                        page=pno,
-                        bbox=bbox,
-                        type=unit_type,
-                        retrieval_text=rt,
-                        context_text=rt,
-                        image_paths=[img_path],
-                        source_element_ids=[el.id] + cap_ids,
-                    )
-                )
-                used_ids.add(el.id)
-
-            for el in tab_els:
-                _add_visual_unit(el, kind="table")
-            for el in fig_els:
-                _add_visual_unit(el, kind="figure")
-
-            usable_texts = [e for e in texts if e.id not in used_ids]
+        """Convert document elements into evidence units."""
+        units = []
+        
+        # Group elements by page
+        by_page = {}
+        for el in doc.elements:
+            page = el.page
+            if page not in by_page:
+                by_page[page] = []
+            by_page[page].append(el)
+        
+        # Process each page
+        for page_num in sorted(by_page.keys()):
+            elements = sorted(by_page[page_num], key=lambda e: (e.bbox[1], e.bbox[0]))
             
-            # ============================================================
-            # FIX 3: Add visibility logging for dropped elements
-            # ============================================================
-            dropped_count = len(texts) - len(usable_texts)
-            if dropped_count > 0:
-                log.debug("page=%s total_text_elements=%d usable=%d dropped=%d (reused_in_visual_units)", 
-                          pno, len(texts), len(usable_texts), dropped_count)
+            # Separate by type
+            page_images = [e for e in elements if e.type == "page_image"]
+            tables = [e for e in elements if e.type == "table_text"]
+            figures = [e for e in elements if e.type == "figure"]
+            text_elements = [e for e in elements if e.type not in {"page_image", "table_text", "figure"}]
             
-            buf: list[Element] = []
-            buf_texts: list[str] = []
-            buf_bbox = None
-            buf_tokens = 0
-
-            def flush() -> None:
-                nonlocal buf, buf_texts, buf_bbox, buf_tokens
-                if not buf:
-                    return
-                text = "\n".join(buf_texts).strip()
-                if not text:
-                    buf, buf_texts, buf_bbox, buf_tokens = [], [], None, 0
-                    return
-                ttype = "table_text" if _looks_like_table(text) else "text"
-                uid = stable_id(doc.doc_id, pno, ttype, buf[0].id, buf[-1].id)
-                units.append(
-                    EvidenceUnit(
-                        id=uid,
-                        page=pno,
-                        bbox=buf_bbox or buf[0].bbox,
-                        type=ttype,
-                        retrieval_text=text,
-                        context_text=text,
-                        image_paths=[],
-                        source_element_ids=[e.id for e in buf],
-                    )
-                )
-                buf, buf_texts, buf_bbox, buf_tokens = [], [], None, 0
-
-            for e in usable_texts:
-                t = (e.text or "").strip()
-                if not t:
+            log.debug("page=%d elements: page_img=%d tables=%d figures=%d text=%d", 
+                     page_num, len(page_images), len(tables), len(figures), len(text_elements))
+            
+            # Create units for visuals (tables/figures) - one unit per element
+            for el in tables:
+                units.append(EvidenceUnit(
+                    id=stable_id(doc.doc_id, page_num, "table_text", el.id),
+                    page=page_num,
+                    bbox=el.bbox,
+                    type="table_text",
+                    retrieval_text=el.text or "",
+                    context_text=el.text or "",
+                    image_paths=[Path(el.image_path)] if el.image_path else [],
+                    source_element_ids=[el.id],
+                ))
+            
+            for el in figures:
+                units.append(EvidenceUnit(
+                    id=stable_id(doc.doc_id, page_num, "figure", el.id),
+                    page=page_num,
+                    bbox=el.bbox,
+                    type="figure",
+                    retrieval_text=el.text or "",
+                    context_text=el.text or "",
+                    image_paths=[Path(el.image_path)] if el.image_path else [],
+                    source_element_ids=[el.id],
+                ))
+            
+            # Create units for text elements - one unit per element (no chunking merge)
+            for el in text_elements:
+                if not el.text or not el.text.strip():
                     continue
-                t_tokens = token_counter.count(t)
-                if buf and (buf_tokens + t_tokens) > self.max_text_chunk_tokens:
-                    flush()
-                buf.append(e)
-                buf_texts.append(t)
-                buf_bbox = e.bbox if buf_bbox is None else bbox_union(buf_bbox, e.bbox)
-                buf_tokens += t_tokens
-
-            flush()
-
-            page_images = [e for e in els if _norm_type(e.type) == "page_image" and getattr(e, "image_path", None)]
-            for pi in page_images:
-                uid = stable_id(doc.doc_id, pno, "page_image", pi.id)
-                units.append(
-                    EvidenceUnit(
-                        id=uid,
-                        page=pno,
-                        bbox=pi.bbox,
-                        type="page_image",
-                        retrieval_text="",
-                        context_text="",
-                        image_paths=[Path(pi.image_path)],
-                        source_element_ids=[pi.id],
-                    )
-                )
-
-            if not page_images and pno in page_image_by_page:
-                img_path = page_image_by_page[pno]
-                if els:
-                    bb = els[0].bbox
-                    for e in els[1:]:
-                        bb = bbox_union(bb, e.bbox)
-                else:
-                    bb = (0.0, 0.0, 1.0, 1.0)
-
-                uid = stable_id(doc.doc_id, pno, "page_image", "page_render")
-                units.append(
-                    EvidenceUnit(
-                        id=uid,
-                        page=pno,
-                        bbox=bb,
-                        type="page_image",
-                        retrieval_text="",
-                        context_text="",
-                        image_paths=[img_path],
-                        source_element_ids=[],
-                    )
-                )
-
-        log.info("evidence.units doc_id=%s units=%d", doc.doc_id, len(units))
-        return self._dedupe(units)
-
-    def _dedupe(self, units: list[EvidenceUnit]) -> list[EvidenceUnit]:
-        out: list[EvidenceUnit] = []
-        for u in sorted(units, key=lambda x: (x.page, x.bbox[1], x.bbox[0], x.type)):
-            keep = True
-            for v in out[-6:]:
-                if u.page == v.page and u.type == v.type and bbox_iou(u.bbox, v.bbox) > 0.92:
-                    keep = False
-                    break
-            if keep:
-                out.append(u)
-        return out
+                
+                # Each element becomes its own unit
+                units.append(EvidenceUnit(
+                    id=stable_id(doc.doc_id, page_num, el.type, el.id),
+                    page=page_num,
+                    bbox=el.bbox,
+                    type=el.type,
+                    retrieval_text=el.text,
+                    context_text=el.text,
+                    image_paths=[],
+                    source_element_ids=[el.id],
+                ))
+            
+            # Add page image unit
+            for el in page_images:
+                units.append(EvidenceUnit(
+                    id=stable_id(doc.doc_id, page_num, "page_image", el.id),
+                    page=page_num,
+                    bbox=el.bbox,
+                    type="page_image",
+                    retrieval_text="",
+                    context_text="",
+                    image_paths=[Path(el.image_path)] if el.image_path else [],
+                    source_element_ids=[el.id],
+                ))
+        
+        log.info("evidence.units doc_id=%s total=%d", doc.doc_id, len(units))
+        
+        # Count by type
+        type_counts = {}
+        for u in units:
+            type_counts[u.type] = type_counts.get(u.type, 0) + 1
+        log.info("evidence.type_counts=%s", type_counts)
+        
+        return units
