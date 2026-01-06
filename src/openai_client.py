@@ -16,6 +16,7 @@ class ChatResult:
     text: str
     model: str
     usage: Dict[str, Any]
+    api_metadata: Dict[str, Any]  # API call status, finish_reason, errors
 
 
 class OpenAIChatClient:
@@ -32,22 +33,40 @@ class OpenAIChatClient:
         Note: Default max_tokens=16000 is safe for gpt-4o (max output: 16,384).
         Adjust if using different models with lower limits.
         """
-        resp = self.client.chat.completions.create(
-            model=model,
-            messages=[
-                {"role": "system", "content": system or ""},
-                {"role": "user", "content": user or ""},
-            ],
-            temperature=temperature,
-            max_completion_tokens=max_tokens,
-        )
-        msg = resp.choices[0].message.content or ""
-        usage = {}
         try:
-            usage = resp.usage.model_dump() if resp.usage else {}
-        except Exception:
+            resp = self.client.chat.completions.create(
+                model=model,
+                messages=[
+                    {"role": "system", "content": system or ""},
+                    {"role": "user", "content": user or ""},
+                ],
+                temperature=temperature,
+                max_completion_tokens=max_tokens,
+            )
+            msg = resp.choices[0].message.content or ""
             usage = {}
-        return ChatResult(text=msg, model=model, usage=usage)
+            try:
+                usage = resp.usage.model_dump() if resp.usage else {}
+            except Exception:
+                usage = {}
+
+            api_metadata = {
+                "status": "success",
+                "model": resp.model,  # Actual model used
+                "finish_reason": resp.choices[0].finish_reason if resp.choices else None,
+            }
+
+            return ChatResult(text=msg, model=model, usage=usage, api_metadata=api_metadata)
+
+        except Exception as e:
+            # Track failures
+            api_metadata = {
+                "status": "error",
+                "error_type": type(e).__name__,
+                "error_message": str(e)[:500],  # Truncate long error messages
+            }
+            # Return error result instead of raising
+            return ChatResult(text="", model=model, usage={}, api_metadata=api_metadata)
 
     def chat_vision_b64jpeg(
         self,
@@ -64,30 +83,46 @@ class OpenAIChatClient:
         Note: Default max_tokens=16000 is safe for gpt-4o (max output: 16,384).
         Caller typically overrides with more conservative values (e.g., 3500).
         """
-        resp = self.client.chat.completions.create(
-            model=model,
-            messages=[
-                {
-                    "role": "user",
-                    "content": [
-                        {"type": "text", "text": prompt or ""},
-                        {
-                            "type": "image_url",
-                            "image_url": {"url": f"data:image/jpeg;base64,{b64jpeg}", "detail": detail},
-                        },
-                    ],
-                }
-            ],
-            temperature=temperature,
-            max_completion_tokens=max_tokens,
-        )
-        msg = resp.choices[0].message.content or ""
-        usage = {}
         try:
-            usage = resp.usage.model_dump() if resp.usage else {}
-        except Exception:
+            resp = self.client.chat.completions.create(
+                model=model,
+                messages=[
+                    {
+                        "role": "user",
+                        "content": [
+                            {"type": "text", "text": prompt or ""},
+                            {
+                                "type": "image_url",
+                                "image_url": {"url": f"data:image/jpeg;base64,{b64jpeg}", "detail": detail},
+                            },
+                        ],
+                    }
+                ],
+                temperature=temperature,
+                max_completion_tokens=max_tokens,
+            )
+            msg = resp.choices[0].message.content or ""
             usage = {}
-        return ChatResult(text=msg, model=model, usage=usage)
+            try:
+                usage = resp.usage.model_dump() if resp.usage else {}
+            except Exception:
+                usage = {}
+
+            api_metadata = {
+                "status": "success",
+                "model": resp.model,
+                "finish_reason": resp.choices[0].finish_reason if resp.choices else None,
+            }
+
+            return ChatResult(text=msg, model=model, usage=usage, api_metadata=api_metadata)
+
+        except Exception as e:
+            api_metadata = {
+                "status": "error",
+                "error_type": type(e).__name__,
+                "error_message": str(e)[:500],
+            }
+            return ChatResult(text="", model=model, usage={}, api_metadata=api_metadata)
 
     def chat_vision_multi_images(
         self,
@@ -116,31 +151,48 @@ class OpenAIChatClient:
         max_tokens based on batch size (e.g., 3500 * num_pages, capped at 16000).
         """
         if not b64jpegs:
-            return ChatResult(text="", model=model, usage={})
+            return ChatResult(text="", model=model, usage={}, api_metadata={"status": "empty_input"})
 
-        # Build multi-image content array
-        content = [{"type": "text", "text": prompt}]
-        for b64jpeg in b64jpegs:
-            content.append({
-                "type": "image_url",
-                "image_url": {
-                    "url": f"data:image/jpeg;base64,{b64jpeg}",
-                    "detail": detail
-                },
-            })
-
-        resp = self.client.chat.completions.create(
-            model=model,
-            messages=[{"role": "user", "content": content}],
-            temperature=temperature,
-            max_completion_tokens=max_tokens,
-        )
-
-        msg = resp.choices[0].message.content or ""
-        usage = {}
         try:
-            usage = resp.usage.model_dump() if resp.usage else {}
-        except Exception:
-            usage = {}
+            # Build multi-image content array
+            content = [{"type": "text", "text": prompt}]
+            for b64jpeg in b64jpegs:
+                content.append({
+                    "type": "image_url",
+                    "image_url": {
+                        "url": f"data:image/jpeg;base64,{b64jpeg}",
+                        "detail": detail
+                    },
+                })
 
-        return ChatResult(text=msg, model=model, usage=usage)
+            resp = self.client.chat.completions.create(
+                model=model,
+                messages=[{"role": "user", "content": content}],
+                temperature=temperature,
+                max_completion_tokens=max_tokens,
+            )
+
+            msg = resp.choices[0].message.content or ""
+            usage = {}
+            try:
+                usage = resp.usage.model_dump() if resp.usage else {}
+            except Exception:
+                usage = {}
+
+            api_metadata = {
+                "status": "success",
+                "model": resp.model,
+                "finish_reason": resp.choices[0].finish_reason if resp.choices else None,
+                "num_images": len(b64jpegs),
+            }
+
+            return ChatResult(text=msg, model=model, usage=usage, api_metadata=api_metadata)
+
+        except Exception as e:
+            api_metadata = {
+                "status": "error",
+                "error_type": type(e).__name__,
+                "error_message": str(e)[:500],
+                "num_images": len(b64jpegs),
+            }
+            return ChatResult(text="", model=model, usage={}, api_metadata=api_metadata)

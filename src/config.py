@@ -97,9 +97,10 @@ class SelectionConfig:
     alpha_visual: float
     redundancy_beta: float
     rel_weight: float
-    coverage_weight: float
     min_gain: float
-    stopwords: list[str]
+    cognitive_cost_mode: str  # 'simple' or 'emb'
+    cognitive_cost_device: str  # 'cpu' or 'cuda'
+    cognitive_cost_hf_model: str  # HuggingFace model for reasoning complexity
 
 
 @dataclass(frozen=True)
@@ -121,6 +122,14 @@ class WandbConfig:
     project: str
     entity: str
     tags: list[str]
+
+
+@dataclass(frozen=True)
+class MultiAnchorConfig:
+    enabled: bool
+    anchor_count: int
+    temperature: float
+    aggregation: str
 
 
 @dataclass(frozen=True)
@@ -149,6 +158,7 @@ class AppConfig:
     openai: OpenAIConfig
     summarization: SummarizationConfig
     wandb: WandbConfig
+    multi_anchor: MultiAnchorConfig
     output: OutputConfig
     logging: LoggingConfig
 
@@ -173,6 +183,7 @@ def load_config(path: str | Path) -> AppConfig:
     openai_cfg = data.get("openai", {}) or {}
     summ_cfg = data.get("summarization", {}) or {}
     wb = data.get("wandb", {}) or {}
+    ma = data.get("multi_anchor", {}) or {}
     output = data["output"]
     logging = data["logging"]
 
@@ -231,9 +242,10 @@ def load_config(path: str | Path) -> AppConfig:
             alpha_visual=float(selection["alpha_visual"]),
             redundancy_beta=float(selection["redundancy_beta"]),
             rel_weight=float(selection["rel_weight"]),
-            coverage_weight=float(selection["coverage_weight"]),
             min_gain=float(selection.get("min_gain", 0.0)),
-            stopwords=list(selection.get("stopwords", [])),
+            cognitive_cost_mode=str(selection.get("cognitive_cost_mode", "simple")),
+            cognitive_cost_device=str(selection.get("cognitive_cost_device", "cpu")),
+            cognitive_cost_hf_model=str(selection.get("cognitive_cost_hf_model", "davanstrien/ModernBERT-based-Reasoning-Required")),
         ),
         openai=OpenAIConfig(
             model=str(openai_cfg.get("model", "gpt-4o")),
@@ -249,6 +261,12 @@ def load_config(path: str | Path) -> AppConfig:
             project=str(wb.get("project", "icb-sum")),
             entity=str(wb.get("entity", "")),
             tags=list(wb.get("tags", [])),
+        ),
+        multi_anchor=MultiAnchorConfig(
+            enabled=bool(ma.get("enabled", False)),
+            anchor_count=int(ma.get("anchor_count", 5)),
+            temperature=float(ma.get("temperature", 1.0)),
+            aggregation=str(ma.get("aggregation", "mean")),
         ),
         output=OutputConfig(
             save_context_json=bool(output.get("save_context_json", True)),

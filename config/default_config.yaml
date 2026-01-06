@@ -56,13 +56,16 @@ retrieval:
   min_figure_candidates: 10
 
 selection:
-  budget_tokens: 25000
+  budget_tokens: 4000
   alpha_visual: 0.35
   redundancy_beta: 0.1
   rel_weight: 1.0
-  coverage_weight: 0.6
   min_gain: 0.0
-  stopwords: []
+  coverage_weight: 0.5  # Weight for query aspect coverage in greedy_cov selection (0.0 to disable)
+  stopwords: []  # Stopwords to exclude from coverage aspects (empty list uses no stopwords)
+  cognitive_cost_mode: emb  # 'simple' (token-based) or 'emb' (embedding-based with reasoning complexity)
+  cognitive_cost_device: cpu   # device for embedding-based profiler ('cpu' or 'cuda')
+  cognitive_cost_hf_model: "davanstrien/ModernBERT-based-Reasoning-Required"  # HF model for reasoning complexity
 
 openai:
   model: gpt-5.1
@@ -83,6 +86,12 @@ wandb:
   project: icb-sum
   entity: ""
   tags: []
+
+multi_anchor:
+  enabled: true
+  anchor_count: 5
+  temperature: 1.0
+  aggregation: mean
 
 output:
   save_context_json: true

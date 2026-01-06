@@ -6,319 +6,23 @@ Reads metadata.json and processes each entry (PDF + decisions + requirements).
 from __future__ import annotations
 
 import argparse
+from dataclasses import asdict
 import json
 import logging
 import subprocess
 import sys
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
+import numpy as np
+
+from src.config import load_config
+from src.wandb_logger import wandb_finish, wandb_init, wandb_log, wandb_log_artifact
+
 log = logging.getLogger(__name__)
 
-
-def load_json(path: Path) -> Any:
-    """Load JSON file."""
-    with open(path, "r", encoding="utf-8") as f:
-        return json.load(f)
-
-
-def save_json(path: Path, data: Any) -> None:
-    """Save data as JSON file."""
-    path.parent.mkdir(parents=True, exist_ok=True)
-    with open(path, "w", encoding="utf-8") as f:
-        json.dump(data, f, indent=2, ensure_ascii=False)
-
-
-def score_requirement_status(status: str) -> int:
-    """Map requirement status to numeric score: 2=covered, 1=partial, 0=missing."""
-    status_lower = str(status).lower().strip()
-    if status_lower in ("covered", "satisfied", "full", "complete"):
-        return 2
-    elif status_lower in ("partial", "weak"):
-        return 1
-    return 0
-
-
-def calculate_decision_score(eval_bundle: dict, requirements_data: dict | None = None) -> dict | None:
-    """Calculate average requirement score for a decision."""
-    try:
-        decisions = (
-            eval_bundle.get("evaluation", {})
-            .get("retrieval_eval", {})
-            .get("requirements_eval", {})
-            .get("decisions", [])
-        )
-
-        if not decisions:
-            return None
-
-        decision_data = decisions[0]
-        decision_text = decision_data.get("decision", "Unknown")
-        requirements = decision_data.get("requirements", [])
-
-        # Build requirement description map
-        req_desc_map = {}
-        if requirements_data:
-            for req in requirements_data.get("requirements", []):
-                if isinstance(req, dict):
-                    req_id = req.get("id")
-                    req_desc = req.get("description")
-                    if req_id and req_desc:
-                        req_desc_map[req_id] = req_desc
-
-        if not requirements:
-            return {
-                "decision": decision_text,
-                "avg_score": 0.0,
-                "num_requirements": 0,
-                "status_breakdown": {"covered": 0, "partial": 0, "missing": 0},
-                "requirement_details": [],
-            }
-
-        # Score each requirement
-        scores = []
-        breakdown = {"covered": 0, "partial": 0, "missing": 0}
-        requirement_details = []
-
-        for req in requirements:
-            req_id = req.get("id", "")
-            status = req.get("status", "")
-            score = score_requirement_status(status)
-            scores.append(score)
-
-            if score == 2:
-                breakdown["covered"] += 1
-            elif score == 1:
-                breakdown["partial"] += 1
-            else:
-                breakdown["missing"] += 1
-
-            requirement_details.append({
-                "id": req_id,
-                "description": req_desc_map.get(req_id, "Description not found"),
-                "status": status,
-                "score": score,
-            })
-
-        avg_score = sum(scores) / len(scores) if scores else 0.0
-
-        return {
-            "decision": decision_text,
-            "avg_score": avg_score,
-            "num_requirements": len(requirements),
-            "status_breakdown": breakdown,
-            "requirement_details": requirement_details,
-        }
-    except Exception as e:
-        log.warning("Failed to calculate decision score: %s", e)
-        return None
-
-
-def run_command(cmd: list[str], description: str) -> bool:
-    """Run a command and return success status."""
-    log.info("Running: %s", description)
-    try:
-        subprocess.run(cmd, check=True, text=True)
-        return True
-    except subprocess.CalledProcessError as e:
-        log.error("Command failed: %s (return code: %s)", description, e.returncode)
-        return False
-
-
-def process_entry(
-    entry: dict,
-    entry_index: int,
-    config_path: str,
-    data_dir: Path,
-    output_base: Path,
-    eval_mode: str,
-    eval_model: str,
-    recompute: bool = False,
-) -> list[tuple[bool, bool]]:
-    """
-    Process a single metadata entry.
-    Each decision within the entry is processed separately.
-
-    Returns:
-        List of (pipeline_success, eval_success) tuples, one per decision
-    """
-    entry_id = entry.get("id")
-    if not entry_id:
-        log.warning("Entry missing 'id' field, skipping")
-        return []
-
-    parent_path = entry.get("parent", {}).get("path")
-    if not parent_path:
-        log.error("Entry %s missing parent.path, skipping", entry_id)
-        return []
-
-    decisions = entry.get("task", {}).get("decisions", [])
-    if not decisions:
-        log.warning("Entry %s has no decisions, using empty query", entry_id)
-        decisions = [""]
-
-    requirements = entry.get("requirements", [])
-
-    # Construct PDF path
-    pdf_path = data_dir / parent_path
-    if not pdf_path.exists():
-        log.error("PDF not found: %s (entry_id=%s)", pdf_path, entry_id)
-        return []
-
-    results = []
-
-    for decision_idx, decision in enumerate(decisions):
-        # Create unique output directory: {entry_id}_{entry_index}_d{decision_index}
-        output_dir_name = f"{entry_id}_{entry_index}_d{decision_idx}"
-        entry_output = output_base / output_dir_name
-        entry_output.mkdir(parents=True, exist_ok=True)
-
-        log.info("")
-        log.info("=" * 80)
-        log.info("Processing: %s (decision %d/%d)", output_dir_name, decision_idx + 1, len(decisions))
-        log.info("Entry ID: %s (index %d)", entry_id, entry_index)
-        log.info("PDF: %s", pdf_path)
-        log.info("Decision: %s", decision[:200])
-        log.info("Requirements: %d", len(requirements))
-        log.info("Output dir: %s", entry_output)
-
-        # Step 1: Run pipeline
-        pipeline_cmd = [
-            sys.executable,
-            "main.py",
-            "--config", config_path,
-            "--pdf", str(pdf_path),
-            "--query", decision,
-            "--output_dir", str(entry_output),
-        ]
-
-        if recompute:
-            pipeline_cmd.append("--recompute")
-
-        pipeline_success = run_command(pipeline_cmd, f"Pipeline for {output_dir_name}")
-
-        if not pipeline_success:
-            log.error("Pipeline failed for %s, skipping eval", output_dir_name)
-            results.append((False, False))
-            continue
-
-        # Verify context.json was created
-        context_path = entry_output / "context.json"
-        if not context_path.exists():
-            log.error("Pipeline output not found: %s", context_path)
-            results.append((False, False))
-            continue
-
-        # Step 2: Create requirements file
-        requirements_data = {
-            "id": f"{entry_id}_d{decision_idx}",
-            "parent": entry.get("parent", {}),
-            "task": {"decisions": [decision]},
-            "requirements": requirements,
-            "notes": entry.get("notes", {}),
-        }
-        requirements_path = entry_output / "requirements.json"
-        save_json(requirements_path, requirements_data)
-        log.info("Saved requirements to: %s", requirements_path)
-
-        # Step 3: Run evaluation
-        eval_output_path = entry_output / "eval_bundle.json"
-        eval_cmd = [
-            sys.executable,
-            "-m", "eval_engine.main",
-            "--input", str(context_path),
-            "--requirements", str(requirements_path),
-            "--output", str(eval_output_path),
-            "--mode", eval_mode,
-            "--model", eval_model,
-        ]
-
-        eval_success = run_command(eval_cmd, f"Evaluation for {output_dir_name}")
-
-        if eval_success:
-            log.info("Successfully processed: %s", output_dir_name)
-        else:
-            log.error("Evaluation failed for: %s", output_dir_name)
-
-        results.append((pipeline_success, eval_success))
-
-    return results
-
-
-def display_score_summary(score_data: list[dict]) -> None:
-    """Display a crisp summary table of decision scores."""
-    if not score_data:
-        log.warning("No score data to display")
-        return
-
-    # Group scores by PDF
-    pdf_groups: dict[str, list[dict]] = {}
-    for item in score_data:
-        pdf_name = item.get("pdf_name", "unknown")
-        if pdf_name not in pdf_groups:
-            pdf_groups[pdf_name] = []
-        pdf_groups[pdf_name].append(item)
-
-    # Print header
-    print("\n" + "=" * 120)
-    print("DECISION SCORES SUMMARY (0=missing, 1=partial, 2=covered)")
-    print("=" * 120)
-    print(f"{'PDF':<25} {'Decision':<60} {'Score':>8} {'Reqs':>6} {'C/P/M':>10}")
-    print("-" * 120)
-
-    # Track overall stats
-    all_scores = []
-    total_covered = 0
-    total_partial = 0
-    total_missing = 0
-
-    # Print each PDF group
-    for pdf_name in sorted(pdf_groups.keys()):
-        items = pdf_groups[pdf_name]
-
-        for idx, item in enumerate(items):
-            decision = item.get("decision", "Unknown")
-            avg_score = item.get("avg_score", 0.0)
-            num_reqs = item.get("num_requirements", 0)
-            breakdown = item.get("status_breakdown", {})
-
-            covered = breakdown.get("covered", 0)
-            partial = breakdown.get("partial", 0)
-            missing = breakdown.get("missing", 0)
-
-            all_scores.append(avg_score)
-            total_covered += covered
-            total_partial += partial
-            total_missing += missing
-
-            decision_display = decision[:57] + "..." if len(decision) > 60 else decision
-            pdf_display = pdf_name if idx == 0 else ""
-
-            print(
-                f"{pdf_display:<25} {decision_display:<60} {avg_score:>8.2f} {num_reqs:>6} "
-                f"{covered:>2}/{partial:>2}/{missing:>2}"
-            )
-
-        if pdf_name != sorted(pdf_groups.keys())[-1]:
-            print("-" * 120)
-
-    # Overall summary
-    print("=" * 120)
-    overall_avg = sum(all_scores) / len(all_scores) if all_scores else 0.0
-    total_reqs = total_covered + total_partial + total_missing
-
-    print(f"{'OVERALL AVERAGE':<25} {'':<60} {overall_avg:>8.2f} {total_reqs:>6} "
-          f"{total_covered:>2}/{total_partial:>2}/{total_missing:>2}")
-    print("=" * 120)
-
-    # Score distribution
-    if all_scores:
-        excellent = sum(1 for s in all_scores if s >= 1.5)
-        good = sum(1 for s in all_scores if 1.0 <= s < 1.5)
-        weak = sum(1 for s in all_scores if s < 1.0)
-
-        print(f"\nScore Distribution: {excellent} excellent (≥1.5), {good} good (1.0-1.5), {weak} weak (<1.0)")
-        print(f"Total Decisions Analyzed: {len(all_scores)}\n")
+from src.utils import load_json, save_json, display_score_summary, calculate_decision_score, process_entry
 
 
 def main() -> None:
@@ -368,13 +72,49 @@ def main() -> None:
 
     log.info("Processing %d entries", len(metadata))
 
+    # Generate batch timestamp
+    batch_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log.info("Batch timestamp: %s", batch_timestamp)
+
     # Setup paths
     data_dir = Path(args.data_dir)
     output_base = Path(args.output)
     output_base.mkdir(parents=True, exist_ok=True)
 
+    # Initialize wandb for batch tracking
+    cfg = load_config(args.config)
+
+    # Convert config to dict, handling Path objects
+    def _path_to_str(obj):
+        """Recursively convert Path objects to strings for wandb compatibility."""
+        if isinstance(obj, Path):
+            return str(obj)
+        elif isinstance(obj, dict):
+            return {k: _path_to_str(v) for k, v in obj.items()}
+        elif isinstance(obj, list):
+            return [_path_to_str(item) for item in obj]
+        return obj
+
+    wandb_config = _path_to_str(asdict(cfg))
+    wandb_config.update({
+        "total_entries": len(metadata),
+        "eval_mode": args.eval_mode,
+        "eval_model": args.eval_model,
+        "config_path": args.config,
+    })
+
+    batch_run = wandb_init(
+        enabled=cfg.wandb.enabled,
+        project=cfg.wandb.project,
+        entity=cfg.wandb.entity,
+        tags=["batch", f"batch_{batch_timestamp}"] + cfg.wandb.tags,
+        name=f"batch_{batch_timestamp}",
+        config=wandb_config
+    )
+
     # Process entries
     results = {
+        "batch_timestamp": batch_timestamp,
         "total_entries": len(metadata),
         "total_runs": 0,
         "pipeline_success": 0,
@@ -392,6 +132,7 @@ def main() -> None:
         entry_results = process_entry(
             entry=entry,
             entry_index=idx,
+            batch_timestamp=batch_timestamp,
             config_path=args.config,
             data_dir=data_dir,
             output_base=output_base,
@@ -401,22 +142,20 @@ def main() -> None:
         )
 
         # Collect results
-        for decision_idx, (pipeline_ok, eval_ok) in enumerate(entry_results):
+        for pipeline_ok, eval_ok, run_id in entry_results:
             results["total_runs"] += 1
-            entry_id = entry.get("id", f"entry_{idx}")
-            run_name = f"{entry_id}_{idx}_d{decision_idx}"
 
             if pipeline_ok:
                 results["pipeline_success"] += 1
             if eval_ok:
                 results["eval_success"] += 1
             if not (pipeline_ok and eval_ok):
-                results["failed_runs"].append(run_name)
+                results["failed_runs"].append(run_id)
 
             # Calculate scores for successful evals
             if eval_ok:
-                eval_bundle_path = output_base / run_name / "eval_bundle.json"
-                requirements_path = output_base / run_name / "requirements.json"
+                eval_bundle_path = output_base / run_id / "eval_bundle.json"
+                requirements_path = output_base / run_id / "requirements.json"
                 if eval_bundle_path.exists():
                     try:
                         eval_bundle = load_json(eval_bundle_path)
@@ -425,10 +164,52 @@ def main() -> None:
                         if score_info:
                             parent_path = entry.get("parent", {}).get("path", "unknown.pdf")
                             score_info["pdf_name"] = parent_path
-                            score_info["run_name"] = run_name
+                            score_info["run_id"] = run_id
+                            score_info["method"] = "greedy"
                             score_data.append(score_info)
+
+                        # Load top-k eval bundle if it exists
+                        eval_topk_path = output_base / run_id / "eval_bundle_topk.json"
+                        if eval_topk_path.exists():
+                            eval_topk = load_json(eval_topk_path)
+                            score_topk = calculate_decision_score(eval_topk, requirements_data)
+                            if score_topk:
+                                score_topk["pdf_name"] = parent_path
+                                score_topk["run_id"] = run_id
+                                score_topk["method"] = "topk"
+                                score_data.append(score_topk)
+
+                        # Load greedy+coverage eval bundle if it exists
+                        eval_greedy_cov_path = output_base / run_id / "eval_bundle_greedy_cov.json"
+                        if eval_greedy_cov_path.exists():
+                            eval_greedy_cov = load_json(eval_greedy_cov_path)
+                            score_greedy_cov = calculate_decision_score(eval_greedy_cov, requirements_data)
+                            if score_greedy_cov:
+                                score_greedy_cov["pdf_name"] = parent_path
+                                score_greedy_cov["run_id"] = run_id
+                                score_greedy_cov["method"] = "greedy_cov"
+                                score_data.append(score_greedy_cov)
                     except Exception as e:
-                        log.warning("Failed to process scores for %s: %s", run_name, e)
+                        log.warning("Failed to process scores for %s: %s", run_id, e)
+
+                # Log artifacts to wandb
+                run_dir = output_base / run_id
+                if (run_dir / "diagnostics.png").exists():
+                    wandb_log_artifact(batch_run, str(run_dir / "diagnostics.png"), f"{run_id}_diagnostics", "plot")
+                if (run_dir / "context.json").exists():
+                    wandb_log_artifact(batch_run, str(run_dir / "context.json"), f"{run_id}_context", "config")
+                if (run_dir / "eval_bundle.json").exists():
+                    wandb_log_artifact(batch_run, str(run_dir / "eval_bundle.json"), f"{run_id}_eval", "evaluation")
+
+                # Log per-run metrics
+                if score_info:
+                    wandb_log(batch_run, {
+                        f"{run_id}/avg_score": score_info["avg_score"],
+                        f"{run_id}/num_requirements": score_info["num_requirements"],
+                        f"{run_id}/covered": score_info["status_breakdown"]["covered"],
+                        f"{run_id}/partial": score_info["status_breakdown"]["partial"],
+                        f"{run_id}/missing": score_info["status_breakdown"]["missing"],
+                    })
 
     # Summary
     log.info("")
@@ -455,6 +236,24 @@ def main() -> None:
     summary_path = output_base / "batch_summary.json"
     save_json(summary_path, results)
     log.info("Batch summary saved to: %s", summary_path)
+
+    # Log batch-level summary metrics to wandb
+    if score_data:
+        all_scores = [s["avg_score"] for s in score_data]
+        wandb_log(batch_run, {
+            "batch/total_entries": results["total_entries"],
+            "batch/total_runs": results["total_runs"],
+            "batch/pipeline_success_rate": results["pipeline_success"] / max(results["total_runs"], 1),
+            "batch/eval_success_rate": results["eval_success"] / max(results["total_runs"], 1),
+            "batch/failed_runs_count": len(results["failed_runs"]),
+            "batch/avg_score_mean": float(np.mean(all_scores)),
+            "batch/avg_score_std": float(np.std(all_scores)),
+            "batch/avg_score_min": float(np.min(all_scores)),
+            "batch/avg_score_max": float(np.max(all_scores)),
+        })
+
+    # Finalize wandb run
+    wandb_finish(batch_run)
 
     # Exit with error if failures
     if results["failed_runs"]:
