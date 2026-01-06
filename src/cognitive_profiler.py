@@ -69,8 +69,10 @@ class SimpleCostProfiler:
 
 class EmbeddingBasedCostProfiler:
     """
-    Embedding-based cost profiler using HuggingFace reasoning complexity model.
-    Estimates cognitive load based on text complexity using a transformer model.
+    Embedding-based cost profiler using reasoning complexity model.
+    
+    FIX: Complex units get LOWER cost (not higher) because they have higher
+    decision utility per token. Simple fragments require more integration effort.
     """
     def __init__(
         self,
@@ -80,8 +82,7 @@ class EmbeddingBasedCostProfiler:
         device: str = "cpu",
         patch: int = 14,
         max_length: int = 512,
-        hf_max_token_penalty: int = 140,
-        hf_gamma: float = 1.6,
+        complexity_scale: float = 50.0,  # Max tokens to discount for complexity
         type_weights: Optional[Dict[str, float]] = None,
     ):
         self.tc = token_counter
@@ -89,8 +90,7 @@ class EmbeddingBasedCostProfiler:
         self.patch = patch
         self.device = device
         self.max_length = max_length
-        self.hf_max_token_penalty = hf_max_token_penalty
-        self.hf_gamma = hf_gamma
+        self.complexity_scale = complexity_scale
 
         self.type_weights = type_weights or {
             "text": 1.0,
@@ -99,13 +99,12 @@ class EmbeddingBasedCostProfiler:
             "page_image": 0.9,
         }
 
-        # Lazy load the model
+        # Lazy load
         self._tokenizer = None
         self._model = None
         self._model_name = model_name
 
     def _ensure_model_loaded(self):
-        """Lazy load the HuggingFace model on first use."""
         if self._tokenizer is None or self._model is None:
             try:
                 import torch
@@ -122,7 +121,6 @@ class EmbeddingBasedCostProfiler:
                 raise
 
     def estimate_visual_tokens(self, image_path: Path) -> int:
-        """Estimate visual tokens from image dimensions."""
         try:
             with Image.open(image_path) as im:
                 w, h = im.size
@@ -132,10 +130,9 @@ class EmbeddingBasedCostProfiler:
         gh = int(math.ceil(h / self.patch))
         return gw * gh
 
-    def _hf_score(self, text: str) -> float:
-        """Get reasoning complexity score from HuggingFace model (0..4-ish range)."""
+    def _complexity_score(self, text: str) -> float:
+        """Get reasoning complexity score (0=simple, 4=complex)."""
         self._ensure_model_loaded()
-
         import torch
 
         inputs = self._tokenizer(
@@ -145,51 +142,37 @@ class EmbeddingBasedCostProfiler:
             max_length=self.max_length,
         )
         inputs = {k: v.to(self.device) for k, v in inputs.items()}
+        
         with torch.no_grad():
             out = self._model(**inputs)
+        
         return float(out.logits.squeeze().item())
-
-    def _hf_to_penalty(self, hf_score_0_4: float) -> int:
-        """
-        Convert model output (roughly 0..4) to an integer token-equivalent penalty.
-        Normalize to 0..1, apply gamma stretch, and scale by max penalty.
-        """
-        s01 = max(0.0, min(1.0, hf_score_0_4 / 4.0))
-        s01 = s01 ** float(self.hf_gamma)
-        return int(round(s01 * self.hf_max_token_penalty))
 
     def cost(self, context_text: str, image_paths: list[Path], unit_type: str = "text") -> Cost:
         """
-        Compute cost including reasoning complexity penalty.
-
-        Args:
-            context_text: Text content to analyze
-            image_paths: List of image paths for visual token estimation
-            unit_type: Type of unit (text, table_text, figure, page_image)
-
-        Returns:
-            Cost object with text_tokens, visual_tokens, and total
+        Compute cost: base_tokens - complexity_discount + visual_tokens
+        
+        Higher complexity → LOWER cost → preferred by selection.
         """
         # Base token count
         tokens = self.tc.count(context_text or "")
-
-        # Apply type weight
         type_w = float(self.type_weights.get(unit_type, 1.0))
         base_cost = max(1, int(round(tokens * type_w)))
 
-        # Get reasoning complexity score and convert to penalty
-        hf_score = self._hf_score(context_text or "")
-        extra_penalty = self._hf_to_penalty(hf_score)
-
-        # Text cost includes base + reasoning penalty
-        text_cost = max(1, base_cost + extra_penalty)
+        # Complexity discount: higher complexity = bigger discount
+        complexity = self._complexity_score(context_text or "")
+        complexity_norm = max(0.0, min(1.0, complexity / 4.0))  # Normalize to 0-1
+        discount = int(complexity_norm * self.complexity_scale)
+        
+        # Apply discount (SUBTRACT, not add)
+        text_cost = max(1, base_cost - discount)
 
         # Visual tokens
         vt = 0
         for p in image_paths:
             vt += self.estimate_visual_tokens(p)
 
-        # Total cost
+        # Total
         total = int(text_cost + self.alpha_visual * vt)
 
         return Cost(text_tokens=text_cost, visual_tokens=vt, total=total)

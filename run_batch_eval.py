@@ -7,13 +7,10 @@ from __future__ import annotations
 
 import argparse
 from dataclasses import asdict
-import json
 import logging
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any
 
 import numpy as np
 
@@ -36,16 +33,20 @@ def main() -> None:
     parser.add_argument("--log_level", default="INFO", choices=["DEBUG", "INFO", "WARNING", "ERROR"])
     parser.add_argument("--limit", type=int, help="Limit to first N entries (for testing)")
     parser.add_argument("--recompute", action="store_true", help="Force recompute PDF extraction")
+    parser.add_argument("--no_wandb", action="store_true", help="Disable Weights & Biases logging")
 
     args = parser.parse_args()
 
     # Setup logging
+    output_base = Path(args.output)
+    output_base.mkdir(parents=True, exist_ok=True)
+
     logging.basicConfig(
         level=getattr(logging, args.log_level),
         format="%(asctime)s | %(levelname)s | %(message)s",
         handlers=[
             logging.StreamHandler(sys.stdout),
-            logging.FileHandler(Path(args.output) / "batch_run.log", mode="w"),
+            logging.FileHandler(output_base / "batch_run.log", mode="w"),
         ],
     )
 
@@ -67,7 +68,7 @@ def main() -> None:
 
     total_entries = len(metadata)
     if args.limit:
-        metadata = metadata[:args.limit]
+        metadata = metadata[: args.limit]
         log.info("Limited to first %d entries (out of %d total)", args.limit, total_entries)
 
     log.info("Processing %d entries", len(metadata))
@@ -78,30 +79,39 @@ def main() -> None:
 
     # Setup paths
     data_dir = Path(args.data_dir)
-    output_base = Path(args.output)
-    output_base.mkdir(parents=True, exist_ok=True)
 
     # Initialize wandb for batch tracking
     cfg = load_config(args.config)
 
-    # Convert config to dict, handling Path objects
+    # Override wandb enabled via CLI
+    if args.no_wandb:
+        try:
+            cfg.wandb.enabled = False
+        except Exception:
+            # In case cfg.wandb is not a simple object; fail-safe
+            pass
+        log.info("W&B disabled via --no_wandb")
+
     def _path_to_str(obj):
         """Recursively convert Path objects to strings for wandb compatibility."""
         if isinstance(obj, Path):
             return str(obj)
-        elif isinstance(obj, dict):
+        if isinstance(obj, dict):
             return {k: _path_to_str(v) for k, v in obj.items()}
-        elif isinstance(obj, list):
+        if isinstance(obj, list):
             return [_path_to_str(item) for item in obj]
         return obj
 
     wandb_config = _path_to_str(asdict(cfg))
-    wandb_config.update({
-        "total_entries": len(metadata),
-        "eval_mode": args.eval_mode,
-        "eval_model": args.eval_model,
-        "config_path": args.config,
-    })
+    wandb_config.update(
+        {
+            "total_entries": len(metadata),
+            "eval_mode": args.eval_mode,
+            "eval_model": args.eval_model,
+            "config_path": args.config,
+            "no_wandb": bool(args.no_wandb),
+        }
+    )
 
     batch_run = wandb_init(
         enabled=cfg.wandb.enabled,
@@ -109,10 +119,9 @@ def main() -> None:
         entity=cfg.wandb.entity,
         tags=["batch", f"batch_{batch_timestamp}"] + cfg.wandb.tags,
         name=f"batch_{batch_timestamp}",
-        config=wandb_config
+        config=wandb_config,
     )
 
-    # Process entries
     results = {
         "batch_timestamp": batch_timestamp,
         "total_entries": len(metadata),
@@ -123,6 +132,23 @@ def main() -> None:
     }
 
     score_data = []
+
+    # Backward-compatible naming + new baselines
+    METHOD_EVAL_BUNDLES = {
+        "greedy": "eval_bundle.json",
+        "topk": "eval_bundle_topk.json",
+        "greedy_cov": "eval_bundle_greedy_cov.json",
+        "cost_norm": "eval_bundle_cost_norm.json",
+        "dpp": "eval_bundle_dpp.json",
+    }
+
+    METHOD_CONTEXT_FILES = {
+        "greedy": "context.json",
+        "topk": "context_topk.json",
+        "greedy_cov": "context_greedy_cov.json",
+        "cost_norm": "context_cost_norm.json",
+        "dpp": "context_dpp.json",
+    }
 
     for idx, entry in enumerate(metadata):
         log.info("")
@@ -141,7 +167,6 @@ def main() -> None:
             recompute=args.recompute,
         )
 
-        # Collect results
         for pipeline_ok, eval_ok, run_id in entry_results:
             results["total_runs"] += 1
 
@@ -152,64 +177,55 @@ def main() -> None:
             if not (pipeline_ok and eval_ok):
                 results["failed_runs"].append(run_id)
 
-            # Calculate scores for successful evals
+            run_dir = output_base / run_id
+
+            # Always log diagnostics prominently
+            diag_path = run_dir / "diagnostics.png"
+            if diag_path.exists():
+                wandb_log_artifact(batch_run, str(diag_path), f"{run_id}_diagnostics", "plot")
+
+            # Log all available contexts (one per method)
+            for m, ctx_name in METHOD_CONTEXT_FILES.items():
+                p = run_dir / ctx_name
+                if p.exists():
+                    wandb_log_artifact(batch_run, str(p), f"{run_id}_context_{m}", "config")
+
+            # Scores + eval artifacts (loop methods)
             if eval_ok:
-                eval_bundle_path = output_base / run_id / "eval_bundle.json"
-                requirements_path = output_base / run_id / "requirements.json"
-                if eval_bundle_path.exists():
+                requirements_path = run_dir / "requirements.json"
+                requirements_data = load_json(requirements_path) if requirements_path.exists() else None
+                parent_path = entry.get("parent", {}).get("path", "unknown.pdf")
+
+                for method, bundle_name in METHOD_EVAL_BUNDLES.items():
+                    bpath = run_dir / bundle_name
+                    if not bpath.exists():
+                        continue
+
                     try:
-                        eval_bundle = load_json(eval_bundle_path)
-                        requirements_data = load_json(requirements_path) if requirements_path.exists() else None
+                        eval_bundle = load_json(bpath)
                         score_info = calculate_decision_score(eval_bundle, requirements_data)
-                        if score_info:
-                            parent_path = entry.get("parent", {}).get("path", "unknown.pdf")
-                            score_info["pdf_name"] = parent_path
-                            score_info["run_id"] = run_id
-                            score_info["method"] = "greedy"
-                            score_data.append(score_info)
+                        if not score_info:
+                            continue
 
-                        # Load top-k eval bundle if it exists
-                        eval_topk_path = output_base / run_id / "eval_bundle_topk.json"
-                        if eval_topk_path.exists():
-                            eval_topk = load_json(eval_topk_path)
-                            score_topk = calculate_decision_score(eval_topk, requirements_data)
-                            if score_topk:
-                                score_topk["pdf_name"] = parent_path
-                                score_topk["run_id"] = run_id
-                                score_topk["method"] = "topk"
-                                score_data.append(score_topk)
+                        score_info["pdf_name"] = parent_path
+                        score_info["run_id"] = run_id
+                        score_info["method"] = method
+                        score_data.append(score_info)
 
-                        # Load greedy+coverage eval bundle if it exists
-                        eval_greedy_cov_path = output_base / run_id / "eval_bundle_greedy_cov.json"
-                        if eval_greedy_cov_path.exists():
-                            eval_greedy_cov = load_json(eval_greedy_cov_path)
-                            score_greedy_cov = calculate_decision_score(eval_greedy_cov, requirements_data)
-                            if score_greedy_cov:
-                                score_greedy_cov["pdf_name"] = parent_path
-                                score_greedy_cov["run_id"] = run_id
-                                score_greedy_cov["method"] = "greedy_cov"
-                                score_data.append(score_greedy_cov)
+                        wandb_log_artifact(batch_run, str(bpath), f"{run_id}_eval_{method}", "evaluation")
+
+                        wandb_log(
+                            batch_run,
+                            {
+                                f"{run_id}/{method}/avg_score": score_info["avg_score"],
+                                f"{run_id}/{method}/num_requirements": score_info["num_requirements"],
+                                f"{run_id}/{method}/covered": score_info["status_breakdown"]["covered"],
+                                f"{run_id}/{method}/partial": score_info["status_breakdown"]["partial"],
+                                f"{run_id}/{method}/missing": score_info["status_breakdown"]["missing"],
+                            },
+                        )
                     except Exception as e:
-                        log.warning("Failed to process scores for %s: %s", run_id, e)
-
-                # Log artifacts to wandb
-                run_dir = output_base / run_id
-                if (run_dir / "diagnostics.png").exists():
-                    wandb_log_artifact(batch_run, str(run_dir / "diagnostics.png"), f"{run_id}_diagnostics", "plot")
-                if (run_dir / "context.json").exists():
-                    wandb_log_artifact(batch_run, str(run_dir / "context.json"), f"{run_id}_context", "config")
-                if (run_dir / "eval_bundle.json").exists():
-                    wandb_log_artifact(batch_run, str(run_dir / "eval_bundle.json"), f"{run_id}_eval", "evaluation")
-
-                # Log per-run metrics
-                if score_info:
-                    wandb_log(batch_run, {
-                        f"{run_id}/avg_score": score_info["avg_score"],
-                        f"{run_id}/num_requirements": score_info["num_requirements"],
-                        f"{run_id}/covered": score_info["status_breakdown"]["covered"],
-                        f"{run_id}/partial": score_info["status_breakdown"]["partial"],
-                        f"{run_id}/missing": score_info["status_breakdown"]["missing"],
-                    })
+                        log.warning("Failed to process score for %s (%s): %s", run_id, method, e)
 
     # Summary
     log.info("")
@@ -225,37 +241,36 @@ def main() -> None:
     if results["failed_runs"]:
         log.warning("Failed run IDs: %s", ", ".join(results["failed_runs"]))
 
-    # Display and save scores
     if score_data:
         display_score_summary(score_data)
         scores_path = output_base / "decision_scores.json"
         save_json(scores_path, score_data)
         log.info("Decision scores saved to: %s", scores_path)
 
-    # Save summary
     summary_path = output_base / "batch_summary.json"
     save_json(summary_path, results)
     log.info("Batch summary saved to: %s", summary_path)
 
-    # Log batch-level summary metrics to wandb
+    # Batch-level aggregate metrics
     if score_data:
         all_scores = [s["avg_score"] for s in score_data]
-        wandb_log(batch_run, {
-            "batch/total_entries": results["total_entries"],
-            "batch/total_runs": results["total_runs"],
-            "batch/pipeline_success_rate": results["pipeline_success"] / max(results["total_runs"], 1),
-            "batch/eval_success_rate": results["eval_success"] / max(results["total_runs"], 1),
-            "batch/failed_runs_count": len(results["failed_runs"]),
-            "batch/avg_score_mean": float(np.mean(all_scores)),
-            "batch/avg_score_std": float(np.std(all_scores)),
-            "batch/avg_score_min": float(np.min(all_scores)),
-            "batch/avg_score_max": float(np.max(all_scores)),
-        })
+        wandb_log(
+            batch_run,
+            {
+                "batch/total_entries": results["total_entries"],
+                "batch/total_runs": results["total_runs"],
+                "batch/pipeline_success_rate": results["pipeline_success"] / max(results["total_runs"], 1),
+                "batch/eval_success_rate": results["eval_success"] / max(results["total_runs"], 1),
+                "batch/failed_runs_count": len(results["failed_runs"]),
+                "batch/avg_score_mean": float(np.mean(all_scores)),
+                "batch/avg_score_std": float(np.std(all_scores)),
+                "batch/avg_score_min": float(np.min(all_scores)),
+                "batch/avg_score_max": float(np.max(all_scores)),
+            },
+        )
 
-    # Finalize wandb run
     wandb_finish(batch_run)
 
-    # Exit with error if failures
     if results["failed_runs"]:
         sys.exit(1)
 

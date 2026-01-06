@@ -251,11 +251,9 @@ def process_entry(
     Process a single metadata entry.
     Each decision within the entry is processed separately.
 
-    Args:
-        batch_timestamp: Batch timestamp in YYYYMMDD_HHMMSS format
-
     Returns:
-        List of (pipeline_success, eval_success, run_id) tuples, one per decision
+        List of (pipeline_success, eval_success, run_id) tuples, one per decision.
+        eval_success=True if at least one method eval succeeded.
     """
     entry_id = entry.get("id")
     if not entry_id:
@@ -274,19 +272,32 @@ def process_entry(
 
     requirements = entry.get("requirements", [])
 
-    # Construct PDF path
     pdf_path = data_dir / parent_path
     if not pdf_path.exists():
         log.error("PDF not found: %s (entry_id=%s)", pdf_path, entry_id)
         return []
 
-    results = []
+    # Context/eval bundle naming (backward-compatible + new baselines)
+    METHODS = ["greedy", "topk", "greedy_cov", "cost_norm", "dpp"]
+    CONTEXT_FILES = {
+        "greedy": "context.json",
+        "topk": "context_topk.json",
+        "greedy_cov": "context_greedy_cov.json",
+        "cost_norm": "context_cost_norm.json",
+        "dpp": "context_dpp.json",
+    }
+    EVAL_BUNDLES = {
+        "greedy": "eval_bundle.json",
+        "topk": "eval_bundle_topk.json",
+        "greedy_cov": "eval_bundle_greedy_cov.json",
+        "cost_norm": "eval_bundle_cost_norm.json",
+        "dpp": "eval_bundle_dpp.json",
+    }
+
+    results: list[tuple[bool, bool, str]] = []
 
     for decision_idx, decision in enumerate(decisions):
-        # Generate run timestamp for this specific decision run
         run_timestamp = datetime.now().strftime("%H%M%S")
-
-        # Create unique output directory with timestamps: {batch_timestamp}_{entry_id}_d{decision_idx}_{run_timestamp}
         output_dir_name = f"{batch_timestamp}_{entry_id}_d{decision_idx}_{run_timestamp}"
         entry_output = output_base / output_dir_name
         entry_output.mkdir(parents=True, exist_ok=True)
@@ -297,38 +308,51 @@ def process_entry(
         log.info("Entry ID: %s (index %d)", entry_id, entry_index)
         log.info("Batch timestamp: %s, Run timestamp: %s", batch_timestamp, run_timestamp)
         log.info("PDF: %s", pdf_path)
-        log.info("Decision: %s", decision[:200])
+        log.info("Decision: %s", (decision or "")[:200])
         log.info("Requirements: %d", len(requirements))
         log.info("Output dir: %s", entry_output)
 
-        # Step 1: Run pipeline
+        # ----------------------------------------------------------------------
+        # Step 1: Run pipeline (once)
+        # ----------------------------------------------------------------------
         pipeline_cmd = [
             sys.executable,
             "main.py",
-            "--config", config_path,
-            "--pdf", str(pdf_path),
-            "--query", decision,
-            "--output_dir", str(entry_output),
+            "--config",
+            config_path,
+            "--pdf",
+            str(pdf_path),
+            "--query",
+            decision,
+            "--output_dir",
+            str(entry_output),
         ]
-
         if recompute:
             pipeline_cmd.append("--recompute")
 
         pipeline_success = run_command(pipeline_cmd, f"Pipeline for {output_dir_name}")
+
+        # Optional: write a simple marker log (run_command may already log; this is safe)
+        try:
+            (entry_output / "pipeline_cmd.txt").write_text(" ".join(pipeline_cmd), encoding="utf-8")
+        except Exception:
+            pass
 
         if not pipeline_success:
             log.error("Pipeline failed for %s, skipping eval", output_dir_name)
             results.append((False, False, output_dir_name))
             continue
 
-        # Verify context.json was created
-        context_path = entry_output / "context.json"
+        # Verify at least greedy context exists
+        context_path = entry_output / CONTEXT_FILES["greedy"]
         if not context_path.exists():
             log.error("Pipeline output not found: %s", context_path)
-            results.append((False, False, output_dir_name))
+            results.append((True, False, output_dir_name))
             continue
 
-        # Step 2: Create requirements file
+        # ----------------------------------------------------------------------
+        # Step 2: Create requirements file (once)
+        # ----------------------------------------------------------------------
         requirements_data = {
             "id": f"{entry_id}_d{decision_idx}",
             "parent": entry.get("parent", {}),
@@ -340,58 +364,55 @@ def process_entry(
         save_json(requirements_path, requirements_data)
         log.info("Saved requirements to: %s", requirements_path)
 
-        # Step 3: Run evaluation
-        eval_output_path = entry_output / "eval_bundle.json"
-        eval_cmd = [
-            sys.executable,
-            "-m", "eval_engine.main",
-            "--input", str(context_path),
-            "--requirements", str(requirements_path),
-            "--output", str(eval_output_path),
-            "--mode", eval_mode,
-            "--model", eval_model,
-        ]
+        # ----------------------------------------------------------------------
+        # Step 3: Run evaluation for all available contexts (loop)
+        # ----------------------------------------------------------------------
+        eval_success_any = False
 
-        eval_success = run_command(eval_cmd, f"Evaluation for {output_dir_name}")
+        for method in METHODS:
+            ctx_name = CONTEXT_FILES[method]
+            ctx_path = entry_output / ctx_name
+            if not ctx_path.exists():
+                log.info("Skipping eval (%s): missing %s", method, ctx_name)
+                continue
 
-        # Run evaluation for top-k selection if context_topk.json exists
-        context_topk_path = entry_output / "context_topk.json"
-        eval_topk_success = False
-        if context_topk_path.exists():
-            eval_topk_output = entry_output / "eval_bundle_topk.json"
-            eval_topk_cmd = [
+            out_name = EVAL_BUNDLES[method]
+            eval_output_path = entry_output / out_name
+
+            eval_cmd = [
                 sys.executable,
-                "-m", "eval_engine.main",
-                "--input", str(context_topk_path),
-                "--requirements", str(requirements_path),
-                "--output", str(eval_topk_output),
-                "--mode", eval_mode,
-                "--model", eval_model,
+                "-m",
+                "eval_engine.main",
+                "--input",
+                str(ctx_path),
+                "--requirements",
+                str(requirements_path),
+                "--output",
+                str(eval_output_path),
+                "--mode",
+                eval_mode,
+                "--model",
+                eval_model,
             ]
-            eval_topk_success = run_command(eval_topk_cmd, f"Evaluation (topk) for {output_dir_name}")
 
-        # Run evaluation for greedy+coverage selection if context_greedy_cov.json exists
-        context_greedy_cov_path = entry_output / "context_greedy_cov.json"
-        eval_greedy_cov_success = False
-        if context_greedy_cov_path.exists():
-            eval_greedy_cov_output = entry_output / "eval_bundle_greedy_cov.json"
-            eval_greedy_cov_cmd = [
-                sys.executable,
-                "-m", "eval_engine.main",
-                "--input", str(context_greedy_cov_path),
-                "--requirements", str(requirements_path),
-                "--output", str(eval_greedy_cov_output),
-                "--mode", eval_mode,
-                "--model", eval_model,
-            ]
-            eval_greedy_cov_success = run_command(eval_greedy_cov_cmd, f"Evaluation (greedy_cov) for {output_dir_name}")
+            # Save the command for debugging
+            try:
+                (entry_output / f"eval_{method}_cmd.txt").write_text(" ".join(eval_cmd), encoding="utf-8")
+            except Exception:
+                pass
 
-        if eval_success:
-            log.info("Successfully processed: %s", output_dir_name)
+            ok = run_command(eval_cmd, f"Evaluation ({method}) for {output_dir_name}")
+            if ok:
+                eval_success_any = True
+            else:
+                log.error("Evaluation failed for %s (method=%s)", output_dir_name, method)
+
+        if eval_success_any:
+            log.info("Successfully processed: %s (eval_success_any=True)", output_dir_name)
         else:
-            log.error("Evaluation failed for: %s", output_dir_name)
+            log.error("All evaluations failed for: %s", output_dir_name)
 
-        results.append((pipeline_success, eval_success, output_dir_name))
+        results.append((True, eval_success_any, output_dir_name))
 
     return results
 
@@ -402,122 +423,94 @@ def display_score_summary(score_data: list[dict]) -> None:
         log.warning("No score data to display")
         return
 
-    # Group by (pdf_name, decision) to combine methods
+    # Group by (pdf_name, decision) -> method -> score_info
     decision_groups: dict[tuple[str, str], dict[str, dict]] = {}
+    methods_seen: set[str] = set()
+
     for item in score_data:
         pdf = item.get("pdf_name", "unknown")
         decision = item.get("decision", "Unknown")
         method = item.get("method", "unknown")
         key = (pdf, decision)
 
-        if key not in decision_groups:
-            decision_groups[key] = {}
-        decision_groups[key][method] = item
+        methods_seen.add(method)
+        decision_groups.setdefault(key, {})[method] = item
 
-    # Print header
-    sep_line = "=" * 152
+    # Prefer a stable order (your baselines first, then anything else)
+    preferred = ["greedy", "greedy_cov", "topk", "cost_norm", "dpp"]
+    methods = [m for m in preferred if m in methods_seen] + sorted([m for m in methods_seen if m not in preferred])
+
+    # Formatting helpers
+    def fmt_bd(bd: dict) -> str:
+        c = bd.get("covered", 0)
+        p = bd.get("partial", 0)
+        m = bd.get("missing", 0)
+        return f"{c:>2}/{p:>2}/{m:>2}"
+
+    sep_line = "=" * 180
     print(f"\n{sep_line}")
     print("DECISION SCORES SUMMARY (0=missing, 1=partial, 2=covered)")
     print(sep_line)
-    print(f"{'PDF':<18} {'Decision':<35} {'Greedy':>8} {'G-C/P/M':>10} {'Gr+Cov':>8} {'GC-C/P/M':>10} {'TopK':>8} {'T-C/P/M':>10} {'Reqs':>6}")
-    print("-" * 152)
 
-    # Track overall stats per method
-    greedy_scores = []
-    greedy_cov_scores = []
-    topk_scores = []
-    greedy_breakdown = {"covered": 0, "partial": 0, "missing": 0}
-    greedy_cov_breakdown = {"covered": 0, "partial": 0, "missing": 0}
-    topk_breakdown = {"covered": 0, "partial": 0, "missing": 0}
+    # Header
+    header = f"{'PDF':<18} {'Decision':<40} "
+    for m in methods:
+        header += f"{m:>10} {'C/P/M':>9} "
+    header += f"{'Reqs':>6}"
+    print(header)
+    print("-" * 180)
+
+    # Stats accumulators
+    score_lists: dict[str, list[float]] = {m: [] for m in methods}
+    breakdown_sums: dict[str, dict[str, int]] = {m: {"covered": 0, "partial": 0, "missing": 0} for m in methods}
     total_reqs = 0
 
-    # Print each decision group
     current_pdf = None
     for (pdf, decision) in sorted(decision_groups.keys()):
-        methods = decision_groups[(pdf, decision)]
+        row_methods = decision_groups[(pdf, decision)]
 
-        # Get data for each method
-        greedy = methods.get("greedy", {})
-        greedy_cov = methods.get("greedy_cov", {})
-        topk = methods.get("topk", {})
-
-        # Scores
-        greedy_score = greedy.get("avg_score", 0.0)
-        greedy_cov_score = greedy_cov.get("avg_score", 0.0)
-        topk_score = topk.get("avg_score", 0.0)
-
-        # Breakdowns
-        g_bd = greedy.get("status_breakdown", {})
-        gc_bd = greedy_cov.get("status_breakdown", {})
-        t_bd = topk.get("status_breakdown", {})
-
-        g_c, g_p, g_m = g_bd.get("covered", 0), g_bd.get("partial", 0), g_bd.get("missing", 0)
-        gc_c, gc_p, gc_m = gc_bd.get("covered", 0), gc_bd.get("partial", 0), gc_bd.get("missing", 0)
-        t_c, t_p, t_m = t_bd.get("covered", 0), t_bd.get("partial", 0), t_bd.get("missing", 0)
-
-        # Number of requirements (same across methods)
-        num_reqs = greedy.get("num_requirements", greedy_cov.get("num_requirements", topk.get("num_requirements", 0)))
-
-        # Accumulate stats
-        if greedy_score > 0:
-            greedy_scores.append(greedy_score)
-            greedy_breakdown["covered"] += g_c
-            greedy_breakdown["partial"] += g_p
-            greedy_breakdown["missing"] += g_m
-        if greedy_cov_score > 0:
-            greedy_cov_scores.append(greedy_cov_score)
-            greedy_cov_breakdown["covered"] += gc_c
-            greedy_cov_breakdown["partial"] += gc_p
-            greedy_cov_breakdown["missing"] += gc_m
-        if topk_score > 0:
-            topk_scores.append(topk_score)
-            topk_breakdown["covered"] += t_c
-            topk_breakdown["partial"] += t_p
-            topk_breakdown["missing"] += t_m
-        if num_reqs > 0:
-            total_reqs += num_reqs
-
-        # Format decision text
-        decision_display = decision[:32] + "..." if len(decision) > 35 else decision
+        decision_display = decision[:37] + "..." if len(decision) > 40 else decision
         pdf_display = pdf if pdf != current_pdf else ""
         current_pdf = pdf
 
-        # Print row
-        print(
-            f"{pdf_display:<18} {decision_display:<35} "
-            f"{greedy_score:>8.2f} {g_c:>2}/{g_p:>2}/{g_m:>2}    "
-            f"{greedy_cov_score:>8.2f} {gc_c:>2}/{gc_p:>2}/{gc_m:>2}    "
-            f"{topk_score:>8.2f} {t_c:>2}/{t_p:>2}/{t_m:>2}    "
-            f"{num_reqs:>6}"
-        )
+        # Num requirements (pull from any method that has it)
+        num_reqs = 0
+        for m in methods:
+            if m in row_methods:
+                num_reqs = row_methods[m].get("num_requirements", 0) or 0
+                if num_reqs:
+                    break
+        if num_reqs:
+            total_reqs += num_reqs
+
+        row = f"{pdf_display:<18} {decision_display:<40} "
+        for m in methods:
+            info = row_methods.get(m, {})
+            score = float(info.get("avg_score", 0.0) or 0.0)
+            bd = info.get("status_breakdown", {}) or {}
+
+            row += f"{score:>10.2f} {fmt_bd(bd):>9} "
+
+            if score > 0:
+                score_lists[m].append(score)
+                breakdown_sums[m]["covered"] += int(bd.get("covered", 0) or 0)
+                breakdown_sums[m]["partial"] += int(bd.get("partial", 0) or 0)
+                breakdown_sums[m]["missing"] += int(bd.get("missing", 0) or 0)
+
+        row += f"{num_reqs:>6}"
+        print(row)
 
     # Overall summary
     print(sep_line)
-    greedy_avg = sum(greedy_scores) / len(greedy_scores) if greedy_scores else 0.0
-    greedy_cov_avg = sum(greedy_cov_scores) / len(greedy_cov_scores) if greedy_cov_scores else 0.0
-    topk_avg = sum(topk_scores) / len(topk_scores) if topk_scores else 0.0
-
-    g_c = greedy_breakdown["covered"]
-    g_p = greedy_breakdown["partial"]
-    g_m = greedy_breakdown["missing"]
-    gc_c = greedy_cov_breakdown["covered"]
-    gc_p = greedy_cov_breakdown["partial"]
-    gc_m = greedy_cov_breakdown["missing"]
-    t_c = topk_breakdown["covered"]
-    t_p = topk_breakdown["partial"]
-    t_m = topk_breakdown["missing"]
-
-    print(
-        f"{'OVERALL AVERAGE':<18} {'':<35} "
-        f"{greedy_avg:>8.2f} {g_c:>2}/{g_p:>2}/{g_m:>2}    "
-        f"{greedy_cov_avg:>8.2f} {gc_c:>2}/{gc_p:>2}/{gc_m:>2}    "
-        f"{topk_avg:>8.2f} {t_c:>2}/{t_p:>2}/{t_m:>2}    "
-        f"{total_reqs:>6}"
-    )
+    overall = f"{'OVERALL AVERAGE':<18} {'':<40} "
+    for m in methods:
+        scores = score_lists[m]
+        avg = (sum(scores) / len(scores)) if scores else 0.0
+        bd = breakdown_sums[m]
+        overall += f"{avg:>10.2f} {fmt_bd(bd):>9} "
+    overall += f"{total_reqs:>6}"
+    print(overall)
     print(sep_line)
 
-    # Score distribution
-    total_decisions = len(decision_groups)
-    print(f"\nTotal Decisions Analyzed: {total_decisions}")
-    print(f"Methods Evaluated: {len([m for m in [greedy_scores, greedy_cov_scores, topk_scores] if m])}\n")
-
+    print(f"\nTotal Decisions Analyzed: {len(decision_groups)}")
+    print(f"Methods Evaluated: {', '.join(methods)}\n")
