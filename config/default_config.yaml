@@ -32,7 +32,7 @@ extract:
 
 embed:
   backend: sentence_transformer
-  model_name: "sentence-transformers/all-mpnet-base-v2" 
+  model_name: google/embeddinggemma-300m
   device: cuda
   batch_size: 32
   dim: 0
