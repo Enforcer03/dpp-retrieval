@@ -1,6 +1,38 @@
 [
   {
-    "id": "ddpm_ho2020",
+    "id": "ddpm_summary",
+    "parent": { "path": "ddpm.pdf" },
+    "task": {
+      "decisions": [
+        "Give me a technical summary of the DDPM paper. What is the core innovation and how does it perform?"
+      ]
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "category": "Core Concept",
+        "description": "Must explain the 'Reverse Process' as a Markov chain that uses Langevin dynamics to denoise samples, contrasting it with the forward diffusion process."
+      },
+      {
+        "id": "R2",
+        "category": "Visual Element",
+        "description": "Must describe the visual progression of sample generation as shown in the 'Progressive Sampling' figures (e.g., Figure 6 or 10), noting how coarse features appear before fine details."
+      },
+      {
+        "id": "R3",
+        "category": "Data Retrieval",
+        "description": "Must derive performance comparisons from the Results Table (Table 1), specifically comparing DDPM's FID scores (e.g. 3.17) against GAN baselines."
+      },
+      {
+        "id": "R4",
+        "category": "Section Coverage",
+        "description": "Must cover the 'Experiments' section, highlighting the trade-off between sample quality and log-likelihood scores compared to VAEs."
+      }
+    ],
+    "notes": {}
+  },
+  {
+    "id": "ddpm_feasibility",
     "parent": { "path": "ddpm.pdf" },
     "task": {
       "decisions": [
@@ -10,25 +42,29 @@
     "requirements": [
       {
         "id": "R1",
+        "category": "Speed",
         "description": "How bad is the sampling speed really? Are we talking milliseconds or full seconds per image compared to our current GANs?"
       },
       {
         "id": "R2",
+        "category": "Stability",
         "description": "Is the training actually stable unlike GANs which are known for instability like mode collapse?"
       },
       {
         "id": "R3",
-        "description": "What are some major hyperparameters that may be required to tune for decent results or are hyperparameters adaptable for multiple datasets?"
+        "category": "Quality",
+        "description": "Do the images look sharp in the examples (e.g. CelebA-HQ 256x256), or is there a trade-off for the stability we get?"
       },
       {
         "id": "R4",
-        "description": "Do the images look sharp in the examples, or is there a trade-off for the stability we get?"
+        "category": "Comparison",
+        "description": "Does the paper explicitly claim sample quality parity with ProgressiveGAN?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "ddpm_ho2020",
+    "id": "ddpm_implementation",
     "parent": { "path": "ddpm.pdf" },
     "task": {
       "decisions": [
@@ -38,30 +74,66 @@
     "requirements": [
       {
         "id": "R1",
+        "category": "GPU Memory",
         "description": "What is the GPU memory footprint for training a standard 256x256 model? Do we need a cluster or just a single node?"
       },
       {
         "id": "R2",
-        "description": "Does the architecture require expensive self-attention at high resolutions, or can we optimize that out?"
+        "category": "Architecture",
+        "description": "Does the architecture require expensive self-attention at high resolutions (e.g. 16x16), or can we optimize that out?"
       },
-      
       {
         "id": "R3",
-        "description": "How parallelizable is the training since diffusion is inherently sequential in sampling?"
+        "category": "Parallelism",
+        "description": "How parallelizable is the training since diffusion is inherently sequential in sampling? Can we use distributed training easily?"
       },
       {
         "id": "R4",
+        "category": "Initialization",
         "description": "Are there specific initialization tricks mentioned that prevent the model from outputting pure noise at the start?"
       },
       {
         "id": "R5",
-        "description": "Does the paper rely on TPU-specific operations, or is it standard PyTorch/TensorFlow code we can port easily?"
+        "category": "Hardware",
+        "description": "Does the paper rely on specific hardware accelerators (like TPUs), or is it standard PyTorch/TensorFlow code?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "mllm_review_survey",
+    "id": "mllm_review_summary",
+    "parent": { "path": "mllm_review.pdf" },
+    "task": {
+      "decisions": [
+        "What is the current state of Multimodal LLMs according to this review? Summarize the key trends."
+      ]
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "category": "Visual Element",
+        "description": "Must reference the 'Taxonomy' or 'Timeline' figure to illustrate the rapid evolution of models (e.g., LLaVA, BLIP, Flamingo)."
+      },
+      {
+        "id": "R2",
+        "category": "Taxonomy",
+        "description": "Must classify models based on their 'Connector' modules (e.g., Projection vs. Q-Former) as a primary categorization method."
+      },
+      {
+        "id": "R3",
+        "category": "Scope",
+        "description": "Must list the supported modalities beyond image-text, specifically mentioning Audio and Video integration capabilities."
+      },
+      {
+        "id": "R4",
+        "category": "Challenges",
+        "description": "Must mention the challenges in evaluating these models, such as the reliance on specific benchmarks (POPE, MME) versus human eval."
+      }
+    ],
+    "notes": {}
+  },
+  {
+    "id": "mllm_architecture_select",
     "parent": { "path": "mllm_review.pdf" },
     "task": {
       "decisions": [
@@ -71,37 +143,34 @@
     "requirements": [
       {
         "id": "R1",
+        "category": "Connector Speed",
         "description": "Which visual connector (e.g., Q-Former vs. Projection) is the lightweight winner for speed?"
       },
       {
         "id": "R2",
+        "category": "Hallucinations",
         "description": "Which models are flagged as 'hallucination prone'? We need to know which ones make up things that aren't there."
       },
       {
         "id": "R3",
+        "category": "Hardware",
         "description": "What’s the VRAM requirement? What specific components drive that requirement the most in Audio, Video or Image modalities?"
       },
       {
         "id": "R4",
+        "category": "OCR",
         "description": "Are features like 'OCR-free reading' actually working well in these models, or is that just marketing hype?"
       },
       {
         "id": "R5",
+        "category": "Dominance",
         "description": "Does the review identify a clear dominating model/backbone for multiple modalities (e.g. Qwen vs. Llama vs. Vicuna)?"
-      },
-      {
-        "id": "R6",
-        "description": "Is the licensing for the top models actually permissible for commercial use, or is it research-only? "
-      },
-      {
-        "id": "R7",
-        "description": "Which models are open weights with LoRA adaptable methods or are they all closed weights?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "mllm_review_survey",
+    "id": "mllm_data_pipeline",
     "parent": { "path": "mllm_review.pdf" },
     "task": {
       "decisions": [
@@ -111,33 +180,66 @@
     "requirements": [
       {
         "id": "R1",
-        "description": "Does the review say massive data is non-negotiable? Can we get away with a small, high-quality datasets"
+        "category": "Dataset Size",
+        "description": "Does the review say massive data is non-negotiable? Can we get away with a small, high-quality instruction dataset?"
       },
       {
         "id": "R2",
-        "description": "Do we absolutely have to pre-train from scratch, or does the survey point to fine-tuning pre-trained models as a viable path for getting great results or is there a tradeoff?"
+        "category": "Training Strategy",
+        "description": "Do we absolutely have to pre-train from scratch, or does the survey point to fine-tuning pre-trained models (Two-Stage pipeline) as a viable path?"
       },
       {
         "id": "R3",
+        "category": "Metrics",
         "description": "Are automated metrics like POPE or MME reliable enough to be our main unit test, or do we need humans?"
       },
       {
         "id": "R4",
+        "category": "Extensibility",
         "description": "How hard is it to add new modalities to existing models(like Audio) later if we pick a specific architecture now?"
       },
       {
         "id": "R5",
+        "category": "Forgetting",
         "description": "Does instruction tuning tends to make the model 'forget' its original text-only capabilities?"
-      },
-      {
-        "id": "R6",
-        "description": "Are there simple recipes for 'alignment' to stop the model from generating toxic descriptions of images?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "qwen2audio_2024",
+    "id": "qwen2audio_summary",
+    "parent": { "path": "qwen2audio.pdf" },
+    "task": {
+      "decisions": [
+        "Summarize the key capabilities and architecture of Qwen2-Audio."
+      ]
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "category": "Visual Element",
+        "description": "Must reference the 'Model Architecture' figure or description, specifically the dual-encoder or initialization strategy (Whisper-large)."
+      },
+      {
+        "id": "R2",
+        "category": "Data Retrieval",
+        "description": "Must cite performance rankings from the 'AIR-Bench' results table, noting its position relative to models like Gemini Pro."
+      },
+      {
+        "id": "R3",
+        "category": "Modes",
+        "description": "Must describe the two distinct interaction modes: 'Voice Chat' (free interaction) and 'Audio Analysis' (instruction following)."
+      },
+      {
+        "id": "R4",
+        "category": "Input Scope",
+        "description": "Must clarify that the model accepts diverse audio inputs including Speech, Sound Events, and Music."
+      }
+    ],
+    "notes": {}
+  },
+  {
+    "id": "qwen2audio_deployment",
     "parent": { "path": "qwen2audio.pdf" },
     "task": {
       "decisions": [
@@ -147,33 +249,29 @@
     "requirements": [
       {
         "id": "R1",
-        "description": "Will this model fit on our standard inference GPUs (e.g., 24GB VRAM), or is it too big?"
+        "category": "GPU Constraints",
+        "description": "Will this model fit on our standard inference GPUs (e.g., 24GB VRAM), or is it too big (approx 8B params)?"
       },
       {
         "id": "R2",
+        "category": "Latency",
         "description": "Is the latency low enough for a conversation, or is there a noticeable lag before it starts responding?"
       },
       {
         "id": "R3",
+        "category": "Input Limits",
         "description": "Is there a hard limit on audio length (like 30 seconds) that would break our use case for long files?"
       },
       {
         "id": "R4",
-        "description": "How does it handle noisy audio or background chatter? Does it fail or just transcribe the noise?"
-      },
-      {
-        "id": "R5",
+        "category": "Safety",
         "description": "Does it refuse to process certain audio types (safety refusals) that might be false positives for us?"
-      },
-      {
-        "id": "R6",
-        "description": "Can we swap out the audio encoder part later, or is it tightly coupled to the Qwen text model?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "qwen2audio_2024",
+    "id": "qwen2audio_integration",
     "parent": { "path": "qwen2audio.pdf" },
     "task": {
       "decisions": [
@@ -181,32 +279,63 @@
       ]
     },
     "requirements": [
-
       {
         "id": "R1",
+        "category": "Sound Events",
         "description": "Does it support sound event detection (e.g., 'glass breaking') or is it strictly for speech-to-text?"
       },
       {
         "id": "R2",
+        "category": "Multi-Speaker",
         "description": "How well does it handle multiple speakers? Can it distinguish 'Speaker A' from 'Speaker B'?"
       },
       {
         "id": "R3",
-        "description": "Is fine-tuning supported (e.g. LoRA) if we need to teach it specific medical or technical vocabulary?"
-      },
-      {
-        "id": "R4",
+        "category": "Interactivity",
         "description": "Does the 'voice chat' mode support interruption, or do we have to wait for it to finish speaking?"
       },
       {
-        "id": "R5",
-        "description": "What is the cost-per-minute compared to just using a cheap ASR API like Whisper?"
+        "id": "R4",
+        "category": "Cost/Efficiency",
+        "description": "What is the implied inference cost compared to just using a cheap ASR API like Whisper?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "voicebox_meta2023",
+    "id": "voicebox_summary",
+    "parent": { "path": "voicebox.pdf" },
+    "task": {
+      "decisions": [
+        "What is Voicebox and how does it work? Summarize the architecture and performance."
+      ]
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "category": "Visual Element",
+        "description": "Must reference the 'In-filling' or 'Flow Matching' diagrams/figures to explain how it generates audio in the middle of a sequence."
+      },
+      {
+        "id": "R2",
+        "category": "Data Retrieval",
+        "description": "Must pull data from the Comparison Table (e.g., Table 1 or 2) showing lower Word Error Rates (WER) (1.9% vs 5.9%) compared to VALL-E."
+      },
+      {
+        "id": "R3",
+        "category": "Paradigm",
+        "description": "Must identify it as a 'Non-Autoregressive Flow-Matching' model, explicitly contrasting it with standard Autoregressive (AR) models."
+      },
+      {
+        "id": "R4",
+        "category": "Training Data",
+        "description": "Must mention the scale of training data (e.g., 50k hours) and its 'unfiltered' or 'noisy' nature."
+      }
+    ],
+    "notes": {}
+  },
+  {
+    "id": "voicebox_eval_models",
     "parent": { "path": "voicebox.pdf" },
     "task": {
       "decisions": [
@@ -216,70 +345,103 @@
     "requirements": [
       {
         "id": "R1",
-        "description": "Is this actually faster than VALL-E in a real production setting, or just theoretically faster?"
+        "category": "Real Speed",
+        "description": "Is this actually faster than VALL-E in a real production setting (e.g., 20x speedup), or just theoretically faster?"
       },
       {
         "id": "R2",
+        "category": "Data Needs",
         "description": "Do we need expensive phoneme-alignment data to train this, or can we just throw raw audio+text at it?"
       },
       {
         "id": "R3",
+        "category": "Drift",
         "description": "Does the voice start to sound weird or 'drift' if we generate a really long paragraph?"
       },
       {
         "id": "R4",
+        "category": "Safety",
         "description": "Are there any watermark detectors included, or do we have to build our own safety checks?"
       },
       {
         "id": "R5",
+        "category": "Convergence",
         "description": "Is the 'flow matching' more stable than existing methods, or does training often diverge and fail?"
-      },
-      {
-        "id": "R6",
-        "description": "Can we run this on standard consumer GPUs or does it require massive H100 clusters?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "voicebox_meta2023",
+    "id": "voicebox_capabilities",
     "parent": { "path": "voicebox.pdf" },
     "task": {
       "decisions": [
-        " Evaluating Editing and Cross-Lingual capabilities."
+        "Evaluating Editing and Cross-Lingual capabilities."
       ]
     },
     "requirements": [
       {
         "id": "R1",
+        "category": "In-filling",
         "description": "Can it cleanly fix a bad word in a recording without making a 'click' or pop sound at the edit point?"
       },
       {
         "id": "R2",
+        "category": "Cloning",
         "description": "How short can the voice sample be for cloning? Can it work with a 3-second clip?"
       },
       {
         "id": "R3",
+        "category": "Cross-Lingual",
         "description": "Does it support cross-lingual stuff out of the box (like making an English speaker speak French)?"
       },
       {
         "id": "R4",
+        "category": "Denoising",
         "description": "Does it also work as a denoiser? Can we feed it noisy audio and get clean speech out?"
       },
       {
         "id": "R5",
+        "category": "Emotion",
         "description": "How well does it capture the emotion of the prompt? Does it sound robotic or expressive?"
-      },
-      {
-        "id": "R6",
-        "description": "Are the pre-trained weights available vis the survey, or is this paper purely academic with no code?"
       }
     ],
     "notes": {}
   },
-  
   {
-    "id": "treering_flux_watermark",
+    "id": "treering_flux_summary",
+    "parent": { "path": "treering_flux.pdf" },
+    "task": {
+      "decisions": [
+        "Summarize the findings regarding Tree-Ring Watermarking on Rectified Flow models."
+      ]
+    },
+    "requirements": [
+      {
+        "id": "R1",
+        "category": "Visual Element",
+        "description": "Must describe the 'Distance Distribution' plots (Figure 2) which visually show the overlap/separation between watermarked and clean images."
+      },
+      {
+        "id": "R2",
+        "category": "Reconstruction",
+        "description": "Must reference the qualitative figures (Figure 4) showing that reconstructed images differ significantly from original generations in FLUX."
+      },
+      {
+        "id": "R3",
+        "category": "Core Conclusion",
+        "description": "Must state that Tree-Ring watermarks are significantly less robust on FLUX (Rectified Flow) compared to Stable Diffusion (DDIM)."
+      },
+      {
+        "id": "R4",
+        "category": "Root Cause",
+        "description": "Must attribute the failure to the 'Rectified Flow' training objective or the ODE trajectory which hampers accurate latent inversion."
+      }
+    ],
+    "notes": {}
+  },
+  {
+    "id": "treering_flux_feasibility",
     "parent": { "path": "treering_flux.pdf" },
     "task": {
       "decisions": [
@@ -289,33 +451,34 @@
     "requirements": [
       {
         "id": "R1",
-        "description": "What are some benchmarks for evaluating the watermark detection and how relevant is it for our use case?"
+        "category": "Benchmarks",
+        "description": "What are some benchmarks (e.g. Waves) for evaluating the watermark detection and how relevant is it for our use case?"
       },
       {
         "id": "R2",
+        "category": "Lost Prompt",
         "description": "Are we screwed if we lose the original text prompt? Can we use a VLM to guess it and still detect the watermark reliably?"
       },
       {
         "id": "R3",
-        "description": "How fragile is the detection? Does slight cropping or resizing of the image break it completely?"
+        "category": "Robustness",
+        "description": "How fragile is the detection? Does slight cropping or resizing of the image break it completely (check AUC drops)?"
       },
       {
         "id": "R4",
+        "category": "Inversion Cost",
         "description": "Is the 'noise inversion' step significantly harder or slower on Flow models compared to the standard DDIM inversion we use for SD 2.1?"
       },
       {
         "id": "R5",
-        "description": "Do we need to store the specific 'key' and 'mask' for every single image we generate, or is there a universal key?"
-      },
-      {
-        "id": "R6",
+        "category": "Quality Impact",
         "description": "Does embedding this watermark in the Fourier space visible degrade the image quality?"
       }
     ],
     "notes": {}
   },
   {
-    "id": "treering_flux_watermark",
+    "id": "treering_flux_benchmark",
     "parent": { "path": "treering_flux.pdf" },
     "task": {
       "decisions": [
@@ -325,26 +488,27 @@
     "requirements": [
       {
         "id": "R1",
+        "category": "Comparison",
         "description": "Why does FLUX perform worse under attack compared to SD 2.1? Is the latent space just more sensitive to noise?"
       },
       {
         "id": "R2",
+        "category": "Reconstruction Error",
         "description": "Does using a VLM to generate the inversion prompt actually work, or is the reconstruction error (NMSE) still too high to be useful?"
       },
       {
         "id": "R3",
-        "description": "What is the false positive rate? Can we statistically separate a watermarked FLUX image from a random noise image with high confidence?"
+        "category": "Statistics",
+        "description": "What is the false positive rate (e.g. TPR@1%FPR)? Can we statistically separate a watermarked FLUX image from a random noise image with high confidence?"
       },
       {
         "id": "R4",
+        "category": "Configuration",
         "description": "Do we need to tweak the watermark radius or channel parameters specifically for FLUX, or can we use the same settings as SD?"
       },
       {
         "id": "R5",
-        "description": "If we don't provide any prompt at all during detection ('No Prompt'), is the system effectively blind?"
-      },
-      {
-        "id": "R6",
+        "category": "Metric Reliability",
         "description": "Is the 'Latent Noise Reconstruction' metric stable enough to be our primary automated check for copyright compliance?"
       }
     ],

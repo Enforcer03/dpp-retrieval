@@ -21,7 +21,7 @@ extract:
   use_layout_aware: true
   max_text_chunk_tokens: 2000
   caption_search_px: 100
-  target_chunk_size: 1200  # Target size for merging small chunks (chars)
+  target_chunk_size: 1200  # Target size for merging small chunks (SciDuet)
   ocr:
     enabled: false
     engine: tesseract
@@ -38,17 +38,9 @@ embed:
   batch_size: 32
   dim: 0
 
-  # Alternative: CLIP via SentenceTransformer
-  # backend: sentence_transformer
-  # model_name: clip-ViT-B-32
-
-  # Alternative: Gemma (dual encoder - auto-detects encode_query/encode_document)
-  # backend: sentence_transformer
-  # model_name: google/embeddinggemma-300m
-
 retrieval:
   top_pages: 100
-  top_units_dense: 150  # Increased from 110 to compensate for BM25 removal
+  top_units_dense: 150
   rrf_k: 60
   unit_image_weight: 1.15
   table_boost: 0.75
@@ -57,16 +49,16 @@ retrieval:
   min_figure_candidates: 10
 
 selection:
-  budget_tokens: 2000
+  budget_tokens: 500  # Reduced for SciDuet (smaller chunks)
   alpha_visual: 0.35
   redundancy_beta: 0.1
   rel_weight: 1.0
   min_gain: 0.0
-  coverage_weight: 0.5  # Weight for query aspect coverage in greedy_cov selection (0.0 to disable)
-  stopwords: []  # Stopwords to exclude from coverage aspects (empty list uses no stopwords)
-  cognitive_cost_mode: emb  # 'simple' (token-based) or 'emb' (embedding-based with reasoning complexity)
-  cognitive_cost_device: cpu   # device for embedding-based profiler ('cpu' or 'cuda')
-  cognitive_cost_hf_model: "davanstrien/ModernBERT-based-Reasoning-Required"  # HF model for reasoning complexity
+  coverage_weight: 0.5
+  stopwords: []
+  cognitive_cost_mode: emb
+  cognitive_cost_device: cpu
+  cognitive_cost_hf_model: "davanstrien/ModernBERT-based-Reasoning-Required"
 
 openai:
   model: gpt-5.1
