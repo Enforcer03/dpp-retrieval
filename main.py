@@ -350,7 +350,6 @@ def main() -> None:
         log.info("Using embedding-based cognitive cost profiler")
         profiler = EmbeddingBasedCostProfiler(
             token_counter=token_counter,
-            alpha_visual=cfg.selection.alpha_visual,
             model_name=cfg.selection.cognitive_cost_hf_model,
             device=cfg.selection.cognitive_cost_device,
         )

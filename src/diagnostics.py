@@ -318,6 +318,271 @@ class RetrievalDiagnostics:
                  framealpha=0.9, fontsize=10)
 
 
+def _redundancy_metrics(sim: np.ndarray, dup_thresh: float = 0.90) -> dict:
+    """Compute redundancy and diversity metrics from similarity matrix."""
+    n = sim.shape[0]
+    if n <= 1:
+        return dict(
+            n=n,
+            mean_offdiag=np.nan,
+            max_offdiag=np.nan,
+            dup_rate=np.nan,
+            dispersion=np.nan,
+            novelty_curve=np.array([]),
+            mean_novelty=np.nan,
+        )
+
+    off = sim.copy()
+    np.fill_diagonal(off, np.nan)
+    iu = np.triu_indices(n, k=1)
+
+    # Novelty curve: how novel is each chunk compared to previous ones
+    novelty = np.zeros(n, dtype=np.float32)
+    novelty[0] = 1.0
+    for t in range(1, n):
+        novelty[t] = 1.0 - float(np.max(sim[t, :t]))
+
+    return dict(
+        n=n,
+        mean_offdiag=float(np.nanmean(off)),
+        max_offdiag=float(np.nanmax(off)),
+        dup_rate=float(np.mean(sim[iu] >= dup_thresh)),
+        dispersion=float(np.nanmean(1.0 - off)),
+        novelty_curve=novelty,
+        mean_novelty=float(np.mean(novelty[1:])) if n > 1 else np.nan,
+    )
+
+
+def generate_method_comparison_diagnostics(
+    all_units: list[EvidenceUnit],
+    candidates: list[EvidenceUnit],
+    selections: dict[str, list[SelectionResult]],
+    costs: dict[str, float],
+    rel_scores: dict[str, float],
+    budget_tokens: int,
+    embedder,
+    output_path: Path,
+) -> None:
+    """Generate comprehensive comparison diagnostic for all selection methods.
+
+    Args:
+        all_units: All evidence units from the document
+        candidates: Retrieved candidate units
+        selections: Dict mapping method name to selected units
+        costs: Cognitive cost for each unit
+        rel_scores: Relevance scores for each unit (after multi-anchor fusion if enabled)
+        budget_tokens: Budget limit in tokens
+        embedder: Embedder instance to compute similarity between selected units
+        output_path: Path to save the visualization
+    """
+    from sklearn.metrics.pairwise import cosine_similarity
+
+    log.info("Generating method comparison diagnostics...")
+
+    methods = ["greedy", "topk", "greedy_cov", "cost_norm", "dpp"]
+    nrows, ncols = len(methods), 6
+
+    fig, axes = plt.subplots(
+        nrows, ncols,
+        figsize=(36, 24),
+        dpi=400,
+        constrained_layout=True
+    )
+    fig.suptitle(
+        "Selection Method Comparison: Redundancy, Diversity & Relevance",
+        fontsize=18,
+        fontweight="bold"
+    )
+
+    HM_VMIN, HM_VMAX = 0.0, 1.0
+
+    for i, method in enumerate(methods):
+        sel = selections[method]
+
+        # ----- Existing diagnostics in columns 0-2 -----
+        diag = RetrievalDiagnostics(
+            all_units=all_units,
+            candidates=candidates,
+            selected=sel,
+            costs=costs,
+            rel_scores=rel_scores,
+            budget_tokens=budget_tokens,
+        )
+        diag._plot_selection_space(axes[i, 0])
+        diag._plot_cost_distribution(axes[i, 1])
+        diag._plot_budget_allocation(axes[i, 2])
+
+        # Add method label on left side
+        axes[i, 0].text(
+            -0.18, 0.5, method.upper(),
+            transform=axes[i, 0].transAxes,
+            fontsize=14, fontweight="bold", rotation=90, va="center"
+        )
+
+        # ----- Prepare selected data -----
+        selected_ids = [s.unit.id for s in sel]
+        selected_texts = [s.unit.context_text for s in sel]
+        n = len(selected_ids)
+
+        # If empty selection, clear remaining panels
+        if n == 0:
+            for j in [3, 4, 5]:
+                axes[i, j].axis("off")
+                axes[i, j].text(
+                    0.5, 0.5, "No units selected",
+                    ha="center", va="center", fontsize=12, color="gray"
+                )
+            continue
+
+        # ----- Embed selected texts and compute similarity -----
+        try:
+            selected_res = embedder.embed_text(selected_ids, selected_texts)
+            selected_vecs = {sid: v.astype(np.float32) for sid, v in zip(selected_res.ids, selected_res.vecs)}
+            X = np.stack([selected_vecs[sid] for sid in selected_ids], axis=0)
+            sim = cosine_similarity(X)
+
+            metrics = _redundancy_metrics(sim, dup_thresh=0.90)
+
+            # Avg similarity per chunk (excluding self)
+            if n > 1:
+                avg_sim = (sim.sum(axis=1) - 1.0) / (n - 1)
+            else:
+                avg_sim = np.array([np.nan], dtype=np.float32)
+        except Exception as e:
+            log.warning(f"Failed to compute similarity for {method}: {e}")
+            # Clear panels and continue
+            for j in [3, 4, 5]:
+                axes[i, j].axis("off")
+                axes[i, j].text(
+                    0.5, 0.5, f"Error: {str(e)[:50]}",
+                    ha="center", va="center", fontsize=10, color="red"
+                )
+            continue
+
+        # ----- Relevance and cost per chunk -----
+        rel_per_chunk = np.array([rel_scores.get(sid, 0.0) for sid in selected_ids], dtype=np.float32)
+        cost_per_chunk = np.array([max(1, costs.get(sid, 1)) for sid in selected_ids], dtype=np.float32)
+        rel_per_token = rel_per_chunk / cost_per_chunk
+
+        # ----- Column 3: Relevance bars with rel/token overlay -----
+        ax_rel = axes[i, 3]
+        x = np.arange(n)
+
+        ax_rel.bar(x, rel_per_chunk, color='steelblue', alpha=0.7, label='Relevance')
+        ax_rel.set_xlabel("Selection index", fontsize=10)
+        ax_rel.set_ylabel("Relevance", fontsize=10, color='steelblue')
+        ax_rel.tick_params(axis='y', labelcolor='steelblue')
+        ax_rel.grid(True, alpha=0.3, linestyle='--', axis='y')
+
+        # Secondary axis for rel/token
+        ax_rel2 = ax_rel.twinx()
+        ax_rel2.plot(x, rel_per_token, marker="o", linewidth=1.5, color='darkorange', label='Rel/Token')
+        ax_rel2.set_ylabel("Relevance / Token", fontsize=10, color='darkorange')
+        ax_rel2.tick_params(axis='y', labelcolor='darkorange')
+
+        # ----- Column 4: Similarity heatmap -----
+        ax_hm = axes[i, 4]
+        im = ax_hm.imshow(sim, vmin=HM_VMIN, vmax=HM_VMAX, aspect="equal", cmap='viridis')
+        ax_hm.set_xlabel("Chunk index", fontsize=10)
+        ax_hm.set_ylabel("Chunk index", fontsize=10)
+        cbar = fig.colorbar(im, ax=ax_hm, fraction=0.046, pad=0.02)
+        cbar.set_label("Cosine similarity", fontsize=9)
+
+        # ----- Column 5: Summary metrics -----
+        ax_txt = axes[i, 5]
+        ax_txt.axis("off")
+
+        used_tokens = float(np.sum(cost_per_chunk))
+        budget = float(budget_tokens)
+        total_rel = float(np.sum(rel_per_chunk))
+
+        txt = (
+            f"n selected: {n}\n"
+            f"mean relevance/chunk: {float(np.mean(rel_per_chunk)):.3f}\n"
+            f"median relevance/chunk: {float(np.median(rel_per_chunk)):.3f}\n"
+            f"mean (rel/token): {float(np.mean(rel_per_token)):.5f}\n"
+            f"Σ relevance: {total_rel:.3f}\n"
+            f"budget used: {used_tokens:.0f}/{budget:.0f} ({(used_tokens/max(budget,1))*100:.1f}%)\n"
+            f"\n--- Redundancy/Diversity ---\n"
+            f"mean off-diag sim: {metrics['mean_offdiag']:.3f}\n"
+            f"max off-diag sim:  {metrics['max_offdiag']:.3f}\n"
+            f"dup rate @0.90:    {metrics['dup_rate']:.3f}\n"
+            f"dispersion:        {metrics['dispersion']:.3f}\n"
+            f"mean novelty:      {metrics['mean_novelty']:.3f}\n"
+            f"mean avg-sim excl self: {float(np.nanmean(avg_sim)):.3f}\n"
+        )
+        ax_txt.text(
+            0.02, 0.98, txt,
+            ha="left", va="top",
+            fontsize=10, family="monospace",
+            transform=ax_txt.transAxes
+        )
+
+    # Column headers
+    col_titles = [
+        "Chunk Selection Space",
+        "Cost Distribution",
+        "Budget Allocation",
+        "Relevance (+ Rel/Token)",
+        "Similarity Heatmap",
+        "Summary Metrics",
+    ]
+    for j, title in enumerate(col_titles):
+        axes[0, j].set_title(title, fontsize=12, fontweight="bold", pad=10)
+
+    # Save figure
+    plt.savefig(output_path, dpi=400, bbox_inches='tight', facecolor='white')
+    plt.close()
+
+    log.info(f"Method comparison diagnostics saved to {output_path}")
+
+    # Return all metrics for logging/wandb
+    all_metrics = {}
+    for method in methods:
+        sel = selections[method]
+        if len(sel) == 0:
+            continue
+
+        selected_ids = [s.unit.id for s in sel]
+        rel_per_chunk = np.array([rel_scores.get(sid, 0.0) for sid in selected_ids], dtype=np.float32)
+        cost_per_chunk = np.array([max(1, costs.get(sid, 1)) for sid in selected_ids], dtype=np.float32)
+        rel_per_token = rel_per_chunk / cost_per_chunk
+
+        # Recompute similarity metrics if possible
+        try:
+            selected_texts = [s.unit.context_text for s in sel]
+            selected_res = embedder.embed_text(selected_ids, selected_texts)
+            selected_vecs = {sid: v.astype(np.float32) for sid, v in zip(selected_res.ids, selected_res.vecs)}
+            X = np.stack([selected_vecs[sid] for sid in selected_ids], axis=0)
+            sim = cosine_similarity(X)
+            metrics = _redundancy_metrics(sim, dup_thresh=0.90)
+        except Exception:
+            metrics = {
+                'mean_offdiag': np.nan,
+                'max_offdiag': np.nan,
+                'dup_rate': np.nan,
+                'dispersion': np.nan,
+                'mean_novelty': np.nan,
+            }
+
+        all_metrics[method] = {
+            'n_selected': len(sel),
+            'mean_relevance': float(np.mean(rel_per_chunk)),
+            'median_relevance': float(np.median(rel_per_chunk)),
+            'total_relevance': float(np.sum(rel_per_chunk)),
+            'mean_rel_per_token': float(np.mean(rel_per_token)),
+            'budget_used': float(np.sum(cost_per_chunk)),
+            'budget_pct': float(np.sum(cost_per_chunk) / max(budget_tokens, 1) * 100),
+            'mean_offdiag_sim': metrics['mean_offdiag'],
+            'max_offdiag_sim': metrics['max_offdiag'],
+            'dup_rate': metrics['dup_rate'],
+            'dispersion': metrics['dispersion'],
+            'mean_novelty': metrics['mean_novelty'],
+        }
+
+    return all_metrics
+
+
 def generate_diagnostics(
     all_units: list[EvidenceUnit],
     candidates: list[EvidenceUnit],
