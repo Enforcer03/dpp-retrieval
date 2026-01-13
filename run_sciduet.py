@@ -10,11 +10,49 @@ from __future__ import annotations
 
 import argparse
 import logging
-import subprocess
 import sys
 from datetime import datetime
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Dict, List, Tuple
+import subprocess
+from concurrent.futures import ThreadPoolExecutor, as_completed
+
+
+def _normalize_sciduet_gem_id(gem_id: str) -> str:
+    """
+    Fix SciDuet gem_id bug where gem_id becomes:
+      "...#slide-" + "<FULL GEM ID ...#slide-0>"
+    We keep only the suffix full GEM id.
+    """
+    gem_id = (gem_id or "").strip()
+    if "#slide-" in gem_id:
+        suffix = gem_id.split("#slide-", 1)[1]
+        if suffix.startswith("GEM-"):
+            gem_id = suffix
+    return gem_id
+
+
+def _requirements_lookup(
+    requirements_map: Dict[str, List[Dict[str, Any]]],
+    paper_id: str,
+    gem_id: str,
+    slide_id: str,
+) -> Tuple[str, List[Dict[str, Any]]]:
+    """
+    Metadata entries use id like: "{paper_id}_{gem_id}" (as in your sample).
+    Fall back to "{paper_id}_{slide_id}" and raw ids if needed.
+    Returns (matched_key, requirements_list).
+    """
+    candidates = [
+        f"{paper_id}_{gem_id}" if paper_id and gem_id else "",
+        f"{paper_id}_{slide_id}" if paper_id and slide_id else "",
+        slide_id or "",
+        gem_id or "",
+    ]
+    for k in candidates:
+        if k and k in requirements_map:
+            return k, (requirements_map[k] or [])
+    return (f"{paper_id}_{(gem_id or slide_id)}".strip("_"), [])
 
 import numpy as np
 from datasets import load_dataset
@@ -41,9 +79,69 @@ from src.utils import (
     display_score_summary,
     run_command,
 )
-from src.wandb_logger import wandb_finish, wandb_init, wandb_log, wandb_log_artifact
+from src.wandb_logger import wandb_finish, wandb_init, wandb_log
 
 log = logging.getLogger(__name__)
+
+
+# ============================================================================
+# Helpers: SciDuet ID normalization + requirements lookup
+# ============================================================================
+def _s(x: Any) -> str:
+    return str(x) if x is not None else ""
+
+
+def _normalize_sciduet_ids(sample: Dict[str, Any]) -> Tuple[str, str, str, str]:
+    """
+    Return (paper_id, gem_id, slide_id, slide_num) with robust normalization.
+
+    Some SciDuet variants accidentally store gem_id as:
+        "GEM-...#paper-954#slide-" + slide_id
+    where slide_id itself is already "GEM-...#paper-954#slide-0".
+    In that case gem_id ends up with "#slide-GEM-...#slide-0".
+
+    We fix this by:
+      - if gem_id contains "#slide-" and the suffix starts with "GEM-", replace gem_id with that suffix.
+      - fall back to slide_id if gem_id is empty.
+    """
+    paper_id = _s(sample.get("paper_id") or sample.get("paper") or sample.get("id") or "unknown")
+    gem_id = _s(sample.get("gem_id"))
+    slide_id = _s(sample.get("slide_id"))
+
+    if gem_id and "#slide-" in gem_id:
+        suffix = gem_id.split("#slide-", 1)[1]
+        if suffix.startswith("GEM-"):
+            gem_id = suffix  # drop the duplicated prefix
+
+    if not gem_id and slide_id:
+        gem_id = slide_id
+
+    id_for_slide = slide_id or gem_id
+    slide_num = id_for_slide.split("#slide-")[-1] if "#slide-" in id_for_slide else "0"
+    return paper_id, gem_id, slide_id, slide_num
+
+
+def _lookup_requirements(
+    requirements_map: Dict[str, List[Dict[str, Any]]],
+    paper_id: str,
+    gem_id: str,
+    slide_id: str,
+) -> Tuple[str, List[Dict[str, Any]]]:
+    """
+    Metadata key formats have varied across our pipelines.
+    Try a small ordered set of candidates and return the matched key + requirements.
+    """
+    candidates = [
+        f"{paper_id}_{slide_id}" if slide_id else "",
+        f"{paper_id}_{gem_id}" if gem_id else "",
+        slide_id,
+        gem_id,
+    ]
+    for k in candidates:
+        if k and k in requirements_map:
+            return k, requirements_map[k]
+    # No match
+    return (f"{paper_id}_{(slide_id or gem_id)}").strip("_"), []
 
 
 # ============================================================================
@@ -91,8 +189,8 @@ class SciDuetConverter:
         sections = self._create_sections_from_chunks(content_chunks, headers)
 
         # Create pages and elements
-        pages = []
-        elements = []
+        pages: List[PageArtifact] = []
+        elements: List[Element] = []
 
         for page_num, (header, section_chunks) in enumerate(sections, start=1):
             # Create page artifact (no image)
@@ -173,7 +271,7 @@ class SciDuetConverter:
             return [("", [])]
 
         # Merge small chunks into larger blocks
-        merged_chunks = []
+        merged_chunks: List[str] = []
         current_text = ""
 
         for chunk in content_chunks:
@@ -193,14 +291,14 @@ class SciDuetConverter:
             sections = []
             chunks_per_section = 6
             for i in range(0, len(merged_chunks), chunks_per_section):
-                section_chunks = merged_chunks[i:i + chunks_per_section]
+                section_chunks = merged_chunks[i : i + chunks_per_section]
                 sections.append((f"Section {i//chunks_per_section + 1}", section_chunks))
             return sections
 
         # Find where headers appear in merged chunks
-        sections = []
+        sections: List[tuple[str, List[str]]] = []
         current_header = "Introduction"
-        current_chunks = []
+        current_chunks: List[str] = []
         header_idx = 0
 
         for chunk in merged_chunks:
@@ -208,8 +306,10 @@ class SciDuetConverter:
             if header_idx < len(headers):
                 next_header = headers[header_idx]
                 # Simple heuristic: chunk starts with or contains header
-                if (next_header.lower() in chunk.lower()[:100] or
-                    chunk.lower().strip().startswith(next_header.lower()[:20])):
+                if (
+                    next_header.lower() in chunk.lower()[:100]
+                    or chunk.lower().strip().startswith(next_header.lower()[:20])
+                ):
                     # Save previous section
                     if current_chunks:
                         sections.append((current_header, current_chunks))
@@ -235,8 +335,8 @@ class SciDuetConverter:
 
         # Simple sentence-aware chunking
         sentences = text.split(". ")
-        chunks = []
-        current_chunk = []
+        chunks: List[str] = []
+        current_chunk: List[str] = []
         current_length = 0
 
         for sent in sentences:
@@ -299,17 +399,15 @@ def run_pipeline_on_document(
     text_vecs = {i: v.astype(np.float32) for i, v in zip(text_res.ids, text_res.vecs)}
 
     # No image embeddings (SciDuet has no images)
-    img_vecs = {}
-    page_vecs = {}
+    page_vecs: Dict[str, np.ndarray] = {}
 
     # Build unit vectors (text only, normalize)
     dim = text_vecs[next(iter(text_vecs))].shape[0]
-    unit_vecs = {}
+    unit_vecs: Dict[str, np.ndarray] = {}
     for u in units:
         if u.id in text_vecs:
             vec = text_vecs[u.id]
-            norm = np.linalg.norm(vec)
-            unit_vecs[u.id] = vec / (norm + 1e-12)
+            unit_vecs[u.id] = vec / (np.linalg.norm(vec) + 1e-12)
 
     # Query embedding
     query_vec_raw = embedder.embed_text(["q"], [query]).vecs[0].astype(np.float32)
@@ -383,11 +481,9 @@ def run_pipeline_on_document(
             model_name=cfg.selection.cognitive_cost_hf_model,
             device=cfg.selection.cognitive_cost_device,
         )
-        costs = {}
+        costs: Dict[str, int] = {}
         for u in units:
-            costs[u.id] = profiler.cost(
-                u.context_text, u.image_paths, unit_type=u.type
-            ).total
+            costs[u.id] = profiler.cost(u.context_text, u.image_paths, unit_type=u.type).total
     else:
         profiler = SimpleCostProfiler(
             token_counter=token_counter,
@@ -395,7 +491,6 @@ def run_pipeline_on_document(
         )
         costs = {u.id: profiler.cost(u.context_text, u.image_paths).total for u in units}
 
-    # Selection
     selector = BudgetedSelector(
         budget_tokens=cfg.selection.budget_tokens,
         redundancy_beta=cfg.selection.redundancy_beta,
@@ -406,8 +501,8 @@ def run_pipeline_on_document(
     )
 
     methods = ["greedy", "topk", "greedy_cov", "cost_norm", "dpp"]
-    selections = {}
-    budgets_used = {}
+    selections: Dict[str, Any] = {}
+    budgets_used: Dict[str, int] = {}
 
     for m in methods:
         sel = selector.select_method(
@@ -439,10 +534,7 @@ def run_pipeline_on_document(
     selected_chunks = [
         {
             "chunk_id": s.unit.id,
-            "content": {
-                "text": s.unit.context_text,
-                "image_paths": [],
-            },
+            "content": {"text": s.unit.context_text, "image_paths": []},
             "metadata": {
                 "unit_type": s.unit.type,
                 "cognitive_cost": int(s.cost),
@@ -493,7 +585,6 @@ def process_sciduet_batch(
 ) -> Dict[str, Any]:
     """Process SciDuet dataset in batch mode."""
 
-    # Load dataset
     log.info("Loading SciDuet dataset (split=%s)...", dataset_split)
     try:
         ds = load_dataset("GEM/SciDuet", split=dataset_split)
@@ -505,13 +596,13 @@ def process_sciduet_batch(
     log.info("Loaded %d samples", total_samples)
 
     # Load requirements metadata if provided
-    requirements_map = {}
+    requirements_map: Dict[str, List[Dict[str, Any]]] = {}
     if metadata_path and metadata_path.exists():
         log.info("Loading requirements from: %s", metadata_path)
         try:
             metadata = load_json(metadata_path)
             for entry in metadata:
-                entry_id = entry.get("id", "")
+                entry_id = _s(entry.get("id", ""))
                 requirements_map[entry_id] = entry.get("requirements", [])
             log.info("Loaded requirements for %d entries", len(requirements_map))
         except Exception as e:
@@ -531,11 +622,12 @@ def process_sciduet_batch(
     # Initialize converter
     converter = SciDuetConverter(
         max_section_length=cfg.extract.max_text_chunk_tokens,
-        target_chunk_size=getattr(cfg.extract, 'target_chunk_size', 1200)
+        target_chunk_size=getattr(cfg.extract, "target_chunk_size", 1200),
     )
 
     # Batch tracking
     batch_timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    methods = ["greedy", "topk", "greedy_cov", "cost_norm", "dpp"]
     results = {
         "batch_timestamp": batch_timestamp,
         "dataset_split": dataset_split,
@@ -544,45 +636,49 @@ def process_sciduet_batch(
         "successful": 0,
         "failed": 0,
         "failed_ids": [],
-        "method_metrics": {method: [] for method in ["greedy", "topk", "greedy_cov", "cost_norm", "dpp"]},
+        "method_metrics": {method: [] for method in methods},
         "pipeline_success": 0,
         "eval_success": 0,
     }
 
-    score_data = []
+    score_data: List[Dict[str, Any]] = []
 
-    # Process each sample
     for idx, sample in enumerate(tqdm(ds, desc="Processing samples", unit="sample")):
         paper_id = str(sample.get("paper_id", f"unknown_{idx}"))
-        gem_id = str(sample.get("gem_id", ""))
+        gem_id = _normalize_sciduet_gem_id(str(sample.get("gem_id", "")) or "")
+        slide_id = str(sample.get("slide_id", "")) or ""
 
-        # Extract slide number from gem_id for simpler run_id
-        # gem_id format: "GEM-SciDuet-train-1#paper-954#slide-0"
-        slide_num = gem_id.split("#slide-")[-1] if "#slide-" in gem_id else "0"
+        # slide number for run_id (prefer slide_id if present, else gem_id)
+        id_for_slide = slide_id or gem_id
+        slide_num = id_for_slide.split("#slide-")[-1] if "#slide-" in id_for_slide else "0"
         run_id = f"{batch_timestamp}_{paper_id}_slide{slide_num}_d0"
 
-        # Look up requirements for this sample
-        # The entry_id format in metadata is like: "954_GEM-SciDuet-train-1#paper-954#slide-0"
-        entry_id = f"{paper_id}_{gem_id}"
-        requirements = requirements_map.get(entry_id, [])
+        # robust requirements lookup (metadata id format is "{paper_id}_{gem_id}")
+        entry_id, requirements = _requirements_lookup(requirements_map, paper_id, gem_id, slide_id)
+
+        log.info("Entry ID: %s, Requirements: %d", entry_id, len(requirements))
+
 
         log.info("")
         log.info("=" * 80)
         log.info("Processing %d/%d: %s", idx + 1, len(ds), run_id)
-        log.info("Entry ID: %s, Requirements: %d", entry_id, len(requirements))
+        log.info(
+            "Entry ID: %s (paper_id=%s gem_id=%s slide_id=%s), Requirements: %d",
+            entry_id,
+            paper_id,
+            gem_id,
+            slide_id,
+            len(requirements),
+        )
 
         try:
             # Convert to DocumentArtifact
             log.info("  Converting SciDuet sample to DocumentArtifact...")
             doc = converter.convert(sample)
-            log.info(
-                "  Created DocumentArtifact: %d pages, %d elements",
-                len(doc.pages),
-                len(doc.elements),
-            )
+            log.info("  Created DocumentArtifact: %d pages, %d elements", len(doc.pages), len(doc.elements))
 
             # Extract query (use slide title)
-            query = str(sample.get("slide_title", "Summarize this paper"))
+            query = _s(sample.get("slide_title") or "Summarize this paper")
             log.info("  Query: %s", query[:100] + ("..." if len(query) > 100 else ""))
 
             # Create output directory
@@ -598,7 +694,7 @@ def process_sciduet_batch(
                 user_instruction=query,
             )
 
-            # Save outputs
+            # Save outputs + run eval
             log.info("  Saving outputs...")
             diagnostic_metrics, eval_success = save_outputs(
                 out_dir=out_dir,
@@ -628,20 +724,25 @@ def process_sciduet_batch(
             requirements_path = out_dir / "requirements.json"
             requirements_data = load_json(requirements_path) if requirements_path.exists() else None
 
-            for method in ["greedy", "topk", "greedy_cov", "cost_norm", "dpp"]:
-                eval_bundle_path = out_dir / f"eval_bundle_{method}.json" if method != "greedy" else out_dir / "eval_bundle.json"
+            for method in methods:
+                eval_bundle_path = out_dir / ("eval_bundle.json" if method == "greedy" else f"eval_bundle_{method}.json")
                 if not eval_bundle_path.exists():
                     continue
-
                 try:
                     eval_bundle = load_json(eval_bundle_path)
                     score_info = calculate_decision_score(eval_bundle, requirements_data)
                     if score_info:
-                        score_info["pdf_name"] = f"{paper_id}.pdf"
-                        score_info["paper_id"] = paper_id
-                        score_info["gem_id"] = gem_id
-                        score_info["run_id"] = run_id
-                        score_info["method"] = method
+                        score_info.update(
+                            {
+                                "pdf_name": f"{paper_id}.pdf",
+                                "paper_id": paper_id,
+                                "gem_id": gem_id,
+                                "slide_id": slide_id,
+                                "run_id": run_id,
+                                "method": method,
+                                "entry_id": entry_id,
+                            }
+                        )
                         score_data.append(score_info)
                 except Exception as e:
                     log.warning("Failed to calculate score for %s (%s): %s", run_id, method, e)
@@ -655,9 +756,7 @@ def process_sciduet_batch(
 
         results["processed"] += 1
 
-    # Add score data to results
     results["score_data"] = score_data
-
     return results
 
 
@@ -685,11 +784,9 @@ def save_outputs(
         requirements = []
 
     # Summary
-    (out_dir / "summary.md").write_text(
-        pipeline_result["summary_text"], encoding="utf-8"
-    )
+    (out_dir / "summary.md").write_text(pipeline_result["summary_text"], encoding="utf-8")
 
-    # Comprehensive diagnostics comparing all methods
+    # Diagnostics comparing all methods
     diagnostic_metrics = None
     try:
         diagnostic_metrics = generate_method_comparison_diagnostics(
@@ -703,28 +800,25 @@ def save_outputs(
             output_path=out_dir / "diagnostics_comparison.png",
         )
 
-        # Log metrics for each method
         if diagnostic_metrics:
             log.info("  Diagnostic Metrics Summary:")
             for method, metrics in diagnostic_metrics.items():
                 log.info(
                     "    %s: n=%d, rel=%.3f, rel/tok=%.5f, budget=%.1f%%, sim=%.3f, nov=%.3f",
                     method.upper(),
-                    metrics['n_selected'],
-                    metrics['mean_relevance'],
-                    metrics['mean_rel_per_token'],
-                    metrics['budget_pct'],
-                    metrics['mean_offdiag_sim'],
-                    metrics['mean_novelty'],
+                    metrics["n_selected"],
+                    metrics["mean_relevance"],
+                    metrics["mean_rel_per_token"],
+                    metrics["budget_pct"],
+                    metrics["mean_offdiag_sim"],
+                    metrics["mean_novelty"],
                 )
     except Exception as e:
         log.warning("Failed to generate method comparison diagnostics: %s", e)
 
-    # Save diagnostic metrics to JSON
     if diagnostic_metrics:
         write_json(out_dir / "diagnostic_metrics.json", diagnostic_metrics)
 
-    # Context JSON for each method
     selections = pipeline_result["selections"]
     budgets_used = pipeline_result["budgets_used"]
     rel_scores = pipeline_result["rel_scores"]
@@ -738,13 +832,30 @@ def save_outputs(
     }
 
     for method, sel in selections.items():
+        # Build per-method chunk list (THIS was missing)
+        chunks = [
+            {
+                "chunk_id": s.unit.id,
+                "content": {"text": s.unit.context_text, "image_paths": []},
+                "metadata": {
+                    "unit_type": s.unit.type,
+                    "cognitive_cost": int(s.cost),
+                    "importance_score": rel_scores.get(s.unit.id),
+                    "page": s.unit.page,
+                },
+            }
+            for s in sel
+        ]
+
         context_data = {
             "run_id": run_id,
             "source": "sciduet",
             "paper_id": sample.get("paper_id"),
             "slide_id": sample.get("slide_id"),
+            "gem_id": sample.get("gem_id"),
             "query": query,
             "method": method,
+
             "selected": [
                 {
                     "chunk_id": s.unit.id,
@@ -752,45 +863,53 @@ def save_outputs(
                     "type": s.unit.type,
                     "rel": float(rel_scores.get(s.unit.id, 0.0)),
                     "cost": int(s.cost),
-                    "text": s.unit.context_text[:200],  # Preview
+                    "text": (s.unit.context_text or "")[:200],
                 }
                 for s in sel
             ],
-            "budgets": {
-                "total": cfg.selection.budget_tokens,
-                "used": budgets_used[method],
+
+            "budgets": {"total": cfg.selection.budget_tokens, "used": budgets_used[method]},
+
+            # what your pipeline already used
+            "chunks": chunks,
+
+            # aliases (so eval_engine won’t miss them)
+            "selected_chunks": chunks,
+            "retrieved_chunks": chunks,
+            "evidence": chunks,
+
+            # IMPORTANT: eval_engine wraps your input under "pipeline_output" when requirements are provided
+            # so we also include the nested object so any adapter can find it.
+            "pipeline_output": {
+                "run_id": run_id,
+                "query": query,
+                "method": method,
+                "budgets": {"total": cfg.selection.budget_tokens, "used": budgets_used[method]},
+                "chunks": chunks,
+                "selected_chunks": chunks,
             },
-            "chunks": [
-                {
-                    "chunk_id": s.unit.id,
-                    "content": {
-                        "text": s.unit.context_text,
-                        "image_paths": [],
-                    },
-                    "metadata": {
-                        "unit_type": s.unit.type,
-                        "cognitive_cost": int(s.cost),
-                        "importance_score": rel_scores.get(s.unit.id),
-                    },
-                }
-                for s in sel
-            ],
+
             "summarization": {"summary_text": pipeline_result["summary_text"]},
         }
+
         write_json(out_dir / method_files[method], context_data)
+
 
     # Requirements (from metadata or empty)
     requirements_data = {
+        "id": str(sample.get("paper_id", "")) + "_" + (str(sample.get("gem_id", "")) or ""),
+        "parent": {"path": f"{sample.get('paper_id', 'unknown')}.pdf"},
+        "task": {"decisions": [query]},  # keep 1 decision = current slide title
         "requirements": requirements,
-        "notes": f"SciDuet dataset - {len(requirements)} requirements from metadata" if requirements else "SciDuet dataset - no requirements provided",
+        "notes": {
+            "source": "sciduet",
+            "n_requirements": len(requirements),
+        },
     }
     requirements_path = out_dir / "requirements.json"
     write_json(requirements_path, requirements_data)
-
-    # ========================================================================
     # Run Evaluation for each method
-    # ========================================================================
-    method_files = {
+    eval_files = {
         "greedy": ("context.json", "eval_bundle.json"),
         "topk": ("context_topk.json", "eval_bundle_topk.json"),
         "greedy_cov": ("context_greedy_cov.json", "eval_bundle_greedy_cov.json"),
@@ -798,16 +917,25 @@ def save_outputs(
         "dpp": ("context_dpp.json", "eval_bundle_dpp.json"),
     }
 
-    eval_success_any = False
+    def _run_eval_subprocess(method: str, eval_cmd: list[str], run_id: str) -> tuple[str, bool]:
+        log.info("Running: Evaluation (%s) for %s", method, run_id)
+        try:
+            # Inherit stdout/stderr so you still see eval_engine logs (HTTP Request..., wrote ..., etc.)
+            p = subprocess.run(eval_cmd)
+            return method, (p.returncode == 0)
+        except Exception:
+            log.exception("Evaluation subprocess crashed (method=%s, run_id=%s)", method, run_id)
+            return method, False
 
-    for method, (ctx_name, eval_name) in method_files.items():
+    # Build tasks first (so we keep the same skip logic + cmd dumps)
+    tasks: list[tuple[str, list[str]]] = []
+    for method, (ctx_name, eval_name) in eval_files.items():
         ctx_path = out_dir / ctx_name
         if not ctx_path.exists():
             log.info("Skipping eval (%s): missing %s", method, ctx_name)
             continue
 
         eval_output_path = out_dir / eval_name
-
         eval_cmd = [
             sys.executable,
             "-m",
@@ -824,17 +952,24 @@ def save_outputs(
             eval_model,
         ]
 
-        # Save command for debugging
         try:
             (out_dir / f"eval_{method}_cmd.txt").write_text(" ".join(eval_cmd), encoding="utf-8")
         except Exception:
             pass
 
-        ok = run_command(eval_cmd, f"Evaluation ({method}) for {run_id}")
-        if ok:
-            eval_success_any = True
-        else:
-            log.warning("Evaluation failed for %s (method=%s)", run_id, method)
+        tasks.append((method, eval_cmd))
+
+    # Run in parallel
+    eval_success_any = False
+    if tasks:
+        max_workers = min(5, len(tasks))  # run all methods concurrently (cap at 5)
+        with ThreadPoolExecutor(max_workers=max_workers) as ex:
+            futures = [ex.submit(_run_eval_subprocess, m, cmd, run_id) for m, cmd in tasks]
+            for f in as_completed(futures):
+                method, ok = f.result()
+                eval_success_any = eval_success_any or ok
+                if not ok:
+                    log.warning("Evaluation failed for %s (method=%s)", run_id, method)
 
     return diagnostic_metrics, eval_success_any
 
@@ -843,45 +978,31 @@ def save_outputs(
 # SECTION 5: Main Entry Point
 # ============================================================================
 def main():
-    parser = argparse.ArgumentParser(
-        description="Run DPP-retrieval pipeline on SciDuet dataset"
-    )
+    parser = argparse.ArgumentParser(description="Run DPP-retrieval pipeline on SciDuet dataset")
     parser.add_argument(
         "--split",
         default="train",
         choices=["train", "validation", "test"],
         help="Dataset split to process",
     )
-    parser.add_argument(
-        "--config",
-        default="config/default_config.yaml",
-        help="Path to config file",
-    )
-    parser.add_argument(
-        "--output", default="output/sciduet", help="Output directory"
-    )
+    parser.add_argument("--config", default="config/default_config.yaml", help="Path to config file")
+    parser.add_argument("--output", default="output/sciduet", help="Output directory")
     parser.add_argument("--limit", type=int, help="Limit to first N samples")
-    parser.add_argument(
-        "--offset", type=int, default=0, help="Skip first N samples"
-    )
+    parser.add_argument("--offset", type=int, default=0, help="Skip first N samples")
     parser.add_argument(
         "--log_level",
         default="INFO",
         choices=["DEBUG", "INFO", "WARNING", "ERROR"],
         help="Logging level",
     )
-    parser.add_argument(
-        "--no_wandb", action="store_true", help="Disable wandb logging"
-    )
+    parser.add_argument("--no_wandb", action="store_true", help="Disable wandb logging")
     parser.add_argument(
         "--eval_mode",
         default="all",
         choices=["requirements", "retrieval", "all"],
         help="Evaluation mode",
     )
-    parser.add_argument(
-        "--eval_model", default="gpt-5.1", help="Model for evaluation"
-    )
+    parser.add_argument("--eval_model", default="gpt-5.1", help="Model for evaluation")
     parser.add_argument(
         "--metadata",
         help="Path to metadata JSON with requirements (e.g., data/sciduet/sciduet_metadata_output/train_metadata.json)",
@@ -922,27 +1043,25 @@ def main():
                 entity=cfg.wandb.entity,
                 tags=["sciduet", f"split_{args.split}"] + cfg.wandb.tags,
                 name=f"sciduet_{args.split}_{datetime.now().strftime('%Y%m%d_%H%M%S')}",
-                config={
-                    "split": args.split,
-                    "limit": args.limit,
-                    "offset": args.offset,
-                },
+                config={"split": args.split, "limit": args.limit, "offset": args.offset},
             )
         except Exception as e:
             log.warning("Failed to initialize wandb: %s", e)
 
-    # Process batch
+    # Metadata path
     if args.metadata:
         metadata_path = Path(args.metadata)
     else:
-        # Auto-detect metadata file based on split
         default_metadata_path = Path(f"data/sciduet/sciduet_metadata_output/{args.split}_metadata.json")
         if default_metadata_path.exists():
             metadata_path = default_metadata_path
             log.info("Auto-detected metadata file: %s", metadata_path)
         else:
             metadata_path = None
-            log.warning("No metadata file found at %s, evaluation will use empty requirements", default_metadata_path)
+            log.warning(
+                "No metadata file found at %s, evaluation will use empty requirements",
+                default_metadata_path,
+            )
 
     results = process_sciduet_batch(
         dataset_split=args.split,
@@ -956,13 +1075,12 @@ def main():
     )
 
     # Compute aggregated metrics across samples
-    aggregated_metrics = {}
+    aggregated_metrics: Dict[str, float] = {}
     for method, metrics_list in results.get("method_metrics", {}).items():
         if not metrics_list:
             continue
 
-        # Average all numeric metrics
-        aggregated = {}
+        aggregated: Dict[str, float] = {}
         for key in metrics_list[0].keys():
             values = [m[key] for m in metrics_list if not np.isnan(m[key])]
             if values:
@@ -1012,7 +1130,7 @@ def main():
                         "    %s: %.4f ± %.4f",
                         key,
                         aggregated_metrics[mean_key],
-                        aggregated_metrics.get(std_key, 0.0)
+                        aggregated_metrics.get(std_key, 0.0),
                     )
 
     # Save summary
@@ -1029,40 +1147,31 @@ def main():
                 "pipeline_success": results.get("pipeline_success", 0),
                 "eval_success": results.get("eval_success", 0),
                 "failed": results.get("failed", 0),
-                "success_rate": (
-                    results.get("successful", 0)
-                    / max(results.get("processed", 1), 1)
-                ),
-                "pipeline_success_rate": (
-                    results.get("pipeline_success", 0)
-                    / max(results.get("processed", 1), 1)
-                ),
-                "eval_success_rate": (
-                    results.get("eval_success", 0)
-                    / max(results.get("processed", 1), 1)
-                ),
+                "success_rate": results.get("successful", 0) / max(results.get("processed", 1), 1),
+                "pipeline_success_rate": results.get("pipeline_success", 0) / max(results.get("processed", 1), 1),
+                "eval_success_rate": results.get("eval_success", 0) / max(results.get("processed", 1), 1),
             }
 
-            # Add aggregated metrics to wandb
             if aggregated_metrics:
                 wandb_data.update(aggregated_metrics)
 
-            # Add score statistics
             if score_data:
-                all_scores = [s["avg_score"] for s in score_data]
-                wandb_data.update({
-                    "batch/avg_score_mean": float(np.mean(all_scores)),
-                    "batch/avg_score_std": float(np.std(all_scores)),
-                    "batch/avg_score_min": float(np.min(all_scores)),
-                    "batch/avg_score_max": float(np.max(all_scores)),
-                })
+                all_scores = [s["avg_score"] for s in score_data if "avg_score" in s]
+                if all_scores:
+                    wandb_data.update(
+                        {
+                            "batch/avg_score_mean": float(np.mean(all_scores)),
+                            "batch/avg_score_std": float(np.std(all_scores)),
+                            "batch/avg_score_min": float(np.min(all_scores)),
+                            "batch/avg_score_max": float(np.max(all_scores)),
+                        }
+                    )
 
             wandb_log(wandb_run, wandb_data)
             wandb_finish(wandb_run)
         except Exception as e:
             log.warning("Failed to log to wandb: %s", e)
 
-    # Exit code
     sys.exit(0 if results.get("failed", 0) == 0 else 1)
 
 
