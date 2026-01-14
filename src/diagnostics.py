@@ -652,7 +652,7 @@ def generate_spider_chart(
     colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
 
     # Prepare data matrix: methods × metrics
-    data = []
+    raw_data = []
     valid_methods = []
     valid_colors = []
 
@@ -662,37 +662,36 @@ def generate_spider_chart(
 
         metrics = diagnostic_metrics[method]
 
-        # Extract and normalize each metric to 0-1 scale
+        # Extract raw metric values
         mean_rel = metrics.get('mean_relevance', 0.0)
         mean_rel_per_tok = metrics.get('mean_rel_per_token', 0.0)
         budget_pct = metrics.get('budget_pct', 0.0)
         novelty = metrics.get('mean_novelty', 0.0)
         dispersion = metrics.get('dispersion', 0.0)
 
-        # Normalize relevance: clip to [0, 1] assuming typical range is 0-1
-        # (cosine similarity typically ranges 0-1 for normalized vectors)
-        norm_rel = np.clip(mean_rel, 0, 1)
-
-        # Normalize efficiency: use adaptive scaling based on observed values
-        # Typical values are around 0.001-0.01, so scale to reasonable range
-        norm_efficiency = np.clip(mean_rel_per_tok * 100, 0, 1)
-
-        # Budget percentage: already 0-100, convert to 0-1
-        norm_budget = budget_pct / 100.0
-
-        # Novelty and dispersion are already 0-1
-        norm_novelty = np.clip(novelty, 0, 1)
-        norm_diversity = np.clip(dispersion, 0, 1)
-
-        data.append([norm_rel, norm_efficiency, norm_budget, norm_novelty, norm_diversity])
+        raw_data.append([mean_rel, mean_rel_per_tok, budget_pct, novelty, dispersion])
         valid_methods.append(method_labels[method])
         valid_colors.append(colors[i])
 
-    if not data:
+    if not raw_data:
         log.warning("No valid methods in diagnostic_metrics, skipping spider chart")
         return None
 
-    data = np.array(data)
+    raw_data = np.array(raw_data)
+
+    # Apply relative scaling: normalize each metric by its min/max across all methods
+    data = np.zeros_like(raw_data)
+    for col in range(raw_data.shape[1]):
+        col_values = raw_data[:, col]
+        col_min = col_values.min()
+        col_max = col_values.max()
+
+        # Avoid division by zero
+        if col_max - col_min > 1e-9:
+            data[:, col] = (col_values - col_min) / (col_max - col_min)
+        else:
+            # If all values are the same, set to 0.5
+            data[:, col] = 0.5
 
     # Number of metrics
     num_vars = len(metric_names)
@@ -741,3 +740,340 @@ def generate_spider_chart(
         log.info(f"Spider chart saved to {output_path}")
 
     return fig
+
+
+def generate_aggregated_visualizations(
+    aggregated_metrics: dict[str, float],
+    output_dir: Path,
+    n_samples: int,
+) -> None:
+    """
+    Generate research-grade visualizations from aggregated metrics.
+
+    Args:
+        aggregated_metrics: Dict with keys like "method_metric" and "method_metric_std"
+        output_dir: Directory to save plots
+        n_samples: Number of samples in the aggregation
+    """
+    import matplotlib.pyplot as plt
+    import numpy as np
+
+    # Ensure output directory exists
+    output_dir = Path(output_dir)
+    output_dir.mkdir(parents=True, exist_ok=True)
+
+    methods = ['greedy', 'topk', 'greedy_cov', 'cost_norm', 'dpp']
+    method_labels = {
+        'greedy': 'Greedy',
+        'topk': 'Top-K',
+        'greedy_cov': 'Greedy+Cov',
+        'cost_norm': 'Cost-Norm',
+        'dpp': 'DPP',
+    }
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+
+    # Extract metrics for each method
+    method_data = {}
+    for method in methods:
+        if f"{method}_mean_relevance" not in aggregated_metrics:
+            continue
+
+        method_data[method] = {
+            'relevance': (
+                aggregated_metrics.get(f"{method}_mean_relevance", 0.0),
+                aggregated_metrics.get(f"{method}_mean_relevance_std", 0.0)
+            ),
+            'efficiency': (
+                aggregated_metrics.get(f"{method}_mean_rel_per_token", 0.0),
+                aggregated_metrics.get(f"{method}_mean_rel_per_token_std", 0.0)
+            ),
+            'budget_pct': (
+                aggregated_metrics.get(f"{method}_budget_pct", 0.0),
+                aggregated_metrics.get(f"{method}_budget_pct_std", 0.0)
+            ),
+            'novelty': (
+                aggregated_metrics.get(f"{method}_mean_novelty", 0.0),
+                aggregated_metrics.get(f"{method}_mean_novelty_std", 0.0)
+            ),
+            'diversity': (
+                aggregated_metrics.get(f"{method}_dispersion", 0.0),
+                aggregated_metrics.get(f"{method}_dispersion_std", 0.0)
+            ),
+            'n_selected': (
+                aggregated_metrics.get(f"{method}_n_selected", 0.0),
+                aggregated_metrics.get(f"{method}_n_selected_std", 0.0)
+            ),
+        }
+
+    if not method_data:
+        log.warning("No valid method data for aggregated visualizations")
+        return
+
+    # 1. Aggregated Spider Chart
+    _generate_aggregated_spider_chart(method_data, method_labels, colors, output_dir, n_samples)
+
+    # 2. Bar charts with error bars
+    _generate_metric_bar_charts(method_data, method_labels, colors, output_dir, n_samples)
+
+    # 3. Budget utilization comparison
+    _generate_budget_comparison(method_data, method_labels, colors, output_dir, n_samples)
+
+    # 4. Efficiency vs Relevance scatter
+    _generate_efficiency_relevance_scatter(method_data, method_labels, colors, output_dir, n_samples)
+
+    # 5. Diversity vs Novelty comparison
+    _generate_diversity_novelty_comparison(method_data, method_labels, colors, output_dir, n_samples)
+
+    log.info(f"Aggregated visualizations saved to {output_dir}")
+
+
+def _generate_aggregated_spider_chart(
+    method_data: dict,
+    method_labels: dict,
+    colors: list,
+    output_dir: Path,
+    n_samples: int,
+) -> None:
+    """Generate aggregated spider chart with relative scaling."""
+    import numpy as np
+
+    metric_names = ['Relevance', 'Efficiency', 'Budget Use', 'Novelty', 'Diversity']
+    metric_keys = ['relevance', 'efficiency', 'budget_pct', 'novelty', 'diversity']
+
+    # Extract raw values (means only)
+    methods = list(method_data.keys())
+    raw_data = []
+    valid_methods = []
+    valid_colors = []
+
+    method_to_color = dict(zip(['greedy', 'topk', 'greedy_cov', 'cost_norm', 'dpp'], colors))
+
+    for method in methods:
+        values = [method_data[method][key][0] for key in metric_keys]
+        raw_data.append(values)
+        valid_methods.append(method_labels[method])
+        valid_colors.append(method_to_color[method])
+
+    raw_data = np.array(raw_data)
+
+    # Apply relative scaling
+    data = np.zeros_like(raw_data)
+    for col in range(raw_data.shape[1]):
+        col_values = raw_data[:, col]
+        col_min = col_values.min()
+        col_max = col_values.max()
+
+        if col_max - col_min > 1e-9:
+            data[:, col] = (col_values - col_min) / (col_max - col_min)
+        else:
+            data[:, col] = 0.5
+
+    # Create spider chart
+    num_vars = len(metric_names)
+    angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+    angles += angles[:1]
+
+    fig, ax = plt.subplots(figsize=(10, 8), subplot_kw=dict(projection='polar'))
+
+    for i, (method_name, method_vals) in enumerate(zip(valid_methods, data)):
+        values = method_vals.tolist()
+        values += values[:1]
+        ax.plot(angles, values, 'o-', linewidth=2, label=method_name, color=valid_colors[i])
+        ax.fill(angles, values, alpha=0.15, color=valid_colors[i])
+
+    ax.set_ylim(0, 1)
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(metric_names, size=12, weight='bold')
+    ax.set_yticks([0.2, 0.4, 0.6, 0.8, 1.0])
+    ax.set_yticklabels(['0.2', '0.4', '0.6', '0.8', '1.0'], size=10, color='gray')
+    ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=11, framealpha=0.9)
+    plt.title(f'Selection Method Comparison (n={n_samples})', size=15, weight='bold', pad=20)
+    ax.grid(True, linestyle='--', alpha=0.6)
+
+    plt.savefig(output_dir / 'aggregated_spider.png', dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()
+
+
+def _generate_metric_bar_charts(
+    method_data: dict,
+    method_labels: dict,
+    colors: list,
+    output_dir: Path,
+    n_samples: int,
+) -> None:
+    """Generate bar charts with error bars for key metrics."""
+    import numpy as np
+
+    metrics = {
+        'relevance': ('Mean Relevance', 'Relevance Score'),
+        'efficiency': ('Relevance per Token', 'Efficiency (×100)'),
+        'novelty': ('Mean Novelty', 'Novelty Score'),
+        'diversity': ('Diversity', 'Diversity Score'),
+    }
+
+    fig, axes = plt.subplots(2, 2, figsize=(14, 10))
+    axes = axes.flatten()
+
+    method_to_color = dict(zip(['greedy', 'topk', 'greedy_cov', 'cost_norm', 'dpp'], colors))
+
+    for idx, (metric_key, (title, ylabel)) in enumerate(metrics.items()):
+        ax = axes[idx]
+
+        methods = list(method_data.keys())
+        means = [method_data[m][metric_key][0] for m in methods]
+        stds = [method_data[m][metric_key][1] for m in methods]
+        labels = [method_labels[m] for m in methods]
+        bar_colors = [method_to_color[m] for m in methods]
+
+        # Scale efficiency for better visualization
+        if metric_key == 'efficiency':
+            means = [m * 100 for m in means]
+            stds = [s * 100 for s in stds]
+
+        x = np.arange(len(methods))
+        bars = ax.bar(x, means, yerr=stds, capsize=5, color=bar_colors, alpha=0.8, edgecolor='black', linewidth=1.2)
+
+        ax.set_xlabel('Method', fontsize=11, weight='bold')
+        ax.set_ylabel(ylabel, fontsize=11, weight='bold')
+        ax.set_title(title, fontsize=12, weight='bold', pad=10)
+        ax.set_xticks(x)
+        ax.set_xticklabels(labels, rotation=0, ha='center')
+        ax.grid(axis='y', alpha=0.3, linestyle='--')
+        ax.set_axisbelow(True)
+
+    plt.suptitle(f'Performance Metrics Comparison (n={n_samples})', fontsize=14, weight='bold', y=0.995)
+    plt.tight_layout()
+    plt.savefig(output_dir / 'aggregated_metrics_bars.png', dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()
+
+
+def _generate_budget_comparison(
+    method_data: dict,
+    method_labels: dict,
+    colors: list,
+    output_dir: Path,
+    n_samples: int,
+) -> None:
+    """Generate budget utilization comparison with number of units selected."""
+    import numpy as np
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+
+    method_to_color = dict(zip(['greedy', 'topk', 'greedy_cov', 'cost_norm', 'dpp'], colors))
+
+    methods = list(method_data.keys())
+    budget_means = [method_data[m]['budget_pct'][0] for m in methods]
+    budget_stds = [method_data[m]['budget_pct'][1] for m in methods]
+    n_sel_means = [method_data[m]['n_selected'][0] for m in methods]
+    n_sel_stds = [method_data[m]['n_selected'][1] for m in methods]
+    labels = [method_labels[m] for m in methods]
+    bar_colors = [method_to_color[m] for m in methods]
+
+    x = np.arange(len(methods))
+
+    # Budget percentage
+    ax1.bar(x, budget_means, yerr=budget_stds, capsize=5, color=bar_colors, alpha=0.8, edgecolor='black', linewidth=1.2)
+    ax1.axhline(y=100, color='red', linestyle='--', linewidth=1.5, alpha=0.7, label='Budget Limit')
+    ax1.set_xlabel('Method', fontsize=11, weight='bold')
+    ax1.set_ylabel('Budget Used (%)', fontsize=11, weight='bold')
+    ax1.set_title('Budget Utilization', fontsize=12, weight='bold', pad=10)
+    ax1.set_xticks(x)
+    ax1.set_xticklabels(labels, rotation=0)
+    ax1.grid(axis='y', alpha=0.3, linestyle='--')
+    ax1.set_axisbelow(True)
+    ax1.legend(fontsize=10)
+
+    # Number of units selected
+    ax2.bar(x, n_sel_means, yerr=n_sel_stds, capsize=5, color=bar_colors, alpha=0.8, edgecolor='black', linewidth=1.2)
+    ax2.set_xlabel('Method', fontsize=11, weight='bold')
+    ax2.set_ylabel('Number of Units', fontsize=11, weight='bold')
+    ax2.set_title('Units Selected', fontsize=12, weight='bold', pad=10)
+    ax2.set_xticks(x)
+    ax2.set_xticklabels(labels, rotation=0)
+    ax2.grid(axis='y', alpha=0.3, linestyle='--')
+    ax2.set_axisbelow(True)
+
+    plt.suptitle(f'Budget and Selection Comparison (n={n_samples})', fontsize=14, weight='bold', y=1.02)
+    plt.tight_layout()
+    plt.savefig(output_dir / 'aggregated_budget.png', dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()
+
+
+def _generate_efficiency_relevance_scatter(
+    method_data: dict,
+    method_labels: dict,
+    colors: list,
+    output_dir: Path,
+    n_samples: int,
+) -> None:
+    """Generate efficiency vs relevance scatter plot."""
+    import numpy as np
+
+    method_to_color = dict(zip(['greedy', 'topk', 'greedy_cov', 'cost_norm', 'dpp'], colors))
+
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    for method in method_data.keys():
+        rel_mean, rel_std = method_data[method]['relevance']
+        eff_mean, eff_std = method_data[method]['efficiency']
+
+        # Scale efficiency for better visualization
+        eff_mean *= 100
+        eff_std *= 100
+
+        label = method_labels[method]
+        color = method_to_color[method]
+
+        # Plot point with error bars
+        ax.errorbar(rel_mean, eff_mean, xerr=rel_std, yerr=eff_std,
+                   fmt='o', markersize=12, capsize=5, capthick=2,
+                   color=color, label=label, alpha=0.8, linewidth=2)
+
+    ax.set_xlabel('Mean Relevance', fontsize=12, weight='bold')
+    ax.set_ylabel('Efficiency (Relevance per Token ×100)', fontsize=12, weight='bold')
+    ax.set_title(f'Efficiency vs Relevance Trade-off (n={n_samples})', fontsize=14, weight='bold', pad=15)
+    ax.legend(fontsize=11, loc='best', framealpha=0.9)
+    ax.grid(True, alpha=0.3, linestyle='--')
+    ax.set_axisbelow(True)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'aggregated_efficiency_relevance.png', dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()
+
+
+def _generate_diversity_novelty_comparison(
+    method_data: dict,
+    method_labels: dict,
+    colors: list,
+    output_dir: Path,
+    n_samples: int,
+) -> None:
+    """Generate diversity vs novelty scatter plot."""
+    import numpy as np
+
+    method_to_color = dict(zip(['greedy', 'topk', 'greedy_cov', 'cost_norm', 'dpp'], colors))
+
+    fig, ax = plt.subplots(figsize=(10, 8))
+
+    for method in method_data.keys():
+        div_mean, div_std = method_data[method]['diversity']
+        nov_mean, nov_std = method_data[method]['novelty']
+
+        label = method_labels[method]
+        color = method_to_color[method]
+
+        # Plot point with error bars
+        ax.errorbar(div_mean, nov_mean, xerr=div_std, yerr=nov_std,
+                   fmt='o', markersize=12, capsize=5, capthick=2,
+                   color=color, label=label, alpha=0.8, linewidth=2)
+
+    ax.set_xlabel('Diversity Score', fontsize=12, weight='bold')
+    ax.set_ylabel('Novelty Score', fontsize=12, weight='bold')
+    ax.set_title(f'Diversity vs Novelty Analysis (n={n_samples})', fontsize=14, weight='bold', pad=15)
+    ax.legend(fontsize=11, loc='best', framealpha=0.9)
+    ax.grid(True, alpha=0.3, linestyle='--')
+    ax.set_axisbelow(True)
+
+    plt.tight_layout()
+    plt.savefig(output_dir / 'aggregated_diversity_novelty.png', dpi=300, bbox_inches='tight', facecolor='white')
+    plt.close()

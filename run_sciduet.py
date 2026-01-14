@@ -18,6 +18,7 @@ from typing import Any, Optional
 import numpy as np
 
 from src.config import load_config
+from src.diagnostics import generate_aggregated_visualizations
 from src.utils import ensure_dir, setup_logging, write_json, save_json, display_score_summary
 from src.wandb_logger import wandb_finish, wandb_init, wandb_log
 
@@ -59,6 +60,9 @@ def main():
     # Aggregate and report
     results["aggregated_metrics"] = aggregate_metrics(results.get("method_metrics", {}))
     report_results(results, output_base)
+
+    # Generate aggregated visualizations
+    generate_aggregated_plots(results, output_base)
     
     # Wandb finalization
     if wandb_run:
@@ -151,13 +155,31 @@ def report_results(results: dict, output_base: Path) -> None:
 def log_aggregated_metrics(aggregated: dict, n_samples: int) -> None:
     log.info("\n%s\nAGGREGATED METRICS (mean ± std across %d samples)\n%s", "=" * 80, n_samples, "=" * 80)
     metric_keys = ["n_selected", "mean_relevance", "mean_rel_per_token", "budget_pct", "mean_offdiag_sim", "mean_novelty"]
-    
+
     for method in METHODS:
         log.info("  %s:", method.upper())
         for key in metric_keys:
             mean_key = f"{method}_{key}"
             if mean_key in aggregated:
                 log.info("    %s: %.4f ± %.4f", key, aggregated[mean_key], aggregated.get(f"{mean_key}_std", 0.0))
+
+
+def generate_aggregated_plots(results: dict, output_base: Path) -> None:
+    """Generate aggregated visualizations from batch results."""
+    if not results.get("aggregated_metrics") or not results.get("successful"):
+        log.warning("Insufficient data for aggregated visualizations")
+        return
+
+    try:
+        viz_dir = output_base / "aggregated_visualizations"
+        generate_aggregated_visualizations(
+            aggregated_metrics=results["aggregated_metrics"],
+            output_dir=viz_dir,
+            n_samples=results["successful"],
+        )
+        log.info("Aggregated visualizations saved to %s", viz_dir)
+    except Exception as e:
+        log.warning("Failed to generate aggregated visualizations: %s", e)
 
 
 def finalize_wandb(wandb_run: Any, results: dict, output_base: Path) -> None:
@@ -179,14 +201,23 @@ def finalize_wandb(wandb_run: Any, results: dict, output_base: Path) -> None:
                 })
         
         wandb_log(wandb_run, wandb_data)
-        
-        # Log spider chart if available
-        spider_charts = list(output_base.glob("*/diagnostics_spider.png"))
-        if spider_charts:
+
+        # Log aggregated visualizations if available
+        viz_dir = output_base / "aggregated_visualizations"
+        if viz_dir.exists():
             from src.wandb_logger import wandb_log_image
-            latest = max(spider_charts, key=lambda p: p.stat().st_mtime)
-            wandb_log_image(wandb_run, "diagnostics/spider", str(latest), "Method Comparison")
-        
+            viz_files = {
+                "aggregated_spider.png": "Aggregated Spider Chart",
+                "aggregated_metrics_bars.png": "Metrics Bar Charts",
+                "aggregated_budget.png": "Budget Comparison",
+                "aggregated_efficiency_relevance.png": "Efficiency vs Relevance",
+                "aggregated_diversity_novelty.png": "Diversity vs Novelty",
+            }
+            for filename, caption in viz_files.items():
+                viz_path = viz_dir / filename
+                if viz_path.exists():
+                    wandb_log_image(wandb_run, f"aggregated/{filename[:-4]}", str(viz_path), caption)
+
         wandb_finish(wandb_run)
     except Exception as e:
         log.warning("Wandb finalization failed: %s", e)
