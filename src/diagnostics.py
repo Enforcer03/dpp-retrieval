@@ -613,3 +613,131 @@ def generate_diagnostics(
     )
 
     diagnostics.generate_dashboard(output_path)
+
+
+def generate_spider_chart(
+    diagnostic_metrics: dict[str, dict[str, float]],
+    output_path: Path = None,
+) -> plt.Figure:
+    """Generate spider/radar chart comparing selection methods.
+
+    Args:
+        diagnostic_metrics: Dict[method_name -> metrics_dict]
+        output_path: Optional path to save the chart
+
+    Returns:
+        matplotlib Figure object
+    """
+    import numpy as np
+
+    # Define metrics to visualize (must be normalized to 0-1 scale)
+    metric_names = [
+        'Relevance',
+        'Efficiency',
+        'Budget Use',
+        'Novelty',
+        'Diversity',
+    ]
+
+    methods = ['greedy', 'topk', 'greedy_cov', 'cost_norm', 'dpp']
+    method_labels = {
+        'greedy': 'Greedy',
+        'topk': 'Top-K',
+        'greedy_cov': 'Greedy+Cov',
+        'cost_norm': 'Cost-Norm',
+        'dpp': 'DPP',
+    }
+
+    # Color scheme for methods
+    colors = ['#1f77b4', '#ff7f0e', '#2ca02c', '#d62728', '#9467bd']
+
+    # Prepare data matrix: methods × metrics
+    data = []
+    valid_methods = []
+    valid_colors = []
+
+    for i, method in enumerate(methods):
+        if method not in diagnostic_metrics:
+            continue
+
+        metrics = diagnostic_metrics[method]
+
+        # Extract and normalize each metric to 0-1 scale
+        mean_rel = metrics.get('mean_relevance', 0.0)
+        mean_rel_per_tok = metrics.get('mean_rel_per_token', 0.0)
+        budget_pct = metrics.get('budget_pct', 0.0)
+        novelty = metrics.get('mean_novelty', 0.0)
+        dispersion = metrics.get('dispersion', 0.0)
+
+        # Normalize relevance: clip to [0, 1] assuming typical range is 0-1
+        # (cosine similarity typically ranges 0-1 for normalized vectors)
+        norm_rel = np.clip(mean_rel, 0, 1)
+
+        # Normalize efficiency: use adaptive scaling based on observed values
+        # Typical values are around 0.001-0.01, so scale to reasonable range
+        norm_efficiency = np.clip(mean_rel_per_tok * 100, 0, 1)
+
+        # Budget percentage: already 0-100, convert to 0-1
+        norm_budget = budget_pct / 100.0
+
+        # Novelty and dispersion are already 0-1
+        norm_novelty = np.clip(novelty, 0, 1)
+        norm_diversity = np.clip(dispersion, 0, 1)
+
+        data.append([norm_rel, norm_efficiency, norm_budget, norm_novelty, norm_diversity])
+        valid_methods.append(method_labels[method])
+        valid_colors.append(colors[i])
+
+    if not data:
+        log.warning("No valid methods in diagnostic_metrics, skipping spider chart")
+        return None
+
+    data = np.array(data)
+
+    # Number of metrics
+    num_vars = len(metric_names)
+
+    # Compute angle for each axis
+    angles = np.linspace(0, 2 * np.pi, num_vars, endpoint=False).tolist()
+    # Complete the circle
+    angles += angles[:1]
+
+    # Create figure
+    fig, ax = plt.subplots(figsize=(10, 8), subplot_kw=dict(projection='polar'))
+
+    # Plot each method
+    for i, (method_name, method_data) in enumerate(zip(valid_methods, data)):
+        # Complete the circle
+        values = method_data.tolist()
+        values += values[:1]
+
+        # Plot
+        ax.plot(angles, values, 'o-', linewidth=2, label=method_name, color=valid_colors[i])
+        ax.fill(angles, values, alpha=0.15, color=valid_colors[i])
+
+    # Fix axis to go from 0 to 1
+    ax.set_ylim(0, 1)
+
+    # Set the labels for each axis
+    ax.set_xticks(angles[:-1])
+    ax.set_xticklabels(metric_names, size=11, weight='bold')
+
+    # Set radial labels
+    ax.set_yticks([0.2, 0.4, 0.6, 0.8, 1.0])
+    ax.set_yticklabels(['0.2', '0.4', '0.6', '0.8', '1.0'], size=9, color='gray')
+
+    # Add legend
+    ax.legend(loc='upper right', bbox_to_anchor=(1.3, 1.1), fontsize=10, framealpha=0.9)
+
+    # Add title
+    plt.title('Selection Method Comparison', size=14, weight='bold', pad=20)
+
+    # Add grid
+    ax.grid(True, linestyle='--', alpha=0.6)
+
+    # Save if path provided
+    if output_path:
+        plt.savefig(output_path, dpi=150, bbox_inches='tight', facecolor='white')
+        log.info(f"Spider chart saved to {output_path}")
+
+    return fig
